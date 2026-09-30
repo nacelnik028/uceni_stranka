@@ -316,6 +316,8 @@ function updateSessionProgress() {
   const fill = $('sessionProgressFill');
   if (text) text.textContent = `${answered} / ${total}`;
   if (fill) fill.style.width = `${percent}%`;
+  const topFill = $('topProgressFill');
+  if (topFill) topFill.style.width = `${percent}%`;
   const progress = document.querySelector('.session-progress');
   progress?.setAttribute('aria-label', `Průběh sady: ${answered} z ${total} zodpovězeno`);
 }
@@ -1134,6 +1136,8 @@ Správná odpověď: ${expected}`;
         const correct = Boolean(selected) && String(selected).trim() === String(e.answer).trim();
         recordExerciseResult(e, { answered: Boolean(selected), correct, graded: true });
         if (state.mode === 'test') { renderNeutralFeedback(out, Boolean(selected)); return; }
+        document.querySelectorAll(`input[name="choice-${CSS.escape(id)}"]`).forEach(i => i.closest('.choice')?.classList.remove('is-right', 'is-wrong'));
+        if (selected) document.querySelector(`input[name="choice-${CSS.escape(id)}"]:checked`)?.closest('.choice')?.classList.add(correct ? 'is-right' : 'is-wrong');
         out.className = `output ${correct ? 'ok' : 'bad'}`;
         out.textContent = selected
           ? (correct ? '✓ Správně.' : '✗ Tohle nesedí. Vrať se k materiálu a zkus to znovu.')

@@ -204,6 +204,18 @@
       .hero h1{font-size:27px}
       .row button{flex-basis:100%}
     }
+    /* Vylepšení UI: barevné karty předmětů, obarvení vybrané odpovědi, tenký ukazatel průběhu nahoře. */
+    .card{--c:var(--accent);box-shadow:inset 0 3px 0 var(--c)}
+    .card:nth-child(5n+2){--c:#4cc38a}.card:nth-child(5n+3){--c:#f0c674}.card:nth-child(5n+4){--c:#ff9fb0}.card:nth-child(5n+5){--c:#b79cff}
+    .card .card-icon{color:var(--c)}
+    .card:hover{border-color:var(--c)}
+    .choice.is-right{border-color:var(--good);background:rgba(76,195,138,.12)}
+    .choice.is-wrong{border-color:var(--bad);background:rgba(255,123,138,.10)}
+    .choice.is-right span::after{content:" ✓";color:var(--good);font-weight:600}
+    .choice.is-wrong span::after{content:" ✗";color:var(--bad);font-weight:600}
+    .top-progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:30;background:transparent;pointer-events:none}
+    .top-progress span{display:block;height:100%;width:0;background:var(--good);transition:width .25s ease}
+    body:has(#studyView.hidden) .top-progress{display:none}
     @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
   </style>
 </head>
@@ -289,11 +301,12 @@
     </main>
     <footer>Vít Kellner, ChatGPT, Antigravity a Claude 2026</footer>
   </div>
-  <div class="toast" id="toast"></div>
+  <div class="top-progress" aria-hidden="true"><span id="topProgressFill"></span></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="data/exercises.js?v=16"></script>
   <script src="data/network_exercises.js?v=2"></script>
   <script src="data/literature_exercises.js?v=3"></script>
   <script src="data/cislicova_technika_exercises.js?v=2"></script>
-  <script src="app.js?v=23"></script>
+  <script src="app.js?v=24"></script>
 </body>
 </html>
