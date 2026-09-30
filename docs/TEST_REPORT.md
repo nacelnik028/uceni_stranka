@@ -118,3 +118,5 @@ Nové funkce a jejich datová pravidla jsou popsány v `README.md` a doplňujíc
 ## Závěr kontroly
 
 **Kontrolní stav: OK.** Regresní testy prošly, nové funkce prošly a mobilní rozvržení zůstalo bez horizontálního přetečení.
+
+- Režim Učení: ruční zobrazení shrnutí sady přes tlačítko `Zobrazit shrnutí sady` ověřeno.

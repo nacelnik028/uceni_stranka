@@ -238,7 +238,7 @@ V režimu procvičování lze kombinovat:
 
 ### Učení vs. Test
 
-**Učení** vyhodnocuje jednotlivé odpovědi ihned a dovoluje zobrazit řešení.
+**Učení** vyhodnocuje jednotlivé odpovědi ihned a dovoluje zobrazit řešení. V záhlaví je také tlačítko **Zobrazit shrnutí sady**, takže lze průběžné výsledky zobrazit i před dokončením všech úloh. Po zodpovězení celé sady se shrnutí zobrazí automaticky.
 
 **Test** schová nápovědy a řešení, průběžně neukazuje správnost a odpovědi pouze zaznamenává. Výsledek se zobrazí po tlačítku **Dokončit test**. U kódových úloh je potřeba program před dokončením spustit, aby ho bylo možné zahrnout do výsledku.
 
@@ -250,7 +250,9 @@ Generování respektuje vybranou obtížnost, pokud je filtr nastavený konkrét
 
 ### Lokální statistika konkrétní sady
 
-Po dokončení celé sady se zobrazí:
+Po dokončení celé sady se zobrazí. V režimu **Učení** lze stejné shrnutí zobrazit také ručně tlačítkem **Zobrazit shrnutí sady**, i když ještě nejsou zodpovězené všechny úlohy. Při další odpovědi se staré shrnutí obnoví až podle aktuálního stavu sady.
+
+Shrnutí obsahuje:
 
 - celkové skóre z hodnotitelných úloh,
 - počet zodpovězených úloh,

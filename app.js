@@ -838,7 +838,7 @@ function completeCurrentSet() {
   renderStatsPanel(stats);
 }
 
-function finishCurrentTest() {
+function finishCurrentSet() {
   const session = currentSessionElements();
   if (!session.length) return;
   state.results = {};
@@ -846,7 +846,7 @@ function finishCurrentTest() {
     state.results[e.id] = { ...readExerciseResponse(e), timestamp: Date.now() };
   }
   completeCurrentSet();
-  toast('Sada byla vyhodnocena.');
+  toast(state.mode === 'test' ? 'Test byl vyhodnocen.' : 'Shrnutí sady je hotové.');
   window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
 }
 
@@ -870,7 +870,9 @@ function updateModeUI() {
   $('modeHint').textContent = isTest
     ? 'Test: průběžná správnost se neukazuje, výsledek dostaneš až po dokončení.'
     : 'Učení: odpověď se vyhodnotí hned a řešení můžeš zobrazit.';
-  $('finishTest').classList.toggle('hidden', !isTest);
+  const finishSet = $('finishSet');
+  finishSet.classList.remove('hidden');
+  finishSet.textContent = isTest ? '✓ Dokončit test' : '✓ Zobrazit shrnutí sady';
   $('showAnswers').classList.toggle('hidden', isTest);
   $('hideAnswers').classList.toggle('hidden', isTest);
   $('generateTasks').classList.toggle('hidden', !canGenerateDigitalTasks());
@@ -1256,7 +1258,7 @@ $('showAnswers').addEventListener('click', () => { state.answerVisible = true; d
 $('hideAnswers').addEventListener('click', () => { state.answerVisible = false; document.querySelectorAll('details.solution-box').forEach((d) => { d.open = false; }); });
 $('modeLearn').addEventListener('click', () => setStudyMode('learn'));
 $('modeTest').addEventListener('click', () => setStudyMode('test'));
-$('finishTest').addEventListener('click', finishCurrentTest);
+$('finishSet').addEventListener('click', finishCurrentSet);
 $('generateTasks').addEventListener('click', () => generateDigitalExercises(6));
 $('filterSubject').addEventListener('change', () => { $('filterTopic').value = 'all'; $('filterSubtopic').value = 'all'; $('filterDifficulty').value = 'all'; state.generatedExercises = []; state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; renderExercises(); });
 $('filterTopic').addEventListener('change', () => { $('filterSubtopic').value = 'all'; state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; renderExercises(); });
