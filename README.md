@@ -10,7 +10,7 @@ Statická webová aplikace pro procvičování školních materiálů. GitHub Pa
 - Literatura
 - Číslicová technika
 
-Aktuální runtime obsahuje 377 úloh: 121 v obecném souboru `exercises.js` (30 v Programování, 56 ve Vývoji webových aplikací a 35 v Databázích), 110 ze sítí, 106 z literatury a 40 z číslicové techniky.
+Aktuální runtime obsahuje 342 úloh: 86 v obecném souboru `exercises.js` (30 v Programování, 56 ve Vývoji webových aplikací), 110 ze sítí, 106 z literatury a 40 z číslicové techniky.
 
 ## Struktura projektu
 
@@ -70,10 +70,6 @@ procvicovna-github/
 └── docs/
     └── STRUKTURA.md
 ```
-
-### Nový modul: Vývoj webových aplikací
-
-Aktivní předmět **Vývoj webových aplikací** obsahuje **56 úloh** v tématu **Header a favicon** (21 původních + 35 nových z `materialy/vyvoj-webovych-aplikaci/zdroj/header-a-favicon.md`).
 
 ### Co je aktivní
 
@@ -313,6 +309,18 @@ Zdroj materiálu drž v `materialy/<predmet>/zdroj/`. Generátory a pomocné vý
 `.nojekyll` je v kořeni záměrně. Při nahrávání změn do existujícího Git repozitáře **nepřepisuj `.git`** soubory z tohoto ZIPu. Tento balík obsahuje pouze čistý projektový obsah; Git historie patří do tvého lokálního repozitáře.
 
 
-### Nový modul: Databáze
+## Revize UI – 30. 9. 2026
 
-Aktivní předmět **Databáze** obsahuje **35 úloh** v tématu **Základy databází**, vytvořených z dodaného PDF `materialy/databaze/zdroj/ZDB.pdf` a jeho textového přepisu `zdb.md`.
+Do aplikace byly doplněny tyto uživatelské funkce:
+
+- **Světlý motiv s přepínačem** – světlý motiv je výchozí, volba se ukládá lokálně do `localStorage` a lze přepnout na tmavý motiv. Barvy používají CSS proměnné.
+- **Vyhledávání v úlohách** – hledá se v názvu, otázce, předmětu, tématu, podtématu, tazích a také v textu kódových úloh a řešení. Počet výsledků se zobrazuje dynamicky podle skutečného runtime poolu.
+- **Kódové úlohy** – editor zobrazuje čísla řádků a základní zvýraznění syntaxe pro Python/JavaScript. `Tab` vloží čtyři mezery a `Shift+Tab` odsadí aktuální řádek/blok. Chyby spuštěného programu se zobrazují jako červený výstup a u Pythonu se uvádí i řádek chyby, pokud ho prostředí vrátí.
+- **Sticky kontrola na mobilu** – na šířkách do 760 px je dole připnuté tlačítko **Zkontrolovat**, které kontroluje právě aktivní úlohu; aktivní úloha se určuje podle posledního dotyku/fokusu.
+- **Procvičování chyb po sadě** – shrnutí sady nabízí **Procvičit jen chyby**. Tato akce vytvoří novou sadu pouze z hodnocených úloh, které byly označené jako nesprávné; otevřené textové self-checky se mezi chyby nezařazují.
+
+### Ověření po této revizi
+
+Při kontrole 30. 9. 2026 byly ověřeny syntaxe JS, aktivní datový validator a runtime DOM v Chromium na šířkách 320, 375, 390, 768 a 1280 px. Kontrolován byl také horizontální overflow, přepínání motivu, vyhledávání, kódový editor, `Tab`, sticky kontrola a workflow **Procvičit jen chyby**. Prohlížečový test použil self-contained DOM harness; přímá navigace sandboxem na `file://`/lokální HTTP byla blokována prostředím.
+
+**Poznámka k počtu úloh:** původní `README.md` v dodaném ZIPu uvádí 377 úloh, ale aktivní soubory `data/*.js` obsahují podle validatoru 342 úloh (30 Programování, 56 Vývoj webových aplikací, 110 Počítačové sítě, 106 Literatura, 40 Číslicová technika). UI proto počet úloh bere přímo z načtených dat a nepoužívá pevně zapsané číslo 377.
