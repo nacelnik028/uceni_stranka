@@ -272,6 +272,54 @@ function openHome() {
   window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
+function maybeCloseMobileFilters() {
+  const shell = $('filterShell');
+  if (shell && window.matchMedia?.('(max-width: 760px)').matches) shell.open = false;
+}
+
+function syncFilterPanelForViewport() {
+  const shell = $('filterShell');
+  if (!shell) return;
+  shell.open = !window.matchMedia?.('(max-width: 760px)').matches;
+}
+
+function filterSummaryText() {
+  const subject = $('filterSubject')?.value || 'all';
+  const topic = $('filterTopic')?.value || 'all';
+  const subtopic = $('filterSubtopic')?.value || 'all';
+  const type = $('filterType')?.value || 'all';
+  const difficulty = $('filterDifficulty')?.value || 'all';
+  const parts = [];
+  if (subject !== 'all') parts.push(subject);
+  if (topic !== 'all') parts.push(topic);
+  if (subtopic !== 'all') parts.push(subtopic);
+  if (type !== 'all') parts.push(({choice:'Výběr',multi:'Více správných',match:'Párování',order:'Řazení',text:'Textová odpověď',code:'Kód',fill:'Doplňování',number:'Výpočet',conversion:'Převod soustavy'})[type] || type);
+  if (difficulty !== 'all') parts.push(`obtížnost ${difficulty}`);
+  return parts.length ? parts.slice(0, 2).join(' · ') + (parts.length > 2 ? ` +${parts.length - 2}` : '') : 'Všechny úlohy';
+}
+
+function updateFilterSummary() {
+  const el = $('filterSummaryText');
+  if (el) el.textContent = filterSummaryText();
+}
+
+function updateSessionProgress() {
+  const session = currentSessionElements();
+  const total = session.length;
+  let answered = 0;
+  for (const e of session) {
+    const result = state.results[e.id] || state.codeResults[e.id] || readExerciseResponse(e);
+    if (result?.answered) answered += 1;
+  }
+  const percent = total ? Math.round((answered / total) * 100) : 0;
+  const text = $('sessionProgressText');
+  const fill = $('sessionProgressFill');
+  if (text) text.textContent = `${answered} / ${total}`;
+  if (fill) fill.style.width = `${percent}%`;
+  const progress = document.querySelector('.session-progress');
+  progress?.setAttribute('aria-label', `Průběh sady: ${answered} z ${total} zodpovězeno`);
+}
+
 function renderHeader() {
   const catalog = allCatalogExercises();
   const subjects = unique(catalog.map(e => e.subject));
@@ -309,6 +357,7 @@ function renderHeader() {
 
   const generatedVisible = canGenerateDigitalTasks();
   $('generateTasks').classList.toggle('hidden', !generatedVisible);
+  updateFilterSummary();
 }
 
 function allCatalogExercises() {
@@ -756,6 +805,7 @@ function clearCurrentStats() {
 function recordExerciseResult(e, result) {
   state.results[e.id] = { ...result, timestamp: Date.now() };
   clearCurrentStats();
+  updateSessionProgress();
   if (state.mode === 'learn') maybeAutoCompleteSet();
 }
 
@@ -768,7 +818,10 @@ function renderNeutralFeedback(out, answered = true) {
 function maybeAutoCompleteSet() {
   const session = currentSessionElements();
   if (!session.length) return;
-  const complete = session.every(e => state.results[e.id]?.answered);
+  const complete = session.every(e => {
+    const result = state.results[e.id] || state.codeResults[e.id] || readExerciseResponse(e);
+    return Boolean(result?.answered);
+  });
   if (complete) completeCurrentSet();
 }
 
@@ -816,6 +869,7 @@ function renderStatsPanel(stats) {
   $('statsPanel')?.remove();
   const topics = Object.entries(stats.byTopic);
   const score = stats.percent == null ? '—' : `${stats.percent} %`;
+  const scoreValue = stats.percent == null ? 0 : stats.percent;
   const topicRows = topics.map(([topic, s]) => {
     const pct = s.graded ? `${Math.round((s.correct / s.graded) * 100)} %` : '—';
     const self = s.selfChecks ? ` · ${s.selfChecks} self-check` : '';
@@ -825,10 +879,37 @@ function renderStatsPanel(stats) {
   panel.id = 'statsPanel';
   panel.className = 'set-stats';
   panel.innerHTML = `
-    <div class="set-stats-head"><div><span class="eyebrow">Výsledek sady</span><h3>${score}</h3><p>${stats.correct} z ${stats.graded} hodnocených úloh správně · ${stats.answered}/${stats.total} zodpovězeno${stats.selfChecks ? ` · ${stats.selfChecks} otevřený self-check` : ''}</p></div><span class="set-stats-mode">${stats.mode === 'test' ? 'Test' : 'Učení'}</span></div>
+    <div class="set-stats-head">
+      <div class="set-stats-score">
+        <div class="set-stats-score-ring" style="--score:${scoreValue}" aria-label="Skóre ${score}"><strong>${score}</strong></div>
+        <div><span class="eyebrow">Shrnutí sady</span><h3>${score}</h3><p>${stats.correct} z ${stats.graded} hodnocených úloh správně · ${stats.answered}/${stats.total} zodpovězeno${stats.selfChecks ? ` · ${stats.selfChecks} otevřený self-check` : ''}</p></div>
+      </div>
+      <span class="set-stats-mode">${stats.mode === 'test' ? '📝 Test' : '📘 Učení'}</span>
+    </div>
     <div class="stats-topic-list">${topicRows || '<div class="small">Tato sada nemá hodnotitelné úlohy.</div>'}</div>
-    <div class="stats-local-note">📱 Statistika této sady se ukládá pouze lokálně v tomto prohlížeči.</div>`;
+    <div class="stats-local-note">📱 Tato statistika zůstává jen v tomto prohlížeči.</div>
+    <div class="set-stats-actions no-print">
+      <button type="button" id="repeatSetBtn">🔁 Opakovat tuto sadu</button>
+      <button type="button" id="newSetFromStats" class="primary">🎲 Nová náhodná sada</button>
+    </div>`;
   $('exercises').appendChild(panel);
+  panel.querySelector('#repeatSetBtn')?.addEventListener('click', () => {
+    state.results = {};
+    state.codeResults = {};
+    state.currentStats = null;
+    renderExercises();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    toast('Stejná sada byla připravena znovu.');
+  });
+  panel.querySelector('#newSetFromStats')?.addEventListener('click', () => {
+    state.results = {};
+    state.codeResults = {};
+    state.currentStats = null;
+    createSession(true);
+    renderExercises();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    toast('Nová náhodná sada byla vylosována.');
+  });
 }
 
 function completeCurrentSet() {
@@ -886,6 +967,8 @@ function renderExercises() {
     state.sessionIds = [];
     $('exercises').innerHTML = '<div class="empty">Pro tento filtr tu nejsou žádné úlohy.</div>';
     $('poolInfo').textContent = 'Pool je prázdný.';
+    updateSessionProgress();
+    updateModeUI();
     return;
   }
 
@@ -897,6 +980,7 @@ function renderExercises() {
 
   const generatedCount = filtered.filter(e => e.generated).length;
   $('poolInfo').textContent = `Pool: ${pool.length} úloh${generatedCount ? ` · z toho ${generatedCount} generovaných v této sadě` : ''} · tato sada: ${filtered.length} · ${state.mode === 'test' ? 'výsledek až po dokončení.' : 'průběžná kontrola je zapnutá.'}`;
+  updateSessionProgress();
 
   // Upozornění Osobnosti se generuje při každém renderu modulu, takže se neztratí po návratu.
   const isPersonalityModule = pool.length > 0 && pool.every(e => e.topic === 'Osobnosti');
@@ -907,11 +991,12 @@ function renderExercises() {
   $('exercises').innerHTML = personalityNotice + filtered.map((e, i) => renderExercise(e, i)).join('');
   attachExerciseEvents();
   if (state.currentStats) renderStatsPanel(state.currentStats);
+  updateSessionProgress();
   updateModeUI();
 }
 
 function findExercise(id) {
-  return state.exercises.find(e => String(e.id) === String(id));
+  return allCatalogExercises().find(e => String(e.id) === String(id));
 }
 
 function attachExerciseEvents() {
@@ -1228,10 +1313,12 @@ async function runCode(exercise, output) {
       new Function('print', 'console', code)((...args) => logs.push(args.join(' ')), fakeConsole);
       const ok = showRun(output, { text: logs.join('\n'), expected, revealCorrectness: state.mode !== 'test' });
       state.codeResults[exercise.id] = { answered: true, correct: expected == null ? true : ok === true, graded: expected != null };
+      updateSessionProgress();
       if (state.mode === 'learn') maybeAutoCompleteSet();
     } catch (error) {
       showRun(output, { text: logs.join('\n'), error: `${error.name}: ${error.message}`, revealCorrectness: state.mode !== 'test' });
       state.codeResults[exercise.id] = { answered: true, correct: false, graded: true };
+      updateSessionProgress();
       if (state.mode === 'learn') maybeAutoCompleteSet();
     }
     return;
@@ -1247,6 +1334,7 @@ async function runCode(exercise, output) {
     const line = py.globals.get('__study_line__');
     const ok = showRun(output, { text, error, errorLine: line ?? null, expected, revealCorrectness: state.mode !== 'test' });
     state.codeResults[exercise.id] = { answered: true, correct: error ? false : (expected == null ? true : ok === true), graded: expected != null };
+    updateSessionProgress();
     if (state.mode === 'learn') maybeAutoCompleteSet();
   } catch (error) {
     output.className = 'output bad';
@@ -1260,11 +1348,11 @@ $('modeLearn').addEventListener('click', () => setStudyMode('learn'));
 $('modeTest').addEventListener('click', () => setStudyMode('test'));
 $('finishSet').addEventListener('click', finishCurrentSet);
 $('generateTasks').addEventListener('click', () => generateDigitalExercises(6));
-$('filterSubject').addEventListener('change', () => { $('filterTopic').value = 'all'; $('filterSubtopic').value = 'all'; $('filterDifficulty').value = 'all'; state.generatedExercises = []; state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; renderExercises(); });
-$('filterTopic').addEventListener('change', () => { $('filterSubtopic').value = 'all'; state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; renderExercises(); });
-$('filterSubtopic').addEventListener('change', () => { state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; renderExercises(); });
-$('filterType').addEventListener('change', () => { state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; renderExercises(); });
-$('filterDifficulty').addEventListener('change', () => { state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; renderExercises(); });
+$('filterSubject').addEventListener('change', () => { $('filterTopic').value = 'all'; $('filterSubtopic').value = 'all'; $('filterDifficulty').value = 'all'; state.generatedExercises = []; state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; renderExercises(); maybeCloseMobileFilters(); });
+$('filterTopic').addEventListener('change', () => { $('filterSubtopic').value = 'all'; state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; renderExercises(); maybeCloseMobileFilters(); });
+$('filterSubtopic').addEventListener('change', () => { state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; renderExercises(); maybeCloseMobileFilters(); });
+$('filterType').addEventListener('change', () => { state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; renderExercises(); maybeCloseMobileFilters(); });
+$('filterDifficulty').addEventListener('change', () => { state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; renderExercises(); maybeCloseMobileFilters(); });
 $('sessionSize').addEventListener('change', () => { state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; createSession(true); renderExercises(); });
 $('newSession').addEventListener('click', () => { state.results = {}; state.currentStats = null; createSession(true); renderExercises(); toast('Nová náhodná sada byla vylosována.'); window.scrollTo({top: 0, behavior: 'smooth'}); });
 $('homeBtn').addEventListener('click', openHome);
@@ -1291,9 +1379,12 @@ $('resetProgress').addEventListener('click', () => {
   state.results = {};
   state.codeResults = {};
   clearCurrentStats();
+  updateSessionProgress();
   toast('Odpovědi byly vymazány.');
 });
 
+syncFilterPanelForViewport();
+window.addEventListener('resize', syncFilterPanelForViewport);
 setupEnterShortcut();
 
 state.exercises = normalizeExercises(state.exercises);

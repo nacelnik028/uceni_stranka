@@ -261,6 +261,30 @@ Shrnutí obsahuje:
 
 Výsledky posledních sad se ukládají pouze do `localStorage` v konkrétním prohlížeči. Server, GitHub Pages ani ostatní návštěvníci k nim nemají přístup. Aplikace nevyžaduje přihlášení.
 
+## UI a ovládání
+
+UI je navržené jako sdílená školní procvičovna: bez přihlášení, bez osobního účtu a bez serverového ukládání výsledků. Novější rozhraní používá prvky, které zrychlují orientaci a zlepšují používání na mobilu.
+
+### Režim Učení / Test
+
+Přepínač režimu je zobrazen jako dvě výrazné volby **📘 Učení** a **📝 Test**. Druhý řádek každé volby stručně vysvětluje rozdíl mezi režimy. Tlačítko `finishSet` mění podle režimu text na **Zobrazit shrnutí sady** nebo **Dokončit test**.
+
+### Mobilní filtry
+
+Na šířce do 760 px jsou filtry zabalené do rozbalovacího panelu **⚙ Filtry**, aby na telefonu nezabíraly většinu obrazovky ještě před první otázkou. Panel se po změně filtru na mobilu automaticky zavře. Na desktopu zůstává otevřený.
+
+Krátký text vedle názvu panelu zobrazuje aktivní výběr, například `Literatura · Antika +1`.
+
+### Průběh sady
+
+Pod volbou velikosti sady je progress bar s počtem zodpovězených úloh. Stav se přepočítává po kontrole odpovědi, u kódových úloh po spuštění programu, při změně sady a po resetu.
+
+### Shrnutí sady
+
+Shrnutí používá výraznější skóre a kruhový indikátor, rozpad podle témat a dvě rychlé akce: **🔁 Opakovat tuto sadu** a **🎲 Nová náhodná sada**. Výsledky zůstávají lokální.
+
+Tyto UI změny nemění datový formát existujících úloh.
+
 ## Přidávání nových předmětů
 
 Pro nový předmět vytvoř vlastní runtime soubor v `data/`, přidej jeho `<script>` do `index.html` **před `app.js`** a přidej odpovídající globální pole do `state.exercises` v `app.js`.

@@ -8,5 +8,34 @@
     "data/literature_exercises.js",
     "data/cislicova_technika_exercises.js"
   ],
-  "notes": "Clean project content, no .git directory. Legacy root helper files are in archiv/puvodni-koren."
+  "ui_revision": "mobile_filter_collapse_progress_mode_switch_set_summary",
+  "ui_revision_date": "2026-09-30",
+  "notes": "Clean project content, no .git directory. Legacy root helper files are in archiv/puvodni-koren.",
+  "checks": {
+    "static_exercises": 307,
+    "unique_ids": 307,
+    "mobile_viewports": [
+      320,
+      375,
+      390
+    ],
+    "desktop_viewports": [
+      768,
+      1280
+    ],
+    "horizontal_overflow": false,
+    "console_errors": false,
+    "page_errors": false,
+    "generated_conversion_control": true,
+    "generated_find_exercise": true,
+    "local_set_summary": true
+  },
+  "runtime_sha256": {
+    "index.html": "fa69f0562c8e7f8a80a7fb60e576ae9b3b414f73cd1b68bbc043aacd753622ba",
+    "app.js": "93726e9fc9b97d710c8e3cb8aee48c1b88d4d7edb889e2796bc2decf4d06adbe",
+    "data/exercises.js": "31575819d77bc9d70c71aa3d50db09c38b9a0ecc87147ccd6a491617584fd0c1",
+    "data/network_exercises.js": "1f5305b9336ac10f7eddc3ea570130d9c1b8d078f70f75cf533dcefadcf4c875",
+    "data/literature_exercises.js": "249c45f91075c4a97fa6f4727448364f27504ec26d53062ee7d18ab49a94337f",
+    "data/cislicova_technika_exercises.js": "7c1158baef325edcccb454c3c334ae0a5dc28a22d6a2718313045da4b20f8a66"
+  }
 }

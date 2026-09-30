@@ -2,6 +2,8 @@
 
 Datum kontroly: 30. 9. 2026
 
+Poslední UI revize: 30. 9. 2026
+
 ## Co bylo zkontrolováno
 
 - ZIP se otevírá bez chyby a neobsahuje `.git` metadata.
@@ -114,6 +116,19 @@ README.md
 ```
 
 Nové funkce a jejich datová pravidla jsou popsány v `README.md` a doplňující struktura je uvedena v `docs/STRUKTURA.md`.
+
+## Kontrola po UI úpravách
+
+Po poslední úpravě UI byla znovu zkontrolována responzivita a interaktivní prvky.
+
+- mobilní filtry jsou standardně sbalené a po změně filtru se zavřou,
+- desktopové filtry zůstávají otevřené,
+- přepínač Učení/Test má obě volby jako dotykově použitelné ovládání,
+- progress bar odpovídá počtu zodpovězených úloh,
+- shrnutí sady je dostupné v režimu Učení i Test a obsahuje akce pro opakování nebo novou sadu,
+- generované úlohy Číslicové techniky se po UI změnách stále zobrazují a lze je kontrolovat,
+- `findExercise()` dohledává i runtime generované úlohy,
+- na šířkách 320, 375, 390, 768 a 1280 px nebylo horizontální přetečení ani zachycená `pageerror`/konzolová chyba.
 
 ## Závěr kontroly
 
