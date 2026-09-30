@@ -10,7 +10,7 @@ Statická webová aplikace pro procvičování školních materiálů. GitHub Pa
 - Literatura
 - Číslicová technika
 
-Aktuální runtime obsahuje 342 úloh: 86 v obecném souboru `exercises.js` (30 v Programování, 56 ve Vývoji webových aplikací), 110 ze sítí, 106 z literatury a 40 z číslicové techniky.
+Aktuální runtime obsahuje 377 úloh: 121 v obecném souboru `exercises.js` (30 v Programování, 56 ve Vývoji webových aplikací a 35 v Databázích), 110 ze sítí, 106 z literatury a 40 z číslicové techniky.
 
 ## Struktura projektu
 
@@ -311,3 +311,8 @@ Zdroj materiálu drž v `materialy/<predmet>/zdroj/`. Generátory a pomocné vý
 ## Poznámka k GitHub Pages
 
 `.nojekyll` je v kořeni záměrně. Při nahrávání změn do existujícího Git repozitáře **nepřepisuj `.git`** soubory z tohoto ZIPu. Tento balík obsahuje pouze čistý projektový obsah; Git historie patří do tvého lokálního repozitáře.
+
+
+### Nový modul: Databáze
+
+Aktivní předmět **Databáze** obsahuje **35 úloh** v tématu **Základy databází**, vytvořených z dodaného PDF `materialy/databaze/zdroj/ZDB.pdf` a jeho textového přepisu `zdb.md`.

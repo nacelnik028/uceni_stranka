@@ -4,7 +4,7 @@ Datum kontroly: 30. 9. 2026
 
 Poslední UI revize: 30. 9. 2026
 
-Ověření dat modulu Vývoj webových aplikací: **56 úloh / 1 téma**.
+Ověření dat modulů Vývoj webových aplikací a Databáze: **56 + 35 úloh** ve 2 tématech celkem.
 
 ## Co bylo zkontrolováno
 
@@ -21,10 +21,11 @@ Ověření dat modulu Vývoj webových aplikací: **56 úloh / 1 téma**.
 |---|---:|
 | Programování | 30 |
 | Vývoj webových aplikací | 56 |
+| Databáze | 35 |
 | Počítačové sítě | 110 |
 | Literatura | 106 |
 | Číslicová technika | 40 |
-| **Celkem** | **342** |
+| **Celkem** | **377** |
 
 
 ### Nový materiál – Header a favicon
@@ -144,3 +145,6 @@ Po poslední úpravě UI byla znovu zkontrolována responzivita a interaktivní 
 **Kontrolní stav: OK.** Regresní testy prošly, nové funkce prošly a mobilní rozvržení zůstalo bez horizontálního přetečení.
 
 - Režim Učení: ruční zobrazení shrnutí sady přes tlačítko `Zobrazit shrnutí sady` ověřeno.
+
+
+Do modulu **Databáze** bylo přidáno 35 nových úloh z PDF `materialy/databaze/zdroj/ZDB.pdf`. Pokrývají informace a open data, relační databáze a klíče, entity a atributy, vlastnosti databází, DLL/DQL/DML/DTL-TCL, agregaci, ODBC, připojovací řetězec a formáty importu a exportu.
