@@ -19,6 +19,7 @@ procvicovna-github/
 │   ├── programovani/zdroj/
 │   ├── literatura/zdroj/
 │   ├── cislicova-technika/zdroj/
+│   ├── vyvoj-webovych-aplikaci/zdroj/
 │   └── pocitacove-site/
 │       ├── zdroj/
 │       ├── generatory/
@@ -48,6 +49,10 @@ Ve vstupním ZIPu byly pracovní soubory a staré kořenové kopie smíchané s 
 
 Identické kopie stejného `.canvas` souboru byly deduplikovány na jednu kanonickou kopii s bezpečným názvem.
 
+
+## Zdrojový materiál – Vývoj webových aplikací
+
+Materiál `materialy/vyvoj-webovych-aplikaci/zdroj/header-a-favicon.md` obsahuje podklady k tématu headerů a favicon. Z něj jsou vytvořeny aktivní úlohy `vwa-header-*` a `vwa-favicon-*` v `data/exercises.js`.
 
 ## Runtime funkce
 

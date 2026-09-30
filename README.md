@@ -10,7 +10,7 @@ Statická webová aplikace pro procvičování školních materiálů. GitHub Pa
 - Literatura
 - Číslicová technika
 
-Aktuální runtime obsahuje 307 úloh: 51 v obecném souboru `exercises.js`, 110 ze sítí, 106 z literatury a 40 z číslicové techniky.
+Aktuální runtime obsahuje 342 úloh: 86 v obecném souboru `exercises.js` (30 v Programování, 56 ve Vývoji webových aplikací), 110 ze sítí, 106 z literatury a 40 z číslicové techniky.
 
 ## Struktura projektu
 
@@ -70,6 +70,10 @@ procvicovna-github/
 └── docs/
     └── STRUKTURA.md
 ```
+
+### Nový modul: Vývoj webových aplikací
+
+Aktivní předmět **Vývoj webových aplikací** obsahuje **56 úloh** v tématu **Header a favicon** (21 původních + 35 nových z `materialy/vyvoj-webovych-aplikaci/zdroj/header-a-favicon.md`).
 
 ### Co je aktivní
 

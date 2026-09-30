@@ -4,11 +4,13 @@ Datum kontroly: 30. 9. 2026
 
 Poslední UI revize: 30. 9. 2026
 
+Ověření dat modulu Vývoj webových aplikací: **56 úloh / 1 téma**.
+
 ## Co bylo zkontrolováno
 
 - ZIP se otevírá bez chyby a neobsahuje `.git` metadata.
 - `index.html` odkazuje na všechny aktivní runtime soubory v `data/`.
-- Aktivní validator prošel všech 307 statických úloh a našel 307 unikátních ID.
+- Aktivní validator prošel všech 342 statických úloh a našel 342 unikátních ID.
 - Všechny JS soubory mají platnou syntaxi (`node --check`).
 - Odpovědi všech 9 statických úloh typu `conversion` sedí při nezávislé kontrole.
 - Po přidání funkcí nebyly zachyceny `pageerror` ani konzolové chyby v DOM testu.
@@ -18,11 +20,18 @@ Poslední UI revize: 30. 9. 2026
 | Předmět | Úloh |
 |---|---:|
 | Programování | 30 |
-| Vývoj webových aplikací | 21 |
+| Vývoj webových aplikací | 56 |
 | Počítačové sítě | 110 |
 | Literatura | 106 |
 | Číslicová technika | 40 |
-| **Celkem** | **307** |
+| **Celkem** | **342** |
+
+
+### Nový materiál – Header a favicon
+
+Do modulu **Vývoj webových aplikací** bylo přidáno 35 nových úloh z materiálu `materialy/vyvoj-webovych-aplikaci/zdroj/header-a-favicon.md`. Úlohy pokrývají význam a prvky headeru, typy headerů, responzivní mobilní header, přístupnost dotykových cílů, význam favicony, branding, SEO/CTR, velikosti a formáty ikon, online generátory a nastavení favicony ve WordPressu.
+
+Rozdělení nových úloh: 18× `choice`, 6× `multi`, 3× `match`, 2× `order`, 3× `fill`, 3× `text`.
 
 ## Nové funkce
 
