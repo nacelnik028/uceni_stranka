@@ -8,7 +8,7 @@ Poslední UI revize: 30. 9. 2026
 
 - ZIP se otevírá bez chyby a neobsahuje `.git` metadata.
 - `index.html` odkazuje na všechny aktivní runtime soubory v `data/`.
-- Aktivní validator prošel všech 342 statických úloh a našel 342 unikátních ID.
+- Aktivní validator prošel všech 377 statických úloh a našel 377 unikátních ID.
 - Všechny JS soubory mají platnou syntaxi (`node --check`).
 - Odpovědi všech 9 statických úloh typu `conversion` sedí při nezávislé kontrole.
 - Po přidání funkcí nebyly zachyceny `pageerror` ani konzolové chyby v DOM testu.
@@ -19,10 +19,11 @@ Poslední UI revize: 30. 9. 2026
 |---|---:|
 | Programování | 30 |
 | Vývoj webových aplikací | 56 |
+| Databáze | 35 |
 | Počítačové sítě | 110 |
 | Literatura | 106 |
 | Číslicová technika | 40 |
-| **Celkem** | **342** |
+| **Celkem** | **377** |
 
 
 ### Nový materiál – Header a favicon
@@ -157,7 +158,7 @@ Po poslední úpravě UI byla znovu zkontrolována responzivita a interaktivní 
 
 ### Aktuální validační stav
 
-Validator v tomto dodaném ZIPu potvrzuje **342 aktivních úloh** a unikátní ID. To se liší od čísla 377 uvedeného v původním README; UI proto používá dynamický počet načtených úloh. Chybějících 35 úloh nebylo v aktivních `data/*.js` nalezeno a nebyly v této revizi domýšleny.
+Validator v dodaném projektu potvrzuje **377 aktivních úloh** a 377 unikátních ID. Původní tvrzení o 342 úlohách se týkalo neaktuální kopie projektu; aktivní kořenová data obsahují také 35 úloh z materiálu `header-a-favicon.md`. UI proto používá dynamický počet načtených úloh.
 
 ### Mobil / responzivita
 
@@ -182,6 +183,40 @@ Výsledek aktuálního Chromium DOM testu:
 - procvičení chyb: při 1 záměrně špatné odpovědi z pětice vznikla akce `Procvičit jen chyby` a po kliknutí nová sada obsahovala právě 1 chybnou úlohu,
 - žádné `pageerror` ani chybové konzolové zprávy v testovaném DOM runtime.
 
+### Oprava podpory klávesy Tab – 30. 9. 2026
+
+Po regresní kontrole byla podpora `Tab` v kódových úlohách upravena. Handler je nyní delegovaný na `document` v capture fázi, takže přežije nové vykreslení úloh a nezávisí na opakovaném připojování listeneru ke konkrétní instanci editoru. V editoru `Tab` vloží 4 mezery, `Shift+Tab` odebere odsazení aktuálního řádku/bloku a mimo kódový editor zůstává nativní navigace Tabem. Na mobilu je zároveň `tab-size` sjednocený na 4, aby se vizuální šířka odsazení shodovala s vloženými 4 mezerami.
+
 ### Poznámka k prostředí testu
 
-Původní kontrolní text obsahoval tvrzení o dřívějším DOM testu nad 377 úlohami, které neodpovídá aktuálním aktivním datům v ZIPu. Tato revize proto jako autoritativní zdroj počtu používá výstup `scripts/validate_questions.js` a nově přidané UI kontroly vztahuje k aktuálním runtime souborům.
+Kontrolní dokumentace byla sjednocena s aktivním kořenem projektu. Autoritativním zdrojem počtu úloh je výstup `scripts/validate_questions.js` a UI testy se vztahují k runtime souborům v kořeni projektu.
+
+## Finální browser regression – 30. 9. 2026
+
+Přes Chromium/Playwright bylo provedeno 72 automatizovaných kontrol na skutečném DOMu aplikace. Všech 72 prošlo.
+
+Ověřeno bylo:
+
+- úvodní stránka, počty 377 úloh / 6 předmětů / 23 témat,
+- přepínání světlého a tmavého motivu,
+- otevření procvičování, náhodné sady 5 / 10 / 15 úloh,
+- vyhledávání a filtr předmětu / typu / obtížnosti,
+- všech 9 typů úloh a jejich kontrolní akce,
+- `Tab` vloží 4 mezery, `Shift+Tab` odstraní odsazení aktuálního řádku, `Enter` v editoru vytvoří nový řádek,
+- syntax highlighting a synchronizace čísel řádků,
+- zobrazení výstupu kódu a červené chyby s číslem řádku,
+- zobrazení/skrytí řešení a režim Test,
+- generování nových příkladů v Číslicové technice,
+- shrnutí sady a „Procvičit jen chyby“,
+- sticky tlačítko „Zkontrolovat“ na 320 / 375 / 390 px,
+- absence horizontálního přetečení na 320 / 375 / 390 / 768 / 1280 px,
+- nulové `pageerror` a konzolové chyby v testovaném runtime.
+
+Python startovací kód všech 16 úloh typu `code` byl navíc samostatně zkompilován CPythonem; všech 16 fragmentů prošlo syntaktickou kontrolou. Integrace tlačítka pro Python byla v browser testu ověřena s mockem Pyodide, protože sandbox neumožňuje spolehlivě načíst externí CDN runtime. Samotné načtení produkčního Pyodide z CDN proto není tímto testem potvrzeno.
+
+
+## Finální vizuální/regresní oprava – 30. 9. 2026
+
+Po zpětné vazbě byla vrácena původní vizuální hierarchie úvodní stránky: každá z 6 karet předmětů má stabilní barevný akcent a ikonu podle názvu předmětu. Výchozí motiv je opět tmavý; světlý motiv je stále dostupný přes přepínač a uložení preference. Modul **Databáze** je zachovaný v aktivních datech (`35` úloh `db-*`) i ve zdrojích `materialy/databaze/`.
+
+Kódový editor má `Tab = 4 mezery`, `Shift+Tab` pro odebrání jednoho odsazení, čísla řádků a syntax highlighting; mobilní styl používá shodně 4mezerné tabulátory.

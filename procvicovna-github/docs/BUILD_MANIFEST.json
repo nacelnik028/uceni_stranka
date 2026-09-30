@@ -8,9 +8,9 @@
     "data/literature_exercises.js",
     "data/cislicova_technika_exercises.js"
   ],
-  "ui_revision": "code_editor_tab_regression_fix",
+  "ui_revision": "restore_subject_modules_and_colors",
   "ui_revision_date": "2026-09-30",
-  "notes": "Clean project content, no .git directory. Active runtime root verified with 377 exercises; Tab handling is delegated at document level and mobile tab-size is 4.",
+  "notes": "Final runtime preserves all 377 exercises including the Databáze module and materialy/databaze sources. Dark theme remains the default; light theme is optional. Subject cards use stable per-subject accent colors. Code editor Tab inserts 4 spaces and Shift+Tab removes one indentation; mobile uses tab-size 4. No .git directory in the delivery archive.",
   "checks": {
     "static_exercises": 377,
     "unique_ids": 377,
@@ -34,8 +34,8 @@
     "tab_navigation_outside_code_editor": true
   },
   "runtime_sha256": {
-    "index.html": "e049fa39125c4a32b46562a74516c526b63faee0efc32d5057a5c04a035616b1",
-    "app.js": "f25e260861c53cb169cafae649b5faa2eb4ad63b4554fd312659c0969dcb8897",
+    "index.html": "dadd176166bf80f362fcece300fc6b72c742ac1067ca47ff523f260bcb794c79",
+    "app.js": "4cdffbae9e3af0ac878de70e8c294c8cef40383d8eabf58133fa1773730d659b",
     "data/exercises.js": "c085ff12af0110de7cb556157ea4823ad401f17c4f59ddf26f2c7955c7271d89",
     "data/network_exercises.js": "1f5305b9336ac10f7eddc3ea570130d9c1b8d078f70f75cf533dcefadcf4c875",
     "data/literature_exercises.js": "249c45f91075c4a97fa6f4727448364f27504ec26d53062ee7d18ab49a94337f",

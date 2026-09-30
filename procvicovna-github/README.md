@@ -6,6 +6,7 @@ Statická webová aplikace pro procvičování školních materiálů. GitHub Pa
 
 - Programování
 - Vývoj webových aplikací
+- Databáze
 - Počítačové sítě
 - Literatura
 - Číslicová technika
@@ -94,6 +95,12 @@ Duplicitní `.canvas` kopie byly záměrně sloučeny: všech osm kopií ve vstu
 ```text
 materialy/pocitacove-site/zdroj/pocitacove-site-1-rocnik.canvas
 ```
+
+## UI a ovládání
+
+Úvodní stránka zachovává barevné rozlišení šesti předmětů: Programování, Vývoj webových aplikací, Databáze, Počítačové sítě, Literatura a Číslicová technika. Výchozí motiv je tmavý; tlačítkem **Světlý motiv** lze přepnout světlé barvy a volba se ukládá lokálně.
+
+Ve studiu je dostupné vyhledávání. U kódových úloh jsou čísla řádků, zvýraznění syntaxe a klávesa **Tab** vkládající 4 mezery; **Shift+Tab** odebírá jedno odsazení. Na mobilu je tlačítko **Zkontrolovat** připnuté dole. Po dokončení sady lze vytvořit novou sadu pouze z úloh, které byly skutečně zodpovězené špatně.
 
 ## Datový formát úloh
 

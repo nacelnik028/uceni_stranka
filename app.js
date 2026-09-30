@@ -111,11 +111,12 @@ function applyTheme(theme) {
 }
 
 function initTheme() {
-  let theme = 'light';
+  // Výchozí zůstává původní tmavý motiv; světlý je volitelný přepínačem.
+  let theme = 'dark';
   try {
     const stored = getStorage().getItem('procvicovna-theme');
     if (stored === 'dark' || stored === 'light') theme = stored;
-  } catch { /* use light as the requested default */ }
+  } catch { /* use dark as the default */ }
   applyTheme(theme);
 }
 
@@ -211,37 +212,76 @@ function updateCodeEditor(textarea) {
 function syncCodeEditors() {
   document.querySelectorAll('.code-editor textarea.code').forEach((textarea) => {
     updateCodeEditor(textarea);
+    if (textarea.dataset.editorSynced === '1') return;
+    textarea.dataset.editorSynced = '1';
     textarea.addEventListener('input', () => updateCodeEditor(textarea));
     textarea.addEventListener('scroll', () => updateCodeEditor(textarea));
-    textarea.addEventListener('keydown', (event) => {
-      if (event.key !== 'Tab') return;
-      event.preventDefault();
-      const value = textarea.value;
-      const start = textarea.selectionStart;
-      const end = textarea.selectionEnd;
-      const indent = ' '.repeat(4);
-      if (event.shiftKey) {
-        const lineStart = value.lastIndexOf('\n', Math.max(0, start - 1)) + 1;
-        const selectedEnd = value.indexOf('\n', end);
-        const finalEnd = selectedEnd === -1 ? value.length : selectedEnd;
-        const block = value.slice(lineStart, finalEnd);
-        const updated = block.replace(/^( {1,4})/gm, '');
-        textarea.value = value.slice(0, lineStart) + updated + value.slice(finalEnd);
-        const removedBeforeCaret = Math.min(4, (value.slice(lineStart, start).match(/^ {0,4}/)?.[0]?.length || 0));
-        textarea.selectionStart = Math.max(lineStart, start - removedBeforeCaret);
-        textarea.selectionEnd = Math.max(lineStart, end - Math.min(4, removedBeforeCaret));
-      } else if (start === end) {
-        textarea.value = value.slice(0, start) + indent + value.slice(end);
-        textarea.selectionStart = textarea.selectionEnd = start + indent.length;
-      } else {
-        const lineStart = value.lastIndexOf('\n', Math.max(0, start - 1)) + 1;
-        textarea.value = value.slice(0, lineStart) + indent + value.slice(lineStart);
-        textarea.selectionStart = start + indent.length;
-        textarea.selectionEnd = end + indent.length;
-      }
-      updateCodeEditor(textarea);
-    });
   });
+}
+
+function setupCodeTabShortcut() {
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Tab') return;
+    const textarea = event.target instanceof HTMLTextAreaElement && event.target.matches('textarea.code')
+      ? event.target
+      : null;
+    if (!textarea) return;
+
+    event.preventDefault();
+    const value = textarea.value;
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const indent = '    ';
+
+    const firstLineStart = value.lastIndexOf('\n', Math.max(0, start - 1)) + 1;
+    const endAtNewLine = end > 0 && value[end - 1] === '\n';
+    let blockEnd = end;
+    if (!endAtNewLine) {
+      const nl = value.indexOf('\n', end);
+      blockEnd = nl === -1 ? value.length : nl;
+    }
+
+    // Shift+Tab: odebere jedno odsazení z každé vybrané řádky.
+    if (event.shiftKey) {
+      const block = value.slice(firstLineStart, blockEnd);
+      const lines = block.split('\n');
+      const removals = lines.map(line => line.startsWith(indent) ? 4 : (line.startsWith('\t') ? 1 : 0));
+      const updated = lines.map((line, i) => line.slice(removals[i])).join('\n');
+      const before = value.slice(0, firstLineStart);
+      const after = value.slice(blockEnd);
+      textarea.value = before + updated + after;
+
+      const removedBeforeStart = Math.min(removals[0] || 0, start - firstLineStart);
+      let removedBeforeEnd = 0;
+      const relEnd = end - firstLineStart;
+      let offset = 0;
+      for (let i = 0; i < lines.length && offset <= relEnd; i++) {
+        const lineEnd = offset + lines[i].length;
+        if (relEnd >= offset) removedBeforeEnd += Math.min(removals[i], Math.max(0, relEnd - offset));
+        offset = lineEnd + 1;
+      }
+      textarea.selectionStart = Math.max(firstLineStart, start - removedBeforeStart);
+      textarea.selectionEnd = Math.max(textarea.selectionStart, end - removedBeforeEnd);
+      textarea.dispatchEvent(new Event('input', { bubbles: true }));
+      return;
+    }
+
+    // Označený blok: přidej 4 mezery na začátek každé vybrané řádky.
+    if (start !== end) {
+      const block = value.slice(firstLineStart, blockEnd);
+      const lines = block.split('\n');
+      const updated = lines.map(line => indent + line).join('\n');
+      textarea.value = value.slice(0, firstLineStart) + updated + value.slice(blockEnd);
+      textarea.selectionStart = start + 4;
+      textarea.selectionEnd = end + (4 * lines.length);
+      textarea.dispatchEvent(new Event('input', { bubbles: true }));
+      return;
+    }
+
+    // Bez výběru: vlož přesně 4 mezery na pozici kurzoru.
+    textarea.setRangeText(indent, start, end, 'end');
+    textarea.dispatchEvent(new Event('input', { bubbles: true }));
+  }, true);
 }
 
 function checkActionForExercise(exerciseElement) {
@@ -407,20 +447,30 @@ function renderHome() {
   $('homeSubjects').textContent = subjects.length;
   $('homeTopics').textContent = topics.length;
 
-  const icons = ['◈', '⌘', '✦', '▦', '∑', '◌'];
+  // Barvy a ikony jsou stabilní podle názvu předmětu, nikoliv podle pořadí dat.
+  const subjectVisuals = {
+    'Programování': { icon: '◈', color: '#60a5fa' },
+    'Vývoj webových aplikací': { icon: '⌘', color: '#4ade80' },
+    'Databáze': { icon: '✦', color: '#f6c85f' },
+    'Počítačové sítě': { icon: '▦', color: '#fb8aa0' },
+    'Literatura': { icon: '∑', color: '#a78bfa' },
+    'Číslicová technika': { icon: '◌', color: '#4aa8ff' },
+  };
+  const fallbackIcons = ['◈', '⌘', '✦', '▦', '∑', '◌'];
   $('subjectCards').innerHTML = subjects.length ? subjects.map((subject, i) => {
     const items = state.exercises.filter(e => e.subject === subject);
     const topicCount = unique(items.map(e => e.topic)).length;
     const label = topicCount === 1 ? 'téma' : 'témata';
-    return `<button class="card" data-subject="${esc(subject)}" style="text-align:left">
-      <div class="card-icon">${icons[i % icons.length]}</div>
+    const visual = subjectVisuals[subject] || { icon: fallbackIcons[i % fallbackIcons.length], color: '#6cb6ff' };
+    return `<button class="card" data-subject="${esc(subject)}" style="text-align:left;--subject-color:${visual.color}">
+      <div class="card-icon">${visual.icon}</div>
       <h3>${esc(subject)}</h3>
       <p>Procvičování podle materiálů pro tento předmět.</p>
       <div class="card-meta">${items.length} úloh · ${topicCount} ${label}</div>
     </button>`;
   }).join('') : '<div class="empty">Zatím nejsou přidané žádné úlohy.</div>';
 
-  document.querySelectorAll('[data-subject]').forEach(card => {
+  document.querySelectorAll('#subjectCards [data-subject]').forEach(card => {
     card.addEventListener('click', () => openStudy(card.dataset.subject, 'all'));
   });
 }
@@ -1618,6 +1668,7 @@ $('mobileCheckButton').addEventListener('click', () => {
 syncFilterPanelForViewport();
 window.addEventListener('resize', () => { syncFilterPanelForViewport(); updateMobileCheckBar(); });
 setupEnterShortcut();
+setupCodeTabShortcut();
 
 initTheme();
 state.exercises = normalizeExercises(state.exercises);

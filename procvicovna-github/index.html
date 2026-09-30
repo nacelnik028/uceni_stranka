@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="cs" data-theme="light">
+<html lang="cs">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,6 +27,7 @@
       --good-bg:#eaf8f0; --good-border:#82caa4; --bad-bg:#fff0f2; --bad-border:#e8a4ae;
       --hover:#f0f4fa; --hover-border:#8ea0b9; --accent-hover:#1d4ed8; --input-focus:rgba(37,99,235,.14);
     }
+    .card[data-subject="Programování"]{--subject-color:#60a5fa}.card[data-subject="Vývoj webových aplikací"]{--subject-color:#4ade80}.card[data-subject="Databáze"]{--subject-color:#f6c85f}.card[data-subject="Počítačové sítě"]{--subject-color:#fb8aa0}.card[data-subject="Literatura"]{--subject-color:#a78bfa}.card[data-subject="Číslicová technika"]{--subject-color:#4aa8ff}
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{margin:0;background:var(--bg);color:var(--text);font:400 16px/1.6 var(--sans);min-height:100vh;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
@@ -50,9 +51,10 @@
     .stat strong{font:600 26px var(--mono);margin-right:8px}.stat span{font-size:14px;color:var(--muted)}
     .section{margin-top:34px}.section-head{margin-bottom:14px}.section h2{margin:0;font-size:20px;font-weight:600}.section-head p{margin:4px 0 0;color:var(--muted);font-size:14px}
     .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
-    .card{text-align:left;border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:20px;display:block;width:100%}
-    .card:hover{border-color:var(--accent);background:var(--panel)}
-    .card-icon{font:600 20px var(--mono);color:var(--accent);margin-bottom:12px}
+    .card{text-align:left;border:1px solid var(--line);border-top:3px solid var(--subject-color, var(--accent));background:var(--panel);border-radius:14px;padding:20px;display:block;width:100%;transition:border-color .15s,background .15s,transform .15s}
+    .card:hover{border-color:var(--subject-color, var(--accent));background:var(--panel);transform:translateY(-1px)}
+    .card-icon{font:600 20px var(--mono);color:var(--subject-color, var(--accent));margin-bottom:12px}
+    .card-meta{color:var(--muted)}
     .card h3{margin:0;font-size:18px;font-weight:600}.card p{margin:6px 0 0;color:var(--muted);font-size:14px;font-weight:400}.card .card-meta{margin-top:14px;font-size:13px;color:var(--muted);font-weight:400}
     .hidden{display:none!important}
     .study-shell{border:1px solid var(--line);border-radius:14px;background:var(--panel2);overflow:hidden}
@@ -76,6 +78,7 @@
     input.answer-input{min-height:0}
     .answer-input:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--input-focus)}
     .code{font-family:var(--mono);font-size:14px;line-height:1.65;tab-size:4}
+
     .choices{display:grid;gap:8px;margin-top:16px;max-width:68ch}
     .choice{display:flex;gap:12px;align-items:flex-start;padding:11px 14px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);cursor:pointer;transition:border-color .15s}
     .choice:hover{border-color:var(--line2)}.choice:has(input:checked){border-color:var(--accent);background:color-mix(in srgb, var(--accent) 9%, var(--panel2))}
@@ -199,7 +202,7 @@
       .question{font-size:16px;line-height:1.65;max-width:none;overflow-wrap:anywhere}
       .answer-input{font-size:16px;min-height:120px;padding:12px;margin-top:14px}
       input.answer-input{min-height:44px}
-      .code{font-size:13px;line-height:1.6;min-height:240px;white-space:pre;overflow:auto;resize:vertical;tab-size:2}
+      .code{font-size:13px;line-height:1.6;min-height:240px;white-space:pre;overflow:auto;resize:vertical;tab-size:4}
       .choices{max-width:none;gap:8px;margin-top:14px}
       .conversion-panel{max-width:none;padding:12px}
       .conversion-direction{gap:8px;font-size:15px}

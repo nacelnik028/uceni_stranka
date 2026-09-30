@@ -19,6 +19,7 @@ Poslední UI revize: 30. 9. 2026
 |---|---:|
 | Programování | 30 |
 | Vývoj webových aplikací | 56 |
+| Databáze | 35 |
 | Počítačové sítě | 110 |
 | Literatura | 106 |
 | Číslicová technika | 40 |
@@ -212,3 +213,10 @@ Ověřeno bylo:
 - nulové `pageerror` a konzolové chyby v testovaném runtime.
 
 Python startovací kód všech 16 úloh typu `code` byl navíc samostatně zkompilován CPythonem; všech 16 fragmentů prošlo syntaktickou kontrolou. Integrace tlačítka pro Python byla v browser testu ověřena s mockem Pyodide, protože sandbox neumožňuje spolehlivě načíst externí CDN runtime. Samotné načtení produkčního Pyodide z CDN proto není tímto testem potvrzeno.
+
+
+## Finální vizuální/regresní oprava – 30. 9. 2026
+
+Po zpětné vazbě byla vrácena původní vizuální hierarchie úvodní stránky: každá z 6 karet předmětů má stabilní barevný akcent a ikonu podle názvu předmětu. Výchozí motiv je opět tmavý; světlý motiv je stále dostupný přes přepínač a uložení preference. Modul **Databáze** je zachovaný v aktivních datech (`35` úloh `db-*`) i ve zdrojích `materialy/databaze/`.
+
+Kódový editor má `Tab = 4 mezery`, `Shift+Tab` pro odebrání jednoho odsazení, čísla řádků a syntax highlighting; mobilní styl používá shodně 4mezerné tabulátory.

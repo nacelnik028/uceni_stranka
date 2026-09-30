@@ -20,6 +20,10 @@ procvicovna-github/
 │   ├── literatura/zdroj/
 │   ├── cislicova-technika/zdroj/
 │   ├── vyvoj-webovych-aplikaci/zdroj/
+│   ├── databaze/
+│   │   └── zdroj/
+│   │       ├── zdb.md
+│   │       └── ZDB.pdf
 │   └── pocitacove-site/
 │       ├── zdroj/
 │       ├── generatory/
@@ -59,3 +63,7 @@ Materiál `materialy/vyvoj-webovych-aplikaci/zdroj/header-a-favicon.md` obsahuje
 `app.js` obsahuje také kombinované filtry včetně obtížnosti, dva režimy (`Učení` a `Test`), lokální statistiku dokončené sady a generátor nových úloh pro Číslicovou techniku. Generované úlohy jsou pouze runtime data a neukládají se do zdrojových `data/*.js`.
 
 Lokální statistiky používají `localStorage` a jsou oddělené od serveru i GitHub Pages.
+
+## Zdrojový materiál – Databáze
+
+Materiál `materialy/databaze/zdroj/zdb.md` a původní PDF `ZDB.pdf` slouží jako podklad pro aktivní úlohy `db-*` v `data/exercises.js`.

@@ -20,6 +20,10 @@ procvicovna-github/
 │   ├── literatura/zdroj/
 │   ├── cislicova-technika/zdroj/
 │   ├── vyvoj-webovych-aplikaci/zdroj/
+│   ├── databaze/
+│   │   └── zdroj/
+│   │       ├── zdb.md
+│   │       └── ZDB.pdf
 │   └── pocitacove-site/
 │       ├── zdroj/
 │       ├── generatory/
