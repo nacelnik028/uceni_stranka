@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="cs">
+<html lang="cs" data-theme="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,8 +15,17 @@
       --bg:#0d1117; --panel:#141a23; --panel2:#10151d; --code:#090d13; --line:#252d3a; --line2:#36415a;
       --text:#e8ecf2; --muted:#9ba6b6; --accent:#6cb6ff; --ink:#06121f;
       --good:#4cc38a; --bad:#ff7b8a; --warn:#f0c674;
+      --good-bg:#0b231c; --good-border:#2a6a51; --bad-bg:#281019; --bad-border:#6b3040;
+      --hover:#1b2431; --hover-border:#4a5872; --accent-hover:#8ac6ff; --input-focus:rgba(108,182,255,.15);
       --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
       --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    }
+    :root[data-theme="light"]{
+      --bg:#f5f7fa; --panel:#ffffff; --panel2:#eef2f7; --code:#f8fafc; --line:#d8dee8; --line2:#b7c1d0;
+      --text:#182230; --muted:#5e6a7a; --accent:#2563eb; --ink:#ffffff;
+      --good:#16834f; --bad:#c6283d; --warn:#946200;
+      --good-bg:#eaf8f0; --good-border:#82caa4; --bad-bg:#fff0f2; --bad-border:#e8a4ae;
+      --hover:#f0f4fa; --hover-border:#8ea0b9; --accent-hover:#1d4ed8; --input-focus:rgba(37,99,235,.14);
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
@@ -24,9 +33,9 @@
     button,input,select,textarea{font:inherit;color:inherit}
     :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
     button{cursor:pointer;border:1px solid var(--line2);background:var(--panel);border-radius:10px;padding:9px 15px;font-weight:500;transition:background .15s,border-color .15s;touch-action:manipulation}
-    button:hover{background:#1b2431;border-color:#4a5872}
+    button:hover{background:var(--hover);border-color:var(--hover-border)}
     button.primary{background:var(--accent);border-color:var(--accent);color:var(--ink);font-weight:600}
-    button.primary:hover{background:#8ac6ff}
+    button.primary:hover{background:var(--accent-hover)}
     button.ghost{background:transparent}
     .wrap{max-width:960px;margin:0 auto;padding:24px 20px 60px}
     .topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px}
@@ -65,14 +74,14 @@
     pre.code-block{font:13.5px/1.6 var(--mono);background:var(--code);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:10px 0;overflow-x:auto;white-space:pre}
     .answer-input{width:100%;min-height:110px;margin-top:16px;background:var(--code);border:1px solid var(--line2);border-radius:10px;padding:12px 14px;resize:vertical}
     input.answer-input{min-height:0}
-    .answer-input:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px rgba(108,182,255,.15)}
+    .answer-input:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--input-focus)}
     .code{font-family:var(--mono);font-size:14px;line-height:1.65;tab-size:4}
     .choices{display:grid;gap:8px;margin-top:16px;max-width:68ch}
     .choice{display:flex;gap:12px;align-items:flex-start;padding:11px 14px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);cursor:pointer;transition:border-color .15s}
-    .choice:hover{border-color:var(--line2)}.choice:has(input:checked){border-color:var(--accent);background:rgba(108,182,255,.08)}
+    .choice:hover{border-color:var(--line2)}.choice:has(input:checked){border-color:var(--accent);background:color-mix(in srgb, var(--accent) 9%, var(--panel2))}
     .choice input{accent-color:var(--accent);margin-top:5px}
     .output{margin-top:12px;border-radius:10px;border:1px solid var(--line);background:var(--code);padding:11px 14px;white-space:pre-wrap;min-height:48px;font:13px/1.6 var(--mono);color:var(--muted)}
-    .output.ok{border-color:#2a6a51;background:#0b231c;color:#c9f3e0}.output.bad{border-color:#6b3040;background:#281019;color:#ffd3da}
+    .output.ok{border-color:var(--good-border);background:var(--good-bg);color:var(--good)}.output.bad{border-color:var(--bad-border);background:var(--bad-bg);color:var(--bad)}
     .tag{display:inline-block;font-size:12px;padding:2px 9px;border-radius:999px;border:1px solid var(--line2);color:var(--muted);margin:8px 6px 0 0}
     .type-tag{margin:0;white-space:nowrap}
     details{margin-top:14px}summary{cursor:pointer;color:var(--muted);font-size:14px}summary:hover{color:var(--text)}
@@ -125,11 +134,25 @@
     .set-stats-actions button{min-height:42px}
     .mode-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:14px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--panel2)}
     .mode-label{color:var(--muted);font-size:14px;font-weight:500;margin-right:2px}.mode-group{display:flex;gap:4px;padding:3px;border-radius:10px;background:var(--code);border:1px solid var(--line)}
-    .mode-button{min-height:46px;padding:7px 13px;background:transparent;border-color:transparent;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;line-height:1.15}.mode-button small{display:block;margin-top:3px;font-size:11px;font-weight:400;color:var(--muted)}.mode-button.active{background:var(--accent);color:var(--ink);border-color:var(--accent);font-weight:600}.mode-button:hover{background:#1b2431}.mode-button.active:hover{background:#8ac6ff}
+    .mode-button{min-height:46px;padding:7px 13px;background:transparent;border-color:transparent;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;line-height:1.15}.mode-button small{display:block;margin-top:3px;font-size:11px;font-weight:400;color:var(--muted)}.mode-button.active{background:var(--accent);color:var(--ink);border-color:var(--accent);font-weight:600}.mode-button:hover{background:var(--hover)}.mode-button.active:hover{background:var(--accent-hover)}
     .mode-hint{color:var(--muted);font-size:13px;line-height:1.45;flex:1 1 320px}
     .difficulty-tag{font-weight:500}.difficulty-1{border-color:#3f6655;color:#8fd8b2}.difficulty-2{border-color:#415b6f;color:#9fc7e8}.difficulty-3{border-color:#6b5e32;color:#e1c778}.difficulty-4{border-color:#704739;color:#f0a98c}.difficulty-5{border-color:#703b4a;color:#ff9fb0}
     .test-mode details:has(> .hint),.test-mode .solution-box{display:none}.test-mode .exercise{border-color:#314158}
     .set-stats{margin:18px 0 4px;padding:18px;border:1px solid var(--line2);border-radius:14px;background:linear-gradient(180deg,var(--panel),var(--panel2))}
+    .search-row{display:flex;gap:8px;align-items:center;margin-top:14px}
+    .search-label{font-size:13px;color:var(--muted);font-weight:500;white-space:nowrap}
+    .search-input{width:100%;min-height:44px;background:var(--code);border:1px solid var(--line2);border-radius:10px;padding:9px 12px}
+    .search-input:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--input-focus)}
+    .code-editor{display:grid;grid-template-columns:48px minmax(0,1fr);margin-top:16px;border:1px solid var(--line2);border-radius:10px;background:var(--code);overflow:hidden;min-height:290px}
+    .code-gutter{padding:13px 10px 13px 8px;border-right:1px solid var(--line);background:color-mix(in srgb, var(--code) 82%, var(--panel));color:var(--muted);text-align:right;font:12px/1.65 var(--mono);user-select:none;overflow:hidden;white-space:pre;min-width:48px}
+    .code-surface{position:relative;min-width:0;height:290px;overflow:hidden}
+    .code-highlight{position:absolute;left:0;top:0;margin:0;padding:13px 14px;font:14px/1.65 var(--mono);white-space:pre;width:max-content;min-width:100%;pointer-events:none;transform:translate3d(0,0,0);tab-size:4;color:var(--text)}
+    .code-editor textarea.code{position:relative;display:block;width:100%;height:290px;min-height:0;margin:0;border:0;border-radius:0;background:transparent;color:transparent;-webkit-text-fill-color:transparent;caret-color:var(--text);padding:13px 14px;font:14px/1.65 var(--mono);white-space:pre;overflow:auto;resize:none;tab-size:4;z-index:1}
+    .code-editor textarea.code:focus{outline:none;box-shadow:none}
+    .tok-kw{color:#8b5cf6;font-weight:600}.tok-str{color:#0f766e}.tok-num{color:#b45309}.tok-comment{color:var(--muted);font-style:italic}.tok-fn{color:#2563eb}.tok-builtin{color:#b91c1c}.tok-op{color:#7c3aed}
+    :root:not([data-theme="light"]) .tok-kw{color:#c792ea}:root:not([data-theme="light"]) .tok-str{color:#a5d6ff}:root:not([data-theme="light"]) .tok-num{color:#f2cc60}:root:not([data-theme="light"]) .tok-fn{color:#79c0ff}:root:not([data-theme="light"]) .tok-builtin{color:#ffab70}:root:not([data-theme="light"]) .tok-op{color:#d2a8ff}
+    .mobile-check-bar{display:none}
+    .failure-action strong{font:600 13px var(--mono)}
     .set-stats-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}.set-stats-head h3{margin:2px 0 0;font:600 36px/1 var(--mono);letter-spacing:-.03em}.set-stats-head p{margin:8px 0 0;color:var(--muted);font-size:14px}.eyebrow{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
     .set-stats-mode{display:inline-flex;align-items:center;min-height:34px;padding:5px 10px;border-radius:999px;border:1px solid var(--line2);color:var(--muted);font-size:12px}
     .stats-topic-list{display:grid;gap:7px;margin-top:16px}.stats-topic-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 12px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--code)}.stats-topic-row span{font-weight:500}.stats-topic-row strong{font:600 13px var(--mono);align-self:center}.stats-topic-row small{grid-column:1/-1;color:var(--muted);font-size:12px}.stats-local-note{margin-top:12px;color:var(--muted);font-size:12px}
@@ -195,6 +218,14 @@
       .toast{left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));text-align:center}
       footer{padding:22px 0 6px;font-size:12px}
     }
+    @media (max-width:760px){
+      .search-row{display:block;margin-top:12px}.search-label{display:block;margin-bottom:6px}.search-input{min-height:46px}
+      .code-editor{grid-template-columns:38px minmax(0,1fr);min-height:250px}.code-gutter{min-width:38px;padding-left:4px;padding-right:7px;font-size:11px}.code-surface{height:250px}.code-highlight,.code-editor textarea.code{height:250px;font-size:12.5px;line-height:1.6;padding:12px 11px}.code-editor textarea.code{tab-size:2}
+      .mobile-check-bar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;align-items:center;gap:10px;padding:10px 12px max(10px, env(safe-area-inset-bottom));background:color-mix(in srgb, var(--panel) 92%, transparent);border-top:1px solid var(--line2);box-shadow:0 -8px 24px rgba(0,0,0,.09);backdrop-filter:blur(8px)}
+      .mobile-check-bar.hidden{display:none!important}.mobile-check-context{min-width:0;flex:1;color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mobile-check-bar button{min-height:46px;min-width:142px}
+      body.mobile-study-active{padding-bottom:76px}
+    }
+
     @media (max-width:380px){
       .wrap{padding-left:9px;padding-right:9px}
       .study-header{padding:12px}
@@ -214,7 +245,7 @@
         <div class="brand-mark">✓</div>
         <div><div class="brand-name">Procvičovna</div><div class="brand-sub">Tvoje místo na procvičování učiva</div></div>
       </div>
-      <div class="row no-print"><button id="homeBtn" class="ghost hidden">← Úvodní nabídka</button><button id="resetProgress" class="ghost hidden">Vymazat odpovědi</button></div>
+      <div class="row no-print"><button id="themeToggle" class="ghost" type="button" aria-pressed="false" aria-label="Přepnout motiv">☀ Světlý motiv</button><button id="homeBtn" class="ghost hidden">← Úvodní nabídka</button><button id="resetProgress" class="ghost hidden">Vymazat odpovědi</button></div>
     </header>
 
     <main>
@@ -241,6 +272,10 @@
           <div class="crumbs"><span>Procvičovna</span><span class="sep">›</span><strong id="crumbSubject">Předmět</strong><span class="sep">›</span><strong id="crumbTopic">Téma</strong></div>
           <div class="study-title">
             <div><h2 id="exerciseTitle">Procvičování</h2><p id="exerciseMeta">Načítám úlohy…</p></div>
+          </div>
+          <div class="search-row no-print">
+            <label class="search-label" for="exerciseSearch">Hledat v úlohách</label>
+            <input id="exerciseSearch" class="search-input" type="search" autocomplete="off" spellcheck="false" placeholder="Hledej podle otázky, názvu, tématu nebo tagu…">
           </div>
           <details id="filterShell" class="filter-shell no-print">
             <summary class="filter-summary">
@@ -289,11 +324,15 @@
     </main>
     <footer>Vít Kellner, ChatGPT, Antigravity a Claude 2026</footer>
   </div>
+  <div class="mobile-check-bar hidden" id="mobileCheckBar" aria-live="polite">
+    <span id="mobileCheckContext" class="mobile-check-context">Aktivní úloha</span>
+    <button type="button" id="mobileCheckButton" class="primary">Zkontrolovat</button>
+  </div>
   <div class="toast" id="toast"></div>
   <script src="data/exercises.js?v=14"></script>
   <script src="data/network_exercises.js?v=2"></script>
   <script src="data/literature_exercises.js?v=3"></script>
   <script src="data/cislicova_technika_exercises.js?v=2"></script>
-  <script src="app.js?v=22"></script>
+  <script src="app.js?v=23"></script>
 </body>
 </html>

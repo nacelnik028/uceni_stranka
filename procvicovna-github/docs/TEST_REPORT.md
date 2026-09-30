@@ -142,3 +142,46 @@ Po poslední úpravě UI byla znovu zkontrolována responzivita a interaktivní 
 **Kontrolní stav: OK.** Regresní testy prošly, nové funkce prošly a mobilní rozvržení zůstalo bez horizontálního přetečení.
 
 - Režim Učení: ruční zobrazení shrnutí sady přes tlačítko `Zobrazit shrnutí sady` ověřeno.
+
+
+## Aktuální UI revize – 30. 9. 2026
+
+### Implementované změny
+
+- výchozí světlý motiv s přepínačem na tmavý motiv a lokálním uložením preference,
+- vyhledávání napříč názvem, otázkou, kategoriemi, tagy a textem kódových úloh,
+- kódový editor s čísly řádků, zvýrazněním základních syntaktických tokenů a podporou `Tab` / `Shift+Tab`,
+- červené zobrazení chyb při spuštění kódu, včetně čísla řádku Python chyby, pokud je dostupné,
+- mobilní sticky tlačítko `Zkontrolovat` pro právě aktivní úlohu,
+- tlačítko `Procvičit jen chyby` v shrnutí sady, které sestaví novou sadu z objektivně chybných hodnocených úloh.
+
+### Aktuální validační stav
+
+Validator v tomto dodaném ZIPu potvrzuje **342 aktivních úloh** a unikátní ID. To se liší od čísla 377 uvedeného v původním README; UI proto používá dynamický počet načtených úloh. Chybějících 35 úloh nebylo v aktivních `data/*.js` nalezeno a nebyly v této revizi domýšleny.
+
+### Mobil / responzivita
+
+Ověřovány jsou viewporty 320, 375, 390, 768 a 1280 px. U mobilu byla zvlášť kontrolována fixní spodní lišta, bezpečná spodní mez přes `env(safe-area-inset-bottom)`, zásobník tlačítek, kódový editor a horizontální přetečení dokumentu.
+
+Výsledek aktuálního Chromium DOM testu:
+
+| Šířka | Horizontální overflow | Sticky `Zkontrolovat` | Sticky kontrola aktivní úlohy |
+|---:|---|---|---|
+| 320 px | ne | ano | ano |
+| 375 px | ne | ano | ano |
+| 390 px | ne | ano | ano |
+| 768 px | ne | ne | — |
+| 1280 px | ne | ne | — |
+
+### Funkční test nových prvků
+
+- motiv: přepnutí `light → dark → light` ověřeno,
+- vyhledávání: dotaz `append` zúžil aktuální pool na 5 úloh,
+- kódový editor: čísla řádků a syntax highlighting byly přítomné, `Tab` vložil 4 mezery,
+- chyba kódu: výstup dostal třídu `output bad` a obsahoval údaj `řádek 3`,
+- procvičení chyb: při 1 záměrně špatné odpovědi z pětice vznikla akce `Procvičit jen chyby` a po kliknutí nová sada obsahovala právě 1 chybnou úlohu,
+- žádné `pageerror` ani chybové konzolové zprávy v testovaném DOM runtime.
+
+### Poznámka k prostředí testu
+
+Původní kontrolní text obsahoval tvrzení o dřívějším DOM testu nad 377 úlohami, které neodpovídá aktuálním aktivním datům v ZIPu. Tato revize proto jako autoritativní zdroj počtu používá výstup `scripts/validate_questions.js` a nově přidané UI kontroly vztahuje k aktuálním runtime souborům.

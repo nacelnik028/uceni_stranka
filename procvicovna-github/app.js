@@ -97,6 +97,185 @@ function rich(value) {
     .replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>');
 }
 
+function applyTheme(theme) {
+  const next = theme === 'dark' ? 'dark' : 'light';
+  document.documentElement.dataset.theme = next;
+  try { getStorage().setItem('procvicovna-theme', next); } catch { /* preference is best effort */ }
+  const button = $('themeToggle');
+  if (button) {
+    const light = next === 'light';
+    button.textContent = light ? '☾ Tmavý motiv' : '☀ Světlý motiv';
+    button.setAttribute('aria-pressed', String(!light));
+    button.setAttribute('aria-label', light ? 'Přepnout na tmavý motiv' : 'Přepnout na světlý motiv');
+  }
+}
+
+function initTheme() {
+  let theme = 'light';
+  try {
+    const stored = getStorage().getItem('procvicovna-theme');
+    if (stored === 'dark' || stored === 'light') theme = stored;
+  } catch { /* use light as the requested default */ }
+  applyTheme(theme);
+}
+
+const CODE_LEXEMES = {
+  python: {
+    keywords: new Set(['and','as','assert','async','await','break','case','class','continue','def','del','elif','else','except','finally','for','from','global','if','import','in','is','lambda','match','nonlocal','not','or','pass','raise','return','try','while','with','yield','True','False','None']),
+    builtins: new Set(['print','len','range','input','int','float','str','list','dict','set','tuple','enumerate','sum','min','max','abs','round','sorted','zip','open','type','isinstance']),
+    lineComment: '#',
+  },
+  javascript: {
+    keywords: new Set(['break','case','catch','class','const','continue','debugger','default','delete','do','else','export','extends','finally','for','from','function','if','import','in','instanceof','let','new','of','return','static','super','switch','this','throw','try','typeof','var','void','while','with','yield','true','false','null','undefined']),
+    builtins: new Set(['console','Math','JSON','Array','Object','String','Number','Boolean','Date','Map','Set','Promise','parseInt','parseFloat']),
+    lineComment: '//',
+  }
+};
+
+function highlightCode(code, language) {
+  const lang = String(language || 'python').toLowerCase() === 'js' ? 'javascript' : String(language || 'python').toLowerCase();
+  const rules = CODE_LEXEMES[lang] || CODE_LEXEMES.python;
+  const text = String(code ?? '');
+  let out = '';
+  let i = 0;
+  const span = (klass, value) => `<span class="${klass}">${esc(value)}</span>`;
+  const isIdentStart = (ch) => /[A-Za-z_$]/.test(ch || '');
+  const isIdent = (ch) => /[A-Za-z0-9_$]/.test(ch || '');
+  const isDigit = (ch) => /[0-9]/.test(ch || '');
+  while (i < text.length) {
+    const ch = text[i];
+    const next = text[i + 1] || '';
+    if (ch === '"' || ch === "'" || (ch === '`' && lang === 'javascript')) {
+      const quote = ch;
+      let j = i + 1;
+      while (j < text.length) {
+        if (text[j] === '\\') { j += 2; continue; }
+        if (text[j] === quote) { j += 1; break; }
+        j += 1;
+      }
+      out += span('tok-str', text.slice(i, j));
+      i = j;
+      continue;
+    }
+    if (text.startsWith(rules.lineComment, i)) {
+      const end = text.indexOf('\n', i);
+      const stop = end === -1 ? text.length : end;
+      out += span('tok-comment', text.slice(i, stop));
+      i = stop;
+      continue;
+    }
+    if (isDigit(ch) || (ch === '.' && isDigit(next))) {
+      let j = i + 1;
+      while (j < text.length && /[A-Za-z0-9._]/.test(text[j])) j += 1;
+      out += span('tok-num', text.slice(i, j));
+      i = j;
+      continue;
+    }
+    if (isIdentStart(ch)) {
+      let j = i + 1;
+      while (j < text.length && isIdent(text[j])) j += 1;
+      const word = text.slice(i, j);
+      let k = j;
+      while (k < text.length && /\s/.test(text[k])) k += 1;
+      const klass = rules.keywords.has(word) ? 'tok-kw' : rules.builtins.has(word) ? 'tok-builtin' : (text[k] === '(' ? 'tok-fn' : '');
+      out += klass ? span(klass, word) : esc(word);
+      i = j;
+      continue;
+    }
+    if ('+-*/%=!<>|&^~?:'.includes(ch)) {
+      let j = i + 1;
+      while (j < text.length && '+-*/%=!<>|&^~'.includes(text[j])) j += 1;
+      out += span('tok-op', text.slice(i, j));
+      i = j;
+      continue;
+    }
+    out += ch === '\n' ? '\n' : esc(ch);
+    i += 1;
+  }
+  return out || ' ';
+}
+
+function updateCodeEditor(textarea) {
+  const editor = textarea?.closest('.code-editor');
+  if (!editor) return;
+  const highlight = editor.querySelector('.code-highlight');
+  const gutter = editor.querySelector('.code-gutter');
+  if (!highlight || !gutter) return;
+  highlight.innerHTML = highlightCode(textarea.value, textarea.dataset.language || 'python');
+  const lineCount = Math.max(1, textarea.value.split('\n').length);
+  gutter.textContent = Array.from({ length: lineCount }, (_, i) => String(i + 1)).join('\n');
+  highlight.style.transform = `translate3d(${-textarea.scrollLeft}px, ${-textarea.scrollTop}px, 0)`;
+  gutter.style.transform = `translate3d(0, ${-textarea.scrollTop}px, 0)`;
+}
+
+function syncCodeEditors() {
+  document.querySelectorAll('.code-editor textarea.code').forEach((textarea) => {
+    updateCodeEditor(textarea);
+    textarea.addEventListener('input', () => updateCodeEditor(textarea));
+    textarea.addEventListener('scroll', () => updateCodeEditor(textarea));
+    textarea.addEventListener('keydown', (event) => {
+      if (event.key !== 'Tab') return;
+      event.preventDefault();
+      const value = textarea.value;
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      const indent = ' '.repeat(4);
+      if (event.shiftKey) {
+        const lineStart = value.lastIndexOf('\n', Math.max(0, start - 1)) + 1;
+        const selectedEnd = value.indexOf('\n', end);
+        const finalEnd = selectedEnd === -1 ? value.length : selectedEnd;
+        const block = value.slice(lineStart, finalEnd);
+        const updated = block.replace(/^( {1,4})/gm, '');
+        textarea.value = value.slice(0, lineStart) + updated + value.slice(finalEnd);
+        const removedBeforeCaret = Math.min(4, (value.slice(lineStart, start).match(/^ {0,4}/)?.[0]?.length || 0));
+        textarea.selectionStart = Math.max(lineStart, start - removedBeforeCaret);
+        textarea.selectionEnd = Math.max(lineStart, end - Math.min(4, removedBeforeCaret));
+      } else if (start === end) {
+        textarea.value = value.slice(0, start) + indent + value.slice(end);
+        textarea.selectionStart = textarea.selectionEnd = start + indent.length;
+      } else {
+        const lineStart = value.lastIndexOf('\n', Math.max(0, start - 1)) + 1;
+        textarea.value = value.slice(0, lineStart) + indent + value.slice(lineStart);
+        textarea.selectionStart = start + indent.length;
+        textarea.selectionEnd = end + indent.length;
+      }
+      updateCodeEditor(textarea);
+    });
+  });
+}
+
+function checkActionForExercise(exerciseElement) {
+  if (!exerciseElement) return null;
+  return exerciseElement.querySelector('[data-action="check-choice"], [data-action="check-multi"], [data-action="check-match"], [data-action="check-order"], [data-action="check-conversion"], [data-action="check-short"], [data-action="check-personality"], [data-action="show-self-check"], [data-action="run-code"]');
+}
+
+function updateMobileCheckBar() {
+  const bar = $('mobileCheckBar');
+  const button = $('mobileCheckButton');
+  const context = $('mobileCheckContext');
+  const active = activeExerciseElement?.isConnected ? activeExerciseElement : document.querySelector('#exercises .exercise');
+  const show = window.matchMedia?.('(max-width:760px)').matches && state.view === 'study' && !state.currentStats && Boolean(active);
+  bar?.classList.toggle('hidden', !show);
+  document.body.classList.toggle('mobile-study-active', show);
+  if (!show || !button) return;
+  const action = checkActionForExercise(active);
+  button.disabled = !action;
+  if (context) {
+    const label = active.querySelector('.exercise-number')?.textContent?.trim() || 'Aktivní úloha';
+    context.textContent = label;
+  }
+  button.textContent = 'Zkontrolovat';
+  button.setAttribute('aria-label', `Zkontrolovat ${context?.textContent || 'aktivní úlohu'}`);
+}
+
+function setActiveExerciseFromTarget(target) {
+  const exercise = target?.closest?.('.exercise');
+  if (exercise) {
+    activeExerciseElement = exercise;
+    updateMobileCheckBar();
+  }
+}
+
 function toast(message) {
   const el = $('toast');
   el.textContent = message;
@@ -295,6 +474,8 @@ function filterSummaryText() {
   if (subtopic !== 'all') parts.push(subtopic);
   if (type !== 'all') parts.push(({choice:'Výběr',multi:'Více správných',match:'Párování',order:'Řazení',text:'Textová odpověď',code:'Kód',fill:'Doplňování',number:'Výpočet',conversion:'Převod soustavy'})[type] || type);
   if (difficulty !== 'all') parts.push(`obtížnost ${difficulty}`);
+  const query = ($('exerciseSearch')?.value || '').trim();
+  if (query) parts.push(`hledání „${query}“`);
   return parts.length ? parts.slice(0, 2).join(' · ') + (parts.length > 2 ? ` +${parts.length - 2}` : '') : 'Všechny úlohy';
 }
 
@@ -335,6 +516,7 @@ function renderHeader() {
     (selectedSubtopic === 'all' || e.subtopic === selectedSubtopic)
   );
   const activeTopics = unique(active.map(e => e.topic));
+  const filteredCount = baseFilteredExercises().length;
 
   if (selectedSubject !== 'all' && selectedTopic !== 'all') {
     $('exerciseTitle').textContent = `${selectedSubject} – ${selectedTopic}`;
@@ -343,7 +525,7 @@ function renderHeader() {
   } else {
     $('exerciseTitle').textContent = window.EXERCISE_SET_TITLE || 'Procvičování';
   }
-  $('exerciseMeta').textContent = `${active.length} ${active.length === 1 ? 'úloha' : 'úloh'}${activeTopics.length ? ' · ' + activeTopics.join(', ') : ''}`;
+  $('exerciseMeta').textContent = `${filteredCount} ${filteredCount === 1 ? 'úloha' : 'úloh'}${activeTopics.length ? ' · ' + activeTopics.join(', ') : ''}`;
   $('crumbSubject').textContent = selectedSubject === 'all' ? 'Všechny předměty' : selectedSubject;
   $('crumbTopic').textContent = selectedTopic === 'all' ? 'Všechna témata' : selectedTopic;
 
@@ -479,8 +661,15 @@ function renderExercise(e, index) {
       </div>
       <div class="output" data-out="${id}">Zapiš výsledek převodu.</div>`;
   } else if (e.type === 'code') {
+    const language = String(e.language || 'python').toLowerCase();
     inner = `
-      <textarea class="answer-input code" spellcheck="false" data-code="${id}">${esc(e.starterCode)}</textarea>
+      <div class="code-editor" data-code-editor="${id}">
+        <div class="code-gutter" data-gutter="${id}" aria-hidden="true">1</div>
+        <div class="code-surface">
+          <pre class="code-highlight" data-highlight="${id}" aria-hidden="true"></pre>
+          <textarea class="answer-input code" spellcheck="false" data-code="${id}" data-language="${esc(language)}" aria-label="Zdrojový kód">${esc(e.starterCode)}</textarea>
+        </div>
+      </div>
       <div class="row" style="margin-top:10px">
         <button class="primary" data-action="run-code" data-id="${id}">▶ Spustit kód</button>
         <button data-action="clear-code" data-id="${id}">Vymazat</button>
@@ -546,6 +735,7 @@ function currentFilterKey() {
     $('filterSubtopic').value || 'all',
     $('filterType').value || 'all',
     $('filterDifficulty').value || 'all',
+    ($('exerciseSearch')?.value || '').trim().toLocaleLowerCase('cs-CZ'),
   ].join('|');
 }
 
@@ -555,13 +745,16 @@ function baseFilteredExercises() {
   const filterSubtopic = $('filterSubtopic').value;
   const filter = $('filterType').value;
   const difficulty = $('filterDifficulty').value;
-  return baseCatalogExercises().filter(e =>
-    (filterSubject === 'all' || e.subject === filterSubject) &&
-    (filterTopic === 'all' || e.topic === filterTopic) &&
-    (filterSubtopic === 'all' || e.subtopic === filterSubtopic) &&
-    (filter === 'all' || e.type === filter) &&
-    (difficulty === 'all' || String(e.difficulty) === String(difficulty))
-  );
+  const query = ($('exerciseSearch')?.value || '').trim().toLocaleLowerCase('cs-CZ');
+  return baseCatalogExercises().filter(e => {
+    const haystack = [e.title, e.question, e.subject, e.topic, e.subtopic, ...(e.tags || []), e.starterCode, e.solution].join(' ').toLocaleLowerCase('cs-CZ');
+    return (filterSubject === 'all' || e.subject === filterSubject) &&
+      (filterTopic === 'all' || e.topic === filterTopic) &&
+      (filterSubtopic === 'all' || e.subtopic === filterSubtopic) &&
+      (filter === 'all' || e.type === filter) &&
+      (difficulty === 'all' || String(e.difficulty) === String(difficulty)) &&
+      (!query || haystack.includes(query));
+  });
 }
 
 function historyKey() {
@@ -847,6 +1040,7 @@ function buildSetStats() {
     total: rows.length, answered, graded: graded.length, correct,
     percent: graded.length ? Math.round((correct / graded.length) * 100) : null,
     selfChecks,
+    failedIds: rows.filter(r => r.result.answered && r.result.graded && r.result.correct === false).map(r => r.exercise.id),
     byTopic,
     filter: {
       subject: $('filterSubject').value, topic: $('filterTopic').value, subtopic: $('filterSubtopic').value, type: $('filterType').value, difficulty: $('filterDifficulty').value
@@ -863,6 +1057,23 @@ function saveLocalSetStats(stats) {
   } catch {
     // Statistika zůstává funkční i bez storage API.
   }
+}
+
+function startFailureSession(failedIds) {
+  const available = new Set(allCatalogExercises().map(e => String(e.id)));
+  const ids = [...new Set((failedIds || []).filter(id => available.has(String(id))))];
+  if (!ids.length) {
+    toast('V této sadě nejsou žádné hodnocené chyby k procvičení.');
+    return;
+  }
+  state.sessionIds = ids;
+  state.sessionKey = currentFilterKey();
+  state.results = {};
+  state.codeResults = {};
+  state.currentStats = null;
+  renderExercises();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  toast(`Připravena sada ${ids.length} chybných úloh.`);
 }
 
 function renderStatsPanel(stats) {
@@ -889,10 +1100,12 @@ function renderStatsPanel(stats) {
     <div class="stats-topic-list">${topicRows || '<div class="small">Tato sada nemá hodnotitelné úlohy.</div>'}</div>
     <div class="stats-local-note">📱 Tato statistika zůstává jen v tomto prohlížeči.</div>
     <div class="set-stats-actions no-print">
+      ${stats.failedIds.length ? `<button type="button" id="retryFailuresBtn" class="primary failure-action">↻ Procvičit jen chyby <strong>${stats.failedIds.length}</strong></button>` : ''}
       <button type="button" id="repeatSetBtn">🔁 Opakovat tuto sadu</button>
       <button type="button" id="newSetFromStats" class="primary">🎲 Nová náhodná sada</button>
     </div>`;
   $('exercises').appendChild(panel);
+  panel.querySelector('#retryFailuresBtn')?.addEventListener('click', () => startFailureSession(stats.failedIds));
   panel.querySelector('#repeatSetBtn')?.addEventListener('click', () => {
     state.results = {};
     state.codeResults = {};
@@ -917,6 +1130,7 @@ function completeCurrentSet() {
   state.currentStats = stats;
   saveLocalSetStats(stats);
   renderStatsPanel(stats);
+  updateMobileCheckBar();
 }
 
 function finishCurrentSet() {
@@ -969,6 +1183,7 @@ function renderExercises() {
     $('poolInfo').textContent = 'Pool je prázdný.';
     updateSessionProgress();
     updateModeUI();
+    updateMobileCheckBar();
     return;
   }
 
@@ -990,9 +1205,12 @@ function renderExercises() {
 
   $('exercises').innerHTML = personalityNotice + filtered.map((e, i) => renderExercise(e, i)).join('');
   attachExerciseEvents();
+  syncCodeEditors();
+  activeExerciseElement = document.querySelector('#exercises .exercise');
   if (state.currentStats) renderStatsPanel(state.currentStats);
   updateSessionProgress();
   updateModeUI();
+  updateMobileCheckBar();
 }
 
 function findExercise(id) {
@@ -1342,6 +1560,11 @@ async function runCode(exercise, output) {
   }
 }
 
+$('themeToggle').addEventListener('click', () => applyTheme(document.documentElement.dataset.theme === 'light' ? 'dark' : 'light'));
+$('exerciseSearch').addEventListener('input', () => {
+  state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.codeResults = {}; state.currentStats = null;
+  renderExercises();
+});
 $('showAnswers').addEventListener('click', () => { state.answerVisible = true; document.querySelectorAll('details.solution-box').forEach((d) => { d.open = true; }); });
 $('hideAnswers').addEventListener('click', () => { state.answerVisible = false; document.querySelectorAll('details.solution-box').forEach((d) => { d.open = false; }); });
 $('modeLearn').addEventListener('click', () => setStudyMode('learn'));
@@ -1380,13 +1603,23 @@ $('resetProgress').addEventListener('click', () => {
   state.codeResults = {};
   clearCurrentStats();
   updateSessionProgress();
+  updateMobileCheckBar();
   toast('Odpovědi byly vymazány.');
 });
 
+document.addEventListener('focusin', (event) => setActiveExerciseFromTarget(event.target));
+document.addEventListener('click', (event) => setActiveExerciseFromTarget(event.target));
+$('mobileCheckButton').addEventListener('click', () => {
+  const active = activeExerciseElement?.isConnected ? activeExerciseElement : document.querySelector('#exercises .exercise');
+  const action = checkActionForExercise(active);
+  if (action) action.click();
+});
+
 syncFilterPanelForViewport();
-window.addEventListener('resize', syncFilterPanelForViewport);
+window.addEventListener('resize', () => { syncFilterPanelForViewport(); updateMobileCheckBar(); });
 setupEnterShortcut();
 
+initTheme();
 state.exercises = normalizeExercises(state.exercises);
 validateExercises(state.exercises);
 renderHome();
