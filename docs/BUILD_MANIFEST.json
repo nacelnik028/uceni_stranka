@@ -1,0 +1,12 @@
+{
+  "layout": "root-runtime",
+  "runtime": [
+    "index.html",
+    "app.js",
+    "data/exercises.js",
+    "data/network_exercises.js",
+    "data/literature_exercises.js",
+    "data/cislicova_technika_exercises.js"
+  ],
+  "notes": "Clean project content, no .git directory. Legacy root helper files are in archiv/puvodni-koren."
+}

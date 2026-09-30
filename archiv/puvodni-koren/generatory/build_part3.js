@@ -1,0 +1,471 @@
+const fs = require('fs');
+
+const exercises = [
+  // ============================================================
+  // TÉMA 4: Síťové modely
+  // ============================================================
+  {
+    subject: 'Počítačové sítě',
+    topic: 'Síťové modely',
+    subtopic: 'Model ISO/OSI',
+    id: 'ps-modely-001',
+    type: 'number',
+    title: 'Počet vrstev modelu ISO/OSI',
+    question: 'Kolik vrstev má standardní referenční model ISO/OSI?',
+    answer: '7',
+    solution: 'Referenční model ISO/OSI se skládá ze 7 vrstev: 1. Fyzická, 2. Linková, 3. Síťová, 4. Transportní, 5. Relační, 6. Prezentační, 7. Aplikační.',
+    hint: 'Číslo mezi 5 a 10.',
+    tags: ['ISO/OSI', 'Vrstvy']
+  },
+  {
+    subject: 'Počítačové sítě',
+    topic: 'Síťové modely',
+    subtopic: 'Model ISO/OSI',
+    id: 'ps-modely-002',
+    type: 'choice',
+    title: 'Pořadí vrstev modelu ISO/OSI',
+    question: 'Jaké je správné pořadí vrstev modelu ISO/OSI od nejnižší 1. po nejvyšší 7.?',
+    choices: [
+      '1. Fyzická, 2. Linková, 3. Síťová, 4. Transportní, 5. Relační, 6. Prezentační, 7. Aplikační',
+      '1. Aplikační, 2. Prezentační, 3. Relační, 4. Transportní, 5. Síťová, 6. Linková, 7. Fyzická',
+      '1. Fyzická, 2. Internetová, 3. Transportní, 4. Aplikační, 5. Webová, 6. Poštovní, 7. Cloudová',
+      '1. Kabelová, 2. Přepínací, 3. Směrovací, 4. Paketová, 5. Softwarová, 6. Hardwarová, 7. Uživatelská'
+    ],
+    answer: '1. Fyzická, 2. Linková, 3. Síťová, 4. Transportní, 5. Relační, 6. Prezentační, 7. Aplikační',
+    solution: 'Od vrstvy nejblíže médiu k vrstvě nejblíže uživateli: 1. Fyzická (Physical), 2. Linková (Data Link), 3. Síťová (Network), 4. Transportní (Transport), 5. Relační (Session), 6. Prezentační (Presentation), 7. Aplikační (Application).',
+    tags: ['ISO/OSI', 'Pořadí vrstev']
+  },
+  {
+    subject: 'Počítačové sítě',
+    topic: 'Síťové modely',
+    subtopic: 'Model ISO/OSI',
+    id: 'ps-modely-003',
+    type: 'choice',
+    title: 'PDU na linkové vrstvě (L2)',
+    question: 'Jak se nazývá protokolová datová jednotka (PDU) na 2. vrstvě (linkové) modelu ISO/OSI?',
+    choices: [
+      'Rámec (Frame)',
+      'Paket (Packet)',
+      'Segment (Segment)',
+      'Bit (Bit)'
+    ],
+    answer: 'Rámec (Frame)',
+    solution: 'Na 2. (linkové) vrstvě jsou data zapouzdřena do rámců (Frames), které obsahují zdrojovou a cílovou MAC adresu a kontrolní součet FCS.',
+    tags: ['ISO/OSI', 'Linková vrstva', 'PDU']
+  },
+  {
+    subject: 'Počítačové sítě',
+    topic: 'Síťové modely',
+    subtopic: 'Model ISO/OSI',
+    id: 'ps-modely-004',
+    type: 'choice',
+    title: 'PDU na síťové vrstvě (L3)',
+    question: 'Jak se označuje PDU na 3. vrstvě (síťové) modelu ISO/OSI?',
+    choices: [
+      'Paket (Packet) / Datagram',
+      'Rámec (Frame)',
+      'Segment (Segment)',
+      'Bitový tok (Bit stream)'
+    ],
+    answer: 'Paket (Packet) / Datagram',
+    solution: 'Na 3. vrstvě (síťové) se data přenášejí v paketech (Packets), které nesou IP adresy odesílatele a příjemce pro směrování napříč sítěmi.',
+    tags: ['ISO/OSI', 'Síťová vrstva', 'PDU']
+  },
+  {
+    subject: 'Počítačové sítě',
+    topic: 'Síťové modely',
+    subtopic: 'Model ISO/OSI',
+    id: 'ps-modely-005',
+    type: 'choice',
+    title: 'PDU na transportní vrstvě (L4)',
+    question: 'Jak se nazývá PDU na 4. vrstvě (transportní) při použití protokolu TCP?',
+    choices: [
+      'Segment',
+      'Rámec',
+      'Paket',
+      'Elektrický impuls'
+    ],
+    answer: 'Segment',
+    solution: 'Transportní vrstva dělí proud dat na menší bloky – segmenty (pro TCP) nebo datagramy (pro UDP), které opatřuje čísly portů.',
+    tags: ['ISO/OSI', 'Transportní vrstva', 'PDU']
+  },
+  {
+    subject: 'Počítačové sítě',
+    topic: 'Síťové modely',
+    subtopic: 'Model ISO/OSI',
+    id: 'ps-modely-006',
+    type: 'choice',
+    title: 'Funkce routeru na 3. vrstvě',
+    question: 'Na které vrstvě modelu ISO/OSI operuje běžný směrovač (router) a rozhoduje o cestě dat podle IP adres?',
+    choices: [
+      '3. Síťová vrstva (Network Layer)',
+      '1. Fyzická vrstva (Physical Layer)',
+      '2. Linková vrstva (Data Link Layer)',
+      '7. Aplikační vrstva (Application Layer)'
+    ],
+    answer: '3. Síťová vrstva (Network Layer)',
+    solution: 'Router je zařízení 3. vrstvy (síťové). Čte cílové IP adresy v hlavičkách paketů a podle své routovací tabulky určuje, kudy paket poslat do cílové sítě.',
+    tags: ['ISO/OSI', 'Router', 'L3']
+  },
+  {
+    subject: 'Počítačové sítě',
+    topic: 'Síťové modely',
+    subtopic: 'Model ISO/OSI',
+    id: 'ps-modely-007',
+    type: 'choice',
+    title: 'Funkce switche na 2. vrstvě',
+    question: 'Na které vrstvě modelu ISO/OSI pracuje standardní ethernetový přepínač (switch)?',
+    choices: [
+      '2. Linková vrstva (Data Link Layer)',
+      '1. Fyzická vrstva (Physical Layer)',
+      '4. Transportní vrstva (Transport Layer)',
+      '6. Prezentační vrstva (Presentation Layer)'
+    ],
+    answer: '2. Linková vrstva (Data Link Layer)',
+    solution: 'Běžný síťový přepínač (switch) pracuje na 2. vrstvě (linkové). Učí se MAC adresy připojených zařízení do své tabulky (CAM tabulky) a přeposílá rámce cíleně na konkrétní porty.',
+    tags: ['ISO/OSI', 'Switch', 'L2']
+  },
+  {
+    subject: 'Počítačové sítě',
+    topic: 'Síťové modely',
+    subtopic: 'Model ISO/OSI',
+    id: 'ps-modely-008',
+    type: 'choice',
+    title: 'Úkol prezentační vrstvy (L6)',
+    question: 'Jaké jsou hlavní úkoly 6. vrstvy (prezentační) modelu ISO/OSI?',
+    choices: [
+      'Převod formátů dat, konverze kódování znaků (např. ASCII na UTF-8), komprese a šifrování dat',
+      'Výroba optických konektorů a lisování pinů RJ-45',
+      'Směrování paketů na základě čísla autonomního systému',
+      'Napájení koncových zařízení přes ethernetový kabel'
+    ],
+    answer: 'Převod formátů dat, konverze kódování znaků (např. ASCII na UTF-8), komprese a šifrování dat',
+    solution: 'Prezentační vrstva zajišťuje, aby data byla pro aplikace na obou stranách srozumitelná bez ohledu na operační systém a hardware. Provádí formátování, převody kódování (ASCII, UTF-8), kompresi a šifrování.',
+    tags: ['ISO/OSI', 'Prezentační vrstva', 'L6']
+  },
+
+  // Subtopic: Model TCP/IP a enkapsulace
+  {
+    subject: 'Počítačové sítě',
+    topic: 'Síťové modely',
+    subtopic: 'Model TCP/IP a enkapsulace',
+    id: 'ps-modely-009',
+    type: 'number',
+    title: 'Počet vrstev modelu TCP/IP',
+    question: 'Kolik vrstev má základní síťový model TCP/IP vyvinutý původně v projektu ARPANET?',
+    answer: '4',
+    solution: 'Model TCP/IP má 4 vrstvy: 1. Vrstva síťového přístupu (Network Access), 2. Internetová vrstva (Internet), 3. Transportní vrstva (Transport), 4. Aplikační vrstva (Application).',
+    hint: 'O tři méně než ISO/OSI.',
+    tags: ['TCP/IP', 'Vrstvy']
+  },
+  {
+    subject: 'Počítačové sítě',
+    topic: 'Síťové modely',
+    subtopic: 'Model TCP/IP a enkapsulace',
+    id: 'ps-modely-010',
+    type: 'choice',
+    title: 'Vrstvy modelu TCP/IP',
+    question: 'Které vrstvy tvoří 4vrstvý model TCP/IP (od nejnižší k nejvyšší)?',
+    choices: [
+      'Síťový přístup, Internetová vrstva, Transportní vrstva, Aplikační vrstva',
+      'Fyzická vrstva, Linková vrstva, Síťová vrstva, Aplikační vrstva',
+      'Hardware, Software, Operační systém, Uživatel',
+      'Metalická vrstva, Optická vrstva, Wi-Fi vrstva, Satelitní vrstva'
+    ],
+    answer: 'Síťový přístup, Internetová vrstva, Transportní vrstva, Aplikační vrstva',
+    solution: 'Čtyři vrstvy TCP/IP jsou: Síťový přístup (Network Access Layer – odpovídá L1+L2 OSI), Internetová (Internet Layer – odpovídá L3 OSI), Transportní (Transport Layer – odpovídá L4 OSI) a Aplikační (Application Layer – odpovídá L5 až L7 OSI).',
+    tags: ['TCP/IP', 'Vrstvy']
+  },
+  {
+    subject: 'Počítačové sítě',
+    topic: 'Síťové modely',
+    subtopic: 'Model TCP/IP a enkapsulace',
+    id: 'ps-modely-011',
+    type: 'choice',
+    title: 'Princip enkapsulace dat',
+    question: 'Co je to enkapsulace (zapouzdření) dat při odesílání ze zařízení?',
+    choices: [
+      'Proces, při němž každá nižší vrstva obalí data z vyšší vrstvy svou vlastní řídicí hlavičkou (header) a předá je dál',
+      'Smazání nepotřebných dat z pevného disku pro zrychlení internetu',
+      'Zabalení ethernetového kabelu do ochranné plastové lišty na zdi',
+      'Odstranění všech IP adres z paketu před odesláním do sítě'
+    ],
+    answer: 'Proces, při němž každá nižší vrstva obalí data z vyšší vrstvy svou vlastní řídicí hlavičkou (header) a předá je dál',
+    solution: 'Při enkapsulaci postupují data od aplikační vrstvy dolů: transportní vrstva přidá hlavičku s porty (segment), internetová vrstva přidá IP hlavičku (paket), síťový přístup přidá MAC hlavičku a patičku FCS (rámec) a fyzická vrstva vyšle bity do média.',
+    tags: ['Enkapsulace', 'PDU']
+  },
+
+  // ============================================================
+  // TÉMA 5: Adresace a konfigurace
+  // ============================================================
+  {
+    subject: 'Počítačové sítě',
+    topic: 'Adresace a konfigurace',
+    subtopic: 'MAC adresa',
+    id: 'ps-adresace-001',
+    type: 'number',
+    title: 'Délka MAC adresy v bitech',
+    question: 'Kolik bitů má fyzická MAC adresa síťového adaptéru?',
+    answer: '48',
+    solution: 'Fyzická MAC adresa má délku přesně 48 bitů, což odpovídá 6 bajtům (oktetům).',
+    hint: '6 bajtů × 8 bitů.',
+    tags: ['MAC', 'Adresace', 'Bity']
+  },
+  {
+    subject: 'Počítačové sítě',
+    topic: 'Adresace a konfigurace',
+    subtopic: 'MAC adresa',
+    id: 'ps-adresace-002',
+    type: 'choice',
+    title: 'Zápis MAC adresy',
+    question: 'V jaké soustavě a formátu se MAC adresa standardně zapisuje?',
+    choices: [
+      'V šestnáctkové (hexadecimální) soustavě jako šestice dvojic znaků oddělených dvojtečkami nebo pomlčkami (např. 00:1A:2B:3C:4D:5E)',
+      'V desítkové soustavě jako čtyři čísla oddělená tečkami od 0 do 255',
+      'Ve dvojkové soustavě jako 48 jedniček a nul bez mezer',
+      'V textové podobě křestním jménem majitele počítače'
+    ],
+    answer: 'V šestnáctkové (hexadecimální) soustavě jako šestice dvojic znaků oddělených dvojtečkami nebo pomlčkami (např. 00:1A:2B:3C:4D:5E)',
+    solution: 'MAC adresa se zapisuje hexadecimálně (číslice 0-9 a písmena A-F). Skládá se ze 6 bajtů, každý bajt je zapsán 2 hexadecimálními znaky (např. `00:1A:2B:3C:4D:5E` nebo `00-1A-2B-3C-4D-5E`).',
+    tags: ['MAC', 'Hex']
+  },
+  {
+    subject: 'Počítačové sítě',
+    topic: 'Adresace a konfigurace',
+    subtopic: 'MAC adresa',
+    id: 'ps-adresace-003',
+    type: 'choice',
+    title: 'Části MAC adresy: OUI a NIC',
+    question: 'Z jakých dvou částí se skládá každá MAC adresa?',
+    choices: [
+      'Prvních 24 bitů je OUI (kód výrobce) a druhých 24 bitů je unikátní číslo zařízení (NIC specific) přidělené výrobcem',
+      'Prvních 16 bitů je stát a zbylých 32 bitů je telefonní číslo uživatele',
+      'Celých 48 bitů generuje náhodně operační systém při každém restartu',
+      'První polovina určuje rychlost v Mb/s a druhá polovina napájecí napětí'
+    ],
+    answer: 'Prvních 24 bitů je OUI (kód výrobce) a druhých 24 bitů je unikátní číslo zařízení (NIC specific) přidělené výrobcem',
+    solution: 'MAC adresa se dělí na 2 poloviny (po 24 bitech / 3 bajtech): OUI (Organizationally Unique Identifier) identifikuje výrobce síťové karty (např. Intel, Cisco, Realtek), zbývající část (NIC) je unikátní sériové číslo daného kusu.',
+    tags: ['MAC', 'OUI', 'NIC']
+  },
+  {
+    subject: 'Počítačové sítě',
+    topic: 'Adresace a konfigurace',
+    subtopic: 'MAC adresa',
+    id: 'ps-adresace-004',
+    type: 'fill',
+    title: 'Broadcastová MAC adresa',
+    question: 'Jak vypadá speciální broadcastová MAC adresa v šestnáctkovém zápisu s dvojtečkami (určená všem zařízením v lokální síti)?',
+    answer: 'FF:FF:FF:FF:FF:FF',
+    solution: 'Broadcastová MAC adresa má všech 48 bitů nastavených na logickou 1, což v hexadecimálním zápisu představuje `FF:FF:FF:FF:FF:FF`.',
+    hint: 'Šestkrát FF oddělených dvojtečkou.',
+    tags: ['MAC', 'Broadcast']
+  },
+
+  // Subtopic: IPv4 adresa a CIDR
+  {
+    subject: 'Počítačové sítě',
+    topic: 'Adresace a konfigurace',
+    subtopic: 'IPv4 adresa a CIDR',
+    id: 'ps-adresace-005',
+    type: 'number',
+    title: 'Délka IPv4 adresy v bitech',
+    question: 'Kolik bitů má standardní IP adresa protokolu IPv4?',
+    answer: '32',
+    solution: 'Adresa IPv4 má celkovou délku 32 bitů, což umožňuje adresovat teoreticky cca 4,3 miliardy zařízení (2^32).',
+    hint: '4 oktety × 8 bitů.',
+    tags: ['IPv4', 'Bity']
+  },
+  {
+    subject: 'Počítačové sítě',
+    topic: 'Adresace a konfigurace',
+    subtopic: 'IPv4 adresa a CIDR',
+    id: 'ps-adresace-006',
+    type: 'choice',
+    title: 'Složení IP adresy',
+    question: 'Z jakých dvou základních logických částí se skládá každá IP adresa?',
+    choices: [
+      'Z adresy sítě (Network ID) a adresy konkrétního hosta/zařízení v síti (Host ID)',
+      'Z křestního jména odesílatele a adresy bydliště příjemce',
+      'Ze sériového čísla procesoru a kapacity operační paměti RAM',
+      'Z názvu webové stránky a čísla bankovního účtu'
+    ],
+    answer: 'Z adresy sítě (Network ID) a adresy konkrétního hosta/zařízení v síti (Host ID)',
+    solution: 'Každá IP adresa se skládá z adresy sítě (identifikuje celou podsíť) a adresy hosta (identifikuje konkrétní rozhraní zařízení v této síti). Hranici mezi nimi určuje maska podsítě.',
+    tags: ['IPv4', 'Síť a host']
+  },
+  {
+    subject: 'Počítačové sítě',
+    topic: 'Adresace a konfigurace',
+    subtopic: 'IPv4 adresa a CIDR',
+    id: 'ps-adresace-007',
+    type: 'choice',
+    title: 'Význam notace CIDR',
+    question: 'Co udává číslo za lomítkem v zápisu sítě pomocí notace CIDR (např. /24 v 192.168.1.100/24)?',
+    choices: [
+      'Počet jedničkových bitů v masce podsítě zleva, které určují síťovou část adresy',
+      'Maximální povolený počet uživatelů na daném počítači',
+      'Přenosovou rychlost síťové karty v megabitech za sekundu',
+      'Číslo síťové zásuvky na zdi v kanceláři'
+    ],
+    answer: 'Počet jedničkových bitů v masce podsítě zleva, které určují síťovou část adresy',
+    solution: 'CIDR (Classless Inter-Domain Routing) nahradil staré třídy A, B, C. Prefix /24 znamená, že prvních 24 bitů z 32bitové IP adresy náleží síti (odpovídá dekadické masce 255.255.255.0) a zbylých 8 bitů zůstává pro adresování hostů.',
+    tags: ['CIDR', 'IPv4', 'Maska']
+  },
+  {
+    subject: 'Počítačové sítě',
+    topic: 'Adresace a konfigurace',
+    subtopic: 'IPv4 adresa a CIDR',
+    id: 'ps-adresace-008',
+    type: 'fill',
+    title: 'Maska pro prefix /24',
+    question: 'Jaká je dekadická podoba masky sítě se 4 oktety pro CIDR zápis /24?',
+    answer: '255.255.255.0',
+    solution: 'Prefix /24 znamená 24 jedniček a 8 nul v binárním zápisu: 11111111.11111111.11111111.00000000, což dekadicky odpovídá 255.255.255.0.',
+    hint: 'Tři oktety s hodnotou 255 a poslední s 0.',
+    tags: ['CIDR', 'Maska', 'Výpočet']
+  },
+  {
+    subject: 'Počítačové sítě',
+    topic: 'Adresace a konfigurace',
+    subtopic: 'IPv4 adresa a CIDR',
+    id: 'ps-adresace-009',
+    type: 'choice',
+    title: 'Rozsahy privátních IP adres',
+    question: 'Které tři rozsahy IPv4 adres jsou vyhrazeny pro privátní lokální sítě (nesměrují se do veřejného internetu)?',
+    choices: [
+      '10.0.0.0/8, 172.16.0.0/12 a 192.168.0.0/16',
+      '1.0.0.0/8, 8.8.8.0/24 a 100.0.0.0/16',
+      '200.0.0.0/8, 220.0.0.0/16 a 240.0.0.0/24',
+      '192.0.0.0/8, 193.0.0.0/8 a 194.0.0.0/8'
+    ],
+    answer: '10.0.0.0/8, 172.16.0.0/12 a 192.168.0.0/16',
+    solution: 'Dle RFC 1918 jsou pro privátní použití vyhrazeny tři rozsahy: 10.0.0.0 až 10.255.255.255 (třída A), 172.16.0.0 až 172.31.255.255 (třída B) a 192.168.0.0 až 192.168.255.255 (třída C).',
+    tags: ['IPv4', 'Privátní adresy']
+  },
+  {
+    subject: 'Počítačové sítě',
+    topic: 'Adresace a konfigurace',
+    subtopic: 'IPv4 adresa a CIDR',
+    id: 'ps-adresace-010',
+    type: 'fill',
+    title: 'Adresa zpětné smyčky (Loopback)',
+    question: 'Jaká je nejznámější IPv4 adresa lokální zpětné smyčky (Loopback / localhost), sloužící k testování síťového zásobníku na vlastním počítači?',
+    answer: '127.0.0.1',
+    solution: 'Adresa 127.0.0.1 (z bloku 127.0.0.0/8) reprezentuje loopback adaptér (localhost). Pakety poslané na tuto adresu neopouštějí zařízení a testují funkčnost TCP/IP zásobníku.',
+    hint: 'Začíná číslem 127.',
+    tags: ['IPv4', 'Loopback', 'Localhost']
+  },
+
+  // Subtopic: Výchozí brána a konfigurace
+  {
+    subject: 'Počítačové sítě',
+    topic: 'Adresace a konfigurace',
+    subtopic: 'Výchozí brána a konfigurace',
+    id: 'ps-adresace-011',
+    type: 'choice',
+    title: 'Role výchozí brány (Default Gateway)',
+    question: 'K čemu slouží výchozí brána (Default Gateway) v konfiguraci síťového adaptéru?',
+    choices: [
+      'Je to IP adresa lokálního routeru, kterému počítač předává pakety určené pro zařízení v jiných (vzdálených) sítích a internetu',
+      'Je to fyzická závora u vjezdu do areálu s optickými kabely',
+      'Je to heslo správce počítače vyžadované pro přístup na sociální sítě',
+      'Slouží výhradně k automatickému vypínání monitoru při nečinnosti'
+    ],
+    answer: 'Je to IP adresa lokálního routeru, kterému počítač předává pakety určené pro zařízení v jiných (vzdálených) sítích a internetu',
+    solution: 'Pokud počítač zjistí, že cíl leží mimo jeho lokální podsíť (jiný prefix), odešle rámec na MAC adresu výchozí brány (Default Gateway). Brána (router) pak paket přepošle dál podle svých směrovacích tabulek.',
+    tags: ['Brána', 'Gateway', 'Router']
+  },
+  {
+    subject: 'Počítačové sítě',
+    topic: 'Adresace a konfigurace',
+    subtopic: 'Výchozí brána a konfigurace',
+    id: 'ps-adresace-012',
+    type: 'fill',
+    title: 'Protokol pro automatické přidělování IP adres',
+    question: 'Jaký protokol zajišťuje automatickou (dynamickou) konfiguraci IP adresy, masky, brány a DNS serverů pro klientské stanice? (Zkratka)',
+    answer: 'DHCP',
+    solution: 'DHCP (Dynamic Host Configuration Protocol) automaticky zapůjčuje síťové parametry (IP, masku, bránu, DNS servery) připojeným zařízením z nastaveného fondu (poolu).',
+    hint: 'Čtyři písmena začínající na D (Dynamic Host...).',
+    tags: ['DHCP', 'Protokoly', 'Zkratky']
+  },
+
+  // Subtopic: Příkazy a diagnostika
+  {
+    subject: 'Počítačové sítě',
+    topic: 'Adresace a konfigurace',
+    subtopic: 'Příkazy a diagnostika',
+    id: 'ps-adresace-013',
+    type: 'fill',
+    title: 'Příkaz ipconfig ve Windows',
+    question: 'Který příkaz s přepínačem vypíše v příkazovém řádku Windows podrobné informace o IP konfiguraci všech adaptérů včetně MAC adresy?',
+    answer: 'ipconfig /all',
+    solution: 'Příkaz `ipconfig /all` vypíše kompletní konfiguraci síťových adaptérů v systému Windows: fyzickou MAC adresu, přidělenou IPv4 a IPv6 adresu, masku podsítě, výchozí bránu, DHCP a DNS servery.',
+    hint: 'ipconfig lomítko all.',
+    tags: ['CLI', 'Windows', 'ipconfig']
+  },
+  {
+    subject: 'Počítačové sítě',
+    topic: 'Adresace a konfigurace',
+    subtopic: 'Příkazy a diagnostika',
+    id: 'ps-adresace-014',
+    type: 'fill',
+    title: 'Příkaz getmac',
+    question: 'Jaký jednoúčelový příkaz v příkazovém řádku Windows slouží přímo k rychlému zjištění MAC adres fyzických síťových adaptérů?',
+    answer: 'getmac',
+    solution: 'Příkaz `getmac` ve Windows rychle zjistí a zobrazí fyzické (MAC) adresy všech instalovaných síťových adaptérů v počítači.',
+    hint: 'Složené ze slov get a mac.',
+    tags: ['CLI', 'Windows', 'getmac']
+  },
+  {
+    subject: 'Počítačové sítě',
+    topic: 'Adresace a konfigurace',
+    subtopic: 'Příkazy a diagnostika',
+    id: 'ps-adresace-015',
+    type: 'fill',
+    title: 'Diagnostický příkaz ping',
+    question: 'Který univerzální diagnostický příkaz odesílá ICMP Echo Request pakety k ověření dostupnosti cílového zařízení a měření odezvy (latence)?',
+    answer: 'ping',
+    solution: 'Nástroj `ping` (využívající protokol ICMP) zjišťuje, zda je cílová IP adresa či doména dostupná, a měří čas odezvy (RTT – Round Trip Time) v milisekundách.',
+    hint: 'Čtyři písmena, jako ping-pong.',
+    tags: ['CLI', 'Diagnostika', 'ping']
+  },
+  {
+    subject: 'Počítačové sítě',
+    topic: 'Adresace a konfigurace',
+    subtopic: 'Příkazy a diagnostika',
+    id: 'ps-adresace-016',
+    type: 'choice',
+    title: 'Zobrazení ARP tabulky (arp -a)',
+    question: 'Co dělá příkaz `arp -a` spuštěný v příkazovém řádku Windows nebo v terminálu Linuxu?',
+    choices: [
+      'Zobrazí obsah lokální ARP cache – tedy namapované IP adresy na odpovídající MAC adresy zařízení v lokální síti',
+      'Okamžitě zformátuje pevný disk a restartuje počítač',
+      'Změní MAC adresu síťové karty na náhodnou hodnotu',
+      'Otestuje rychlost stahování souborů z internetu v Mb/s'
+    ],
+    answer: 'Zobrazí obsah lokální ARP cache – tedy namapované IP adresy na odpovídající MAC adresy zařízení v lokální síti',
+    solution: 'Příkaz `arp -a` vypíše obsah vyrovnávací paměti protokolu ARP, kde jsou uloženy dvojice IP adresa a k ní příslušná MAC adresa nedávno komunikujících sousedních stanic.',
+    tags: ['CLI', 'ARP', 'Diagnostika']
+  },
+  {
+    subject: 'Počítačové sítě',
+    topic: 'Adresace a konfigurace',
+    subtopic: 'Příkazy a diagnostika',
+    id: 'ps-adresace-017',
+    type: 'choice',
+    title: 'PowerShell cmdlet pro sousedy v síti',
+    question: 'Který cmdlet se v prostředí Windows PowerShell používá k zobrazení sousedních zařízení v lokální síti a jejich MAC adres (obdoba ARP tabulky)?',
+    choices: [
+      'Get-NetNeighbor',
+      'Set-WiFiPassword',
+      'Remove-NetworkCable',
+      'Format-LocalSubnet'
+    ],
+    answer: 'Get-NetNeighbor',
+    solution: 'V PowerShellu slouží cmdlet `Get-NetNeighbor` k vypsání sousedních uzlů v síti ze směrovací/sousedské tabulky (pro IPv4 i IPv6).',
+    tags: ['PowerShell', 'Windows', 'Get-NetNeighbor']
+  }
+];
+
+console.log('Prepared part 3:', exercises.length);
+fs.writeFileSync('exercises_part3.json', JSON.stringify(exercises, null, 2), 'utf8');

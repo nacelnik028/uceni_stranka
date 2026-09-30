@@ -1,0 +1,582 @@
+[
+  {
+    "subject": "Počítačové sítě",
+    "topic": "Topologie a prvky sítí",
+    "subtopic": "Topologie sítí",
+    "id": "ps-topologie-001",
+    "type": "choice",
+    "title": "Sběrnicová topologie (Bus)",
+    "question": "Jak jsou uspořádána zařízení ve sběrnicové topologii (Bus)?",
+    "choices": [
+      "Zařízení jsou zapojena za sebou na jediné společné přenosové médium (sběrnici/kabel)",
+      "Každé zařízení je připojeno výhradně ke dvěma sousedům a tvoří uzavřený kruh",
+      "Všechna zařízení jsou připojena do centrálního přepínače (switche)",
+      "Zařízení komunikují výhradně prostřednictvím satelitu na oběžné dráze"
+    ],
+    "answer": "Zařízení jsou zapojena za sebou na jediné společné přenosové médium (sběrnici/kabel)",
+    "solution": "Ve sběrnicové topologii (Bus) jsou všechny počítače připojeny k jednomu hlavnímu přenosovému kabelu (sběrnici), na jehož koncích musí být zakončovací odpory (terminátory).",
+    "tags": [
+      "Topologie",
+      "Sběrnice",
+      "Bus"
+    ]
+  },
+  {
+    "subject": "Počítačové sítě",
+    "topic": "Topologie a prvky sítí",
+    "subtopic": "Topologie sítí",
+    "id": "ps-topologie-002",
+    "type": "choice",
+    "title": "Hvězdicová topologie (Star)",
+    "question": "Co je charakteristickým znakem hvězdicové topologie (Star Topology)?",
+    "choices": [
+      "Každé koncové zařízení je samostatným kabelem připojeno k centrálnímu síťovému prvku (např. switchi)",
+      "Všechna zařízení jsou zapojena za sebou v jedné přímé linii bez jakéhokoliv aktivního prvku",
+      "Data musí projít postupně všemi počítači v síti, než dorazí k cíli",
+      "Každé zařízení má právě tolik kabelů, kolik je v síti zásuvek"
+    ],
+    "answer": "Každé koncové zařízení je samostatným kabelem připojeno k centrálnímu síťovému prvku (např. switchi)",
+    "solution": "Hvězdicová topologie (Star) využívá centrální prvek (switch/hub), ke kterému vedou samostatné paprsky kabelů z jednotlivých stanic. Porucha jednoho kabelu vyřadí pouze jednu stanici.",
+    "tags": [
+      "Topologie",
+      "Hvězda",
+      "Star"
+    ]
+  },
+  {
+    "subject": "Počítačové sítě",
+    "topic": "Topologie a prvky sítí",
+    "subtopic": "Topologie sítí",
+    "id": "ps-topologie-003",
+    "type": "fill",
+    "title": "Slabina hvězdice – zkratka SPOF",
+    "question": "Jaká 4písmenná zkratka označuje kritickou slabinu hvězdicové topologie, kdy při poruše centrálního prvku zkolabuje celá síť (Single Point of Failure)?",
+    "answer": "SPOF",
+    "solution": "SPOF (Single Point of Failure – jediný bod selhání) znamená, že selhání centrálního prvku (např. centrálního switche) vyřadí z provozu celou připojenou síť.",
+    "hint": "Zkratka ze slov Single Point Of Failure.",
+    "tags": [
+      "Topologie",
+      "SPOF"
+    ]
+  },
+  {
+    "subject": "Počítačové sítě",
+    "topic": "Topologie a prvky sítí",
+    "subtopic": "Topologie sítí",
+    "id": "ps-topologie-004",
+    "type": "choice",
+    "title": "Stromová topologie (Tree)",
+    "question": "Co v počítačových sítích představuje stromová topologie (Tree Topology)?",
+    "choices": [
+      "Hierarchickou kombinaci – například jednotlivá patra budovy tvoří hvězdy propojené páteřní sběrnicí (backbone)",
+      "Síť složenou výhradně z bezdrátových senzorů umístěných v korunách stromů",
+      "Sběrnici, která nemá zakončovací terminátory a signál se volně šíří do vzduchu",
+      "Zapojení, kde každý uzel funguje pouze v noci"
+    ],
+    "answer": "Hierarchickou kombinaci – například jednotlivá patra budovy tvoří hvězdy propojené páteřní sběrnicí (backbone)",
+    "solution": "Stromová topologie (Tree) je hierarchická kombinace hvězdicových sítí propojených páteřní trasou (backbone). Je typická pro větší budovy, školy nebo firemní areály.",
+    "tags": [
+      "Topologie",
+      "Strom",
+      "Tree"
+    ]
+  },
+  {
+    "subject": "Počítačové sítě",
+    "topic": "Topologie a prvky sítí",
+    "subtopic": "Topologie sítí",
+    "id": "ps-topologie-005",
+    "type": "choice",
+    "title": "Plná MESH topologie (Full Mesh)",
+    "question": "Co je typické pro plnou síťovou topologii (Full Mesh)?",
+    "choices": [
+      "Každé zařízení je přímo propojeno s každým dalším zařízením v síti",
+      "Zařízení jsou propojena náhodně podle síly Wi-Fi signálu",
+      "Všechna data se posílají přes jediný sdílený koaxiální kabel s T-konektorem",
+      "Síť obsahuje pouze jediný kabel, který prochází všemi místnostmi dokola"
+    ],
+    "answer": "Každé zařízení je přímo propojeno s každým dalším zařízením v síti",
+    "solution": "V plné MESH topologii má každý uzel přímou linku ke všem ostatním uzlům. Poskytuje nejvyšší možnou odolnost proti výpadkům a redundanci, ale počet spojů roste kvadraticky.",
+    "tags": [
+      "Topologie",
+      "MESH"
+    ]
+  },
+  {
+    "subject": "Počítačové sítě",
+    "topic": "Topologie a prvky sítí",
+    "subtopic": "Topologie sítí",
+    "id": "ps-topologie-006",
+    "type": "number",
+    "title": "Výpočet spojení v plné MESH topologii",
+    "question": "Podle vzorce pro plnou MESH topologii n * (n - 1) / 2, kolik přímých fyzických propojení je potřeba pro síť s 6 uzly?",
+    "answer": "15",
+    "solution": "Pro n = 6 uzlů je počet spojení: 6 * (6 - 1) / 2 = 6 * 5 / 2 = 30 / 2 = 15 propojení.",
+    "hint": "Dosad do vzorce 6 * 5 / 2.",
+    "tags": [
+      "Topologie",
+      "MESH",
+      "Výpočet"
+    ]
+  },
+  {
+    "subject": "Počítačové sítě",
+    "topic": "Topologie a prvky sítí",
+    "subtopic": "Topologie sítí",
+    "id": "ps-topologie-007",
+    "type": "choice",
+    "title": "Využití MESH topologie v praxi",
+    "question": "Kde se dnes princip MESH topologie nejčastěji využívá v běžné praxi?",
+    "choices": [
+      "V bezdrátových Wi-Fi Mesh sítích (pokrytí velkých domů) a v páteřních sítích poskytovatelů internetu (ISP)",
+      "Výhradně v malých kancelářích se dvěma počítači a jednou tiskárnou",
+      "Pouze při připojení starých jehličkových tiskáren přes paralelní port LPT",
+      "U telefonních budek pro přenos mincí"
+    ],
+    "answer": "V bezdrátových Wi-Fi Mesh sítích (pokrytí velkých domů) a v páteřních sítích poskytovatelů internetu (ISP)",
+    "solution": "Mesh se v praxi používá v bezdrátových Wi-Fi Mesh systémech (propojené satelity v domech a firmách), v páteřních trasách ISP routerů i ve vojenských sítích odolných proti poškození.",
+    "tags": [
+      "Topologie",
+      "MESH",
+      "Praxe"
+    ]
+  },
+  {
+    "subject": "Počítačové sítě",
+    "topic": "Topologie a prvky sítí",
+    "subtopic": "Aktivní a pasivní prvky",
+    "id": "ps-topologie-008",
+    "type": "choice",
+    "title": "Rozdíl mezi aktivními a pasivními prvky",
+    "question": "Jaký je zásadní rozdíl mezi aktivními a pasivními síťovými prvky?",
+    "choices": [
+      "Aktivní prvky signál/data zpracovávají, upravují či směrují a potřebují napájení; pasivní prvky signál pouze přenášejí a napájení nepotřebují",
+      "Aktivní prvky jsou vždy kovové kabely, pasivní prvky jsou výhradně softwarové programy",
+      "Aktivní prvky fungují pouze v bezdrátových sítích, pasivní pouze v optických",
+      "Pasivní prvky generují elektrickou energii a napájejí celou síť"
+    ],
+    "answer": "Aktivní prvky signál/data zpracovávají, upravují či směrují a potřebují napájení; pasivní prvky signál pouze přenášejí a napájení nepotřebují",
+    "solution": "Aktivní prvky provádějí s daty/signálem aktivní činnost (zesílení, přepínání, směrování) a vyžadují napájení ze sítě. Pasivní prvky (kabely, konektory, zásuvky, patch panely) signál nijak nemění a napájení nepotřebují.",
+    "tags": [
+      "Síťové prvky",
+      "Aktivní",
+      "Pasivní"
+    ]
+  },
+  {
+    "subject": "Počítačové sítě",
+    "topic": "Topologie a prvky sítí",
+    "subtopic": "Aktivní a pasivní prvky",
+    "id": "ps-topologie-009",
+    "type": "choice",
+    "title": "Příklady aktivních prvků",
+    "question": "Která z následujících skupin obsahuje výhradně aktivní síťové prvky?",
+    "choices": [
+      "Switch (přepínač), Router (směrovač), Repeater (opakovač), Access Point",
+      "Datový kabel UTP, zásuvka RJ-45, patch panel a rozvaděč",
+      "Krimpovací kleště, šroubovák, plastový stahovací pásek a lišta",
+      "Pouze konektor RJ-45 a optická spojka"
+    ],
+    "answer": "Switch (přepínač), Router (směrovač), Repeater (opakovač), Access Point",
+    "solution": "Mezi aktivní prvky patří: přepínač (switch), směrovač (router), opakovač (repeater), rozbočovač (hub), přístupový bod (AP), most (bridge), brána (gateway) a optopřevodníky.",
+    "tags": [
+      "Síťové prvky",
+      "Aktivní prvky"
+    ]
+  },
+  {
+    "subject": "Počítačové sítě",
+    "topic": "Topologie a prvky sítí",
+    "subtopic": "Aktivní a pasivní prvky",
+    "id": "ps-topologie-010",
+    "type": "choice",
+    "title": "Příklady pasivních prvků",
+    "question": "Které komponenty patří mezi pasivní prvky počítačové sítě?",
+    "choices": [
+      "Kabely, konektory, spojky, patch panely, zásuvky a rackové rozvaděče",
+      "Routery, switche, Wi-Fi routery a síťové karty",
+      "Pouze operační systémy Windows a Linux",
+      "Výhradně webové prohlížeče a e-mailové klienty"
+    ],
+    "answer": "Kabely, konektory, spojky, patch panely, zásuvky a rackové rozvaděče",
+    "solution": "Pasivní prvky pouze zprostředkovávají fyzické propojení: TP/optické kabely, konektory (RJ-45, BNC), datové zásuvky, patch panely a rackové skříně.",
+    "tags": [
+      "Síťové prvky",
+      "Pasivní prvky"
+    ]
+  },
+  {
+    "subject": "Počítačové sítě",
+    "topic": "Topologie a prvky sítí",
+    "subtopic": "Aktivní a pasivní prvky",
+    "id": "ps-topologie-011",
+    "type": "fill",
+    "title": "Optopřevodník – modul SFP",
+    "question": "Jaká třípísmenná zkratka označuje kompaktní zásuvný modul (Small Form-factor Pluggable) sloužící jako optopřevodník mezi metalickým a optickým vedením?",
+    "answer": "SFP",
+    "solution": "SFP modul (Small Form-factor Pluggable) je zásuvný transceiver do switchů a routerů, který převádí elektrický signál na optický a naopak.",
+    "hint": "Zkratka ze slov Small Form-factor Pluggable.",
+    "tags": [
+      "Hardware",
+      "SFP",
+      "Optika"
+    ]
+  },
+  {
+    "subject": "Počítačové sítě",
+    "topic": "Topologie a prvky sítí",
+    "subtopic": "Aktivní a pasivní prvky",
+    "id": "ps-topologie-012",
+    "type": "choice",
+    "title": "Funkce patch panelu v racku",
+    "question": "K čemu v datovém rozvaděči (racku) slouží patch panel (propojovací panel)?",
+    "choices": [
+      "K přehlednému a pevnému zakončení strukturované kabeláže z celého objektu a snadnému přepojování portů do switche",
+      "K automatickému přidělování IP adres počítačům v síti",
+      "K filtrování virů a blokování nebezpečných webových stránek",
+      "K bezdrátovému vysílání Wi-Fi signálu s vysokým ziskem"
+    ],
+    "answer": "K přehlednému a pevnému zakončení strukturované kabeláže z celého objektu a snadnému přepojování portů do switche",
+    "solution": "Patch panel je pasivní prvek instalovaný do 19\" racku. Ze zadní strany jsou napevno zařezány kabely ze zásuvek v budově, zepředu se pomocí krátkých patch cordů propojují do portů switche.",
+    "tags": [
+      "Hardware",
+      "Patch panel"
+    ]
+  },
+  {
+    "subject": "Počítačové sítě",
+    "topic": "Přenosová média a kabeláž",
+    "subtopic": "Kroucená dvojlinka",
+    "id": "ps-media-001",
+    "type": "choice",
+    "title": "Význam zkratky UTP",
+    "question": "Co přesně znamená zkratka UTP u ethernetového síťového kabelu?",
+    "choices": [
+      "Unshielded Twisted Pair – nestíněná kroucená dvojlinka",
+      "Universal Transmission Protocol – univerzální přenosový protokol",
+      "Ultra Turbo Protection – kabel se zvýšenou pancéřovou ochranou",
+      "Unified Telecommunication Port – sjednocený komunikační port"
+    ],
+    "answer": "Unshielded Twisted Pair – nestíněná kroucená dvojlinka",
+    "solution": "UTP (Unshielded Twisted Pair) je nestíněná kroucená dvojlinka. Nemá žádné kovové stínění, je lehká a ohebná a hodí se do prostředí bez silného elektromagnetického rušení.",
+    "tags": [
+      "Kabeláž",
+      "UTP",
+      "Zkratky"
+    ]
+  },
+  {
+    "subject": "Počítačové sítě",
+    "topic": "Přenosová média a kabeláž",
+    "subtopic": "Kroucená dvojlinka",
+    "id": "ps-media-002",
+    "type": "choice",
+    "title": "Konstrukce kabelu FTP",
+    "question": "Jak je konstruován FTP (Foiled Twisted Pair) kabel?",
+    "choices": [
+      "Celý svazek všech 4 párů pod vnějším pláštěm je obalen jednou společnou hliníkovou fólií",
+      "Každý jednotlivý vodič má vlastní ocelové opancéřování",
+      "Kabel nemá žádnou izolaci a vodiče jsou volně uloženy ve vzduchu",
+      "Kabel je vyroben z jednoho silného měděného drátu bez kroucení"
+    ],
+    "answer": "Celý svazek všech 4 párů pod vnějším pláštěm je obalen jednou společnou hliníkovou fólií",
+    "solution": "FTP (Foiled Twisted Pair) kabel má pod vnějším pláštěm společné stínění fólií kolem všech párů dohromady, což zvyšuje odolnost proti vnějšímu rušení.",
+    "tags": [
+      "Kabeláž",
+      "FTP"
+    ]
+  },
+  {
+    "subject": "Počítačové sítě",
+    "topic": "Přenosová média a kabeláž",
+    "subtopic": "Kroucená dvojlinka",
+    "id": "ps-media-003",
+    "type": "choice",
+    "title": "Konstrukce kabelu STP",
+    "question": "V čem se kabel STP (Shielded Twisted Pair) liší od UTP a FTP?",
+    "choices": [
+      "Každý jednotlivý kroucený pár vodičů má své vlastní stínění (fólií či opletením)",
+      "Má pouze 2 vodiče místo obvyklých osmi",
+      "Je určen výhradně pro napájení 230 V bez přenosu dat",
+      "Kabel je naplněn gelem pro ochranu před mrazem, ale stínění nemá"
+    ],
+    "answer": "Každý jednotlivý kroucený pár vodičů má své vlastní stínění (fólií či opletením)",
+    "solution": "STP (Shielded Twisted Pair) kabel má stíněný každý jednotlivý pár (případně i celý kabel). Nabízí maximální odolnost proti přeslechům a rušení, je však tužší a dražší.",
+    "tags": [
+      "Kabeláž",
+      "STP"
+    ]
+  },
+  {
+    "subject": "Počítačové sítě",
+    "topic": "Přenosová média a kabeláž",
+    "subtopic": "Kroucená dvojlinka",
+    "id": "ps-media-004",
+    "type": "number",
+    "title": "Počet vodičů v TP kabelu",
+    "question": "Kolik jednotlivých izolovaných vodičů (tvořících 4 kroucené páry) se nachází ve standardním síťovém TP kabelu?",
+    "answer": "8",
+    "solution": "Standardní síťový kabel s kroucenou dvojlinkou obsahuje celkem 8 vodičů sdružených do 4 párů (zelený, oranžový, modrý a hnědý pár).",
+    "hint": "Čtyři páry vodičů, tj. 4 × 2.",
+    "tags": [
+      "Kabeláž",
+      "TP",
+      "Struktura"
+    ]
+  },
+  {
+    "subject": "Počítačové sítě",
+    "topic": "Přenosová média a kabeláž",
+    "subtopic": "Kroucená dvojlinka",
+    "id": "ps-media-005",
+    "type": "choice",
+    "title": "Proč jsou vodiče v TP kabelu kroucené?",
+    "question": "Z jakého fyzikálního důvodu jsou vodiče v párech kroucené (Twisted Pair)?",
+    "choices": [
+      "Kroucení vodičů eliminuje elektromagnetické přeslechy mezi páry a tlumí vliv vnějšího rušení",
+      "Kroucení slouží pouze tomu, aby byl kabel pružnější a dal se lépe vázat do uzlu",
+      "Kroucení zpomaluje elektrony, aby nedošlo k přehřátí síťové karty",
+      "Jde o čistě estetický prvek bez jakéhokoliv technického významu"
+    ],
+    "answer": "Kroucení vodičů eliminuje elektromagnetické přeslechy mezi páry a tlumí vliv vnějšího rušení",
+    "solution": "Kroucením vodičů s definovaným stoupáním se dosahuje vzájemného vyrušení indukovaného elektromagnetického šumu v obou vodičích páru (diferenciální signál), což chrání přenášená data.",
+    "tags": [
+      "Kabeláž",
+      "Kroucení",
+      "Fyzika"
+    ]
+  },
+  {
+    "subject": "Počítačové sítě",
+    "topic": "Přenosová média a kabeláž",
+    "subtopic": "Zapojení RJ-45 a patch cordy",
+    "id": "ps-media-006",
+    "type": "fill",
+    "title": "Označení 8pinového síťového konektoru",
+    "question": "Jaké typové označení má 8pinový modulární konektor (zástrčka) běžně používaný na koncích síťových TP kabelů?",
+    "answer": "RJ-45",
+    "solution": "RJ-45 (Registered Jack 45) je standardizovaný 8pinový konektor pro kroucenou dvojlinku v Ethernetu.",
+    "hint": "RJ pomlčka číslo.",
+    "tags": [
+      "Kabeláž",
+      "RJ-45"
+    ]
+  },
+  {
+    "subject": "Počítačové sítě",
+    "topic": "Přenosová média a kabeláž",
+    "subtopic": "Zapojení RJ-45 a patch cordy",
+    "id": "ps-media-007",
+    "type": "choice",
+    "title": "Barevné standardy T-568A a T-568B",
+    "question": "Která norma a dva barevné standardy definují pořadí vodičů při krimpování konektoru RJ-45?",
+    "choices": [
+      "Norma ANSI/TIA-568 a standardy T-568A a T-568B",
+      "Norma ISO-9001 a standardy USB-A a USB-C",
+      "Norma IEEE 802.11 a standardy 2.4 GHz a 5 GHz",
+      "Norma HTML5 a standardy UTF-8 a ASCII"
+    ],
+    "answer": "Norma ANSI/TIA-568 a standardy T-568A a T-568B",
+    "solution": "Standardy T-568A a T-568B jsou definovány telekomunikační normou ANSI/TIA-568. V celé instalaci objektu je nutné dodržet jednotně jeden z těchto standardů.",
+    "tags": [
+      "Kabeláž",
+      "TIA-568",
+      "RJ-45"
+    ]
+  },
+  {
+    "subject": "Počítačové sítě",
+    "topic": "Přenosová média a kabeláž",
+    "subtopic": "Zapojení RJ-45 a patch cordy",
+    "id": "ps-media-008",
+    "type": "choice",
+    "title": "Pořadí barev standardu T-568B",
+    "question": "Jaké je správné pořadí barev vodičů od pinu 1 po pin 8 podle nejrozšířenějšího standardu T-568B?",
+    "choices": [
+      "1. bílo-oranžová, 2. oranžová, 3. bílo-zelená, 4. modrá, 5. bílo-modrá, 6. zelená, 7. bílo-hnědá, 8. hnědá",
+      "1. bílo-zelená, 2. zelená, 3. bílo-oranžová, 4. modrá, 5. bílo-modrá, 6. oranžová, 7. bílo-hnědá, 8. hnědá",
+      "1. černá, 2. červená, 3. modrá, 4. žlutá, 5. zelená, 6. šedá, 7. bílá, 8. hnědá",
+      "1. hnědá, 2. bílo-hnědá, 3. modrá, 4. bílo-modrá, 5. zelená, 6. bílo-zelená, 7. oranžová, 8. bílo-oranžová"
+    ],
+    "answer": "1. bílo-oranžová, 2. oranžová, 3. bílo-zelená, 4. modrá, 5. bílo-modrá, 6. zelená, 7. bílo-hnědá, 8. hnědá",
+    "solution": "Standard T-568B začíná oranžovým párem: bílo-oranžová, oranžová, bílo-zelená, modrá, bílo-modrá, zelená, bílo-hnědá, hnědá. U T-568A je na začátku zelený pár.",
+    "tags": [
+      "Kabeláž",
+      "T-568B",
+      "Barvy"
+    ]
+  },
+  {
+    "subject": "Počítačové sítě",
+    "topic": "Přenosová média a kabeláž",
+    "subtopic": "Zapojení RJ-45 a patch cordy",
+    "id": "ps-media-009",
+    "type": "choice",
+    "title": "Rozdíl mezi přímým a kříženým kabelem",
+    "question": "V čem se konstrukčně liší přímý kabel (straight-through) a křížený kabel (crossover patch cord)?",
+    "choices": [
+      "Přímý kabel má na obou koncích stejný standard (např. T-568B na obou), křížený má na jednom konci T-568A a na druhém T-568B",
+      "Přímý kabel je rovný, křížený se smí vést pouze za roh",
+      "Přímý kabel přenáší pouze nuly, křížený kabel přenáší pouze jedničky",
+      "Přímý kabel má konektory RJ-45, křížený má konektory USB-C"
+    ],
+    "answer": "Přímý kabel má na obou koncích stejný standard (např. T-568B na obou), křížený má na jednom konci T-568A a na druhém T-568B",
+    "solution": "Přímý patch cord má oba konce zapojené identicky (např. T-568B na obou stranách). Křížený kabel má na jednom konci T-568A a na druhém T-568B (prohazují se vysílací a přijímací páry pro přímé propojení dvou PC bez switche).",
+    "tags": [
+      "Kabeláž",
+      "Patch cord",
+      "Crossover"
+    ]
+  },
+  {
+    "subject": "Počítačové sítě",
+    "topic": "Přenosová média a kabeláž",
+    "subtopic": "Koaxiální a optické kabely",
+    "id": "ps-media-010",
+    "type": "fill",
+    "title": "Konektor pro koaxiální kabel",
+    "question": "Jaký typ konektoru s bajonetovým otočným mechanismem se používal k zakončení tenkého koaxiálního ethernetového kabelu?",
+    "answer": "BNC",
+    "solution": "BNC (Bayonet Neill–Concelman) konektor je bajonetový konektor používaný u koaxiálních kabelů (např. v historickém standardu 10BASE2).",
+    "hint": "Tři písmena začínající na B.",
+    "tags": [
+      "Koaxiál",
+      "BNC",
+      "Konektory"
+    ]
+  },
+  {
+    "subject": "Počítačové sítě",
+    "topic": "Přenosová média a kabeláž",
+    "subtopic": "Koaxiální a optické kabely",
+    "id": "ps-media-011",
+    "type": "choice",
+    "title": "Vlastnosti optických kabelů",
+    "question": "Které vlastnosti charakterizují optické datové kabely?",
+    "choices": [
+      "Přenos dat světlem ve skleněném/plastovém jádře, obrovské přenosové rychlosti (Gb/s až Tb/s) a naprostá imunita vůči elektromagnetickému rušení",
+      "Přenos dat pomocí střídavého proudu 50 Hz po hliníkovém drátu s velkým elektrickým odporem",
+      "Vysoká náchylnost k rušení bleskem a rádiovým vysíláním",
+      "Neschopnost přenášet data na vzdálenost delší než 5 metrů"
+    ],
+    "answer": "Přenos dat světlem ve skleněném/plastovém jádře, obrovské přenosové rychlosti (Gb/s až Tb/s) a naprostá imunita vůči elektromagnetickému rušení",
+    "solution": "Optické kabely využívají totální odraz světla ve skleněném či plastovém vlákně. Nabízejí extrémní šířku pásma, dosah desítek kilometrů a jsou absolutně netečné k elektromagnetickému rušení.",
+    "tags": [
+      "Optika",
+      "Vlákna"
+    ]
+  },
+  {
+    "subject": "Počítačové sítě",
+    "topic": "Přenosová média a kabeláž",
+    "subtopic": "Koaxiální a optické kabely",
+    "id": "ps-media-012",
+    "type": "choice",
+    "title": "Optická vana (ODF)",
+    "question": "Co je to optická vana (ODF – Optical Distribution Frame)?",
+    "choices": [
+      "Pasivní rackové zařízení určené k bezpečnému uložení, ukončení a organizaci optických vláken a svarů",
+      "Nádoba s chladicí kapalinou, do které se ponořují servery",
+      "Speciální software pro zálohování souborů do cloudu",
+      "Označení pro vnější plastový plášť venkovního koaxiálního kabelu"
+    ],
+    "answer": "Pasivní rackové zařízení určené k bezpečnému uložení, ukončení a organizaci optických vláken a svarů",
+    "solution": "Optická vana (též optický patch panel či ODF) slouží k ukončení optických kabelů v racku, ochraně křehkých svárů vláken a vyvedení optických spojek pro připojení optických patch cordů.",
+    "tags": [
+      "Optika",
+      "ODF",
+      "Optická vana"
+    ]
+  },
+  {
+    "subject": "Počítačové sítě",
+    "topic": "Přenosová média a kabeláž",
+    "subtopic": "Koaxiální a optické kabely",
+    "id": "ps-media-013",
+    "type": "fill",
+    "title": "Sdělovací kabel SYKFY",
+    "question": "Jaké typové označení má telekomunikační sdělovací kabel s měděnými plnými vodiči a PVC pláštěm zmíněný v materiálu (např. pro domovní telefony a zabezpečovací systémy)?",
+    "answer": "SYKFY",
+    "solution": "Kabel SYKFY je tradiční vnitřní telekomunikační sdělovací kabel s měděnými vodiči, používaný pro pevnou telefonii, interkomy a EZS rozvody.",
+    "hint": "Pět písmen začínajících na S a končících na Y.",
+    "tags": [
+      "Kabeláž",
+      "SYKFY"
+    ]
+  },
+  {
+    "subject": "Počítačové sítě",
+    "topic": "Přenosová média a kabeláž",
+    "subtopic": "PoE technologie",
+    "id": "ps-media-014",
+    "type": "fill",
+    "title": "Co znamená zkratka PoE",
+    "question": "Napiš anglický název technologie, kterou označuje zkratka PoE (napájení zařízení po datovém ethernetovém kabelu).",
+    "answer": "Power over Ethernet",
+    "solution": "PoE znamená Power over Ethernet – technologie umožňující přenášet elektrickou energii spolu s daty po jednom TP kabelu.",
+    "hint": "Power ... Ethernet.",
+    "tags": [
+      "PoE",
+      "Zkratky"
+    ]
+  },
+  {
+    "subject": "Počítačové sítě",
+    "topic": "Přenosová média a kabeláž",
+    "subtopic": "PoE technologie",
+    "id": "ps-media-015",
+    "type": "choice",
+    "title": "Komponenty PoE: PSE a PD",
+    "question": "Co v systému PoE označují pojmy PSE a PD?",
+    "choices": [
+      "PSE je zdroj napájení (např. PoE switch či injektor); PD je napájené koncové zařízení (např. IP kamera či VoIP telefon)",
+      "PSE je přenosný software; PD je pevný disk v počítači",
+      "PSE je přístupové heslo k Wi-Fi; PD je personální oddělení",
+      "PSE je optický kabel; PD je koaxiální redukce"
+    ],
+    "answer": "PSE je zdroj napájení (např. PoE switch či injektor); PD je napájené koncové zařízení (např. IP kamera či VoIP telefon)",
+    "solution": "PSE (Power Sourcing Equipment) poskytuje napájení (PoE switch, PoE midspan injektor). PD (Powered Device) je spotřebič napájený z kabelu (kamera, Wi-Fi AP, VoIP telefon).",
+    "tags": [
+      "PoE",
+      "PSE",
+      "PD"
+    ]
+  },
+  {
+    "subject": "Počítačové sítě",
+    "topic": "Přenosová média a kabeláž",
+    "subtopic": "PoE technologie",
+    "id": "ps-media-016",
+    "type": "fill",
+    "title": "Standard PoE IEEE 802.3af",
+    "question": "Jaké číselné označení má původní standard IEEE pro PoE (výkon do 15,4 W na portu)? Zapiš včetně tečky a písmen (např. 802.3xx).",
+    "answer": "802.3af",
+    "solution": "Standard IEEE 802.3af definoval základní PoE s napětím cca 48 V a maximálním výkonem 15,4 W na portu zdroje (cca 12,95 W u zařízení).",
+    "hint": "Začíná 802.3 a končí dvěma písmeny na a.",
+    "tags": [
+      "PoE",
+      "Standardy"
+    ]
+  },
+  {
+    "subject": "Počítačové sítě",
+    "topic": "Přenosová média a kabeláž",
+    "subtopic": "PoE technologie",
+    "id": "ps-media-017",
+    "type": "choice",
+    "title": "PoE u Gigabit Ethernetu",
+    "question": "Jakým způsobem se přenáší napájení PoE u Gigabit Ethernetu (1000BASE-T)?",
+    "choices": [
+      "Přes všechny 4 páry současně společně s daty (fantomové napájení), protože všechny páry se využívají i pro data",
+      "Pouze po jednom zemnicím plášti, data jsou zcela odpojena",
+      "Napájení se posílá bezdrátově vzduchem kolem konektoru",
+      "U Gigabit Ethernetu není technologie PoE fyzikálně možná"
+    ],
+    "answer": "Přes všechny 4 páry současně společně s daty (fantomové napájení), protože všechny páry se využívají i pro data",
+    "solution": "U 10/100 Mbps Ethernetu lze využít volné páry (4-5 a 7-8), ale u 1000BASE-T (Gigabit) přenášejí data všechny 4 páry, takže napájení probíhá přes středové odbočky transformátorů po všech párech současně.",
+    "tags": [
+      "PoE",
+      "Gigabit"
+    ]
+  }
+]
