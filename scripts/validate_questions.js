@@ -151,6 +151,13 @@ for (const e of all) {
     errors.push(`${prefix}: tags musí být pole`);
   }
 
+  if (typeof e.difficulty !== 'undefined') {
+    const difficulty = Number(e.difficulty);
+    if (!Number.isInteger(difficulty) || difficulty < 1 || difficulty > 5) {
+      errors.push(`${prefix}: difficulty musí být celé číslo 1–5`);
+    }
+  }
+
   if (!String(e.hint ?? '').trim()) warningCounts.noHint += 1;
   if (!Array.isArray(e.tags) || e.tags.length === 0) warningCounts.noTags += 1;
 }

@@ -47,3 +47,10 @@ Aktivní otázky jsou v `data/*.js`. Zdrojové materiály nejsou načítané př
 Ve vstupním ZIPu byly pracovní soubory a staré kořenové kopie smíchané s runtime. Tyto soubory jsou zachované, ale oddělené od aktivního webu, aby náhodou nefungovaly jako druhá kopie projektu.
 
 Identické kopie stejného `.canvas` souboru byly deduplikovány na jednu kanonickou kopii s bezpečným názvem.
+
+
+## Runtime funkce
+
+`app.js` obsahuje také kombinované filtry včetně obtížnosti, dva režimy (`Učení` a `Test`), lokální statistiku dokončené sady a generátor nových úloh pro Číslicovou techniku. Generované úlohy jsou pouze runtime data a neukládají se do zdrojových `data/*.js`.
+
+Lokální statistiky používají `localStorage` a jsou oddělené od serveru i GitHub Pages.

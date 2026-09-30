@@ -220,6 +220,45 @@ Zkontroluj alespoň:
 7. `×` v řadicích úlohách – odstraní konkrétní vybranou položku a znovu ji zpřístupní v paletě.
 8. Mobilní šířky 320, 375 a 390 px bez horizontálního přetečení.
 
+## Režimy procvičování a nové funkce
+
+Aplikace je určená pro sdílení více lidmi. Osobní výsledky proto nejsou spojeny s účtem ani posílány na server.
+
+### Filtry
+
+V režimu procvičování lze kombinovat:
+
+- předmět,
+- téma,
+- podtéma,
+- typ úlohy,
+- obtížnost 1–5.
+
+Úlohy z existujících dat bez explicitního `difficulty` dostanou při načtení automaticky odvozenou obtížnost. Pokud je `difficulty` uvedeno přímo v datu, musí být celé číslo 1–5.
+
+### Učení vs. Test
+
+**Učení** vyhodnocuje jednotlivé odpovědi ihned a dovoluje zobrazit řešení.
+
+**Test** schová nápovědy a řešení, průběžně neukazuje správnost a odpovědi pouze zaznamenává. Výsledek se zobrazí po tlačítku **Dokončit test**. U kódových úloh je potřeba program před dokončením spustit, aby ho bylo možné zahrnout do výsledku.
+
+### Generované úlohy
+
+V předmětu **Číslicová technika** lze tlačítkem **Generovat nové příklady** vytvořit nové varianty zejména pro převody soustav a Hornerovo schéma. Tyto úlohy jsou vytvořené pouze v runtime pro aktuální relaci, nepřepisují zdrojová data a mají označení `generováno`.
+
+Generování respektuje vybranou obtížnost, pokud je filtr nastavený konkrétně. Nové příklady se zapojují do aktuálního poolu a mohou být součástí běžné náhodné sady.
+
+### Lokální statistika konkrétní sady
+
+Po dokončení celé sady se zobrazí:
+
+- celkové skóre z hodnotitelných úloh,
+- počet zodpovězených úloh,
+- počet otevřených `text` self-checků,
+- rozpad výsledku podle témat.
+
+Výsledky posledních sad se ukládají pouze do `localStorage` v konkrétním prohlížeči. Server, GitHub Pages ani ostatní návštěvníci k nim nemají přístup. Aplikace nevyžaduje přihlášení.
+
 ## Přidávání nových předmětů
 
 Pro nový předmět vytvoř vlastní runtime soubor v `data/`, přidej jeho `<script>` do `index.html` **před `app.js`** a přidej odpovídající globální pole do `state.exercises` v `app.js`.

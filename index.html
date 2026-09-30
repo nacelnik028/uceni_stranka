@@ -102,6 +102,17 @@
     .conversion-direction sub{font-family:var(--mono);font-size:.8em;color:var(--muted);margin-left:-7px}
     .conversion-direction span{color:var(--accent);font-size:1.25em}
     .conversion-direction strong{font-weight:500;color:var(--muted)}
+    .mode-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:14px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--panel2)}
+    .mode-label{color:var(--muted);font-size:14px;font-weight:500;margin-right:2px}.mode-group{display:flex;gap:4px;padding:3px;border-radius:10px;background:var(--code);border:1px solid var(--line)}
+    .mode-button{min-height:40px;padding:7px 12px;background:transparent;border-color:transparent}.mode-button.active{background:var(--accent);color:var(--ink);border-color:var(--accent);font-weight:600}.mode-button:hover{background:#1b2431}.mode-button.active:hover{background:#8ac6ff}
+    .mode-hint{color:var(--muted);font-size:13px;line-height:1.45;flex:1 1 320px}
+    .difficulty-tag{font-weight:500}.difficulty-1{border-color:#3f6655;color:#8fd8b2}.difficulty-2{border-color:#415b6f;color:#9fc7e8}.difficulty-3{border-color:#6b5e32;color:#e1c778}.difficulty-4{border-color:#704739;color:#f0a98c}.difficulty-5{border-color:#703b4a;color:#ff9fb0}
+    .test-mode details:has(> .hint),.test-mode .solution-box{display:none}.test-mode .exercise{border-color:#314158}
+    .set-stats{margin:18px 0 4px;padding:18px;border:1px solid var(--line2);border-radius:14px;background:linear-gradient(180deg,var(--panel),var(--panel2))}
+    .set-stats-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}.set-stats-head h3{margin:2px 0 0;font:600 36px/1 var(--mono);letter-spacing:-.03em}.set-stats-head p{margin:8px 0 0;color:var(--muted);font-size:14px}.eyebrow{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+    .set-stats-mode{display:inline-flex;align-items:center;min-height:34px;padding:5px 10px;border-radius:999px;border:1px solid var(--line2);color:var(--muted);font-size:12px}
+    .stats-topic-list{display:grid;gap:7px;margin-top:16px}.stats-topic-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 12px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--code)}.stats-topic-row span{font-weight:500}.stats-topic-row strong{font:600 13px var(--mono);align-self:center}.stats-topic-row small{grid-column:1/-1;color:var(--muted);font-size:12px}.stats-local-note{margin-top:12px;color:var(--muted);font-size:12px}
+    @media (max-width:760px){.mode-bar{display:grid;grid-template-columns:1fr;align-items:stretch}.mode-group{display:grid;grid-template-columns:1fr 1fr}.mode-button{width:100%;min-height:44px}.mode-hint{font-size:12px}.set-stats{padding:14px}.set-stats-head{align-items:flex-start}.set-stats-head h3{font-size:30px}.stats-topic-row{grid-template-columns:1fr}.stats-topic-row strong{grid-row:2;justify-self:start}.stats-topic-row small{grid-row:3}}
     @media (max-width:760px){.match-row{grid-template-columns:1fr}.order-palette{display:grid;grid-template-columns:1fr 1fr}.order-pick{width:100%}}
     /* Mobilní rozvržení: cílově pohodlné ovládání prstem a bez horizontálního přetékání. */
     @media (max-width:760px){
@@ -215,6 +226,17 @@
             <select id="filterTopic" aria-label="Téma"><option value="all">Všechna témata</option></select>
             <select id="filterSubtopic" aria-label="Podtéma"><option value="all">Všechna podtémata</option></select>
             <select id="filterType" aria-label="Typ úlohy"><option value="all">Všechny typy</option><option value="choice">Výběr</option><option value="multi">Více správných</option><option value="match">Párování</option><option value="order">Řazení</option><option value="text">Textová odpověď</option><option value="code">Kód</option><option value="fill">Doplňování</option><option value="number">Výpočet</option><option value="conversion">Převod soustavy</option></select>
+            <select id="filterDifficulty" aria-label="Obtížnost"><option value="all">Všechny obtížnosti</option><option value="1">1 · Velmi lehká</option><option value="2">2 · Lehká</option><option value="3">3 · Střední</option><option value="4">4 · Těžká</option><option value="5">5 · Velmi těžká</option></select>
+          </div>
+          <div class="mode-bar no-print">
+            <span class="mode-label">Režim</span>
+            <div class="mode-group" role="group" aria-label="Režim procvičování">
+              <button type="button" id="modeLearn" class="mode-button active">📘 Učení</button>
+              <button type="button" id="modeTest" class="mode-button">📝 Test</button>
+            </div>
+            <span id="modeHint" class="mode-hint">Učení: odpověď se vyhodnotí hned a řešení můžeš zobrazit.</span>
+            <button type="button" id="generateTasks" class="hidden">✨ Generovat nové příklady</button>
+            <button type="button" id="finishTest" class="primary hidden">✓ Dokončit test</button>
           </div>
           <div class="pool-bar">
             <label for="sessionSize">Velikost nové sady</label>
@@ -241,6 +263,6 @@
   <script src="data/network_exercises.js?v=2"></script>
   <script src="data/literature_exercises.js?v=3"></script>
   <script src="data/cislicova_technika_exercises.js?v=2"></script>
-  <script src="app.js?v=19"></script>
+  <script src="app.js?v=21"></script>
 </body>
 </html>

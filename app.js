@@ -12,6 +12,12 @@ const state = {
   pyodideLoading: null,
   sessionIds: [],
   sessionKey: '',
+  mode: 'learn',
+  generatedExercises: [],
+  generatedCounter: 0,
+  results: {},
+  codeResults: {},
+  currentStats: null,
 };
 
 const $ = (id) => document.getElementById(id);
@@ -23,6 +29,29 @@ function normalizePersonalityAnswer(value) {
     .replace(/\s+/gu, ' ')
     .trim()
     .toLocaleLowerCase('cs-CZ');
+}
+
+const DIFFICULTY_LABELS = {
+  1: 'Velmi lehká',
+  2: 'Lehká',
+  3: 'Střední',
+  4: 'Těžká',
+  5: 'Velmi těžká',
+};
+
+function inferDifficulty(e) {
+  if (Number.isInteger(Number(e.difficulty))) return Math.min(5, Math.max(1, Number(e.difficulty)));
+  if (e.type === 'code') return 4;
+  if (e.type === 'conversion' || e.type === 'number') return e.topic === 'Hornerovo schéma' ? 4 : 3;
+  if (e.topic === 'Hornerovo schéma') return e.type === 'order' ? 4 : 3;
+  if (e.type === 'match' && Array.isArray(e.pairs) && e.pairs.length >= 5) return 3;
+  if (e.type === 'order') return 3;
+  if (e.type === 'multi') return 3;
+  return 2;
+}
+
+function difficultyText(value) {
+  return DIFFICULTY_LABELS[Number(value)] || 'Neuvedená';
 }
 
 
@@ -76,6 +105,24 @@ function toast(message) {
   window.__toast = setTimeout(() => { el.style.display = 'none'; }, 2800);
 }
 
+function getStorage() {
+  try {
+    if (window.localStorage) return window.localStorage;
+  } catch {
+    // Soukromý režim / blokované storage: použijeme paměť jen pro tuto stránku.
+  }
+  if (!window.__procvicovnaMemoryStorage) {
+    const store = {};
+    window.__procvicovnaMemoryStorage = {
+      getItem: key => Object.prototype.hasOwnProperty.call(store, key) ? store[key] : null,
+      setItem: (key, value) => { store[key] = String(value); },
+      removeItem: key => { delete store[key]; },
+      clear: () => { Object.keys(store).forEach(key => delete store[key]); },
+    };
+  }
+  return window.__procvicovnaMemoryStorage;
+}
+
 function normalizeExercises(list) {
   return list.map((e, i) => ({
     id: e.id || `e${i + 1}`,
@@ -100,6 +147,8 @@ function normalizeExercises(list) {
     value: e.value ?? '',
     fromBase: e.fromBase ?? null,
     toBase: e.toBase ?? null,
+    difficulty: inferDifficulty(e),
+    generated: e.generated === true,
   }));
 }
 
@@ -224,14 +273,20 @@ function openHome() {
 }
 
 function renderHeader() {
-  const subjects = unique(state.exercises.map(e => e.subject));
+  const catalog = allCatalogExercises();
+  const subjects = unique(catalog.map(e => e.subject));
   const selectedSubject = $('filterSubject').value || 'all';
-  const subjectItems = bySubject(state.exercises, selectedSubject);
+  const subjectItems = bySubject(catalog, selectedSubject);
   const topics = unique(subjectItems.map(e => e.topic));
   const selectedTopic = $('filterTopic').value || 'all';
   const topicItems = selectedTopic === 'all' ? subjectItems : subjectItems.filter(e => e.topic === selectedTopic);
   const subtopics = unique(topicItems.map(e => e.subtopic));
   const selectedSubtopic = $('filterSubtopic').value || 'all';
+  const active = subjectItems.filter(e =>
+    (selectedTopic === 'all' || e.topic === selectedTopic) &&
+    (selectedSubtopic === 'all' || e.subtopic === selectedSubtopic)
+  );
+  const activeTopics = unique(active.map(e => e.topic));
 
   if (selectedSubject !== 'all' && selectedTopic !== 'all') {
     $('exerciseTitle').textContent = `${selectedSubject} – ${selectedTopic}`;
@@ -240,12 +295,6 @@ function renderHeader() {
   } else {
     $('exerciseTitle').textContent = window.EXERCISE_SET_TITLE || 'Procvičování';
   }
-  const active = state.exercises.filter(e =>
-    (selectedSubject === 'all' || e.subject === selectedSubject) &&
-    (selectedTopic === 'all' || e.topic === selectedTopic) &&
-    (selectedSubtopic === 'all' || e.subtopic === selectedSubtopic)
-  );
-  const activeTopics = unique(active.map(e => e.topic));
   $('exerciseMeta').textContent = `${active.length} ${active.length === 1 ? 'úloha' : 'úloh'}${activeTopics.length ? ' · ' + activeTopics.join(', ') : ''}`;
   $('crumbSubject').textContent = selectedSubject === 'all' ? 'Všechny předměty' : selectedSubject;
   $('crumbTopic').textContent = selectedTopic === 'all' ? 'Všechna témata' : selectedTopic;
@@ -257,7 +306,25 @@ function renderHeader() {
   setOptions($('filterSubject'), 'Všechny předměty', subjects, selectedSubject);
   setOptions($('filterTopic'), 'Všechna témata', topics, selectedTopic);
   setOptions($('filterSubtopic'), 'Všechna podtémata', subtopics, selectedSubtopic);
+
+  const generatedVisible = canGenerateDigitalTasks();
+  $('generateTasks').classList.toggle('hidden', !generatedVisible);
 }
+
+function allCatalogExercises() {
+  return [...state.exercises, ...state.generatedExercises];
+}
+
+function canGenerateDigitalTasks() {
+  const subject = $('filterSubject')?.value || 'all';
+  const type = $('filterType')?.value || 'all';
+  return subject === 'Číslicová technika' && ['all', 'conversion', 'number'].includes(type);
+}
+
+function baseCatalogExercises() {
+  return allCatalogExercises();
+}
+
 function solutionBlock(e) {
   const part = (label, html) => `<div class="sol-label">${label}</div>${html}`;
   const parts = [];
@@ -301,7 +368,7 @@ function renderExercise(e, index) {
           </label>`).join('')}
       </div>
       <div class="row" style="margin-top:12px">
-        <button data-action="check-choice" data-id="${id}">Zkontrolovat</button>
+        <button data-action="check-choice" data-id="${id}">${state.mode === 'test' ? 'Zaznamenat odpověď' : 'Zkontrolovat'}</button>
       </div>
       <div class="output" data-out="${id}">Vyber odpověď a zkontroluj.</div>`;
   } else if (e.type === 'multi') {
@@ -314,7 +381,7 @@ function renderExercise(e, index) {
           </label>`).join('')}
       </div>
       <div class="row" style="margin-top:12px">
-        <button data-action="check-multi" data-id="${id}">Zkontrolovat výběr</button>
+        <button data-action="check-multi" data-id="${id}">${state.mode === 'test' ? 'Zaznamenat odpověď' : 'Zkontrolovat výběr'}</button>
       </div>
       <div class="output" data-out="${id}">Vyber všechny správné možnosti.</div>`;
   } else if (e.type === 'match') {
@@ -331,7 +398,7 @@ function renderExercise(e, index) {
           </div>`).join('')}
       </div>
       <div class="row" style="margin-top:12px">
-        <button data-action="check-match" data-id="${id}">Zkontrolovat přiřazení</button>
+        <button data-action="check-match" data-id="${id}">${state.mode === 'test' ? 'Zaznamenat odpověď' : 'Zkontrolovat přiřazení'}</button>
       </div>
       <div class="output" data-out="${id}">Přiřaď všechny dvojice.</div>`;
   } else if (e.type === 'order') {
@@ -345,7 +412,7 @@ function renderExercise(e, index) {
         </div>
       </div>
       <div class="row" style="margin-top:12px">
-        <button data-action="check-order" data-id="${id}">Zkontrolovat pořadí</button>
+        <button data-action="check-order" data-id="${id}">${state.mode === 'test' ? 'Zaznamenat odpověď' : 'Zkontrolovat pořadí'}</button>
         <button data-action="reset-order" data-id="${id}">Začít znovu</button>
       </div>
       <div class="output" data-out="${id}">Seřaď všechny položky.</div>`;
@@ -359,7 +426,7 @@ function renderExercise(e, index) {
         <input id="answer-${id}" class="answer-input conversion-input" data-answer="${id}" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Např. 101101 nebo 2A…" />
       </div>
       <div class="row" style="margin-top:10px">
-        <button data-action="check-conversion" data-id="${id}">Zkontrolovat převod</button>
+        <button data-action="check-conversion" data-id="${id}">${state.mode === 'test' ? 'Zaznamenat odpověď' : 'Zkontrolovat převod'}</button>
       </div>
       <div class="output" data-out="${id}">Zapiš výsledek převodu.</div>`;
   } else if (e.type === 'code') {
@@ -374,7 +441,7 @@ function renderExercise(e, index) {
     inner = `
       <input class="answer-input" data-answer="${id}" placeholder="${e.type === 'number' ? 'Napiš číslo…' : 'Doplň odpověď…'}" />
       <div class="row" style="margin-top:10px">
-        <button data-action="check-short" data-id="${id}">Zkontrolovat</button>
+        <button data-action="check-short" data-id="${id}">${state.mode === 'test' ? 'Zaznamenat odpověď' : 'Zkontrolovat'}</button>
       </div>
       <div class="output" data-out="${id}">Napiš odpověď a zkontroluj.</div>`;
   } else {
@@ -382,7 +449,7 @@ function renderExercise(e, index) {
     inner = `
       <textarea class="answer-input" data-answer="${id}" placeholder="Napiš svoji odpověď…"></textarea>
       <div class="row" style="margin-top:10px">
-        <button data-action="${isPersonality ? 'check-personality' : 'show-self-check'}" data-id="${id}">${isPersonality ? 'Zkontrolovat' : 'Zkontrolovat odpověď'}</button>
+        <button data-action="${isPersonality ? 'check-personality' : 'show-self-check'}" data-id="${id}">${state.mode === 'test' ? 'Zaznamenat odpověď' : (isPersonality ? 'Zkontrolovat' : 'Zkontrolovat odpověď')}</button>
       </div>
       <div class="output" data-out="${id}">${isPersonality ? 'Napiš odpověď a zkontroluj.' : 'Řešení je zatím skryté.'}</div>`;
   }
@@ -393,7 +460,8 @@ function renderExercise(e, index) {
 
   const category = [e.subject, e.topic, e.subtopic].filter(Boolean);
   const extraTags = e.tags.map(t => `<span class="tag">${esc(t)}</span>`).join('');
-  const tags = extraTags ? `<div class="tags">${extraTags}</div>` : '';
+  const difficultyTag = `<span class="tag difficulty-tag difficulty-${Number(e.difficulty)}">${esc(difficultyText(e.difficulty))}</span>`;
+  const tags = `<div class="tags">${difficultyTag}${extraTags}</div>`;
 
   const typeLabels = {choice:'Výběr', multi:'Více správných', match:'Párování', order:'Řazení', text:'Text', code:'Kód', fill:'Doplňování', number:'Výpočet', conversion:'Převod soustavy'};
   return `<article class="exercise" data-type="${esc(e.type)}">
@@ -428,6 +496,7 @@ function currentFilterKey() {
     $('filterTopic').value || 'all',
     $('filterSubtopic').value || 'all',
     $('filterType').value || 'all',
+    $('filterDifficulty').value || 'all',
   ].join('|');
 }
 
@@ -436,11 +505,13 @@ function baseFilteredExercises() {
   const filterTopic = $('filterTopic').value;
   const filterSubtopic = $('filterSubtopic').value;
   const filter = $('filterType').value;
-  return state.exercises.filter(e =>
+  const difficulty = $('filterDifficulty').value;
+  return baseCatalogExercises().filter(e =>
     (filterSubject === 'all' || e.subject === filterSubject) &&
     (filterTopic === 'all' || e.topic === filterTopic) &&
     (filterSubtopic === 'all' || e.subtopic === filterSubtopic) &&
-    (filter === 'all' || e.type === filter)
+    (filter === 'all' || e.type === filter) &&
+    (difficulty === 'all' || String(e.difficulty) === String(difficulty))
   );
 }
 
@@ -450,7 +521,7 @@ function historyKey() {
 
 function getHistory() {
   try {
-    return JSON.parse(localStorage.getItem(historyKey()) || '[]');
+    return JSON.parse(getStorage().getItem(historyKey()) || '[]');
   } catch {
     return [];
   }
@@ -460,9 +531,9 @@ function saveHistory(ids) {
   try {
     const previous = getHistory();
     const merged = [...ids, ...previous.filter(id => !ids.includes(id))].slice(0, 60);
-    localStorage.setItem(historyKey(), JSON.stringify(merged));
+    getStorage().setItem(historyKey(), JSON.stringify(merged));
   } catch {
-    // localStorage nemusí být k dispozici; randomizace bude fungovat i bez něj.
+    // Storage nemusí být k dispozici; randomizace bude fungovat i bez něj.
   }
 }
 
@@ -471,6 +542,8 @@ function createSession(forceNew = false) {
   if (!pool.length) {
     state.sessionIds = [];
     state.sessionKey = currentFilterKey();
+    state.results = {};
+    state.currentStats = null;
     return;
   }
 
@@ -487,6 +560,9 @@ function createSession(forceNew = false) {
 
   state.sessionIds = shuffle(selected.map(e => e.id));
   state.sessionKey = key;
+  state.results = {};
+  state.codeResults = {};
+  state.currentStats = null;
   saveHistory(state.sessionIds);
 }
 
@@ -514,6 +590,292 @@ function shuffledChoices(e) {
   return shuffled;
 }
 
+function toBaseString(value, base) {
+  return Number(value).toString(base).toUpperCase();
+}
+
+function digitValue(ch) {
+  const n = parseInt(ch, 36);
+  return Number.isFinite(n) ? n : 0;
+}
+
+function buildHornerSolution(value, base) {
+  const digits = String(value).toUpperCase();
+  let acc = 0;
+  const lines = [`Hodnocení čísla ${digits} v základu ${base}:`];
+  for (const ch of digits) {
+    const d = digitValue(ch);
+    acc = acc * base + d;
+    lines.push(`(${lines.length === 1 ? '0' : 'předchozí výsledek'}) × ${base} + ${d} = ${acc}`);
+  }
+  return lines.join('\n');
+}
+
+function randomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function generatedCtExercise() {
+  const selectedTopic = $('filterTopic').value || 'all';
+  const chosenDifficulty = $('filterDifficulty').value === 'all' ? null : Number($('filterDifficulty').value);
+  const level = chosenDifficulty || randomInt(2, 4);
+  const selectedType = $('filterType').value || 'all';
+  let mode = randomInt(0, 5);
+  if (selectedType === 'number' || selectedTopic === 'Hornerovo schéma') mode = 6;
+  if (selectedTopic === 'Převod z dekadické soustavy') mode = [0, 4, 5][randomInt(0, 2)];
+  if (selectedTopic === 'Konverze mezi soustavami') mode = randomInt(0, 5);
+  if (selectedTopic === 'Číselné soustavy') mode = randomInt(0, 5);
+
+  const id = `ct-gen-${Date.now().toString(36)}-${state.generatedCounter++}`;
+  let exercise;
+  if (mode === 6) {
+    const baseChoices = level >= 4 ? [2, 8, 16] : [2, 8];
+    const base = baseChoices[randomInt(0, baseChoices.length - 1)];
+    const len = level <= 2 ? 3 : 4;
+    const max = base ** len - 1;
+    const value = randomInt(base ** (len - 1), max);
+    const representation = toBaseString(value, base);
+    const decimalDigits = [...representation].map(digitValue).join(', ');
+    exercise = {
+      subject: 'Číslicová technika', topic: 'Hornerovo schéma', subtopic: 'Výpočet hodnoty', id, type: 'number',
+      title: 'Generovaný výpočet pomocí Hornerova schématu',
+      question: `Vypočítej dekadickou hodnotu čísla ${representation} v základu ${base}.`,
+      answer: String(value),
+      solution: `${representation}₍${base}₎ = ${decimalDigits} jako číslice zleva doprava.\n${buildHornerSolution(representation, base)}\nVýsledek: ${value}₁₀.`,
+      hint: 'Použij Hornerovo schéma: postupně násob předchozí výsledek základem a přičti další číslici.',
+      tags: ['generováno', 'Hornerovo schéma'], difficulty: level, generated: true
+    };
+  } else {
+    const pairs = [
+      [10, 2], [2, 10], [10, 16], [16, 10], [8, 10], [10, 8]
+    ];
+    const [fromBase, toBase] = pairs[mode];
+    let decimal;
+    if (fromBase === 10) decimal = randomInt(level <= 2 ? 8 : 12, level >= 4 ? 511 : 255);
+    else if (fromBase === 2) decimal = randomInt(8, level >= 4 ? 511 : 255);
+    else if (fromBase === 8) decimal = randomInt(8, 255);
+    else decimal = randomInt(16, level >= 4 ? 511 : 255);
+    const value = toBaseString(decimal, fromBase);
+    const answer = toBaseString(decimal, toBase);
+    const subtopics = {
+      '2': 'Do dvojkové soustavy', '8': 'Do osmičkové soustavy', '10': 'Do dekadické soustavy', '16': 'Do šestnáctkové soustavy'
+    };
+    exercise = {
+      subject: 'Číslicová technika', topic: 'Konverze mezi soustavami', subtopic: subtopics[String(toBase)] || 'Praktické převody',
+      id, type: 'conversion', title: 'Generovaný převod mezi soustavami',
+      question: `Převeď číslo ${value} z ${fromBase} soustavy do ${toBase} soustavy.`,
+      value, fromBase, toBase, answer,
+      solution: `${value}₍${fromBase}₎ = ${answer}₍${toBase}₎. Výsledek můžeš ověřit opačným převodem nebo Hornerovým schématem.`,
+      hint: fromBase === 10 && toBase === 2 ? 'Děl číslo opakovaně dvěma a zbytky čti odzadu.' : 'Nejprve si ujasni základ původní i cílové soustavy.',
+      tags: ['generováno', 'převod'], difficulty: level, generated: true
+    };
+  }
+  return normalizeExercises([exercise])[0];
+}
+
+function generateDigitalExercises(count = 6) {
+  if (!canGenerateDigitalTasks()) {
+    toast('Generované úlohy jsou dostupné v Číslicové technice při filtru Výpočtu nebo Převodu soustavy.');
+    return;
+  }
+  state.generatedExercises = [];
+  const existing = new Set(baseFilteredExercises().map(e => `${e.type}|${e.question}`));
+  for (let i = 0; i < count; i++) {
+    let candidate;
+    let attempts = 0;
+    do { candidate = generatedCtExercise(); attempts += 1; }
+    while (existing.has(`${candidate.type}|${candidate.question}`) && attempts < 20);
+    existing.add(`${candidate.type}|${candidate.question}`);
+    state.generatedExercises.push(candidate);
+  }
+  state.sessionIds = [];
+  state.sessionKey = '';
+  state.results = {};
+  state.codeResults = {};
+  state.currentStats = null;
+  createSession(true);
+  renderExercises();
+  toast(`Vygenerováno ${state.generatedExercises.length} nových příkladů.`);
+}
+
+function currentSessionMap() {
+  return new Map(allCatalogExercises().map(e => [String(e.id), e]));
+}
+
+function currentSessionElements() {
+  const map = currentSessionMap();
+  return state.sessionIds.map(id => map.get(String(id))).filter(Boolean);
+}
+
+function readExerciseResponse(e) {
+  const id = CSS.escape(e.id);
+  if (e.type === 'choice') {
+    const selected = document.querySelector(`input[name="choice-${id}"]:checked`)?.value;
+    return { answered: Boolean(selected), correct: Boolean(selected) && String(selected).trim() === String(e.answer).trim(), graded: true };
+  }
+  if (e.type === 'multi') {
+    const selected = [...document.querySelectorAll(`input[name="multi-${id}"]:checked`)].map(i => String(i.value).trim()).sort();
+    const expected = (e.answers || []).map(v => String(v).trim()).sort();
+    return { answered: selected.length > 0, correct: selected.length === expected.length && expected.every((v, i) => v === selected[i]), graded: true };
+  }
+  if (e.type === 'match') {
+    const selects = [...document.querySelectorAll(`[data-match-exercise="${id}"]`)];
+    const expectedMap = new Map((e.pairs || []).map(pair => [String(pair.left), String(pair.right)]));
+    const answered = selects.length === expectedMap.size && selects.every(s => Boolean(s.value));
+    const correct = answered && selects.every(s => expectedMap.get(s.dataset.matchLeft) === s.value) && new Set(selects.map(s => s.value)).size === expectedMap.size;
+    return { answered, correct, graded: true };
+  }
+  if (e.type === 'order') {
+    const wrap = document.querySelector(`[data-order-wrap="${id}"]`);
+    const picked = wrap ? [...wrap.querySelectorAll('.order-chip')].map(c => c.dataset.orderValue) : [];
+    const expected = (e.order || []).map(v => String(v));
+    return { answered: picked.length > 0, correct: picked.length === expected.length && expected.every((v, i) => v === picked[i]), graded: true };
+  }
+  if (e.type === 'conversion') {
+    const answer = document.querySelector(`[data-answer="${id}"]`)?.value?.trim() || '';
+    const normalize = value => String(value ?? '').replace(/\s+/gu, '').toUpperCase();
+    return { answered: Boolean(answer), correct: Boolean(answer) && normalize(answer) === normalize(e.answer), graded: true };
+  }
+  if (e.type === 'code') {
+    const result = state.codeResults[e.id];
+    return result || { answered: false, correct: false, graded: true };
+  }
+  const answer = document.querySelector(`[data-answer="${id}"]`)?.value?.trim() || '';
+  if (e.type === 'text') return { answered: Boolean(answer), correct: null, graded: false };
+  const expected = String(e.answer ?? '').trim();
+  const numeric = e.type === 'number' && answer !== '' && expected !== '' && Number(answer.replace(',', '.')) === Number(expected.replace(',', '.'));
+  const correct = e.type === 'number' ? numeric : answer.toLowerCase() === expected.toLowerCase();
+  return { answered: Boolean(answer), correct, graded: true };
+}
+
+function clearCurrentStats() {
+  state.currentStats = null;
+  $('statsPanel')?.remove();
+}
+
+function recordExerciseResult(e, result) {
+  state.results[e.id] = { ...result, timestamp: Date.now() };
+  clearCurrentStats();
+  if (state.mode === 'learn') maybeAutoCompleteSet();
+}
+
+function renderNeutralFeedback(out, answered = true) {
+  if (!out) return;
+  out.className = 'output';
+  out.textContent = answered ? '✓ Odpověď zaznamenána. Výsledek uvidíš až po dokončení sady.' : 'Odpověď zatím není vyplněná.';
+}
+
+function maybeAutoCompleteSet() {
+  const session = currentSessionElements();
+  if (!session.length) return;
+  const complete = session.every(e => state.results[e.id]?.answered);
+  if (complete) completeCurrentSet();
+}
+
+function buildSetStats() {
+  const session = currentSessionElements();
+  const rows = session.map(e => ({ exercise: e, result: state.results[e.id] || readExerciseResponse(e) }));
+  const graded = rows.filter(r => r.result.graded);
+  const correct = graded.filter(r => r.result.correct).length;
+  const answered = rows.filter(r => r.result.answered).length;
+  const selfChecks = rows.filter(r => !r.result.graded && r.result.answered).length;
+  const byTopic = {};
+  for (const row of rows) {
+    const topic = row.exercise.topic || 'Bez tématu';
+    (byTopic[topic] ||= { total: 0, graded: 0, correct: 0, answered: 0, selfChecks: 0 });
+    byTopic[topic].total += 1;
+    if (row.result.answered) byTopic[topic].answered += 1;
+    if (row.result.graded) { byTopic[topic].graded += 1; if (row.result.correct) byTopic[topic].correct += 1; }
+    else if (row.result.answered) byTopic[topic].selfChecks += 1;
+  }
+  return {
+    createdAt: new Date().toISOString(),
+    mode: state.mode,
+    total: rows.length, answered, graded: graded.length, correct,
+    percent: graded.length ? Math.round((correct / graded.length) * 100) : null,
+    selfChecks,
+    byTopic,
+    filter: {
+      subject: $('filterSubject').value, topic: $('filterTopic').value, subtopic: $('filterSubtopic').value, type: $('filterType').value, difficulty: $('filterDifficulty').value
+    }
+  };
+}
+
+function saveLocalSetStats(stats) {
+  try {
+    const key = 'procvicovna-set-stats:v1';
+    const storage = getStorage();
+    const old = JSON.parse(storage.getItem(key) || '[]');
+    storage.setItem(key, JSON.stringify([stats, ...old].slice(0, 20)));
+  } catch {
+    // Statistika zůstává funkční i bez storage API.
+  }
+}
+
+function renderStatsPanel(stats) {
+  $('statsPanel')?.remove();
+  const topics = Object.entries(stats.byTopic);
+  const score = stats.percent == null ? '—' : `${stats.percent} %`;
+  const topicRows = topics.map(([topic, s]) => {
+    const pct = s.graded ? `${Math.round((s.correct / s.graded) * 100)} %` : '—';
+    const self = s.selfChecks ? ` · ${s.selfChecks} self-check` : '';
+    return `<div class="stats-topic-row"><span>${esc(topic)}</span><strong>${s.correct}/${s.graded} · ${pct}</strong><small>${s.answered}/${s.total} zodpovězeno${self}</small></div>`;
+  }).join('');
+  const panel = document.createElement('section');
+  panel.id = 'statsPanel';
+  panel.className = 'set-stats';
+  panel.innerHTML = `
+    <div class="set-stats-head"><div><span class="eyebrow">Výsledek sady</span><h3>${score}</h3><p>${stats.correct} z ${stats.graded} hodnocených úloh správně · ${stats.answered}/${stats.total} zodpovězeno${stats.selfChecks ? ` · ${stats.selfChecks} otevřený self-check` : ''}</p></div><span class="set-stats-mode">${stats.mode === 'test' ? 'Test' : 'Učení'}</span></div>
+    <div class="stats-topic-list">${topicRows || '<div class="small">Tato sada nemá hodnotitelné úlohy.</div>'}</div>
+    <div class="stats-local-note">📱 Statistika této sady se ukládá pouze lokálně v tomto prohlížeči.</div>`;
+  $('exercises').appendChild(panel);
+}
+
+function completeCurrentSet() {
+  const stats = buildSetStats();
+  state.currentStats = stats;
+  saveLocalSetStats(stats);
+  renderStatsPanel(stats);
+}
+
+function finishCurrentTest() {
+  const session = currentSessionElements();
+  if (!session.length) return;
+  state.results = {};
+  for (const e of session) {
+    state.results[e.id] = { ...readExerciseResponse(e), timestamp: Date.now() };
+  }
+  completeCurrentSet();
+  toast('Sada byla vyhodnocena.');
+  window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+}
+
+function setStudyMode(mode) {
+  const next = mode === 'test' ? 'test' : 'learn';
+  if (state.mode === next) return;
+  state.mode = next;
+  state.answerVisible = false;
+  state.results = {};
+  state.codeResults = {};
+  state.currentStats = null;
+  renderExercises();
+  updateModeUI();
+}
+
+function updateModeUI() {
+  const isTest = state.mode === 'test';
+  $('studyView').classList.toggle('test-mode', isTest);
+  $('modeLearn').classList.toggle('active', !isTest);
+  $('modeTest').classList.toggle('active', isTest);
+  $('modeHint').textContent = isTest
+    ? 'Test: průběžná správnost se neukazuje, výsledek dostaneš až po dokončení.'
+    : 'Učení: odpověď se vyhodnotí hned a řešení můžeš zobrazit.';
+  $('finishTest').classList.toggle('hidden', !isTest);
+  $('showAnswers').classList.toggle('hidden', isTest);
+  $('hideAnswers').classList.toggle('hidden', isTest);
+  $('generateTasks').classList.toggle('hidden', !canGenerateDigitalTasks());
+}
+
 function renderExercises() {
   activeExerciseElement = null;
   renderHeader();
@@ -531,7 +893,8 @@ function renderExercises() {
 
   const filtered = sessionExercises();
 
-  $('poolInfo').textContent = `Pool: ${pool.length} úloh · tato sada: ${filtered.length} · při nové sadě se otázky znovu promíchají.`;
+  const generatedCount = filtered.filter(e => e.generated).length;
+  $('poolInfo').textContent = `Pool: ${pool.length} úloh${generatedCount ? ` · z toho ${generatedCount} generovaných v této sadě` : ''} · tato sada: ${filtered.length} · ${state.mode === 'test' ? 'výsledek až po dokončení.' : 'průběžná kontrola je zapnutá.'}`;
 
   // Upozornění Osobnosti se generuje při každém renderu modulu, takže se neztratí po návratu.
   const isPersonalityModule = pool.length > 0 && pool.every(e => e.topic === 'Osobnosti');
@@ -541,6 +904,8 @@ function renderExercises() {
 
   $('exercises').innerHTML = personalityNotice + filtered.map((e, i) => renderExercise(e, i)).join('');
   attachExerciseEvents();
+  if (state.currentStats) renderStatsPanel(state.currentStats);
+  updateModeUI();
 }
 
 function findExercise(id) {
@@ -558,6 +923,9 @@ function attachExerciseEvents() {
       if (button.dataset.action === 'clear-code') {
         const textarea = document.querySelector(`[data-code="${CSS.escape(id)}"]`);
         if (textarea) textarea.value = e.starterCode || '';
+        delete state.codeResults[e.id];
+        delete state.results[e.id];
+        clearCurrentStats();
         return;
       }
 
@@ -567,6 +935,8 @@ function attachExerciseEvents() {
         const expected = String(e.answer ?? '').trim();
         const normalize = (value) => String(value ?? '').replace(/\s+/gu, '').toUpperCase();
         const correct = answer !== '' && normalize(answer) === normalize(expected);
+        recordExerciseResult(e, { answered: answer !== '', correct, graded: true });
+        if (state.mode === 'test') { renderNeutralFeedback(out, answer !== ''); return; }
         out.className = `output ${correct ? 'ok' : 'bad'}`;
         out.textContent = correct
           ? '✓ Správně. Převod sedí.'
@@ -595,6 +965,8 @@ Správná odpověď: ${expected}`;
         if (!out) return;
         const expected = String(e.answer ?? '');
         const correct = normalizePersonalityAnswer(answer) === normalizePersonalityAnswer(expected);
+        recordExerciseResult(e, { answered: answer.trim() !== '', correct, graded: true });
+        if (state.mode === 'test') { renderNeutralFeedback(out, answer.trim() !== ''); return; }
         out.className = `output ${correct ? 'ok' : 'bad'}`;
         out.textContent = correct
           ? '✓ Správně.'
@@ -605,6 +977,8 @@ Správná odpověď: ${expected}`;
       if (button.dataset.action === 'show-self-check') {
         const answer = document.querySelector(`[data-answer="${CSS.escape(id)}"]`)?.value?.trim() || '';
         if (!out) return;
+        recordExerciseResult(e, { answered: answer !== '', correct: null, graded: false });
+        if (state.mode === 'test') { renderNeutralFeedback(out, answer !== ''); return; }
         out.className = 'output';
         out.textContent = `Tvoje odpověď: ${answer || '(prázdná)'}\n\nŘešení: ${e.answer || 'Řešení není uvedeno.'}`;
         return;
@@ -616,6 +990,8 @@ Správná odpověď: ${expected}`;
         const expected = (e.answers || []).map(v => String(v).trim()).sort();
         const actual = [...selected].sort();
         const correct = expected.length === actual.length && expected.every((value, i) => value === actual[i]);
+        recordExerciseResult(e, { answered: selected.length > 0, correct, graded: true });
+        if (state.mode === 'test') { renderNeutralFeedback(out, selected.length > 0); return; }
         out.className = `output ${correct ? 'ok' : 'bad'}`;
         out.textContent = correct
           ? '✓ Správně – vybral/a jsi všechny správné možnosti.'
@@ -634,6 +1010,8 @@ Správná odpověď: ${expected}`;
           return;
         }
         const correct = fallbackSelects.every(select => expectedMap.get(select.dataset.matchLeft) === select.value) && new Set(fallbackSelects.map(select => select.value)).size === expectedMap.size;
+        recordExerciseResult(e, { answered: fallbackSelects.length === expectedMap.size && fallbackSelects.every(select => Boolean(select.value)), correct, graded: true });
+        if (state.mode === 'test') { renderNeutralFeedback(out, fallbackSelects.every(select => Boolean(select.value))); return; }
         out.className = `output ${correct ? 'ok' : 'bad'}`;
         out.textContent = correct ? '✓ Všechna přiřazení jsou správně.' : '✗ Některé přiřazení nesedí. Zkus je znovu projít.';
         return;
@@ -645,6 +1023,8 @@ Správná odpověď: ${expected}`;
         const picked = wrap ? [...wrap.querySelectorAll('.order-chip')].map(chip => chip.dataset.orderValue) : [];
         const expected = (e.order || []).map(v => String(v));
         const correct = picked.length === expected.length && expected.every((value, i) => value === picked[i]);
+        recordExerciseResult(e, { answered: picked.length > 0, correct, graded: true });
+        if (state.mode === 'test') { renderNeutralFeedback(out, picked.length > 0); return; }
         out.className = `output ${correct ? 'ok' : 'bad'}`;
         out.textContent = correct ? '✓ Pořadí je správně.' : `✗ Pořadí nesedí. Aktuálně máš ${picked.length} z ${expected.length} položek.`;
         return;
@@ -656,13 +1036,17 @@ Správná odpověď: ${expected}`;
         wrap.querySelector('[data-order-selected]')?.replaceChildren(Object.assign(document.createElement('span'), { className: 'order-empty', textContent: 'Zatím nic nevybráno.' }));
         wrap.querySelectorAll('.order-pick').forEach(btn => btn.classList.remove('used'));
         if (out) { out.className = 'output'; out.textContent = 'Seřaď všechny položky.'; }
+        delete state.results[e.id];
+        clearCurrentStats();
         return;
       }
 
       if (button.dataset.action === 'check-choice') {
         const selected = document.querySelector(`input[name="choice-${CSS.escape(id)}"]:checked`)?.value;
         if (!out) return;
-        const correct = selected && String(selected).trim() === String(e.answer).trim();
+        const correct = Boolean(selected) && String(selected).trim() === String(e.answer).trim();
+        recordExerciseResult(e, { answered: Boolean(selected), correct, graded: true });
+        if (state.mode === 'test') { renderNeutralFeedback(out, Boolean(selected)); return; }
         out.className = `output ${correct ? 'ok' : 'bad'}`;
         out.textContent = selected
           ? (correct ? '✓ Správně.' : '✗ Tohle nesedí. Vrať se k materiálu a zkus to znovu.')
@@ -775,26 +1159,32 @@ function normalizeOutput(text) {
     .trim();
 }
 
-function showRun(output, { text = '', error = '', errorLine = null, expected = null }) {
+function showRun(output, { text = '', error = '', errorLine = null, expected = null, revealCorrectness = true }) {
   if (error) {
     const parts = [];
     if (text.trim()) parts.push(`Program stihl vypsat:\n${text.replace(/\s+$/, '')}`);
     parts.push(`Chyba${errorLine ? ` (řádek ${errorLine})` : ''}:\n${error}`);
     output.className = 'output bad';
     output.textContent = parts.join('\n\n');
-    return;
+    return false;
   }
   const shown = text.replace(/\s+$/, '') || '(program nic nevypsal)';
   if (expected == null) {
     output.className = 'output';
     output.textContent = shown;
-    return;
+    return true;
   }
   const ok = normalizeOutput(text) === normalizeOutput(expected);
+  if (!revealCorrectness) {
+    output.className = 'output';
+    output.textContent = `${shown}\n\n✓ Výstup zaznamenán.`;
+    return ok;
+  }
   output.className = `output ${ok ? 'ok' : 'bad'}`;
   output.textContent = ok
     ? `${shown}\n\n✓ Správně, výstup sedí.`
     : `Tvůj program vypsal:\n${shown}\n\n✗ Výstup nesedí s očekáváním.`;
+  return ok;
 }
 
 const PY_WRAPPER = `
@@ -834,9 +1224,13 @@ async function runCode(exercise, output) {
     const fakeConsole = { log: (...args) => logs.push(args.join(' ')) };
     try {
       new Function('print', 'console', code)((...args) => logs.push(args.join(' ')), fakeConsole);
-      showRun(output, { text: logs.join('\n'), expected });
+      const ok = showRun(output, { text: logs.join('\n'), expected, revealCorrectness: state.mode !== 'test' });
+      state.codeResults[exercise.id] = { answered: true, correct: expected == null ? true : ok === true, graded: expected != null };
+      if (state.mode === 'learn') maybeAutoCompleteSet();
     } catch (error) {
-      showRun(output, { text: logs.join('\n'), error: `${error.name}: ${error.message}` });
+      showRun(output, { text: logs.join('\n'), error: `${error.name}: ${error.message}`, revealCorrectness: state.mode !== 'test' });
+      state.codeResults[exercise.id] = { answered: true, correct: false, graded: true };
+      if (state.mode === 'learn') maybeAutoCompleteSet();
     }
     return;
   }
@@ -849,7 +1243,9 @@ async function runCode(exercise, output) {
     const text = String(py.globals.get('__study_out__') ?? '');
     const error = String(py.globals.get('__study_err__') ?? '');
     const line = py.globals.get('__study_line__');
-    showRun(output, { text, error, errorLine: line ?? null, expected });
+    const ok = showRun(output, { text, error, errorLine: line ?? null, expected, revealCorrectness: state.mode !== 'test' });
+    state.codeResults[exercise.id] = { answered: true, correct: error ? false : (expected == null ? true : ok === true), graded: expected != null };
+    if (state.mode === 'learn') maybeAutoCompleteSet();
   } catch (error) {
     output.className = 'output bad';
     output.textContent = `Nepodařilo se spustit Python: ${error.message}\n\nZkontroluj připojení k internetu a zkus to znovu.`;
@@ -858,12 +1254,17 @@ async function runCode(exercise, output) {
 
 $('showAnswers').addEventListener('click', () => { state.answerVisible = true; document.querySelectorAll('details.solution-box').forEach((d) => { d.open = true; }); });
 $('hideAnswers').addEventListener('click', () => { state.answerVisible = false; document.querySelectorAll('details.solution-box').forEach((d) => { d.open = false; }); });
-$('filterSubject').addEventListener('change', () => { $('filterTopic').value = 'all'; $('filterSubtopic').value = 'all'; state.sessionIds = []; state.sessionKey = ''; renderExercises(); });
-$('filterTopic').addEventListener('change', () => { $('filterSubtopic').value = 'all'; state.sessionIds = []; state.sessionKey = ''; renderExercises(); });
-$('filterSubtopic').addEventListener('change', () => { state.sessionIds = []; state.sessionKey = ''; renderExercises(); });
-$('filterType').addEventListener('change', () => { state.sessionIds = []; state.sessionKey = ''; renderExercises(); });
-$('sessionSize').addEventListener('change', () => { state.sessionIds = []; state.sessionKey = ''; createSession(true); renderExercises(); });
-$('newSession').addEventListener('click', () => { createSession(true); renderExercises(); toast('Nová náhodná sada byla vylosována.'); window.scrollTo({top: 0, behavior: 'smooth'}); });
+$('modeLearn').addEventListener('click', () => setStudyMode('learn'));
+$('modeTest').addEventListener('click', () => setStudyMode('test'));
+$('finishTest').addEventListener('click', finishCurrentTest);
+$('generateTasks').addEventListener('click', () => generateDigitalExercises(6));
+$('filterSubject').addEventListener('change', () => { $('filterTopic').value = 'all'; $('filterSubtopic').value = 'all'; $('filterDifficulty').value = 'all'; state.generatedExercises = []; state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; renderExercises(); });
+$('filterTopic').addEventListener('change', () => { $('filterSubtopic').value = 'all'; state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; renderExercises(); });
+$('filterSubtopic').addEventListener('change', () => { state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; renderExercises(); });
+$('filterType').addEventListener('change', () => { state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; renderExercises(); });
+$('filterDifficulty').addEventListener('change', () => { state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; renderExercises(); });
+$('sessionSize').addEventListener('change', () => { state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; createSession(true); renderExercises(); });
+$('newSession').addEventListener('click', () => { state.results = {}; state.currentStats = null; createSession(true); renderExercises(); toast('Nová náhodná sada byla vylosována.'); window.scrollTo({top: 0, behavior: 'smooth'}); });
 $('homeBtn').addEventListener('click', openHome);
 $('brandHome').addEventListener('click', openHome);
 $('brandHome').addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openHome(); } });
@@ -881,10 +1282,13 @@ $('resetProgress').addEventListener('click', () => {
   document.querySelectorAll('[data-match-left]').forEach((select) => { select.value = ''; });
   document.querySelectorAll('.output').forEach((out) => {
     out.className = 'output';
-    out.textContent = 'Výstup / kontrola se objeví zde.';
+    out.textContent = state.mode === 'test' ? 'Odpověď zatím není zaznamenána.' : 'Výstup / kontrola se objeví zde.';
   });
   document.querySelectorAll('details.solution-box').forEach((d) => { d.open = false; });
   state.answerVisible = false;
+  state.results = {};
+  state.codeResults = {};
+  clearCurrentStats();
   toast('Odpovědi byly vymazány.');
 });
 
@@ -894,4 +1298,5 @@ state.exercises = normalizeExercises(state.exercises);
 validateExercises(state.exercises);
 renderHome();
 renderExercises();
+updateModeUI();
 openHome();
