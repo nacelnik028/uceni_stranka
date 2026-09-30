@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="application-name" content="Procvičovna">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <title>Procvičovna</title>
+  <style>
+    :root{
+      --bg:#0d1117; --panel:#141a23; --panel2:#10151d; --code:#090d13; --line:#252d3a; --line2:#36415a;
+      --text:#e8ecf2; --muted:#9ba6b6; --accent:#6cb6ff; --ink:#06121f;
+      --good:#4cc38a; --bad:#ff7b8a; --warn:#f0c674;
+      --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+      --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--text);font:400 16px/1.6 var(--sans);min-height:100vh;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
+    button,input,select,textarea{font:inherit;color:inherit}
+    :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+    button{cursor:pointer;border:1px solid var(--line2);background:var(--panel);border-radius:10px;padding:9px 15px;font-weight:500;transition:background .15s,border-color .15s;touch-action:manipulation}
+    button:hover{background:#1b2431;border-color:#4a5872}
+    button.primary{background:var(--accent);border-color:var(--accent);color:var(--ink);font-weight:600}
+    button.primary:hover{background:#8ac6ff}
+    button.ghost{background:transparent}
+    .wrap{max-width:960px;margin:0 auto;padding:24px 20px 60px}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px}
+    .brand{display:flex;align-items:center;gap:12px;cursor:pointer}
+    .brand-mark{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:var(--accent);color:var(--ink);font:700 15px var(--mono)}
+    .brand-name{font-size:18px;font-weight:600}.brand-sub{font-size:13px;color:var(--muted)}
+    .hero{padding:32px 0 8px}
+    .hero h1{font-size:clamp(30px,5vw,46px);line-height:1.1;letter-spacing:-.02em;font-weight:600;margin:0 0 14px;max-width:20ch}
+    .hero p{font-size:17px;color:var(--muted);max-width:56ch;margin:0}
+    .hero-actions{margin-top:22px}
+    .stats{display:flex;gap:28px;flex-wrap:wrap;margin-top:26px;padding-top:20px;border-top:1px solid var(--line)}
+    .stat strong{font:600 26px var(--mono);margin-right:8px}.stat span{font-size:14px;color:var(--muted)}
+    .section{margin-top:34px}.section-head{margin-bottom:14px}.section h2{margin:0;font-size:20px;font-weight:600}.section-head p{margin:4px 0 0;color:var(--muted);font-size:14px}
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+    .card{text-align:left;border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:20px;display:block;width:100%}
+    .card:hover{border-color:var(--accent);background:var(--panel)}
+    .card-icon{font:600 20px var(--mono);color:var(--accent);margin-bottom:12px}
+    .card h3{margin:0;font-size:18px;font-weight:600}.card p{margin:6px 0 0;color:var(--muted);font-size:14px;font-weight:400}.card .card-meta{margin-top:14px;font-size:13px;color:var(--muted);font-weight:400}
+    .hidden{display:none!important}
+    .study-shell{border:1px solid var(--line);border-radius:14px;background:var(--panel2);overflow:hidden}
+    .study-header{padding:20px;border-bottom:1px solid var(--line);background:var(--panel)}
+    .crumbs{display:flex;align-items:center;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:13px;margin-bottom:8px}.crumbs strong{color:var(--text);font-weight:500}.crumbs .sep{opacity:.5}
+    .study-title h2{margin:0;font-size:24px;font-weight:600}.study-title p{margin:4px 0 0;color:var(--muted);font-size:14px}
+    .filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:16px}
+    select{background:var(--code);border:1px solid var(--line2);border-radius:10px;padding:9px 11px}
+    .pool-bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:14px}.pool-bar label{font-size:14px;color:var(--muted)}.pool-info{font-size:13px;color:var(--muted);flex-basis:100%}
+    .tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+    .study-body{padding:20px}
+    .empty{padding:56px 20px;text-align:center;color:var(--muted);border:1px dashed var(--line2);border-radius:10px}
+    .exercise{border:1px solid var(--line);border-radius:14px;background:var(--panel);margin-bottom:18px}
+    .exercise-head{display:flex;justify-content:space-between;gap:14px;padding:16px 20px 12px;align-items:flex-start}
+    .exercise-number{color:var(--muted);font-size:13px;margin-bottom:2px}
+    .exercise-body{padding:0 20px 20px}
+    .question{font-size:16.5px;line-height:1.8;white-space:pre-wrap;max-width:68ch}
+    code{font-family:var(--mono);font-size:.88em;background:var(--code);border:1px solid var(--line);border-radius:6px;padding:1px 6px;color:#cfe6ff;white-space:pre-wrap}
+    pre.code-block{font:13.5px/1.6 var(--mono);background:var(--code);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:10px 0;overflow-x:auto;white-space:pre}
+    .answer-input{width:100%;min-height:110px;margin-top:16px;background:var(--code);border:1px solid var(--line2);border-radius:10px;padding:12px 14px;resize:vertical}
+    input.answer-input{min-height:0}
+    .answer-input:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px rgba(108,182,255,.15)}
+    .code{font-family:var(--mono);font-size:14px;line-height:1.65;tab-size:4}
+    .choices{display:grid;gap:8px;margin-top:16px;max-width:68ch}
+    .choice{display:flex;gap:12px;align-items:flex-start;padding:11px 14px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);cursor:pointer;transition:border-color .15s}
+    .choice:hover{border-color:var(--line2)}.choice:has(input:checked){border-color:var(--accent);background:rgba(108,182,255,.08)}
+    .choice input{accent-color:var(--accent);margin-top:5px}
+    .output{margin-top:12px;border-radius:10px;border:1px solid var(--line);background:var(--code);padding:11px 14px;white-space:pre-wrap;min-height:48px;font:13px/1.6 var(--mono);color:var(--muted)}
+    .output.ok{border-color:#2a6a51;background:#0b231c;color:#c9f3e0}.output.bad{border-color:#6b3040;background:#281019;color:#ffd3da}
+    .tag{display:inline-block;font-size:12px;padding:2px 9px;border-radius:999px;border:1px solid var(--line2);color:var(--muted);margin:8px 6px 0 0}
+    .type-tag{margin:0;white-space:nowrap}
+    details{margin-top:14px}summary{cursor:pointer;color:var(--muted);font-size:14px}summary:hover{color:var(--text)}
+    .hint{color:var(--warn)}
+    .solution-box>summary{color:var(--good);font-weight:500}
+    .solution-box .solution{margin-top:10px}
+    .sol-label{font-size:13px;color:var(--muted);margin:12px 0 4px}.sol-label:first-child{margin-top:0}
+    .solution pre.code-block{margin:4px 0 0}
+    .solution{margin-top:8px;padding:12px 14px;border-radius:10px;background:var(--panel2);border-left:3px solid var(--good);line-height:1.7;max-width:68ch}
+    .small{font-size:14px;color:var(--muted);line-height:1.7;max-width:68ch}
+    .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .toast{position:fixed;bottom:20px;right:20px;background:var(--panel);border:1px solid var(--line2);border-radius:10px;padding:10px 14px;display:none;z-index:20}
+    footer{padding:28px 0 8px;color:var(--muted);font-size:13px;text-align:center}
+    .multi-list,.match-grid,.order-wrap{display:grid;gap:9px;margin-top:16px;max-width:760px}
+    .multi-list .choice{margin:0}
+    .match-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(190px,1fr);gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel2)}
+    .match-left{font-weight:500}.match-row select{width:100%;min-height:42px}
+    .order-palette{display:flex;gap:8px;flex-wrap:wrap}
+    .order-pick{background:var(--panel2);min-height:42px}.order-pick.used{opacity:.45;cursor:default}
+    .order-selected{display:flex;gap:8px;flex-wrap:wrap;min-height:50px;padding:10px;border:1px dashed var(--line2);border-radius:10px;background:var(--code);align-items:center}
+    .order-chip{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line2);border-radius:999px;padding:6px 10px;background:var(--panel);font-size:14px}
+    .order-chip button{padding:2px 7px;border-radius:999px;background:transparent;min-width:30px;min-height:30px}
+    .order-empty{color:var(--muted);font-size:14px}
+    .conversion-panel{margin-top:16px;max-width:680px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--panel2)}
+    .conversion-direction{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:10px;font-size:16px}
+    .conversion-direction code{font-size:1.1em}
+    .conversion-direction sub{font-family:var(--mono);font-size:.8em;color:var(--muted);margin-left:-7px}
+    .conversion-direction span{color:var(--accent);font-size:1.25em}
+    .conversion-direction strong{font-weight:500;color:var(--muted)}
+    .filter-shell{margin-top:16px}
+    .filter-summary{display:none;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--panel2);font-size:14px;font-weight:600;list-style:none;cursor:pointer}
+    .filter-summary::-webkit-details-marker{display:none}
+    .filter-summary .filter-count{color:var(--muted);font-weight:400;font-size:12px}
+    .filter-chevron{transition:transform .15s ease}
+    .filter-shell[open] .filter-chevron{transform:rotate(180deg)}
+    .filters{margin-top:0}
+    .session-progress{margin-top:12px;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:var(--panel2)}
+    .session-progress-head{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px;color:var(--muted);margin-bottom:7px}
+    .session-progress-head strong{font:600 13px var(--mono);color:var(--text)}
+    .progress-track{height:8px;border-radius:999px;background:var(--code);overflow:hidden;border:1px solid var(--line)}
+    .progress-fill{display:block;height:100%;width:0;border-radius:999px;background:var(--accent);transition:width .2s ease}
+    .mode-group{flex:0 0 auto}
+    .mode-button{font-weight:600}
+    .mode-button small{display:block;margin-top:3px;font-size:11px;font-weight:400;opacity:.8}.mode-button.active small{color:rgba(6,18,31,.74);opacity:1}
+    .set-stats-score{display:flex;align-items:center;gap:14px}
+    .set-stats-score-ring{width:72px;height:72px;flex:0 0 72px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--accent) calc(var(--score, 0) * 1%), var(--code) 0);position:relative}
+    .set-stats-score-ring::after{content:"";position:absolute;inset:7px;border-radius:50%;background:var(--panel)}
+    .set-stats-score-ring strong{position:relative;z-index:1;font:600 13px var(--mono)}
+    .set-stats-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+    .set-stats-actions button{min-height:42px}
+    .mode-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:14px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--panel2)}
+    .mode-label{color:var(--muted);font-size:14px;font-weight:500;margin-right:2px}.mode-group{display:flex;gap:4px;padding:3px;border-radius:10px;background:var(--code);border:1px solid var(--line)}
+    .mode-button{min-height:46px;padding:7px 13px;background:transparent;border-color:transparent;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;line-height:1.15}.mode-button small{display:block;margin-top:3px;font-size:11px;font-weight:400;color:var(--muted)}.mode-button.active{background:var(--accent);color:var(--ink);border-color:var(--accent);font-weight:600}.mode-button:hover{background:#1b2431}.mode-button.active:hover{background:#8ac6ff}
+    .mode-hint{color:var(--muted);font-size:13px;line-height:1.45;flex:1 1 320px}
+    .difficulty-tag{font-weight:500}.difficulty-1{border-color:#3f6655;color:#8fd8b2}.difficulty-2{border-color:#415b6f;color:#9fc7e8}.difficulty-3{border-color:#6b5e32;color:#e1c778}.difficulty-4{border-color:#704739;color:#f0a98c}.difficulty-5{border-color:#703b4a;color:#ff9fb0}
+    .test-mode details:has(> .hint),.test-mode .solution-box{display:none}.test-mode .exercise{border-color:#314158}
+    .set-stats{margin:18px 0 4px;padding:18px;border:1px solid var(--line2);border-radius:14px;background:linear-gradient(180deg,var(--panel),var(--panel2))}
+    .set-stats-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}.set-stats-head h3{margin:2px 0 0;font:600 36px/1 var(--mono);letter-spacing:-.03em}.set-stats-head p{margin:8px 0 0;color:var(--muted);font-size:14px}.eyebrow{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+    .set-stats-mode{display:inline-flex;align-items:center;min-height:34px;padding:5px 10px;border-radius:999px;border:1px solid var(--line2);color:var(--muted);font-size:12px}
+    .stats-topic-list{display:grid;gap:7px;margin-top:16px}.stats-topic-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 12px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--code)}.stats-topic-row span{font-weight:500}.stats-topic-row strong{font:600 13px var(--mono);align-self:center}.stats-topic-row small{grid-column:1/-1;color:var(--muted);font-size:12px}.stats-local-note{margin-top:12px;color:var(--muted);font-size:12px}
+    @media (max-width:760px){.filter-shell{margin-top:12px}.filter-summary{display:flex}.filter-shell:not([open]){padding-bottom:0}.filter-shell[open] .filters{margin-top:8px}.mode-bar{display:grid;grid-template-columns:1fr;align-items:stretch}.mode-group{display:grid;grid-template-columns:1fr 1fr}.mode-button{width:100%;min-height:48px}.mode-hint{font-size:12px}.set-stats{padding:14px}.set-stats-head{align-items:flex-start}.set-stats-head h3{font-size:30px}.stats-topic-row{grid-template-columns:1fr}.stats-topic-row strong{grid-row:2;justify-self:start}.stats-topic-row small{grid-row:3}.set-stats-score{gap:10px}.set-stats-score-ring{width:62px;height:62px;flex-basis:62px}.set-stats-actions{display:grid;grid-template-columns:1fr}.set-stats-actions button{width:100%}}
+    @media (max-width:760px){.match-row{grid-template-columns:1fr}.order-palette{display:grid;grid-template-columns:1fr 1fr}.order-pick{width:100%}}
+    /* Mobilní rozvržení: cílově pohodlné ovládání prstem a bez horizontálního přetékání. */
+    @media (max-width:760px){
+      .wrap{padding: max(14px, env(safe-area-inset-top)) 12px calc(40px + env(safe-area-inset-bottom))}
+      .topbar{align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:20px}
+      .brand{min-width:0}
+      .brand-mark{width:36px;height:36px;flex:0 0 36px}
+      .brand-sub{font-size:12px;line-height:1.35}
+      .topbar>.row{width:100%;gap:8px}
+      .topbar>.row button{flex:1 1 0;min-height:44px}
+      .hero{padding:18px 0 4px}
+      .hero h1{font-size:clamp(28px,8vw,38px);max-width:none}
+      .hero p{font-size:16px}
+      .hero-actions{margin-top:18px}
+      .hero-actions button{width:100%;min-height:46px}
+      .stats{gap:16px 28px;margin-top:22px;padding-top:16px}
+      .stat strong{font-size:22px}
+      .cards{grid-template-columns:1fr;gap:10px}
+      .card{padding:17px;min-height:112px}
+      .study-shell{border-radius:12px}
+      .study-header{padding:14px}
+      .crumbs{gap:5px;font-size:12px;margin-bottom:10px}
+      .study-title h2{font-size:21px;line-height:1.25}
+      .study-title p{font-size:13px;line-height:1.45}
+      .filters{grid-template-columns:1fr;gap:8px;margin-top:14px}
+      select{width:100%;min-height:44px;padding:10px 12px}
+      .pool-bar{display:grid;grid-template-columns:1fr;gap:8px;margin-top:12px}
+      .pool-bar label{font-size:13px}
+      .pool-bar select,#newSession{width:100%;min-height:44px}
+      .pool-info{font-size:12px;line-height:1.45}
+      .tools{display:grid;grid-template-columns:1fr;gap:8px;margin-top:12px}
+      .tools button{width:100%;min-height:44px}
+      .study-body{padding:10px}
+      .exercise{border-radius:12px;margin-bottom:12px}
+      .exercise-head{display:block;padding:13px 13px 10px}
+      .exercise-head>div:first-child{min-width:0}
+      .exercise-number{font-size:12px;line-height:1.45;overflow-wrap:anywhere}
+      .type-tag{display:inline-block;margin-top:8px}
+      .exercise-body{padding:0 13px 14px}
+      .question{font-size:16px;line-height:1.65;max-width:none;overflow-wrap:anywhere}
+      .answer-input{font-size:16px;min-height:120px;padding:12px;margin-top:14px}
+      input.answer-input{min-height:44px}
+      .code{font-size:13px;line-height:1.6;min-height:240px;white-space:pre;overflow:auto;resize:vertical;tab-size:2}
+      .choices{max-width:none;gap:8px;margin-top:14px}
+      .conversion-panel{max-width:none;padding:12px}
+      .conversion-direction{gap:8px;font-size:15px}
+      .conversion-input{min-height:46px;margin-top:8px;font-family:var(--mono);letter-spacing:.02em}
+      .choice{min-height:46px;padding:11px 12px;gap:10px;align-items:center}
+      .order-chip button{min-width:36px;min-height:36px;padding:4px 9px}
+      .choice input{width:18px;height:18px;flex:0 0 auto;margin:0}
+      .choice span{overflow-wrap:anywhere}
+      .row{gap:8px}
+      .row button{min-height:44px;flex:1 1 180px}
+      .output{font-size:12px;line-height:1.55;padding:10px 12px;overflow-wrap:anywhere;word-break:break-word}
+      pre.code-block{font-size:12px;line-height:1.55;padding:10px 12px;max-width:100%;overflow:auto}
+      .solution{max-width:none;padding:11px 12px;overflow-wrap:anywhere}
+      .small{font-size:13px;max-width:none}
+      .tag{font-size:11px;padding:2px 8px}
+      .toast{left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));text-align:center}
+      footer{padding:22px 0 6px;font-size:12px}
+    }
+    @media (max-width:380px){
+      .wrap{padding-left:9px;padding-right:9px}
+      .study-header{padding:12px}
+      .study-body{padding:8px}
+      .exercise-head{padding:12px 11px 9px}
+      .exercise-body{padding:0 11px 13px}
+      .hero h1{font-size:27px}
+      .row button{flex-basis:100%}
+    }
+    @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <div class="brand" id="brandHome" role="button" tabindex="0" aria-label="Domů">
+        <div class="brand-mark">✓</div>
+        <div><div class="brand-name">Procvičovna</div><div class="brand-sub">Tvoje místo na procvičování učiva</div></div>
+      </div>
+      <div class="row no-print"><button id="homeBtn" class="ghost hidden">← Úvodní nabídka</button><button id="resetProgress" class="ghost hidden">Vymazat odpovědi</button></div>
+    </header>
+
+    <main>
+      <section id="homeView">
+        <div class="hero">
+          <h1>Vyber si, co chceš dnes procvičit.</h1>
+          <p>Ahojte kamarádi!!!!!!</p>
+          <div class="hero-actions"><button class="primary" id="continueBtn">Pokračovat k procvičování</button></div>
+          <div class="stats">
+            <div class="stat"><strong id="homeExercises">0</strong><span>úloh</span></div>
+            <div class="stat"><strong id="homeSubjects">0</strong><span>předmětů</span></div>
+            <div class="stat"><strong id="homeTopics">0</strong><span>témat</span></div>
+          </div>
+        </div>
+
+        <section class="section">
+          <div class="section-head"><div><h2>Předměty</h2><p>Vyber předmět a potom konkrétní téma.</p></div></div>
+          <div class="cards" id="subjectCards"></div>
+        </section>
+      </section>
+
+      <section id="studyView" class="study-shell hidden">
+        <div class="study-header">
+          <div class="crumbs"><span>Procvičovna</span><span class="sep">›</span><strong id="crumbSubject">Předmět</strong><span class="sep">›</span><strong id="crumbTopic">Téma</strong></div>
+          <div class="study-title">
+            <div><h2 id="exerciseTitle">Procvičování</h2><p id="exerciseMeta">Načítám úlohy…</p></div>
+          </div>
+          <details id="filterShell" class="filter-shell no-print">
+            <summary class="filter-summary">
+              <span>⚙ Filtry</span>
+              <span class="row" style="gap:8px"><span id="filterSummaryText" class="filter-count">Všechny úlohy</span><span class="filter-chevron" aria-hidden="true">⌄</span></span>
+            </summary>
+            <div class="filters">
+              <select id="filterSubject" aria-label="Předmět"><option value="all">Všechny předměty</option></select>
+              <select id="filterTopic" aria-label="Téma"><option value="all">Všechna témata</option></select>
+              <select id="filterSubtopic" aria-label="Podtéma"><option value="all">Všechna podtémata</option></select>
+              <select id="filterType" aria-label="Typ úlohy"><option value="all">Všechny typy</option><option value="choice">Výběr</option><option value="multi">Více správných</option><option value="match">Párování</option><option value="order">Řazení</option><option value="text">Textová odpověď</option><option value="code">Kód</option><option value="fill">Doplňování</option><option value="number">Výpočet</option><option value="conversion">Převod soustavy</option></select>
+              <select id="filterDifficulty" aria-label="Obtížnost"><option value="all">Všechny obtížnosti</option><option value="1">1 · Velmi lehká</option><option value="2">2 · Lehká</option><option value="3">3 · Střední</option><option value="4">4 · Těžká</option><option value="5">5 · Velmi těžká</option></select>
+            </div>
+          </details>
+          <div class="mode-bar no-print">
+            <span class="mode-label">Režim</span>
+            <div class="mode-group" role="group" aria-label="Režim procvičování">
+              <button type="button" id="modeLearn" class="mode-button active"><span>📘 Učení</span><small>kontrola hned</small></button>
+              <button type="button" id="modeTest" class="mode-button"><span>📝 Test</span><small>výsledek na konci</small></button>
+            </div>
+            <span id="modeHint" class="mode-hint">Učení: odpověď se vyhodnotí hned a řešení můžeš zobrazit.</span>
+            <button type="button" id="generateTasks" class="hidden">✨ Generovat nové příklady</button>
+            <button type="button" id="finishSet" class="primary">✓ Zobrazit shrnutí sady</button>
+          </div>
+          <div class="pool-bar">
+            <label for="sessionSize">Velikost nové sady</label>
+            <select id="sessionSize" aria-label="Velikost nové sady">
+              <option value="5">5 otázek</option>
+              <option value="10" selected>10 otázek</option>
+              <option value="15">15 otázek</option>
+              <option value="all">Celý pool</option>
+            </select>
+            <button id="newSession" class="primary">🎲 Nová náhodná sada</button>
+            <span id="poolInfo" class="pool-info">Otázky se losují z aktuálního poolu.</span>
+          </div>
+          <div class="session-progress" aria-live="polite">
+            <div class="session-progress-head"><span>Průběh sady</span><strong id="sessionProgressText">0 / 0</strong></div>
+            <div class="progress-track"><span id="sessionProgressFill" class="progress-fill"></span></div>
+          </div>
+          <div class="tools no-print">
+            <button id="showAnswers">Ukázat všechna řešení</button><button id="hideAnswers">Skrýt všechna řešení</button>
+          </div>
+        </div>
+        <div class="study-body"><div id="exercises"><div class="empty">Tady se zobrazí tvoje procvičování.</div></div></div>
+      </section>
+    </main>
+    <footer>Vít Kellner, ChatGPT, Antigravity a Claude 2026</footer>
+  </div>
+  <div class="toast" id="toast"></div>
+  <script src="data/exercises.js?v=14"></script>
+  <script src="data/network_exercises.js?v=2"></script>
+  <script src="data/literature_exercises.js?v=3"></script>
+  <script src="data/cislicova_technika_exercises.js?v=2"></script>
+  <script src="app.js?v=22"></script>
+</body>
+</html>

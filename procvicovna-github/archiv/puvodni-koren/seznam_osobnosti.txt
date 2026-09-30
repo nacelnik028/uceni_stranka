@@ -1,0 +1,41 @@
+01 Bill Gates — Microsoft — spoluzakladatel Microsoftu, zásadní osobnost osobních počítačů a systému Windows.
+
+02 Steve Jobs — Apple — spoluzakladatel Applu, výrazně ovlivnil vývoj Macu, iPodu a iPhonu.
+
+03 Steve Wozniak — Apple — spoluzakladatel Applu a technický tvůrce prvních počítačů Apple.
+
+04 Linus Torvalds — Linux — autor linuxového jádra, na kterém běží velká část serverů a dalších zařízení.
+
+05 Tim Berners-Lee — World Wide Web — vytvořil základy webu, zejména WWW, HTML a HTTP.
+
+06 Larry Page — Google — spoluzakladatel Googlu a jedna z klíčových osobností internetového vyhledávání.
+
+07 Mark Zuckerberg — Facebook / Meta — zakladatel Facebooku, jedné z největších sociálních sítí.
+
+08 Jeff Bezos — Amazon / AWS — zakladatel Amazonu; AWS patří mezi největší cloudové platformy světa.
+
+09 Jensen Huang — NVIDIA — spoluzakladatel a šéf NVIDIA, firmy zásadní pro grafické karty a dnešní AI.
+
+10 Sam Altman — OpenAI — šéf OpenAI, firmy stojící za ChatGPT a významnými modely generativní AI.
+
+11 Peter Thiel — PayPal / Palantir — spoluzakladatel PayPalu a Palantiru; Palantir vyvíjí software pro analýzu velkého množství dat.
+
+12 Elon Musk — Tesla / SpaceX / xAI — technologický podnikatel spojený s elektromobily, kosmonautikou a umělou inteligencí.
+
+13 Guido van Rossum — Python — tvůrce programovacího jazyka Python.
+
+14 James Gosling — Java — hlavní autor programovacího jazyka Java.
+
+15 Brendan Eich — JavaScript — tvůrce JavaScriptu, jednoho ze základních jazyků webu.
+
+16 Dennis Ritchie — C / Unix — tvůrce jazyka C a spoluautor operačního systému Unix.
+
+17 Alan Turing — teoretická informatika / AI — jeden ze zakladatelů moderní informatiky, známý Turingovým strojem a Turingovým testem.
+
+18 Ada Lovelace — historie programování — často označována za první programátorku, popsala algoritmus pro Babbageův analytický stroj.
+
+19 John von Neumann — architektura počítačů — zásadně ovlivnil princip moderního počítače, kde jsou program i data uložené v paměti.
+
+20 Ivo Lukačovič — Seznam.cz — zakladatel Seznam.cz, jednoho z nejvýznamnějších českých internetových portálů.
+
+21 Dario Amondei - Anthropic CEO 
