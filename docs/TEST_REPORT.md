@@ -220,3 +220,10 @@ Python startovací kód všech 16 úloh typu `code` byl navíc samostatně zkomp
 Po zpětné vazbě byla vrácena původní vizuální hierarchie úvodní stránky: každá z 6 karet předmětů má stabilní barevný akcent a ikonu podle názvu předmětu. Výchozí motiv je opět tmavý; světlý motiv je stále dostupný přes přepínač a uložení preference. Modul **Databáze** je zachovaný v aktivních datech (`35` úloh `db-*`) i ve zdrojích `materialy/databaze/`.
 
 Kódový editor má `Tab = 4 mezery`, `Shift+Tab` pro odebrání jednoho odsazení, čísla řádků a syntax highlighting; mobilní styl používá shodně 4mezerné tabulátory.
+
+
+## UX úprava hlavičky studia – 30. 9. 2026
+
+Do hlavičky studia byl zaveden princip **progress-first**: na první pohled zůstává pouze přepínač režimu a průběh aktuální sady. Vyhledávání, pět filtrů, velikost sady a obslužná tlačítka jsou uvnitř sbalitelného panelu **Nastavení sady**, který je po vstupu do studia standardně zavřený. Progress bar je `position: sticky`, takže zůstává viditelný i při scrollování dlouhou sadou.
+
+Na mobilu má `.mobile-check-bar` `z-index: 50`; `.toast` je posunut nad ní pomocí `bottom: calc(82px + env(safe-area-inset-bottom))` a `z-index: 60`, takže potvrzovací/chybové hlášky nejsou překryté spodní lištou.

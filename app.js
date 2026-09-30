@@ -501,16 +501,23 @@ function openHome() {
   window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
-function maybeCloseMobileFilters() {
-  const shell = $('filterShell');
+function maybeCloseSettingsPanel() {
+  const shell = $('settingsShell');
   if (shell && window.matchMedia?.('(max-width: 760px)').matches) shell.open = false;
 }
 
-function syncFilterPanelForViewport() {
-  const shell = $('filterShell');
+function syncSettingsPanelForViewport() {
+  // Panel je záměrně sbalený na desktopu i mobilu, aby při startu studia zůstaly vidět jen režim a progress.
+  const shell = $('settingsShell');
   if (!shell) return;
-  shell.open = !window.matchMedia?.('(max-width: 760px)').matches;
+  if (!shell.dataset.userOpened) shell.open = false;
 }
+
+document.addEventListener('toggle', (event) => {
+  if (event.target?.id === 'settingsShell') {
+    event.target.dataset.userOpened = event.target.open ? '1' : '';
+  }
+}, true);
 
 function filterSummaryText() {
   const subject = $('filterSubject')?.value || 'all';
@@ -1621,11 +1628,11 @@ $('modeLearn').addEventListener('click', () => setStudyMode('learn'));
 $('modeTest').addEventListener('click', () => setStudyMode('test'));
 $('finishSet').addEventListener('click', finishCurrentSet);
 $('generateTasks').addEventListener('click', () => generateDigitalExercises(6));
-$('filterSubject').addEventListener('change', () => { $('filterTopic').value = 'all'; $('filterSubtopic').value = 'all'; $('filterDifficulty').value = 'all'; state.generatedExercises = []; state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; renderExercises(); maybeCloseMobileFilters(); });
-$('filterTopic').addEventListener('change', () => { $('filterSubtopic').value = 'all'; state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; renderExercises(); maybeCloseMobileFilters(); });
-$('filterSubtopic').addEventListener('change', () => { state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; renderExercises(); maybeCloseMobileFilters(); });
-$('filterType').addEventListener('change', () => { state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; renderExercises(); maybeCloseMobileFilters(); });
-$('filterDifficulty').addEventListener('change', () => { state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; renderExercises(); maybeCloseMobileFilters(); });
+$('filterSubject').addEventListener('change', () => { $('filterTopic').value = 'all'; $('filterSubtopic').value = 'all'; $('filterDifficulty').value = 'all'; state.generatedExercises = []; state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; renderExercises(); maybeCloseSettingsPanel(); });
+$('filterTopic').addEventListener('change', () => { $('filterSubtopic').value = 'all'; state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; renderExercises(); maybeCloseSettingsPanel(); });
+$('filterSubtopic').addEventListener('change', () => { state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; renderExercises(); maybeCloseSettingsPanel(); });
+$('filterType').addEventListener('change', () => { state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; renderExercises(); maybeCloseSettingsPanel(); });
+$('filterDifficulty').addEventListener('change', () => { state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; renderExercises(); maybeCloseSettingsPanel(); });
 $('sessionSize').addEventListener('change', () => { state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; createSession(true); renderExercises(); });
 $('newSession').addEventListener('click', () => { state.results = {}; state.currentStats = null; createSession(true); renderExercises(); toast('Nová náhodná sada byla vylosována.'); window.scrollTo({top: 0, behavior: 'smooth'}); });
 $('homeBtn').addEventListener('click', openHome);
@@ -1665,8 +1672,8 @@ $('mobileCheckButton').addEventListener('click', () => {
   if (action) action.click();
 });
 
-syncFilterPanelForViewport();
-window.addEventListener('resize', () => { syncFilterPanelForViewport(); updateMobileCheckBar(); });
+syncSettingsPanelForViewport();
+window.addEventListener('resize', () => { syncSettingsPanelForViewport(); updateMobileCheckBar(); });
 setupEnterShortcut();
 setupCodeTabShortcut();
 

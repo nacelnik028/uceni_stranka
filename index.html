@@ -57,7 +57,7 @@
     .card-meta{color:var(--muted)}
     .card h3{margin:0;font-size:18px;font-weight:600}.card p{margin:6px 0 0;color:var(--muted);font-size:14px;font-weight:400}.card .card-meta{margin-top:14px;font-size:13px;color:var(--muted);font-weight:400}
     .hidden{display:none!important}
-    .study-shell{border:1px solid var(--line);border-radius:14px;background:var(--panel2);overflow:hidden}
+    .study-shell{border:1px solid var(--line);border-radius:14px;background:var(--panel2);overflow:visible}
     .study-header{padding:20px;border-bottom:1px solid var(--line);background:var(--panel)}
     .crumbs{display:flex;align-items:center;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:13px;margin-bottom:8px}.crumbs strong{color:var(--text);font-weight:500}.crumbs .sep{opacity:.5}
     .study-title h2{margin:0;font-size:24px;font-weight:600}.study-title p{margin:4px 0 0;color:var(--muted);font-size:14px}
@@ -114,14 +114,20 @@
     .conversion-direction sub{font-family:var(--mono);font-size:.8em;color:var(--muted);margin-left:-7px}
     .conversion-direction span{color:var(--accent);font-size:1.25em}
     .conversion-direction strong{font-weight:500;color:var(--muted)}
-    .filter-shell{margin-top:16px}
-    .filter-summary{display:none;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--panel2);font-size:14px;font-weight:600;list-style:none;cursor:pointer}
-    .filter-summary::-webkit-details-marker{display:none}
-    .filter-summary .filter-count{color:var(--muted);font-weight:400;font-size:12px}
-    .filter-chevron{transition:transform .15s ease}
-    .filter-shell[open] .filter-chevron{transform:rotate(180deg)}
-    .filters{margin-top:0}
-    .session-progress{margin-top:12px;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:var(--panel2)}
+    .settings-shell{margin-top:14px;border:1px solid var(--line);border-radius:12px;background:var(--panel2)}
+    .settings-summary{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 12px;border-radius:12px;background:var(--panel2);font-size:14px;font-weight:600;list-style:none;cursor:pointer}
+    .settings-summary::-webkit-details-marker{display:none}
+    .settings-summary .filter-count{color:var(--muted);font-weight:400;font-size:12px}
+    .settings-shell .filter-chevron{transition:transform .15s ease}
+    .settings-shell[open] .filter-chevron{transform:rotate(180deg)}
+    .settings-content{padding:0 12px 12px}
+    .filters{margin-top:10px}
+    .pool-bar{margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
+    .pool-label-wrap{display:flex;align-items:baseline;justify-content:space-between;gap:10px;min-width:0}
+    .pool-controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}
+    .pool-controls select{min-width:170px}
+    .pool-info{font-size:12px;color:var(--muted);flex:1 1 auto;text-align:right}
+    .session-progress{margin-top:12px;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:var(--panel2);position:sticky;top:10px;z-index:15;box-shadow:0 4px 14px rgba(0,0,0,.07)}
     .session-progress-head{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px;color:var(--muted);margin-bottom:7px}
     .session-progress-head strong{font:600 13px var(--mono);color:var(--text)}
     .progress-track{height:8px;border-radius:999px;background:var(--code);overflow:hidden;border:1px solid var(--line)}
@@ -159,7 +165,7 @@
     .set-stats-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}.set-stats-head h3{margin:2px 0 0;font:600 36px/1 var(--mono);letter-spacing:-.03em}.set-stats-head p{margin:8px 0 0;color:var(--muted);font-size:14px}.eyebrow{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
     .set-stats-mode{display:inline-flex;align-items:center;min-height:34px;padding:5px 10px;border-radius:999px;border:1px solid var(--line2);color:var(--muted);font-size:12px}
     .stats-topic-list{display:grid;gap:7px;margin-top:16px}.stats-topic-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 12px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--code)}.stats-topic-row span{font-weight:500}.stats-topic-row strong{font:600 13px var(--mono);align-self:center}.stats-topic-row small{grid-column:1/-1;color:var(--muted);font-size:12px}.stats-local-note{margin-top:12px;color:var(--muted);font-size:12px}
-    @media (max-width:760px){.filter-shell{margin-top:12px}.filter-summary{display:flex}.filter-shell:not([open]){padding-bottom:0}.filter-shell[open] .filters{margin-top:8px}.mode-bar{display:grid;grid-template-columns:1fr;align-items:stretch}.mode-group{display:grid;grid-template-columns:1fr 1fr}.mode-button{width:100%;min-height:48px}.mode-hint{font-size:12px}.set-stats{padding:14px}.set-stats-head{align-items:flex-start}.set-stats-head h3{font-size:30px}.stats-topic-row{grid-template-columns:1fr}.stats-topic-row strong{grid-row:2;justify-self:start}.stats-topic-row small{grid-row:3}.set-stats-score{gap:10px}.set-stats-score-ring{width:62px;height:62px;flex-basis:62px}.set-stats-actions{display:grid;grid-template-columns:1fr}.set-stats-actions button{width:100%}}
+    @media (max-width:760px){.settings-shell{margin-top:12px}.settings-summary{padding:11px 12px}.settings-shell[open] .settings-content{padding-top:0}.mode-bar{display:grid;grid-template-columns:1fr;align-items:stretch}.mode-group{display:grid;grid-template-columns:1fr 1fr}.mode-button{width:100%;min-height:48px}.mode-hint{font-size:12px}.set-stats{padding:14px}.set-stats-head{align-items:flex-start}.set-stats-head h3{font-size:30px}.stats-topic-row{grid-template-columns:1fr}.stats-topic-row strong{grid-row:2;justify-self:start}.stats-topic-row small{grid-row:3}.set-stats-score{gap:10px}.set-stats-score-ring{width:62px;height:62px;flex-basis:62px}.set-stats-actions{display:grid;grid-template-columns:1fr}.set-stats-actions button{width:100%}}
     @media (max-width:760px){.match-row{grid-template-columns:1fr}.order-palette{display:grid;grid-template-columns:1fr 1fr}.order-pick{width:100%}}
     /* Mobilní rozvržení: cílově pohodlné ovládání prstem a bez horizontálního přetékání. */
     @media (max-width:760px){
@@ -181,15 +187,18 @@
       .card{padding:17px;min-height:112px}
       .study-shell{border-radius:12px}
       .study-header{padding:14px}
+      .session-progress{top:8px}
       .crumbs{gap:5px;font-size:12px;margin-bottom:10px}
       .study-title h2{font-size:21px;line-height:1.25}
       .study-title p{font-size:13px;line-height:1.45}
       .filters{grid-template-columns:1fr;gap:8px;margin-top:14px}
       select{width:100%;min-height:44px;padding:10px 12px}
-      .pool-bar{display:grid;grid-template-columns:1fr;gap:8px;margin-top:12px}
+      .pool-bar{display:block;margin-top:12px}
+      .pool-label-wrap{display:block}
       .pool-bar label{font-size:13px}
-      .pool-bar select,#newSession{width:100%;min-height:44px}
-      .pool-info{font-size:12px;line-height:1.45}
+      .pool-controls{display:grid;grid-template-columns:1fr;gap:8px}
+      .pool-controls select,#newSession{width:100%;min-height:44px}
+      .pool-info{display:block;margin-top:4px;font-size:12px;line-height:1.45;text-align:left}
       .tools{display:grid;grid-template-columns:1fr;gap:8px;margin-top:12px}
       .tools button{width:100%;min-height:44px}
       .study-body{padding:10px}
@@ -218,7 +227,7 @@
       .solution{max-width:none;padding:11px 12px;overflow-wrap:anywhere}
       .small{font-size:13px;max-width:none}
       .tag{font-size:11px;padding:2px 8px}
-      .toast{left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));text-align:center}
+      .toast{left:12px;right:12px;bottom:calc(82px + env(safe-area-inset-bottom));z-index:60;text-align:center}
       footer{padding:22px 0 6px;font-size:12px}
     }
     @media (max-width:760px){
@@ -276,21 +285,40 @@
           <div class="study-title">
             <div><h2 id="exerciseTitle">Procvičování</h2><p id="exerciseMeta">Načítám úlohy…</p></div>
           </div>
-          <div class="search-row no-print">
-            <label class="search-label" for="exerciseSearch">Hledat v úlohách</label>
-            <input id="exerciseSearch" class="search-input" type="search" autocomplete="off" spellcheck="false" placeholder="Hledej podle otázky, názvu, tématu nebo tagu…">
-          </div>
-          <details id="filterShell" class="filter-shell no-print">
-            <summary class="filter-summary">
-              <span>⚙ Filtry</span>
+          <details id="settingsShell" class="settings-shell no-print">
+            <summary class="settings-summary">
+              <span>⚙ Nastavení sady</span>
               <span class="row" style="gap:8px"><span id="filterSummaryText" class="filter-count">Všechny úlohy</span><span class="filter-chevron" aria-hidden="true">⌄</span></span>
             </summary>
-            <div class="filters">
-              <select id="filterSubject" aria-label="Předmět"><option value="all">Všechny předměty</option></select>
-              <select id="filterTopic" aria-label="Téma"><option value="all">Všechna témata</option></select>
-              <select id="filterSubtopic" aria-label="Podtéma"><option value="all">Všechna podtémata</option></select>
-              <select id="filterType" aria-label="Typ úlohy"><option value="all">Všechny typy</option><option value="choice">Výběr</option><option value="multi">Více správných</option><option value="match">Párování</option><option value="order">Řazení</option><option value="text">Textová odpověď</option><option value="code">Kód</option><option value="fill">Doplňování</option><option value="number">Výpočet</option><option value="conversion">Převod soustavy</option></select>
-              <select id="filterDifficulty" aria-label="Obtížnost"><option value="all">Všechny obtížnosti</option><option value="1">1 · Velmi lehká</option><option value="2">2 · Lehká</option><option value="3">3 · Střední</option><option value="4">4 · Těžká</option><option value="5">5 · Velmi těžká</option></select>
+            <div class="settings-content">
+              <div class="search-row">
+                <label class="search-label" for="exerciseSearch">Hledat v úlohách</label>
+                <input id="exerciseSearch" class="search-input" type="search" autocomplete="off" spellcheck="false" placeholder="Hledej podle otázky, názvu, tématu nebo tagu…">
+              </div>
+              <div class="filters">
+                <select id="filterSubject" aria-label="Předmět"><option value="all">Všechny předměty</option></select>
+                <select id="filterTopic" aria-label="Téma"><option value="all">Všechna témata</option></select>
+                <select id="filterSubtopic" aria-label="Podtéma"><option value="all">Všechna podtémata</option></select>
+                <select id="filterType" aria-label="Typ úlohy"><option value="all">Všechny typy</option><option value="choice">Výběr</option><option value="multi">Více správných</option><option value="match">Párování</option><option value="order">Řazení</option><option value="text">Textová odpověď</option><option value="code">Kód</option><option value="fill">Doplňování</option><option value="number">Výpočet</option><option value="conversion">Převod soustavy</option></select>
+                <select id="filterDifficulty" aria-label="Obtížnost"><option value="all">Všechny obtížnosti</option><option value="1">1 · Velmi lehká</option><option value="2">2 · Lehká</option><option value="3">3 · Střední</option><option value="4">4 · Těžká</option><option value="5">5 · Velmi těžká</option></select>
+              </div>
+              <div class="pool-bar">
+                <div class="pool-label-wrap"><label for="sessionSize">Velikost nové sady</label><span id="poolInfo" class="pool-info">Otázky se losují z aktuálního poolu.</span></div>
+                <div class="pool-controls">
+                  <select id="sessionSize" aria-label="Velikost nové sady">
+                    <option value="5">5 otázek</option>
+                    <option value="10" selected>10 otázek</option>
+                    <option value="15">15 otázek</option>
+                    <option value="all">Celý pool</option>
+                  </select>
+                  <button id="newSession" class="primary">🎲 Nová náhodná sada</button>
+                </div>
+              </div>
+              <div class="tools">
+                <button id="showAnswers">Ukázat všechna řešení</button><button id="hideAnswers">Skrýt všechna řešení</button>
+                <button type="button" id="generateTasks" class="hidden">✨ Generovat nové příklady</button>
+                <button type="button" id="finishSet" class="primary">✓ Zobrazit shrnutí sady</button>
+              </div>
             </div>
           </details>
           <div class="mode-bar no-print">
@@ -300,27 +328,11 @@
               <button type="button" id="modeTest" class="mode-button"><span>📝 Test</span><small>výsledek na konci</small></button>
             </div>
             <span id="modeHint" class="mode-hint">Učení: odpověď se vyhodnotí hned a řešení můžeš zobrazit.</span>
-            <button type="button" id="generateTasks" class="hidden">✨ Generovat nové příklady</button>
-            <button type="button" id="finishSet" class="primary">✓ Zobrazit shrnutí sady</button>
           </div>
-          <div class="pool-bar">
-            <label for="sessionSize">Velikost nové sady</label>
-            <select id="sessionSize" aria-label="Velikost nové sady">
-              <option value="5">5 otázek</option>
-              <option value="10" selected>10 otázek</option>
-              <option value="15">15 otázek</option>
-              <option value="all">Celý pool</option>
-            </select>
-            <button id="newSession" class="primary">🎲 Nová náhodná sada</button>
-            <span id="poolInfo" class="pool-info">Otázky se losují z aktuálního poolu.</span>
-          </div>
-          <div class="session-progress" aria-live="polite">
-            <div class="session-progress-head"><span>Průběh sady</span><strong id="sessionProgressText">0 / 0</strong></div>
-            <div class="progress-track"><span id="sessionProgressFill" class="progress-fill"></span></div>
-          </div>
-          <div class="tools no-print">
-            <button id="showAnswers">Ukázat všechna řešení</button><button id="hideAnswers">Skrýt všechna řešení</button>
-          </div>
+        </div>
+        <div class="session-progress" aria-live="polite">
+          <div class="session-progress-head"><span>Průběh sady</span><strong id="sessionProgressText">0 / 0</strong></div>
+          <div class="progress-track"><span id="sessionProgressFill" class="progress-fill"></span></div>
         </div>
         <div class="study-body"><div id="exercises"><div class="empty">Tady se zobrazí tvoje procvičování.</div></div></div>
       </section>
