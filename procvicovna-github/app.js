@@ -211,37 +211,59 @@ function updateCodeEditor(textarea) {
 function syncCodeEditors() {
   document.querySelectorAll('.code-editor textarea.code').forEach((textarea) => {
     updateCodeEditor(textarea);
+    if (textarea.dataset.editorSynced === '1') return;
+    textarea.dataset.editorSynced = '1';
     textarea.addEventListener('input', () => updateCodeEditor(textarea));
     textarea.addEventListener('scroll', () => updateCodeEditor(textarea));
-    textarea.addEventListener('keydown', (event) => {
-      if (event.key !== 'Tab') return;
-      event.preventDefault();
-      const value = textarea.value;
-      const start = textarea.selectionStart;
-      const end = textarea.selectionEnd;
-      const indent = ' '.repeat(4);
-      if (event.shiftKey) {
-        const lineStart = value.lastIndexOf('\n', Math.max(0, start - 1)) + 1;
-        const selectedEnd = value.indexOf('\n', end);
-        const finalEnd = selectedEnd === -1 ? value.length : selectedEnd;
-        const block = value.slice(lineStart, finalEnd);
-        const updated = block.replace(/^( {1,4})/gm, '');
-        textarea.value = value.slice(0, lineStart) + updated + value.slice(finalEnd);
-        const removedBeforeCaret = Math.min(4, (value.slice(lineStart, start).match(/^ {0,4}/)?.[0]?.length || 0));
-        textarea.selectionStart = Math.max(lineStart, start - removedBeforeCaret);
-        textarea.selectionEnd = Math.max(lineStart, end - Math.min(4, removedBeforeCaret));
-      } else if (start === end) {
-        textarea.value = value.slice(0, start) + indent + value.slice(end);
-        textarea.selectionStart = textarea.selectionEnd = start + indent.length;
-      } else {
-        const lineStart = value.lastIndexOf('\n', Math.max(0, start - 1)) + 1;
-        textarea.value = value.slice(0, lineStart) + indent + value.slice(lineStart);
-        textarea.selectionStart = start + indent.length;
-        textarea.selectionEnd = end + indent.length;
-      }
-      updateCodeEditor(textarea);
-    });
   });
+}
+
+function setupCodeTabShortcut() {
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Tab') return;
+    const textarea = event.target instanceof HTMLTextAreaElement && event.target.matches('textarea.code')
+      ? event.target
+      : null;
+    if (!textarea) return;
+
+    // V kódových úlohách Tab odsazuje. Mimo editor zůstává běžná navigace Tabem.
+    event.preventDefault();
+
+    const value = textarea.value;
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const indent = ' '.repeat(4);
+
+    if (event.shiftKey) {
+      const lineStart = value.lastIndexOf('\n', Math.max(0, start - 1)) + 1;
+      const selectedEnd = value.indexOf('\n', Math.max(end - (end > start ? 1 : 0), 0));
+      const finalEnd = selectedEnd === -1 ? value.length : selectedEnd;
+      const block = value.slice(lineStart, finalEnd);
+      const removedPerLine = block.replace(/^ {1,4}/gm, '');
+      const caretOffset = start - lineStart;
+      const endOffset = end - lineStart;
+      const removedBeforeStart = Math.min(4, (block.slice(0, caretOffset).match(/^ {0,4}/)?.[0]?.length || 0));
+      const removedBeforeEnd = Math.min(4, (block.slice(0, endOffset).match(/^ {0,4}/)?.[0]?.length || 0));
+      textarea.value = value.slice(0, lineStart) + removedPerLine + value.slice(finalEnd);
+      textarea.selectionStart = Math.max(lineStart, start - removedBeforeStart);
+      textarea.selectionEnd = Math.max(lineStart, end - removedBeforeEnd);
+      textarea.dispatchEvent(new Event('input', { bubbles: true }));
+      return;
+    }
+
+    if (start !== end) {
+      const lineStart = value.lastIndexOf('\n', Math.max(0, start - 1)) + 1;
+      textarea.value = value.slice(0, lineStart) + indent + value.slice(lineStart);
+      textarea.selectionStart = start + indent.length;
+      textarea.selectionEnd = end + indent.length;
+      textarea.dispatchEvent(new Event('input', { bubbles: true }));
+      return;
+    }
+
+    // setRangeText zachová nativní textarea chování a správně posune kurzor.
+    textarea.setRangeText(indent, start, end, 'end');
+    textarea.dispatchEvent(new Event('input', { bubbles: true }));
+  }, true);
 }
 
 function checkActionForExercise(exerciseElement) {
@@ -1618,6 +1640,7 @@ $('mobileCheckButton').addEventListener('click', () => {
 syncFilterPanelForViewport();
 window.addEventListener('resize', () => { syncFilterPanelForViewport(); updateMobileCheckBar(); });
 setupEnterShortcut();
+setupCodeTabShortcut();
 
 initTheme();
 state.exercises = normalizeExercises(state.exercises);

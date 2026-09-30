@@ -10,7 +10,7 @@ Statická webová aplikace pro procvičování školních materiálů. GitHub Pa
 - Literatura
 - Číslicová technika
 
-Aktuální runtime obsahuje 342 úloh: 86 v obecném souboru `exercises.js` (30 v Programování, 56 ve Vývoji webových aplikací), 110 ze sítí, 106 z literatury a 40 z číslicové techniky.
+Aktuální runtime obsahuje 377 úloh: 121 v obecném souboru `exercises.js` (30 v Programování, 56 ve Vývoji webových aplikací, 35 v Databázích), 110 ze sítí, 106 z literatury a 40 z číslicové techniky.
 
 ## Struktura projektu
 
@@ -315,7 +315,7 @@ Do aplikace byly doplněny tyto uživatelské funkce:
 
 - **Světlý motiv s přepínačem** – světlý motiv je výchozí, volba se ukládá lokálně do `localStorage` a lze přepnout na tmavý motiv. Barvy používají CSS proměnné.
 - **Vyhledávání v úlohách** – hledá se v názvu, otázce, předmětu, tématu, podtématu, tazích a také v textu kódových úloh a řešení. Počet výsledků se zobrazuje dynamicky podle skutečného runtime poolu.
-- **Kódové úlohy** – editor zobrazuje čísla řádků a základní zvýraznění syntaxe pro Python/JavaScript. `Tab` vloží čtyři mezery a `Shift+Tab` odsadí aktuální řádek/blok. Chyby spuštěného programu se zobrazují jako červený výstup a u Pythonu se uvádí i řádek chyby, pokud ho prostředí vrátí.
+- **Kódové úlohy** – editor zobrazuje čísla řádků a základní zvýraznění syntaxe pro Python/JavaScript. `Tab` vloží čtyři mezery, `Shift+Tab` odebere odsazení aktuálního řádku/bloku a mimo kódový editor zůstává běžná navigace Tabem. Chyby spuštěného programu se zobrazují jako červený výstup a u Pythonu se uvádí i řádek chyby, pokud ho prostředí vrátí.
 - **Sticky kontrola na mobilu** – na šířkách do 760 px je dole připnuté tlačítko **Zkontrolovat**, které kontroluje právě aktivní úlohu; aktivní úloha se určuje podle posledního dotyku/fokusu.
 - **Procvičování chyb po sadě** – shrnutí sady nabízí **Procvičit jen chyby**. Tato akce vytvoří novou sadu pouze z hodnocených úloh, které byly označené jako nesprávné; otevřené textové self-checky se mezi chyby nezařazují.
 
@@ -323,4 +323,4 @@ Do aplikace byly doplněny tyto uživatelské funkce:
 
 Při kontrole 30. 9. 2026 byly ověřeny syntaxe JS, aktivní datový validator a runtime DOM v Chromium na šířkách 320, 375, 390, 768 a 1280 px. Kontrolován byl také horizontální overflow, přepínání motivu, vyhledávání, kódový editor, `Tab`, sticky kontrola a workflow **Procvičit jen chyby**. Prohlížečový test použil self-contained DOM harness; přímá navigace sandboxem na `file://`/lokální HTTP byla blokována prostředím.
 
-**Poznámka k počtu úloh:** původní `README.md` v dodaném ZIPu uvádí 377 úloh, ale aktivní soubory `data/*.js` obsahují podle validatoru 342 úloh (30 Programování, 56 Vývoj webových aplikací, 110 Počítačové sítě, 106 Literatura, 40 Číslicová technika). UI proto počet úloh bere přímo z načtených dat a nepoužívá pevně zapsané číslo 377.
+**Poznámka k počtu úloh:** validator v dodaném projektu potvrzuje **377 aktivních úloh** a 377 unikátních ID. Číslo 377 odpovídá skutečně načteným datům; UI počet bere dynamicky z runtime a nepoužívá pevně zapsanou hodnotu.
