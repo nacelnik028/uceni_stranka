@@ -11,7 +11,7 @@ window.NETWORK_EXERCISES = [
     "id": "ps-zaklady-001",
     "type": "choice",
     "title": "Co je to počítačová síť?",
-    "question": "Jaká je správná definice počítačové (datové/komunikační) sítě podle studijních materiálů?",
+    "question": "Jaká je správná definice počítačové (datové/komunikační) sítě?",
     "choices": [
       "Skupina zařízení propojených tak, aby mezi sebou komunikovala a sdílela prostředky podle stanovených pravidel",
       "Pouze propojení počítačů a serverů pomocí metalického ethernetového kabelu v jedné místnosti",
@@ -66,9 +66,7 @@ window.NETWORK_EXERCISES = [
     "hint": "Zkratka vychází z anglického „Personal Area Network“.",
     "tags": [
       "Dělení sítí",
-      "Rozlehlost",
-      "PAN"
-    ]
+      "Rozlehlost"]
   },
   {
     "subject": "Počítačové sítě",
@@ -97,15 +95,13 @@ window.NETWORK_EXERCISES = [
     "subtopic": "Definice a rozlehlost",
     "id": "ps-zaklady-005",
     "type": "fill",
+    "autoGrade": true,
     "title": "Metropolitní síť (zkratka)",
     "question": "Jaká třípísmenná zkratka označuje metropolitní síť, která pokrývá město nebo aglomeraci a její páteř tvoří zpravidla optické kabely?",
     "answer": "MAN",
     "solution": "MAN (Metropolitan Area Network) je metropolitní síť pokrývající město či aglomeraci. Vyznačuje se vysokými rychlostmi a optickými páteřními trasami.",
     "hint": "M jako Metropolitan.",
-    "tags": [
-      "Dělení sítí",
-      "MAN"
-    ]
+    "tags": ["Dělení sítí"]
   },
   {
     "subject": "Počítačové sítě",
@@ -124,9 +120,7 @@ window.NETWORK_EXERCISES = [
     "answer": "WAN (Wide Area Network)",
     "solution": "WAN (Wide Area Network) pokrývá velké geografické plochy (státy, kontinenty, globální internet). Využívá páteřní broadband technologie, podmořské kabely i satelitní spoje.",
     "tags": [
-      "Dělení sítí",
-      "WAN"
-    ]
+      "Dělení sítí"]
   },
   {
     "subject": "Počítačové sítě",
@@ -156,7 +150,7 @@ window.NETWORK_EXERCISES = [
     "id": "ps-zaklady-008",
     "type": "choice",
     "title": "Bezdrátové sítě pro IoT",
-    "question": "Které z následujících bezdrátových technologií jsou v materiálu uvedeny jako sítě pro IoT (Internet věcí)?",
+    "question": "Které z následujících bezdrátových technologií jsou vhodné pro IoT (Internet věcí)?",
     "choices": [
       "ZigBee, RFID/NFC, NB-IoT, LoRaWAN, SigFox",
       "Pouze optický kabel s konektorem SC/APC",
@@ -329,9 +323,7 @@ window.NETWORK_EXERCISES = [
     "answer": "Balíčkově orientovaná komunikace (packet switching) – data se dělí na pakety putující sítí nezávisle",
     "solution": "Paul Baran (USA) a Donald Davies (Velká Británie) navrhli rozdělení dat na menší části – pakety (packet switching), které putují sítí nezávisle na sobě, což zajišťuje odolnost i při výpadku části sítě.",
     "tags": [
-      "Historie",
-      "Packet switching"
-    ]
+      "Historie"]
   },
   {
     "subject": "Počítačové sítě",
@@ -361,15 +353,13 @@ window.NETWORK_EXERCISES = [
     "subtopic": "Historie a vývoj",
     "id": "ps-zaklady-018",
     "type": "fill",
+    "autoGrade": true,
     "title": "Flag Day 1983",
     "question": "Jak se v historii internetu označuje den 1. ledna 1983, kdy ARPANET oficiálně přešel ze starého protokolu NCP na TCP/IP?",
     "answer": "Flag Day",
     "solution": "1. ledna 1983 nastal tzv. „Flag Day“, kdy došlo k plnému přechodu sítě ARPANET z protokolu NCP na sadu TCP/IP. Tento den je považován za vznik internetu v moderním slova smyslu.",
     "hint": "Anglicky „den vlajky“.",
-    "tags": [
-      "Historie",
-      "Flag Day"
-    ]
+    "tags": ["Historie"]
   },
   {
     "subject": "Počítačové sítě",
@@ -458,15 +448,13 @@ window.NETWORK_EXERCISES = [
     "subtopic": "Topologie sítí",
     "id": "ps-topologie-003",
     "type": "fill",
+    "autoGrade": true,
     "title": "Slabina hvězdice – zkratka SPOF",
     "question": "Jaká 4písmenná zkratka označuje kritickou slabinu hvězdicové topologie, kdy při poruše centrálního prvku zkolabuje celá síť (Single Point of Failure)?",
     "answer": "SPOF",
     "solution": "SPOF (Single Point of Failure – jediný bod selhání) znamená, že selhání centrálního prvku (např. centrálního switche) vyřadí z provozu celou připojenou síť.",
     "hint": "Zkratka ze slov Single Point Of Failure.",
-    "tags": [
-      "Topologie",
-      "SPOF"
-    ]
+    "tags": ["Topologie"]
   },
   {
     "subject": "Počítačové sítě",
@@ -567,10 +555,7 @@ window.NETWORK_EXERCISES = [
     "answer": "Aktivní prvky signál/data zpracovávají, upravují či směrují a potřebují napájení; pasivní prvky signál pouze přenášejí a napájení nepotřebují",
     "solution": "Aktivní prvky provádějí s daty/signálem aktivní činnost (zesílení, přepínání, směrování) a vyžadují napájení ze sítě. Pasivní prvky (kabely, konektory, zásuvky, patch panely) signál nijak nemění a napájení nepotřebují.",
     "tags": [
-      "Síťové prvky",
-      "Aktivní",
-      "Pasivní"
-    ]
+      "Síťové prvky"]
   },
   {
     "subject": "Počítačové sítě",
@@ -620,16 +605,13 @@ window.NETWORK_EXERCISES = [
     "subtopic": "Aktivní a pasivní prvky",
     "id": "ps-topologie-011",
     "type": "fill",
+    "autoGrade": true,
     "title": "Optopřevodník – modul SFP",
     "question": "Jaká třípísmenná zkratka označuje kompaktní zásuvný modul (Small Form-factor Pluggable) sloužící jako optopřevodník mezi metalickým a optickým vedením?",
     "answer": "SFP",
     "solution": "SFP modul (Small Form-factor Pluggable) je zásuvný transceiver do switchů a routerů, který převádí elektrický signál na optický a naopak.",
     "hint": "Zkratka ze slov Small Form-factor Pluggable.",
-    "tags": [
-      "Hardware",
-      "SFP",
-      "Optika"
-    ]
+    "tags": ["Hardware", "Optika"]
   },
   {
     "subject": "Počítačové sítě",
@@ -751,7 +733,6 @@ window.NETWORK_EXERCISES = [
     "solution": "Kroucením vodičů s definovaným stoupáním se dosahuje vzájemného vyrušení indukovaného elektromagnetického šumu v obou vodičích páru (diferenciální signál), což chrání přenášená data.",
     "tags": [
       "Kabeláž",
-      "Kroucení",
       "Fyzika"
     ]
   },
@@ -761,15 +742,13 @@ window.NETWORK_EXERCISES = [
     "subtopic": "Zapojení RJ-45 a patch cordy",
     "id": "ps-media-006",
     "type": "fill",
+    "autoGrade": true,
     "title": "Označení 8pinového síťového konektoru",
     "question": "Jaké typové označení má 8pinový modulární konektor (zástrčka) běžně používaný na koncích síťových TP kabelů?",
     "answer": "RJ-45",
     "solution": "RJ-45 (Registered Jack 45) je standardizovaný 8pinový konektor pro kroucenou dvojlinku v Ethernetu.",
     "hint": "RJ pomlčka číslo.",
-    "tags": [
-      "Kabeláž",
-      "RJ-45"
-    ]
+    "tags": ["Kabeláž"]
   },
   {
     "subject": "Počítačové sítě",
@@ -789,7 +768,6 @@ window.NETWORK_EXERCISES = [
     "solution": "Standardy T-568A a T-568B jsou definovány telekomunikační normou ANSI/TIA-568. V celé instalaci objektu je nutné dodržet jednotně jeden z těchto standardů.",
     "tags": [
       "Kabeláž",
-      "TIA-568",
       "RJ-45"
     ]
   },
@@ -843,16 +821,13 @@ window.NETWORK_EXERCISES = [
     "subtopic": "Koaxiální a optické kabely",
     "id": "ps-media-010",
     "type": "fill",
+    "autoGrade": true,
     "title": "Konektor pro koaxiální kabel",
     "question": "Jaký typ konektoru s bajonetovým otočným mechanismem se používal k zakončení tenkého koaxiálního ethernetového kabelu?",
     "answer": "BNC",
     "solution": "BNC (Bayonet Neill–Concelman) konektor je bajonetový konektor používaný u koaxiálních kabelů (např. v historickém standardu 10BASE2).",
     "hint": "Tři písmena začínající na B.",
-    "tags": [
-      "Koaxiál",
-      "BNC",
-      "Konektory"
-    ]
+    "tags": ["Koaxiál", "Konektory"]
   },
   {
     "subject": "Počítačové sítě",
@@ -903,15 +878,13 @@ window.NETWORK_EXERCISES = [
     "subtopic": "Koaxiální a optické kabely",
     "id": "ps-media-013",
     "type": "fill",
+    "autoGrade": true,
     "title": "Sdělovací kabel SYKFY",
-    "question": "Jaké typové označení má telekomunikační sdělovací kabel s měděnými plnými vodiči a PVC pláštěm zmíněný v materiálu (např. pro domovní telefony a zabezpečovací systémy)?",
+    "question": "Jaké typové označení má telekomunikační sdělovací kabel s měděnými plnými vodiči a PVC pláštěm, používaný například pro domovní telefony a zabezpečovací systémy?",
     "answer": "SYKFY",
     "solution": "Kabel SYKFY je tradiční vnitřní telekomunikační sdělovací kabel s měděnými vodiči, používaný pro pevnou telefonii, interkomy a EZS rozvody.",
     "hint": "Pět písmen začínajících na S a končících na Y.",
-    "tags": [
-      "Kabeláž",
-      "SYKFY"
-    ]
+    "tags": ["Kabeláž"]
   },
   {
     "subject": "Počítačové sítě",
@@ -919,13 +892,13 @@ window.NETWORK_EXERCISES = [
     "subtopic": "PoE technologie",
     "id": "ps-media-014",
     "type": "fill",
+    "autoGrade": true,
     "title": "Co znamená zkratka PoE",
     "question": "Napiš anglický název technologie, kterou označuje zkratka PoE (napájení zařízení po datovém ethernetovém kabelu).",
     "answer": "Power over Ethernet",
     "solution": "PoE znamená Power over Ethernet – technologie umožňující přenášet elektrickou energii spolu s daty po jednom TP kabelu.",
     "hint": "Power ... Ethernet.",
     "tags": [
-      "PoE",
       "Zkratky"
     ]
   },
@@ -945,11 +918,7 @@ window.NETWORK_EXERCISES = [
     ],
     "answer": "PSE je zdroj napájení (např. PoE switch či injektor); PD je napájené koncové zařízení (např. IP kamera či VoIP telefon)",
     "solution": "PSE (Power Sourcing Equipment) poskytuje napájení (PoE switch, PoE midspan injektor). PD (Powered Device) je spotřebič napájený z kabelu (kamera, Wi-Fi AP, VoIP telefon).",
-    "tags": [
-      "PoE",
-      "PSE",
-      "PD"
-    ]
+    "tags": []
   },
   {
     "subject": "Počítačové sítě",
@@ -957,6 +926,7 @@ window.NETWORK_EXERCISES = [
     "subtopic": "PoE technologie",
     "id": "ps-media-016",
     "type": "fill",
+    "autoGrade": true,
     "title": "Standard PoE IEEE 802.3af",
     "question": "Jaké číselné označení má původní standard IEEE pro PoE (výkon do 15,4 W na portu)? Zapiš včetně tečky a písmen (např. 802.3xx).",
     "answer": "802.3af",
@@ -1270,10 +1240,7 @@ window.NETWORK_EXERCISES = [
     "answer": "Prvních 24 bitů je OUI (kód výrobce) a druhých 24 bitů je unikátní číslo zařízení (NIC specific) přidělené výrobcem",
     "solution": "MAC adresa se dělí na 2 poloviny (po 24 bitech / 3 bajtech): OUI (Organizationally Unique Identifier) identifikuje výrobce síťové karty (např. Intel, Cisco, Realtek), zbývající část (NIC) je unikátní sériové číslo daného kusu.",
     "tags": [
-      "MAC",
-      "OUI",
-      "NIC"
-    ]
+      "MAC"]
   },
   {
     "subject": "Počítačové sítě",
@@ -1281,6 +1248,7 @@ window.NETWORK_EXERCISES = [
     "subtopic": "MAC adresa",
     "id": "ps-adresace-004",
     "type": "fill",
+    "autoGrade": true,
     "title": "Broadcastová MAC adresa",
     "question": "Jak vypadá speciální broadcastová MAC adresa v šestnáctkovém zápisu s dvojtečkami (určená všem zařízením v lokální síti)?",
     "answer": "FF:FF:FF:FF:FF:FF",
@@ -1356,6 +1324,7 @@ window.NETWORK_EXERCISES = [
     "subtopic": "IPv4 adresa a CIDR",
     "id": "ps-adresace-008",
     "type": "fill",
+    "autoGrade": true,
     "title": "Maska pro prefix /24",
     "question": "Jaká je dekadická podoba masky sítě se 4 oktety pro CIDR zápis /24?",
     "answer": "255.255.255.0",
@@ -1394,6 +1363,7 @@ window.NETWORK_EXERCISES = [
     "subtopic": "IPv4 adresa a CIDR",
     "id": "ps-adresace-010",
     "type": "fill",
+    "autoGrade": true,
     "title": "Adresa zpětné smyčky (Loopback)",
     "question": "Jaká je nejznámější IPv4 adresa lokální zpětné smyčky (Loopback / localhost), sloužící k testování síťového zásobníku na vlastním počítači?",
     "answer": "127.0.0.1",
@@ -1433,16 +1403,13 @@ window.NETWORK_EXERCISES = [
     "subtopic": "Výchozí brána a konfigurace",
     "id": "ps-adresace-012",
     "type": "fill",
+    "autoGrade": true,
     "title": "Protokol pro automatické přidělování IP adres",
     "question": "Jaký protokol zajišťuje automatickou (dynamickou) konfiguraci IP adresy, masky, brány a DNS serverů pro klientské stanice? (Zkratka)",
     "answer": "DHCP",
     "solution": "DHCP (Dynamic Host Configuration Protocol) automaticky zapůjčuje síťové parametry (IP, masku, bránu, DNS servery) připojeným zařízením z nastaveného fondu (poolu).",
     "hint": "Čtyři písmena začínající na D (Dynamic Host...).",
-    "tags": [
-      "DHCP",
-      "Protokoly",
-      "Zkratky"
-    ]
+    "tags": ["Protokoly", "Zkratky"]
   },
   {
     "subject": "Počítačové sítě",
@@ -1450,6 +1417,7 @@ window.NETWORK_EXERCISES = [
     "subtopic": "Příkazy a diagnostika",
     "id": "ps-adresace-013",
     "type": "fill",
+    "autoGrade": true,
     "title": "Příkaz ipconfig ve Windows",
     "question": "Který příkaz s přepínačem vypíše v příkazovém řádku Windows podrobné informace o IP konfiguraci všech adaptérů včetně MAC adresy?",
     "answer": "ipconfig /all",
@@ -1457,9 +1425,7 @@ window.NETWORK_EXERCISES = [
     "hint": "ipconfig lomítko all.",
     "tags": [
       "CLI",
-      "Windows",
-      "ipconfig"
-    ]
+      "Windows"]
   },
   {
     "subject": "Počítačové sítě",
@@ -1467,16 +1433,13 @@ window.NETWORK_EXERCISES = [
     "subtopic": "Příkazy a diagnostika",
     "id": "ps-adresace-014",
     "type": "fill",
+    "autoGrade": true,
     "title": "Příkaz getmac",
     "question": "Jaký jednoúčelový příkaz v příkazovém řádku Windows slouží přímo k rychlému zjištění MAC adres fyzických síťových adaptérů?",
     "answer": "getmac",
     "solution": "Příkaz `getmac` ve Windows rychle zjistí a zobrazí fyzické (MAC) adresy všech instalovaných síťových adaptérů v počítači.",
     "hint": "Složené ze slov get a mac.",
-    "tags": [
-      "CLI",
-      "Windows",
-      "getmac"
-    ]
+    "tags": ["CLI", "Windows"]
   },
   {
     "subject": "Počítačové sítě",
@@ -1484,16 +1447,13 @@ window.NETWORK_EXERCISES = [
     "subtopic": "Příkazy a diagnostika",
     "id": "ps-adresace-015",
     "type": "fill",
+    "autoGrade": true,
     "title": "Diagnostický příkaz ping",
     "question": "Který univerzální diagnostický příkaz odesílá ICMP Echo Request pakety k ověření dostupnosti cílového zařízení a měření odezvy (latence)?",
     "answer": "ping",
     "solution": "Nástroj `ping` (využívající protokol ICMP) zjišťuje, zda je cílová IP adresa či doména dostupná, a měří čas odezvy (RTT – Round Trip Time) v milisekundách.",
     "hint": "Čtyři písmena, jako ping-pong.",
-    "tags": [
-      "CLI",
-      "Diagnostika",
-      "ping"
-    ]
+    "tags": ["CLI", "Diagnostika"]
   },
   {
     "subject": "Počítačové sítě",
@@ -1533,11 +1493,7 @@ window.NETWORK_EXERCISES = [
     ],
     "answer": "Get-NetNeighbor",
     "solution": "V PowerShellu slouží cmdlet `Get-NetNeighbor` k vypsání sousedních uzlů v síti ze směrovací/sousedské tabulky (pro IPv4 i IPv6).",
-    "tags": [
-      "PowerShell",
-      "Windows",
-      "Get-NetNeighbor"
-    ]
+    "tags": ["PowerShell", "Windows"]
   },
   {
     "subject": "Počítačové sítě",
@@ -1578,9 +1534,7 @@ window.NETWORK_EXERCISES = [
     "solution": "Hierarchie DNS má stromovou strukturu s kořenovou zónou (.) na samém vrcholu. Pod ní jsou domény 1. řádu (TLD, např. `.cz`, `.org`), dále domény 2. řádu (např. `spssol`), 3. řádu (např. `mail`) atd.",
     "tags": [
       "DNS",
-      "Hierarchie",
-      "TLD"
-    ]
+      "Hierarchie"]
   },
   {
     "subject": "Počítačové sítě",
@@ -1616,9 +1570,7 @@ window.NETWORK_EXERCISES = [
     "solution": "Autoritativní server je definitivním správcem zóny a zná oficiální záznamy dané domény. Rekurzivní resolver (poskytovaný např. ISP nebo Google 8.8.8.8) se ptá v hierarchii za klienta a výsledek si po dobu TTL pamatuje v mezipaměti.",
     "tags": [
       "DNS",
-      "Servery",
-      "Cache"
-    ]
+      "Servery"]
   },
   {
     "subject": "Počítačové sítě",
@@ -1626,15 +1578,13 @@ window.NETWORK_EXERCISES = [
     "subtopic": "DNS - systém doménových jmen",
     "id": "ps-sluzby-005",
     "type": "fill",
+    "autoGrade": true,
     "title": "Platnost DNS záznamu v mezipaměti (TTL)",
     "question": "Jaká třípísmenná zkratka (Time To Live) udává v DNS záznamu čas v sekundách, po který si rekurzivní servery smí výsledek ponechat v mezipaměti?",
     "answer": "TTL",
     "solution": "TTL (Time To Live) je časový údaj určující platnost DNS záznamu v mezipaměti (cache) předtím, než se server musí znovu dotázat autoritativního serveru.",
     "hint": "Zkratka Time To Live.",
-    "tags": [
-      "DNS",
-      "TTL"
-    ]
+    "tags": ["DNS"]
   },
   {
     "subject": "Počítačové sítě",
@@ -1664,16 +1614,13 @@ window.NETWORK_EXERCISES = [
     "subtopic": "DNS záznamy",
     "id": "ps-sluzby-007",
     "type": "fill",
+    "autoGrade": true,
     "title": "Záznam pro IPv6 adresu",
     "question": "Jaké čtyřpísmenné označení má DNS záznam, který přiřazuje doménovému jménu 128bitovou adresu protokolu IPv6?",
     "answer": "AAAA",
     "solution": "Záznam typu AAAA (tzv. „Quad-A“) překládá doménové jméno na adresu novějšího protokolu IPv6.",
     "hint": "Čtyři stejná písmena A za sebou.",
-    "tags": [
-      "DNS",
-      "IPv6",
-      "AAAA"
-    ]
+    "tags": ["DNS", "IPv6"]
   },
   {
     "subject": "Počítačové sítě",
@@ -1756,10 +1703,7 @@ window.NETWORK_EXERCISES = [
     "answer": "SIP (navázání, řízení a ukončení hovoru) a RTP (přenos samotných hlasových dat v reálném čase)",
     "solution": "SIP (Session Initiation Protocol) slouží jako signalizační protokol pro sestavení, správu a zavěšení hovoru. Samotný proud digitalizovaného audia pak v reálném čase přenáší protokol RTP (Real-time Transport Protocol).",
     "tags": [
-      "VoIP",
-      "SIP",
-      "RTP"
-    ]
+      "VoIP"]
   },
   {
     "subject": "Počítačové sítě",
@@ -1789,15 +1733,13 @@ window.NETWORK_EXERCISES = [
     "subtopic": "Hlasové a datové služby",
     "id": "ps-sluzby-013",
     "type": "fill",
+    "autoGrade": true,
     "title": "Hlasová technologie pro sítě 5G",
     "question": "Jaká zkratka (Voice over New Radio) označuje technologii přenosu hlasu nativně vyvinutou pro moderní sítě 5G?",
     "answer": "VoNR",
     "solution": "VoNR (Voice over New Radio) je nativní technologie hlasových služeb pro mobilní sítě 5G. Poskytuje ultra nízkou latenci a vysokou kvalitu zvuku.",
     "hint": "Začíná Vo a končí NR.",
-    "tags": [
-      "5G",
-      "VoNR"
-    ]
+    "tags": ["5G"]
   },
   {
     "subject": "Počítačové sítě",
@@ -2164,16 +2106,13 @@ window.NETWORK_EXERCISES = [
     "subtopic": "Hlasové a datové služby",
     "id": "ps-sluzby-021",
     "type": "fill",
+    "autoGrade": true,
     "title": "Původní telefonní síť PSTN",
     "question": "Jaká 4písmenná zkratka označuje tradiční veřejnou přepojovanou telefonní síť (Public Switched Telephone Network)?",
     "answer": "PSTN",
     "solution": "PSTN (Public Switched Telephone Network) je celosvětová veřejná telekomunikační síť s přepojováním okruhů původně budovaná pro analogové telefonní hovory.",
     "hint": "Začíná P a končí N (Public Switched...).",
-    "tags": [
-      "Historie",
-      "Telefonie",
-      "PSTN"
-    ]
+    "tags": ["Historie", "Telefonie"]
   },
   {
     "subject": "Počítačové sítě",

@@ -50,6 +50,136 @@ for (const group of groups) {
 }
 
 const ids = new Map();
+const questions = new Map();
+const sourceDependentQuestion = /(materiál|poznámk|studijní materiál|dodan[ée]m)/i;
+
+function normalizeQuestion(value) {
+  return String(value ?? '')
+    .normalize('NFD')
+    .replace(/\p{M}+/gu, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toLocaleLowerCase('cs-CZ');
+}
+
+
+function normalizeMetadataValue(value) {
+  return String(value ?? '')
+    .normalize('NFKC')
+    .replace(/[`*_~]/g, '')
+    .normalize('NFD')
+    .replace(/\p{M}+/gu, '')
+    .toLocaleLowerCase('cs-CZ')
+    .replace(/[^\p{L}\p{N}]+/gu, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function compactMetadataValue(value) {
+  return normalizeMetadataValue(value).replace(/\s+/g, '');
+}
+
+function acronymOf(value) {
+  const words = normalizeMetadataValue(value).split(' ').filter(Boolean);
+  return words.length >= 2 ? words.map(word => word[0]).join('') : '';
+}
+
+function answerRevealedByTag(tag, answer, exerciseType, autoGrade, question) {
+  const tagRaw = String(tag ?? '').trim();
+  const answerRaw = String(answer ?? '').trim();
+  const tagValue = normalizeMetadataValue(tagRaw);
+  const answerValue = normalizeMetadataValue(answerRaw);
+  const questionValue = normalizeMetadataValue(question);
+  if (!tagValue || !answerValue) return false;
+
+  // When the term is already present in the question, the tag does not introduce new answer information.
+  const questionWords = new Set(questionValue.split(' ').filter(Boolean));
+  if (questionWords.has(tagValue) || questionValue.includes(` ${tagValue} `) || questionValue.startsWith(`${tagValue} `) || questionValue.endsWith(` ${tagValue}`)) return false;
+
+  // Exact answer or formatting-only variant is always a direct leak.
+  if (tagValue === answerValue || compactMetadataValue(tagRaw) === compactMetadataValue(answerRaw)) return true;
+
+  // An acronym such as PoE / CTR directly reveals a multi-word expected answer.
+  if (acronymOf(answerRaw) === tagValue && answerValue.split(' ').length >= 2) return true;
+
+  // Only objective-answer types should reject a tag that is a whole-word component
+  // of the answer. For open-ended text, thematic words commonly occur in explanations
+  // and do not by themselves expose a unique response.
+  const objectiveType = new Set(['choice', 'multi', 'match', 'order', 'fill', 'number', 'conversion']).has(exerciseType)
+    || (exerciseType === 'text' && autoGrade === true);
+  if (!objectiveType) return false;
+
+  // Domain/URL answers such as favicon-generator.org may contain a broad topic tag
+  // without the tag being a direct answer hint.
+  if (/\b[a-z0-9-]+\.[a-z]{2,}(?:\/[^\s]*)?\b/i.test(answerRaw)) return false;
+
+  const answerWords = answerValue.split(' ').filter(Boolean);
+  const tagWords = tagValue.split(' ').filter(Boolean);
+  if (answerWords.length >= 2 && tagWords.length >= 1 && tagWords.length <= answerWords.length) {
+    for (let i = 0; i <= answerWords.length - tagWords.length; i += 1) {
+      if (tagWords.every((word, j) => word === answerWords[i + j])) return true;
+    }
+  }
+
+  // Very short answers embedded in a tag are still direct leaks (e.g. "základ 16").
+  if (answerWords.length === 1 && answerWords[0].length <= 4 && tagWords.includes(answerWords[0])) return true;
+
+  // Ranges such as A–F expose a set of valid match answers.
+  if (/^[\p{L}\p{N}]+\s*[–-]\s*[\p{L}\p{N}]+$/u.test(tagRaw)) {
+    const endpoints = tagRaw.split(/[–-]/).map(part => normalizeMetadataValue(part));
+    if (endpoints.includes(answerValue)) return true;
+  }
+
+  return false;
+}
+
+function getCorrectAnswerValues(exercise) {
+  switch (exercise.type) {
+    case 'choice':
+      return [exercise.answer];
+    case 'multi':
+      return Array.isArray(exercise.answers) ? exercise.answers : [];
+    case 'match':
+      return Array.isArray(exercise.pairs)
+        ? exercise.pairs.flatMap(pair => pair && typeof pair === 'object' ? [pair.left, pair.right] : [])
+        : [];
+    case 'order':
+      return Array.isArray(exercise.order) ? exercise.order : [];
+    case 'conversion':
+    case 'number':
+    case 'fill':
+      return [exercise.answer];
+    case 'text':
+      return [exercise.answer];
+    case 'code':
+      return [exercise.expectedOutput];
+    default:
+      return [];
+  }
+}
+
+function validateUniqueStrings(values, label, prefix) {
+  const seen = new Set();
+  for (const value of values) {
+    const key = String(value ?? '').trim();
+    if (seen.has(key)) errors.push(`${prefix}: duplicitní ${label} "${key}"`);
+    seen.add(key);
+  }
+}
+
+function convertCanonical(value, base) {
+  const raw = String(value ?? '').trim().toUpperCase();
+  if (!raw) return null;
+  const digits = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  let total = 0;
+  for (const ch of raw) {
+    const digit = digits.indexOf(ch);
+    if (digit < 0 || digit >= base) return null;
+    total = total * base + digit;
+  }
+  return total;
+}
+
 for (const e of all) {
   const prefix = `${e.__file} / ${e.id || '(bez ID)'}`;
 
@@ -61,14 +191,34 @@ for (const e of all) {
     if (!String(e[field] ?? '').trim()) errors.push(`${prefix}: chybí ${field}`);
   }
 
+  const questionKey = normalizeQuestion(e.question);
+  if (questionKey) {
+    if (questions.has(questionKey)) errors.push(`${prefix}: duplicitní otázka; první výskyt je v ${questions.get(questionKey)}`);
+    else questions.set(questionKey, prefix);
+  }
+  if (sourceDependentQuestion.test(String(e.question ?? ''))) {
+    errors.push(`${prefix}: otázka odkazuje na materiál/poznámky; otázka musí být řešitelná samostatně`);
+  }
+
   if (!allowedTypes.has(e.type)) {
     errors.push(`${prefix}: neznámý type "${e.type}"`);
     continue;
   }
 
+  if (e.type === 'text' || e.type === 'fill') {
+    if (typeof e.autoGrade !== 'boolean') {
+      errors.push(`${prefix}: ${e.type} musí mít explicitní boolean autoGrade (true jen pro jednoznačnou odpověď)`);
+    }
+    if (e.type === 'text' && e.autoGrade === true && !String(e.answer ?? '').trim()) {
+      errors.push(`${prefix}: text s autoGrade=true musí mít kanonickou answer`);
+    }
+  }
+
   if (e.type === 'choice') {
     if (!Array.isArray(e.choices) || e.choices.length < 2) {
       errors.push(`${prefix}: choice potřebuje alespoň 2 možnosti v choices`);
+    } else {
+      validateUniqueStrings(e.choices, 'choice', prefix);
     }
     if (!String(e.answer ?? '').trim()) {
       errors.push(`${prefix}: choice nemá answer`);
@@ -78,10 +228,15 @@ for (const e of all) {
   }
 
   if (e.type === 'multi') {
-    if (!Array.isArray(e.choices) || e.choices.length < 2) errors.push(`${prefix}: multi potřebuje alespoň 2 možnosti v choices`);
+    if (!Array.isArray(e.choices) || e.choices.length < 2) {
+      errors.push(`${prefix}: multi potřebuje alespoň 2 možnosti v choices`);
+    } else {
+      validateUniqueStrings(e.choices, 'choice', prefix);
+    }
     if (!Array.isArray(e.answers) || e.answers.length < 1) errors.push(`${prefix}: multi nemá answers`);
     else {
       const choices = new Set((e.choices || []).map(c => String(c).trim()));
+      validateUniqueStrings(e.answers, 'správnou odpověď', prefix);
       for (const answer of e.answers) {
         if (!choices.has(String(answer).trim())) errors.push(`${prefix}: multi answers obsahuje možnost mimo choices`);
       }
@@ -105,6 +260,10 @@ for (const e of all) {
         lefts.add(left);
         rights.add(right);
       }
+      const normalizedRights = [...rights].map(v => v.toLocaleLowerCase('cs-CZ').replace(/\s*[—-]\s*\d+\s*$/, ''));
+      if (normalizedRights.length >= 3 && new Set(normalizedRights).size === 1) {
+        warnings.push(`${prefix}: match má prakticky stejné pravé strany; úloha může být triviální`);
+      }
     }
   }
 
@@ -114,6 +273,9 @@ for (const e of all) {
       const values = e.order.map(v => String(v).trim());
       if (values.some(v => !v)) errors.push(`${prefix}: order nesmí obsahovat prázdnou položku`);
       if (new Set(values).size !== values.length) errors.push(`${prefix}: order obsahuje duplicitní položku`);
+    }
+    if (sourceDependentQuestion.test(String(e.question ?? ''))) {
+      errors.push(`${prefix}: order nesmí vyžadovat pořadí podle zdrojového materiálu`);
     }
   }
 
@@ -126,6 +288,15 @@ for (const e of all) {
     if (!Number.isInteger(fromBase) || fromBase < 2 || fromBase > 36) errors.push(`${prefix}: conversion má neplatný fromBase`);
     if (!Number.isInteger(toBase) || toBase < 2 || toBase > 36) errors.push(`${prefix}: conversion má neplatný toBase`);
     if (!answer) errors.push(`${prefix}: conversion nemá answer`);
+    if (value && Number.isInteger(fromBase) && fromBase >= 2 && fromBase <= 36 && Number.isInteger(toBase) && toBase >= 2 && toBase <= 36 && answer) {
+      const decimal = convertCanonical(value, fromBase);
+      if (decimal == null) errors.push(`${prefix}: conversion value obsahuje číslici mimo fromBase`);
+      else {
+        const digits = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const expected = decimal.toString(toBase).toUpperCase();
+        if (answer.toUpperCase() !== expected) errors.push(`${prefix}: conversion answer nesedí; pro ${value} ze ${fromBase} do ${toBase} má být ${expected}`);
+      }
+    }
   }
 
   if (e.type === 'number') {
@@ -149,6 +320,22 @@ for (const e of all) {
 
   if (typeof e.tags !== 'undefined' && !Array.isArray(e.tags)) {
     errors.push(`${prefix}: tags musí být pole`);
+  }
+
+  if (Array.isArray(e.tags)) {
+    const correctAnswerValues = getCorrectAnswerValues(e)
+      .filter(value => String(value ?? '').trim());
+
+    for (const tag of e.tags) {
+      if (typeof tag !== 'string') {
+        errors.push(`${prefix}: každý tag musí být textový řetězec`);
+        continue;
+      }
+
+      if (correctAnswerValues.some(answer => answerRevealedByTag(tag, answer, e.type, e.autoGrade, e.question))) {
+        errors.push(`${prefix}: tag "${tag}" přímo prozrazuje správnou odpověď nebo její jednoznačnou část a nesmí být mezi tags`);
+      }
+    }
   }
 
   if (typeof e.difficulty !== 'undefined') {

@@ -6,7 +6,7 @@ window.DIGITAL_TECHNICS_EXERCISES = [
     id: 'ct-zaklady-001',
     type: 'choice',
     title: 'Desítková soustava',
-    question: 'Která číselná soustava je v poznámkách označena jako nejpopulárnější?',
+    question: 'Která číselná soustava má základ 10 a používá číslice 0 až 9?',
     choices: ['Desítková (dekadická)', 'Dvojková (binární)', 'Osmičková', 'Šestnáctková (hexadecimální)'],
     answer: 'Desítková (dekadická)',
     solution: 'V poznámkách je desítková neboli dekadická soustava uvedena jako nejpopulárnější. Používá číslice 0 až 9.',
@@ -67,7 +67,7 @@ window.DIGITAL_TECHNICS_EXERCISES = [
     answer: '16',
     solution: 'Hexadecimální soustava má základ 16.',
     hint: '„Hexa“ v tomto případě odpovídá šestnáctce.',
-    tags: ['hexadecimální', 'základ 16']
+    tags: ['hexadecimální']
   },
   {
     subject: 'Číslicová technika',
@@ -101,7 +101,7 @@ window.DIGITAL_TECHNICS_EXERCISES = [
     ],
     solution: 'V hexadecimální soustavě představují A–F hodnoty 10–15.',
     hint: 'Po číslici 9 pokračuje A = 10.',
-    tags: ['hexadecimální', 'A–F']
+    tags: ['hexadecimální']
   },
   {
     subject: 'Číslicová technika',
@@ -138,7 +138,7 @@ window.DIGITAL_TECHNICS_EXERCISES = [
     id: 'ct-konverze-001',
     type: 'choice',
     title: 'Co je konverze?',
-    question: 'Co podle poznámek znamená konverze?',
+    question: 'Co znamená konverze?',
     choices: ['Převod informace z jedné soustavy do druhé', 'Změnu číslice na písmeno', 'Seřazení číslic od nejmenší po největší', 'Pouze násobení čísla základem'],
     answer: 'Převod informace z jedné soustavy do druhé',
     solution: 'V poznámkách je konverze popsána jako převod informace z jedné soustavy do druhé.',
@@ -152,12 +152,12 @@ window.DIGITAL_TECHNICS_EXERCISES = [
     id: 'ct-konverze-002',
     type: 'choice',
     title: 'Binární soustava v technice',
-    question: 'Která soustava je v poznámkách spojena s fungováním počítačů a výpočetní techniky?',
+    question: 'Která číselná soustava je základem reprezentace dat v počítačích a digitální technice?',
     choices: ['Dvojková (binární)', 'Osmičková', 'Čtyřková', 'Desítková'],
     answer: 'Dvojková (binární)',
     solution: 'Poznámky spojují binární soustavu s počítači a výpočetní technikou a dále zmiňují základy programování a Booleovu algebru.',
     hint: 'Počítače pracují s dvěma stavy.',
-    tags: ['binární', 'počítače']
+    tags: [ 'počítače']
   },
   {
     subject: 'Číslicová technika',
@@ -166,7 +166,7 @@ window.DIGITAL_TECHNICS_EXERCISES = [
     id: 'ct-horner-001',
     type: 'choice',
     title: 'Účel Hornerova schématu',
-    question: 'K čemu se v poznámkách používá Hornerovo schéma?',
+    question: 'K čemu se používá Hornerovo schéma při převodu čísel?',
     choices: ['K převodu čísla z obecné soustavy do dekadické hodnoty', 'K převodu písmen na číslice', 'K řazení soustav podle základu', 'K vytvoření náhodného čísla'],
     answer: 'K převodu čísla z obecné soustavy do dekadické hodnoty',
     solution: 'Hornerovo schéma v zápisu slouží k výpočtu hodnoty čísla v dekadické soustavě z jeho číslic a základu.',
@@ -267,6 +267,8 @@ window.DIGITAL_TECHNICS_EXERCISES = [
     subtopic: 'Výpočet hodnoty',
     id: 'ct-horner-008',
     type: 'text',
+    autoGrade: false,
+    autoGrade: false,
     title: 'Vysvětlení principu',
     question: 'Vysvětli vlastními slovy, proč u čísla s více číslicemi postupně pracujeme s vyššími mocninami základu z.',
     answer: 'Každá pozice číslice má jinou váhu danou mocninou základu; zleva začíná nejvyšší mocninou a směrem doprava exponent klesá až k 0.',
@@ -281,12 +283,12 @@ window.DIGITAL_TECHNICS_EXERCISES = [
     id: 'ct-decimal-001',
     type: 'choice',
     title: 'Postupný převod z desítkové',
-    question: 'Jaký postup je v poznámkách použit při převodu čísla z dekadické soustavy do jiné soustavy?',
+    question: 'Jaký postup se používá při převodu čísla z desítkové soustavy do jiné soustavy?',
     choices: ['Postupné dělení základem cílové soustavy a práce se zbytky', 'Pouhé přepsání čísla bez změny', 'Násobení pouze desítkou', 'Seřazení číslic podle velikosti'],
     answer: 'Postupné dělení základem cílové soustavy a práce se zbytky',
     solution: 'V poznámkách je popsáno postupné dělení základem cílové soustavy a zapisování zbytků.',
     hint: 'V příkladu 190 se opakovaně dělí dvěma.',
-    tags: ['desítková', 'dělení', 'zbytky']
+    tags: ['desítková']
   },
   {
     subject: 'Číslicová technika',
@@ -318,7 +320,7 @@ window.DIGITAL_TECHNICS_EXERCISES = [
     ],
     solution: 'Po každém dělení dvěma vznikne zbytek 0 nebo 1. Zbytky se nakonec čtou od posledního k prvnímu, čímž vznikne binární zápis.',
     hint: 'Výsledné číslice se nakonec čtou odzadu.',
-    tags: ['postup', 'dělení', 'zbytky']
+    tags: ['postup', 'dělení']
   },
   {
     subject: 'Číslicová technika',
@@ -393,7 +395,7 @@ window.DIGITAL_TECHNICS_EXERCISES = [
     answer: 100,
     solution: '1100100₂ = 64 + 32 + 4 = 100.',
     hint: 'Použij mocniny 2 a sečti jen pozice s jedničkou.',
-    tags: ['100', 'kontrola', 'binární']
+    tags: ["kontrola","binární"]
   },
   {
     subject: 'Číslicová technika',
@@ -401,6 +403,8 @@ window.DIGITAL_TECHNICS_EXERCISES = [
     subtopic: 'Kontrola výsledku',
     id: 'ct-decimal-009',
     type: 'text',
+    autoGrade: false,
+    autoGrade: false,
     title: 'Proč číst zbytky odzadu?',
     question: 'Proč se při postupném dělení při převodu z desítkové do dvojkové soustavy čtou zbytky od posledního k prvnímu?',
     answer: 'První zbytek představuje nejnižší řád, další zbytky postupně vyšší řády, takže správný zápis získáme čtením zbytků v opačném pořadí.',
@@ -447,7 +451,7 @@ window.DIGITAL_TECHNICS_EXERCISES = [
     id: 'ct-zaklady-008',
     type: 'choice',
     title: 'Nejvyšší základ z poznámek',
-    question: 'Která z následujících soustav má podle poznámek nejvyšší základ?',
+    question: 'Která z následujících soustav má nejvyšší základ?',
     choices: ['Šestnáctková', 'Desítková', 'Osmičková', 'Čtyřková'],
     answer: 'Šestnáctková',
     solution: 'V uvedeném přehledu je hexadecimální soustava se základem 16 nejvyšší.',
@@ -461,7 +465,7 @@ window.DIGITAL_TECHNICS_EXERCISES = [
     id: 'ct-zaklady-009',
     type: 'multi',
     title: 'Soustavy z poznámek',
-    question: 'Které z těchto soustav jsou v poznámkách výslovně uvedeny?',
+    question: 'Které z těchto číselných soustav patří mezi běžně používané v číslicové technice?',
     choices: ['dvojková', 'čtyřková', 'osmičková', 'desítková', 'šestnáctková', 'dvanáctková'],
     answers: ['dvojková', 'čtyřková', 'osmičková', 'desítková', 'šestnáctková'],
     solution: 'Poznámky uvádějí soustavy se základy 2, 4, 8, 10 a 16. Dvanáctková v dodaném zápisu uvedena není.',
@@ -546,7 +550,7 @@ window.DIGITAL_TECHNICS_EXERCISES = [
     answer: '190',
     solution: '10111110₂ = 128 + 32 + 16 + 8 + 4 + 2 = 190.',
     hint: 'Zkontroluj všechny jedničky na pozicích 7, 5, 4, 3, 2 a 1.',
-    tags: ['190', 'převod', 'binární']
+    tags: ["převod","binární"]
   },
   {
     subject: 'Číslicová technika',
@@ -554,6 +558,8 @@ window.DIGITAL_TECHNICS_EXERCISES = [
     subtopic: 'Základy',
     id: 'ct-zaklady-010',
     type: 'fill',
+    autoGrade: true,
+    autoGrade: true,
     title: 'Poslední číslice podle základu',
     question: 'Doplň: V soustavě se základem 8 je nejvyšší základní číslice ___.',
     answer: '7',
@@ -567,6 +573,8 @@ window.DIGITAL_TECHNICS_EXERCISES = [
     subtopic: 'Hexadecimální soustava',
     id: 'ct-hex-004',
     type: 'fill',
+    autoGrade: true,
+    autoGrade: true,
     title: 'Hodnota C',
     question: 'Doplň desítkovou hodnotu hexadecimálního symbolu C: C = ___.',
     answer: '12',
@@ -580,6 +588,8 @@ window.DIGITAL_TECHNICS_EXERCISES = [
     subtopic: 'Hexadecimální soustava',
     id: 'ct-hex-005',
     type: 'fill',
+    autoGrade: true,
+    autoGrade: true,
     title: 'Hodnota E',
     question: 'Doplň desítkovou hodnotu hexadecimálního symbolu E: E = ___.',
     answer: '14',

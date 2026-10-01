@@ -51,6 +51,8 @@ window.EXERCISES = [
     subtopic: 'Seznamy',
     id: 'seznamy-004',
     type: 'text',
+    autoGrade: false,
+    autoGrade: false,
     title: 'Vysvětli index 3',
     question: 'Měj `seznam = ["Karel", "Frank", "Jana"]`. Proč je `print(seznam[3])` problém?',
     answer: 'Protože platné indexy tohoto tříprvkového seznamu jsou 0, 1 a 2. Index 3 v seznamu není.',
@@ -363,7 +365,7 @@ window.EXERCISES = [
     id: 'seznamy-027',
     type: 'code',
     title: 'Vypiš všechny základní funkce',
-    question: 'Pro `cisla = [5, 2, 9, 1, 7]` napiš program, který postupně vypíše délku seznamu, součet, nejmenší číslo, největší číslo a seřazený seznam přesně podle vzoru z materiálu.',
+    question: 'Pro `cisla = [5, 2, 9, 1, 7]` napiš program, který vypíše délku seznamu, součet, nejmenší číslo, největší číslo a seřazený seznam.',
     language: 'python',
     starterCode: 'cisla = [5, 2, 9, 1, 7]\n# Doplň řešení\n',
     expectedOutput: '5\n24\n1\n9\n[1, 2, 5, 7, 9]',
@@ -378,15 +380,15 @@ window.EXERCISES = [
     id: 'seznamy-028',
     type: 'choice',
     title: 'sort vs. sorted',
-    question: 'Které tvrzení přesně odpovídá příkladům v materiálu?',
+    question: 'Které tvrzení správně popisuje rozdíl mezi `sort()` a `sorted()`?',
     choices: [
-      'sort() se v materiálu používá k seřazení seznamu a sorted(cisla) vypisuje seřazený seznam',
+      'sort() seřadí seznam na místě a sorted(cisla) vrátí nový seřazený seznam',
       'sort() počítá délku seznamu a sorted() hledá maximum',
       'sort() obrací pořadí a sorted() odstraňuje prvek',
       'sort() je totéž co count()'
     ],
-    answer: 'sort() se v materiálu používá k seřazení seznamu a sorted(cisla) vypisuje seřazený seznam',
-    tags: ['Python', 'seznamy', 'sort', 'sorted']
+    answer: 'sort() seřadí seznam na místě a sorted(cisla) vrátí nový seřazený seznam',
+    tags: ['Python', 'seznamy']
   },
   {
     subject: 'Programování',
@@ -394,8 +396,10 @@ window.EXERCISES = [
     subtopic: 'Seznamy',
     id: 'seznamy-029',
     type: 'text',
+    autoGrade: false,
+    autoGrade: false,
     title: 'Spoj metody a jejich účel',
-    question: 'Napiš, k čemu podle materiálu slouží tyto operace: `append()`, `insert()`, `remove()`, `pop()`, `sort()`, `reverse()`, `count()`, `len()`, `sum()`, `min()`, `max()`, `sorted()`.',
+    question: 'Napiš, k čemu slouží tyto operace: `append()`, `insert()`, `remove()`, `pop()`, `sort()`, `reverse()`, `count()`, `len()`, `sum()`, `min()`, `max()`, `sorted()`.',
     answer: '`append()` přidá prvek; `insert()` vloží prvek na pozici; `remove()` odstraní zadaný prvek; `pop()` odstraní prvek podle indexu; `sort()` seřadí seznam; `reverse()` obrátí pořadí; `count()` spočítá výskyty hodnoty; `len()` vrátí délku seznamu; `sum()` sečte čísla; `min()` vrátí nejmenší číslo; `max()` vrátí největší číslo; `sorted()` vrátí seřazenou podobu seznamu.',
     hint: 'Zaměř se na komentáře u jednotlivých řádků v materiálu.',
     tags: ['Python', 'seznamy', 'opakování']
@@ -426,6 +430,8 @@ window.EXERCISES = [
     subtopic: 'Přehled',
     id: 'osobnosti-001',
     type: 'text',
+    autoGrade: true,
+    autoGrade: true,
     title: 'Systém Windows a osobní počítače',
     question: 'Kdo je spoluzakladatelem Microsoftu, zásadní osobností osobních počítačů a systému Windows?',
     answer: 'Bill Gates',
@@ -438,6 +444,8 @@ window.EXERCISES = [
     subtopic: 'Přehled',
     id: 'osobnosti-002',
     type: 'text',
+    autoGrade: true,
+    autoGrade: true,
     title: 'Vývoj Macu, iPodu a iPhonu',
     question: 'Která osobnost je spoluzakladatelem Applu a výrazně ovlivnila vývoj Macu, iPodu a iPhonu?',
     answer: 'Steve Jobs',
@@ -450,6 +458,8 @@ window.EXERCISES = [
     subtopic: 'Přehled',
     id: 'osobnosti-003',
     type: 'text',
+    autoGrade: true,
+    autoGrade: true,
     title: 'Technický tvůrce prvních počítačů Apple',
     question: 'Kdo je spoluzakladatelem Applu a technickým tvůrcem prvních počítačů Apple?',
     answer: 'Steve Wozniak',
@@ -462,6 +472,8 @@ window.EXERCISES = [
     subtopic: 'Přehled',
     id: 'osobnosti-004',
     type: 'text',
+    autoGrade: true,
+    autoGrade: true,
     title: 'Autor linuxového jádra',
     question: 'Kdo je autorem linuxového jádra, na kterém běží velká část serverů a dalších zařízení?',
     answer: 'Linus Torvalds',
@@ -474,6 +486,8 @@ window.EXERCISES = [
     subtopic: 'Přehled',
     id: 'osobnosti-005',
     type: 'text',
+    autoGrade: true,
+    autoGrade: true,
     title: 'Základy webu (WWW, HTML a HTTP)',
     question: 'Kdo vytvořil základy webu, zejména WWW, HTML a HTTP?',
     answer: 'Tim Berners-Lee',
@@ -486,6 +500,8 @@ window.EXERCISES = [
     subtopic: 'Přehled',
     id: 'osobnosti-006',
     type: 'text',
+    autoGrade: true,
+    autoGrade: true,
     title: 'Internetové vyhledávání a Google',
     question: 'Kdo je spoluzakladatelem Googlu a jednou z klíčových osobností internetového vyhledávání?',
     answer: 'Larry Page',
@@ -498,6 +514,8 @@ window.EXERCISES = [
     subtopic: 'Přehled',
     id: 'osobnosti-007',
     type: 'text',
+    autoGrade: true,
+    autoGrade: true,
     title: 'Zakladatel sociální sítě Facebook',
     question: 'Kdo je zakladatelem Facebooku, jedné z největších sociálních sítí?',
     answer: 'Mark Zuckerberg',
@@ -510,6 +528,8 @@ window.EXERCISES = [
     subtopic: 'Přehled',
     id: 'osobnosti-008',
     type: 'text',
+    autoGrade: true,
+    autoGrade: true,
     title: 'Zakladatel Amazonu a cloudu AWS',
     question: 'Kdo je zakladatelem Amazonu, přičemž AWS patří mezi největší cloudové platformy světa?',
     answer: 'Jeff Bezos',
@@ -522,6 +542,8 @@ window.EXERCISES = [
     subtopic: 'Přehled',
     id: 'osobnosti-009',
     type: 'text',
+    autoGrade: true,
+    autoGrade: true,
     title: 'Grafické karty a hardware pro AI',
     question: 'Kdo je spoluzakladatelem a šéfem firmy NVIDIA, která je zásadní pro grafické karty a dnešní AI?',
     answer: 'Jensen Huang',
@@ -534,6 +556,8 @@ window.EXERCISES = [
     subtopic: 'Přehled',
     id: 'osobnosti-010',
     type: 'text',
+    autoGrade: true,
+    autoGrade: true,
     title: 'Šéf OpenAI a tvůrce ChatGPT',
     question: 'Kdo je šéfem OpenAI, firmy stojící za ChatGPT a významnými modely generativní AI?',
     answer: 'Sam Altman',
@@ -546,6 +570,8 @@ window.EXERCISES = [
     subtopic: 'Přehled',
     id: 'osobnosti-011',
     type: 'text',
+    autoGrade: true,
+    autoGrade: true,
     title: 'Spoluzakladatel PayPalu a Palantiru',
     question: 'Kdo je spoluzakladatelem PayPalu a Palantiru (firmy vyvíjející software pro analýzu velkého množství dat)?',
     answer: 'Peter Thiel',
@@ -558,6 +584,8 @@ window.EXERCISES = [
     subtopic: 'Přehled',
     id: 'osobnosti-012',
     type: 'text',
+    autoGrade: true,
+    autoGrade: true,
     title: 'Elektromobily, kosmonautika a umělá inteligence',
     question: 'Který technologický podnikatel je spojený s elektromobily, kosmonautikou a umělou inteligencí (Tesla / SpaceX / xAI)?',
     answer: 'Elon Musk',
@@ -570,6 +598,8 @@ window.EXERCISES = [
     subtopic: 'Přehled',
     id: 'osobnosti-013',
     type: 'text',
+    autoGrade: true,
+    autoGrade: true,
     title: 'Tvůrce programovacího jazyka Python',
     question: 'Kdo je tvůrcem programovacího jazyka Python?',
     answer: 'Guido van Rossum',
@@ -582,6 +612,8 @@ window.EXERCISES = [
     subtopic: 'Přehled',
     id: 'osobnosti-014',
     type: 'text',
+    autoGrade: true,
+    autoGrade: true,
     title: 'Hlavní autor programovacího jazyka Java',
     question: 'Kdo je hlavním autorem programovacího jazyka Java?',
     answer: 'James Gosling',
@@ -594,6 +626,8 @@ window.EXERCISES = [
     subtopic: 'Přehled',
     id: 'osobnosti-015',
     type: 'text',
+    autoGrade: true,
+    autoGrade: true,
     title: 'Tvůrce jazyka JavaScript',
     question: 'Kdo je tvůrcem JavaScriptu, jednoho ze základních jazyků webu?',
     answer: 'Brendan Eich',
@@ -606,6 +640,8 @@ window.EXERCISES = [
     subtopic: 'Přehled',
     id: 'osobnosti-016',
     type: 'text',
+    autoGrade: true,
+    autoGrade: true,
     title: 'Tvůrce jazyka C a spoluautor Unixu',
     question: 'Kdo je tvůrcem jazyka C a spoluautorem operačního systému Unix?',
     answer: 'Dennis Ritchie',
@@ -618,6 +654,8 @@ window.EXERCISES = [
     subtopic: 'Přehled',
     id: 'osobnosti-017',
     type: 'text',
+    autoGrade: true,
+    autoGrade: true,
     title: 'Teoretická informatika a Turingův test',
     question: 'Kdo je jedním ze zakladatelů moderní informatiky, známý Turingovým strojem a Turingovým testem?',
     answer: 'Alan Turing',
@@ -630,6 +668,8 @@ window.EXERCISES = [
     subtopic: 'Přehled',
     id: 'osobnosti-018',
     type: 'text',
+    autoGrade: true,
+    autoGrade: true,
     title: 'První programátorka v historii',
     question: 'Která osobnost je často označována za první programátorku a popsala algoritmus pro Babbageův analytický stroj?',
     answer: 'Ada Lovelace',
@@ -642,6 +682,8 @@ window.EXERCISES = [
     subtopic: 'Přehled',
     id: 'osobnosti-019',
     type: 'text',
+    autoGrade: true,
+    autoGrade: true,
     title: 'Architektura moderních počítačů',
     question: 'Kdo zásadně ovlivnil princip moderního počítače, kde jsou program i data uložené v paměti?',
     answer: 'John von Neumann',
@@ -654,6 +696,8 @@ window.EXERCISES = [
     subtopic: 'Přehled',
     id: 'osobnosti-020',
     type: 'text',
+    autoGrade: true,
+    autoGrade: true,
     title: 'Český internetový portál Seznam.cz',
     question: 'Kdo je zakladatelem Seznam.cz, jednoho z nejvýznamnějších českých internetových portálů?',
     answer: 'Ivo Lukačovič',
@@ -666,10 +710,12 @@ window.EXERCISES = [
     subtopic: 'Přehled',
     id: 'osobnosti-021',
     type: 'text',
+    autoGrade: true,
+    autoGrade: true,
     title: 'Vedení společnosti Anthropic (CEO)',
-    question: 'Kdo je v materiálu uveden jako CEO společnosti Anthropic?',
-    answer: 'Dario Amondei',
-    solution: '21 Dario Amondei - Anthropic CEO',
+    question: 'Kdo je CEO společnosti Anthropic?',
+    answer: 'Dario Amodei',
+    solution: '21 Dario Amodei - Anthropic CEO',
     tags: ['Osobnosti']
   },
 
@@ -788,7 +834,7 @@ window.EXERCISES = [
     answer: 'E-shop: nákupní košík; přihlášený web: uživatelský účet/profil',
     solution: 'E-shopy často používají ikonu košíku s počtem položek, weby s přihlášením rychlý přístup k profilu.',
     hint: 'Košík souvisí s nákupem, profil s účtem.',
-    tags: ['header', 'e-shop', 'účet']
+    tags: ['header', 'e-shop']
   },
   {
     subject: 'Vývoj webových aplikací',
@@ -839,12 +885,12 @@ window.EXERCISES = [
     id: 'vwa-header-012',
     type: 'choice',
     title: 'Transparentní header',
-    question: 'Kde se podle materiálu hodí transparentní header?',
+    question: 'Kde se hodí transparentní header?',
     choices: ['Například v portfoliích, kreativních webech nebo landing pages s výrazným hero obrázkem', 'Pouze v tabulkách bez grafiky', 'Pouze v administraci databáze', 'Jen na tiskových stránkách'],
     answer: 'Například v portfoliích, kreativních webech nebo landing pages s výrazným hero obrázkem',
     solution: 'Transparentní header překrývá pozadí nebo hero sekci a může působit elegantně a moderně.',
     hint: 'Transparentní header pracuje s obrázkem nebo pozadím pod sebou.',
-    tags: ['header', 'transparentní', 'hero']
+    tags: ['header', 'transparentní']
   },
   {
     subject: 'Vývoj webových aplikací',
@@ -867,7 +913,7 @@ window.EXERCISES = [
     id: 'vwa-header-014',
     type: 'choice',
     title: 'Doporučený počet položek navigace',
-    question: 'Kolik nejdůležitějších položek navigace doporučuje materiál zvažovat v jednoduchém headeru?',
+    question: 'Kolik položek hlavní navigace je vhodné mít v jednoduchém headeru?',
     choices: ['Přibližně 5–7', 'Přesně 20', 'Vždy jen 1', 'Nejméně 30'],
     answer: 'Přibližně 5–7',
     solution: 'Materiál doporučuje vybrat 5–7 nejdůležitějších položek a zbytek přesunout například do patičky nebo na samostatné stránky.',
@@ -886,7 +932,7 @@ window.EXERCISES = [
     answer: 'Dostatečný kontrast mezi textem a pozadím',
     solution: 'Text musí být dobře čitelný. U průhledných headerů je potřeba zvlášť hlídat, aby text nesplynul s pozadím.',
     hint: 'Černá na bílé nebo bílá na tmavé je jednoduchý příklad.',
-    tags: ['header', 'kontrast', 'přístupnost']
+    tags: ['header', 'přístupnost']
   },
   {
     subject: 'Vývoj webových aplikací',
@@ -895,7 +941,7 @@ window.EXERCISES = [
     id: 'vwa-header-016',
     type: 'choice',
     title: 'Výška headeru',
-    question: 'Jakou výšku headeru doporučuje materiál přibližně pro desktop a mobil?',
+    question: 'Jaká výška headeru bývá praktická pro desktop a mobil?',
     choices: ['60–80 px na desktopu a 50–60 px na mobilu', '10–20 px na desktopu a 5–10 px na mobilu', '150–200 px na desktopu a 120–150 px na mobilu', 'Výška je vždy stejná bez ohledu na zařízení'],
     answer: '60–80 px na desktopu a 50–60 px na mobilu',
     solution: 'Materiál uvádí jako praktické doporučení 60–80 px pro desktop a 50–60 px pro mobil.',
@@ -914,7 +960,7 @@ window.EXERCISES = [
     answer: 'Logo vlevo nebo uprostřed, hamburger menu vpravo a případně výrazné CTA',
     solution: 'Na mobilu je méně místa, proto se často používá minimalistický header s hamburger menu a případně CTA.',
     hint: 'Mobil = méně prostoru, zjednodušená navigace.',
-    tags: ['header', 'mobil', 'hamburger']
+    tags: ['header', 'mobil']
   },
   {
     subject: 'Vývoj webových aplikací',
@@ -923,7 +969,7 @@ window.EXERCISES = [
     id: 'vwa-header-018',
     type: 'choice',
     title: 'Dotykový cíl',
-    question: 'Jaká minimální velikost dotykového cíle je v materiálu uvedena podle Apple Human Interface Guidelines?',
+    question: 'Jakou minimální velikost dotykového cíle doporučují Apple Human Interface Guidelines?',
     choices: ['44 × 44 px', '16 × 16 px', '20 × 20 px', '100 × 100 px'],
     answer: '44 × 44 px',
     solution: 'Materiál uvádí minimum 44×44 pixelů, protože menší cíle se hůře trefují prstem.',
@@ -937,7 +983,7 @@ window.EXERCISES = [
     id: 'vwa-header-019',
     type: 'multi',
     title: 'Prvky dobrého headeru',
-    question: 'Které prvky mohou být podle materiálu součástí dobrého headeru? Vyber všechny správné možnosti.',
+    question: 'Které prvky mohou být součástí dobrého headeru? Vyber všechny správné možnosti.',
     choices: ['Logo', 'Hlavní navigace', 'Call-to-action tlačítko', 'Kontaktní údaje', 'Vyhledávání', 'Vždy povinně rozsáhlé mega menu'],
     answers: ['Logo', 'Hlavní navigace', 'Call-to-action tlačítko', 'Kontaktní údaje', 'Vyhledávání'],
     solution: 'Mezi uvedené prvky patří logo, hlavní navigace, CTA, kontaktní údaje a volitelně vyhledávání. Mega menu není povinné.',
@@ -993,7 +1039,7 @@ window.EXERCISES = [
     id: 'vwa-favicon-002',
     type: 'multi',
     title: 'Online generátory favicon',
-    question: 'Které nástroje jsou v materiálu uvedeny jako online favicon generátory?',
+    question: 'Které nástroje fungují jako online generátory favicon?',
     choices: ['favicon-generator.org', 'favicon.io', 'favicomatic.com', 'realfavicongenerator.net', 'Word bez grafických funkcí'],
     answers: ['favicon-generator.org', 'favicon.io', 'favicomatic.com', 'realfavicongenerator.net'],
     solution: 'Materiál uvádí čtyři online generátory: favicon-generator.org, favicon.io, favicomatic.com a realfavicongenerator.net.',
@@ -1007,7 +1053,7 @@ window.EXERCISES = [
     id: 'vwa-favicon-003',
     type: 'multi',
     title: 'Doporučené velikosti favicon',
-    question: 'Které velikosti jsou v materiálu uvedeny jako užitečné pro různé prostředí?',
+    question: 'Které velikosti favicon se hodí pro různá prostředí?',
     choices: ['16×16 px', '32×32 px', '192×192 px', '512×512 px', '7×7 px'],
     answers: ['16×16 px', '32×32 px', '192×192 px', '512×512 px'],
     solution: 'Pro panely a záložky postačují 16×16 nebo 32×32 px, pro mobilní zařízení a webové aplikace se hodí větší verze 192×192 a 512×512 px.',
@@ -1021,7 +1067,7 @@ window.EXERCISES = [
     id: 'vwa-favicon-004',
     type: 'match',
     title: 'Favicon – velikost a použití',
-    question: 'Přiřaď velikost favicon k typickému použití uvedenému v materiálu.',
+    question: 'Přiřaď velikost favicon k typickému použití.',
     pairs: [{ left: '16×16 px', right: 'Základní favicon v prohlížeči' }, { left: '32×32 px', right: 'Základní favicon v prohlížeči / vyšší běžná velikost' }, { left: '192×192 px', right: 'Mobilní zařízení a webové aplikace' }, { left: '512×512 px', right: 'Větší verze pro mobilní zařízení a PWA' }],
     solution: 'Materiál uvádí 16×16 a 32×32 px pro základní použití v prohlížečích a 192×192 a 512×512 px pro větší ikony používané na mobilních zařízeních a v PWA.',
     hint: 'Čím větší rozlišení, tím více se hodí pro větší ikony mimo běžný panel prohlížeče.',
@@ -1034,11 +1080,11 @@ window.EXERCISES = [
     id: 'vwa-favicon-005',
     type: 'match',
     title: 'Favicon – formát a vlastnost',
-    question: 'Přiřaď formát nebo vlastnost k jeho charakteristice podle materiálu.',
+    question: 'Přiřaď formát nebo vlastnost k jeho charakteristice.',
     pairs: [{ left: 'SVG', right: 'Škálovatelnost' }, { left: 'PNG', right: 'Vhodný i pro vyšší rozlišení a kompatibilitu' }, { left: 'ICO', right: 'Široce podporovaný formát pro favicon' }, { left: 'Jednoduchý symbol', right: 'Často vhodnější než složitý detailní obrázek' }],
     solution: 'Materiál doporučuje SVG pro škálovatelnost, PNG ve vyšších rozlišeních, ICO pro širokou podporu a jednoduchý symbol pro dobrou čitelnost v malé velikosti.',
     hint: 'SVG souvisí se škálováním, ICO s kompatibilitou.',
-    tags: ['favicon', 'SVG', 'PNG', 'ICO', 'přiřazování']
+    tags: ["přiřazování"]
   },
   {
     subject: 'Vývoj webových aplikací',
@@ -1060,7 +1106,7 @@ window.EXERCISES = [
     id: 'vwa-favicon-007',
     type: 'order',
     title: 'Nastavení favicony ve WordPressu',
-    question: 'Seřaď kroky nastavení favicony ve WordPressu podle materiálu.',
+    question: 'Seřaď kroky nastavení favicony ve WordPressu od prvního po poslední.',
     order: ['Přihlásit se do administrace WordPressu a otevřít Vzhled > Přizpůsobit.', 'Vybrat sekci Identita webu.', 'V části Ikona webu kliknout na Vybrat soubor a nahrát PNG nebo ICO.', 'Kliknout na Publikovat.'],
     solution: 'Postup je: Vzhled > Přizpůsobit → Identita webu → Ikona webu → nahrání souboru → Publikovat.',
     hint: 'Nejdříve se dostaneš do Přizpůsobení, nakonec změnu publikuješ.',
@@ -1077,7 +1123,7 @@ window.EXERCISES = [
     order: ['Vybrat obrázek, logo nebo jednoduchý symbol reprezentující značku.', 'Případně použít online favicon generátor nebo grafický editor.', 'Vytvořit potřebné velikosti a formáty favicony.', 'Otestovat vzhled v různých prohlížečích a na různých zařízeních.'],
     solution: 'Nejprve se volí motiv, následně se favicon vytvoří, připraví se vhodné velikosti/formáty a nakonec se ověří její fungování v různých prostředích.',
     hint: 'Po vytvoření je důležité ověření v praxi.',
-    tags: ['favicon', 'tvorba', 'řazení']
+    tags: [ 'tvorba', 'řazení']
   },
   {
     subject: 'Vývoj webových aplikací',
@@ -1085,12 +1131,14 @@ window.EXERCISES = [
     subtopic: 'Favicon – formáty',
     id: 'vwa-favicon-009',
     type: 'fill',
+    autoGrade: true,
+    autoGrade: true,
     title: 'Zkratka pro míru prokliku',
     question: 'Jakou třípísmennou zkratkou se označuje míra prokliku?',
     answer: 'CTR',
     solution: 'CTR znamená click-through rate, tedy míru prokliku.',
     hint: 'První písmena anglického názvu Click-Through Rate.',
-    tags: ['favicon', 'SEO', 'CTR']
+    tags: ["favicon","SEO"]
   },
   {
     subject: 'Vývoj webových aplikací',
@@ -1098,12 +1146,14 @@ window.EXERCISES = [
     subtopic: 'Favicon – formáty',
     id: 'vwa-favicon-010',
     type: 'fill',
+    autoGrade: true,
+    autoGrade: true,
     title: 'Formát pro širokou podporu favicony',
-    question: 'Který formát je v materiálu popsán jako široce podporovaný pro favicon?',
+    question: 'Který formát je popsán jako široce podporovaný pro favicon?',
     answer: 'ICO',
     solution: 'ICO je v materiálu uvedeno jako široce podporovaný formát favicony.',
     hint: 'Je to třípísmenná zkratka obrazového formátu.',
-    tags: ['favicon', 'ICO']
+    tags: ["favicon"]
   },
   {
     subject: 'Vývoj webových aplikací',
@@ -1111,12 +1161,14 @@ window.EXERCISES = [
     subtopic: 'Favicon – význam',
     id: 'vwa-favicon-011',
     type: 'fill',
+    autoGrade: true,
+    autoGrade: true,
     title: 'Vizuální konzistence značky',
     question: 'Jak se jedním slovem označuje oblast, ve které favicon podporuje vizuální konzistenci webu a značky?',
     answer: 'branding',
     solution: 'Favicon je malý prvek brandingu a může podporovat vizuální konzistenci značky.',
     hint: 'Jde o práci se značkou a její vizuální identitou.',
-    tags: ['favicon', 'branding']
+    tags: ["favicon"]
   },
   {
     subject: 'Vývoj webových aplikací',
@@ -1124,6 +1176,8 @@ window.EXERCISES = [
     subtopic: 'Header – design',
     id: 'vwa-header-022',
     type: 'text',
+    autoGrade: false,
+    autoGrade: false,
     title: 'Proč nezahlcovat header',
     question: 'Vysvětli vlastními slovy, proč může příliš mnoho prvků v headeru působit problematicky.',
     answer: 'Příliš mnoho prvků může header znepřehlednit a zkomplikovat orientaci uživatele. Proto je vhodné ponechat jen nejdůležitější položky a zbytek přesunout jinam.',
@@ -1137,6 +1191,8 @@ window.EXERCISES = [
     subtopic: 'Header – mobil',
     id: 'vwa-header-023',
     type: 'text',
+    autoGrade: false,
+    autoGrade: false,
     title: 'Proč je důležitá responzivita headeru',
     question: 'Proč se musí header automaticky přizpůsobovat šířce obrazovky? Uveď hlavní důvod.',
     answer: 'Protože desktop, tablet a telefon mají různě velký prostor a header se musí přizpůsobit, aby zůstal přehledný a ovladatelný.',
@@ -1150,6 +1206,8 @@ window.EXERCISES = [
     subtopic: 'Favicon – význam',
     id: 'vwa-favicon-012',
     type: 'text',
+    autoGrade: false,
+    autoGrade: false,
     title: 'Jednoduchost favicony',
     question: 'Proč by měla být favicon jednoduchá a dobře rozpoznatelná i po zmenšení?',
     answer: 'Protože se zobrazuje ve velmi malé velikosti, například 16×16 px, kde se složité detaily mohou stát nečitelnými.',
@@ -1170,7 +1228,7 @@ window.EXERCISES = [
     "id": "db-001",
     "type": "choice",
     "title": "Co jsou informace?",
-    "question": "Jak jsou v materiálu ZDB popsány informace?",
+    "question": "Co jsou informace v kontextu databází?",
     "choices": [
       "Jako zpracovaná data",
       "Jako pouze veřejná data",
@@ -1178,8 +1236,8 @@ window.EXERCISES = [
       "Jako připojovací řetězce"
     ],
     "answer": "Jako zpracovaná data",
-    "solution": "Materiál uvádí: „Informace jsou zpracovaná data.“",
-    "hint": "Definice je hned na začátku materiálu.",
+    "solution": "Informace jsou zpracovaná data.",
+    "hint": "Informace vznikají zpracováním dat.",
     "tags": [
       "databáze",
       "informace"
@@ -1192,7 +1250,7 @@ window.EXERCISES = [
     "id": "db-002",
     "type": "choice",
     "title": "Open data",
-    "question": "Jak materiál definuje open data (big data)?",
+    "question": "Jak jsou definována open data (big data)?",
     "choices": [
       "Jako veřejná data",
       "Jako data uložená jen v relacích",
@@ -1200,7 +1258,7 @@ window.EXERCISES = [
       "Jako data uložená výhradně v CSV"
     ],
     "answer": "Jako veřejná data",
-    "solution": "V materiálu je uvedeno, že open data (big data) jsou veřejná data.",
+    "solution": "Open data (big data) jsou veřejná data.",
     "hint": "Jde o data přístupná veřejnosti.",
     "tags": [
       "databáze",
@@ -1214,7 +1272,7 @@ window.EXERCISES = [
     "id": "db-003",
     "type": "choice",
     "title": "Struktura relační databáze",
-    "question": "Co podle materiálu charakterizuje relační databázi?",
+    "question": "Co charakterizuje relační databázi?",
     "choices": [
       "Má řádky a sloupce a je propojena pomocí klíčů",
       "Obsahuje pouze jeden sloupec",
@@ -1222,12 +1280,10 @@ window.EXERCISES = [
       "Nepoužívá žádné klíče"
     ],
     "answer": "Má řádky a sloupce a je propojena pomocí klíčů",
-    "solution": "Materiál uvádí, že relační databáze má řádky a sloupce a tabulky jsou propojeny pomocí klíčů.",
+    "solution": "Relační databáze pracuje s řádky a sloupci a tabulky propojuje pomocí klíčů.",
     "hint": "Vzpomeň si na řádky, sloupce a klíče.",
     "tags": [
       "relační databáze",
-      "řádky",
-      "sloupce",
       "klíče"
     ]
   },
@@ -1238,7 +1294,7 @@ window.EXERCISES = [
     "id": "db-004",
     "type": "multi",
     "title": "Součásti popisu relační databáze",
-    "question": "Která tvrzení jsou podle materiálu správná pro relační databázi?",
+    "question": "Která tvrzení jsou správná pro relační databázi?",
     "choices": [
       "Má řádky",
       "Má sloupce",
@@ -1251,8 +1307,8 @@ window.EXERCISES = [
       "Má sloupce",
       "Je propojena pomocí klíčů"
     ],
-    "solution": "Materiál výslovně uvádí řádky, sloupce a propojení pomocí klíčů.",
-    "hint": "Vyber tři vlastnosti uvedené přímo v definici.",
+    "solution": "Relační databáze má řádky, sloupce a propojení pomocí klíčů.",
+    "hint": "Vyber tři základní vlastnosti relační databáze.",
     "tags": [
       "relační databáze"
     ]
@@ -1264,7 +1320,7 @@ window.EXERCISES = [
     "id": "db-005",
     "type": "choice",
     "title": "Typy klíčů",
-    "question": "Které dva typy klíčů materiál uvádí při popisu relačních databází?",
+    "question": "Které dva základní typy klíčů se používají v relačních databázích?",
     "choices": [
       "Primární a cizí",
       "Veřejný a soukromý",
@@ -1272,7 +1328,7 @@ window.EXERCISES = [
       "Textový a binární"
     ],
     "answer": "Primární a cizí",
-    "solution": "V materiálu jsou jako typy klíčů uvedeny primární a cizí.",
+    "solution": "Základní typy klíčů jsou primární a cizí.",
     "hint": "Jeden z nich začíná slovem „primární“.",
     "tags": [
       "klíče",
@@ -1286,15 +1342,13 @@ window.EXERCISES = [
     "subtopic": "Atributy a entity",
     "id": "db-006",
     "type": "fill",
+    "autoGrade": true,
     "title": "Sloupec jako atribut",
     "question": "Doplň: Sloupec v databázi = ______.",
     "answer": "atribut",
-    "solution": "Materiál přímo uvádí „Sloupec = atribut“.",
+    "solution": "Sloupec odpovídá atributu.",
     "hint": "Je to vlastnost entity.",
-    "tags": [
-      "atribut",
-      "sloupec"
-    ]
+    "tags": ["sloupec"]
   },
     {
     "subject": "Databáze",
@@ -1303,7 +1357,7 @@ window.EXERCISES = [
     "id": "db-007",
     "type": "choice",
     "title": "Co je entita?",
-    "question": "Co je podle materiálu entita?",
+    "question": "Co je entita?",
     "choices": [
       "Reálný nebo abstraktní objekt v databázi",
       "Pouze sloupec databáze",
@@ -1311,7 +1365,7 @@ window.EXERCISES = [
       "Formát importovaného souboru"
     ],
     "answer": "Reálný nebo abstraktní objekt v databázi",
-    "solution": "Materiál definuje entitu jako reálný nebo abstraktní objekt v databázi.",
+    "solution": "Entita je reálný nebo abstraktní objekt v databázi.",
     "hint": "Entita je objekt, nikoli příkaz.",
     "tags": [
       "entita",
@@ -1325,7 +1379,7 @@ window.EXERCISES = [
     "id": "db-008",
     "type": "choice",
     "title": "Co je atribut?",
-    "question": "Co je podle materiálu atribut?",
+    "question": "Co je atribut?",
     "choices": [
       "Vlastnost entity",
       "Typ databázového připojení",
@@ -1333,7 +1387,7 @@ window.EXERCISES = [
       "Příkaz pro potvrzení transakce"
     ],
     "answer": "Vlastnost entity",
-    "solution": "Materiál uvádí „Atribut - vlastnost entity“.",
+    "solution": "Atribut je vlastnost entity.",
     "hint": "Je to vlastnost objektu.",
     "tags": [
       "atribut",
@@ -1347,7 +1401,7 @@ window.EXERCISES = [
     "id": "db-009",
     "type": "match",
     "title": "Entita a atribut",
-    "question": "Spoj pojem s jeho popisem podle materiálu.",
+    "question": "Spoj každý pojem s jeho správným popisem.",
     "pairs": [
       {
         "left": "Entita",
@@ -1362,13 +1416,9 @@ window.EXERCISES = [
         "right": "Atribut"
       }
     ],
-    "solution": "Entita je reálný nebo abstraktní objekt v databázi, atribut je jeho vlastnost a sloupec je v materiálu označen jako atribut.",
+    "solution": "Entita je objekt v databázi, atribut je její vlastnost a sloupec představuje atribut.",
     "hint": "Dva pojmy spolu přímo souvisejí: objekt a jeho vlastnost.",
-    "tags": [
-      "entita",
-      "atribut",
-      "sloupec"
-    ]
+    "tags": []
   },
     {
     "subject": "Databáze",
@@ -1377,7 +1427,7 @@ window.EXERCISES = [
     "id": "db-010",
     "type": "multi",
     "title": "Vlastnosti databází",
-    "question": "Které vlastnosti databází materiál výslovně uvádí?",
+    "question": "Které oblasti patří mezi základní vlastnosti databází?",
     "choices": [
       "Práva",
       "Ukládání",
@@ -1395,13 +1445,10 @@ window.EXERCISES = [
       "Integrita dat",
       "Zálohování a obnova dat"
     ],
-    "solution": "Materiál uvádí práva, ukládání, zabezpečení, správu dat, integritu dat a zálohování a obnovu dat.",
-    "hint": "Vyber všechny položky, které jsou v seznamu vlastností databází.",
+    "solution": "Mezi základní oblasti patří práva, ukládání, zabezpečení, správa dat, integrita dat a zálohování a obnova dat.",
+    "hint": "Vyber všechny položky, které patří mezi základní vlastnosti databází.",
     "tags": [
-      "vlastnosti databází",
-      "integrita",
-      "zálohování"
-    ]
+      "vlastnosti databází"]
   },
     {
     "subject": "Databáze",
@@ -1410,7 +1457,7 @@ window.EXERCISES = [
     "id": "db-011",
     "type": "choice",
     "title": "Integrita dat",
-    "question": "Který pojem z nabídky materiál uvádí mezi vlastnostmi databází?",
+    "question": "Který pojem z nabídky patří mezi vlastnosti databází?",
     "choices": [
       "Integrita dat",
       "Barevné schéma",
@@ -1420,10 +1467,7 @@ window.EXERCISES = [
     "answer": "Integrita dat",
     "solution": "Integrita dat je přímo uvedena mezi vlastnostmi databází.",
     "hint": "Souvisí s daty, ne s grafikou rozhraní.",
-    "tags": [
-      "integrita dat",
-      "vlastnosti databází"
-    ]
+    "tags": ["vlastnosti databází"]
   },
     {
     "subject": "Databáze",
@@ -1432,7 +1476,7 @@ window.EXERCISES = [
     "id": "db-012",
     "type": "choice",
     "title": "Zálohování a obnova",
-    "question": "Kterou dvojici materiál uvádí mezi vlastnostmi databází?",
+    "question": "Která dvojice patří mezi vlastnosti databází?",
     "choices": [
       "Zálohování a obnova dat",
       "Import a animace",
@@ -1440,12 +1484,9 @@ window.EXERCISES = [
       "Logo a favicon"
     ],
     "answer": "Zálohování a obnova dat",
-    "solution": "Materiál uvádí zálohování a obnovu dat jako jednu z vlastností databází.",
+    "solution": "Zálohování a obnova dat patří mezi základní oblasti správy databází.",
     "hint": "Jde o možnost data zálohovat a obnovit.",
-    "tags": [
-      "zálohování",
-      "obnova dat"
-    ]
+    "tags": []
   },
     {
     "subject": "Databáze",
@@ -1453,8 +1494,8 @@ window.EXERCISES = [
     "subtopic": "SQL jazyky",
     "id": "db-013",
     "type": "choice",
-    "title": "DLL podle materiálu",
-    "question": "K čemu podle materiálu slouží DLL (data definition language)?",
+    "title": "DDL – definice struktury",
+    "question": "K čemu slouží DDL (Data Definition Language)?",
     "choices": [
       "K definici struktury",
       "K dotazování",
@@ -1462,11 +1503,11 @@ window.EXERCISES = [
       "K přístupu k různým databázím přes standardizované rozhraní"
     ],
     "answer": "K definici struktury",
-    "solution": "Materiál uvádí DLL jako jazyk pro definici struktury.",
+    "solution": "DDL (Data Definition Language) slouží k definici struktury databázových objektů.",
     "hint": "Jde o definici databázové struktury.",
     "tags": [
-      "DLL",
-      "data definition language"
+      "DDL",
+      "Data Definition Language"
     ]
   },
     {
@@ -1475,8 +1516,8 @@ window.EXERCISES = [
     "subtopic": "SQL jazyky",
     "id": "db-014",
     "type": "multi",
-    "title": "Příkazy DLL",
-    "question": "Které příkazy materiál uvádí jako příklady DLL?",
+    "title": "Příkazy DDL",
+    "question": "Které příkazy patří mezi příklady DDL?",
     "choices": [
       "CREATE",
       "ALTER",
@@ -1489,14 +1530,9 @@ window.EXERCISES = [
       "ALTER",
       "DROP"
     ],
-    "solution": "V materiálu jsou u DLL uvedeny CREATE, ALTER a DROP.",
+    "solution": "Typickými příkazy DDL jsou CREATE, ALTER a DROP.",
     "hint": "Hledej příkazy spojené s definicí struktury.",
-    "tags": [
-      "DLL",
-      "CREATE",
-      "ALTER",
-      "DROP"
-    ]
+    "tags": ["DDL"]
   },
     {
     "subject": "Databáze",
@@ -1504,16 +1540,13 @@ window.EXERCISES = [
     "subtopic": "SQL jazyky",
     "id": "db-015",
     "type": "fill",
+    "autoGrade": true,
     "title": "DQL a SELECT",
-    "question": "Který příkaz materiál uvádí u DQL (data Query language)?",
+    "question": "Který příkaz je typickým příkladem DQL (Data Query Language)?",
     "answer": "SELECT",
-    "solution": "Materiál uvádí DQL – dotazování – a jako příklad příkaz SELECT.",
+    "solution": "DQL slouží k dotazování; typickým příkladem je SELECT.",
     "hint": "Je to základní dotazovací příkaz.",
-    "tags": [
-      "DQL",
-      "SELECT",
-      "dotazování"
-    ]
+    "tags": ["DQL", "dotazování"]
   },
     {
     "subject": "Databáze",
@@ -1522,7 +1555,7 @@ window.EXERCISES = [
     "id": "db-016",
     "type": "choice",
     "title": "Účel DQL",
-    "question": "K čemu podle materiálu slouží DQL?",
+    "question": "K čemu slouží DQL?",
     "choices": [
       "K dotazování",
       "K definici struktury",
@@ -1530,12 +1563,10 @@ window.EXERCISES = [
       "K zálohování dat"
     ],
     "answer": "K dotazování",
-    "solution": "Materiál popisuje DQL jako jazyk pro dotazování.",
+    "solution": "DQL je jazyk pro dotazování nad daty.",
     "hint": "Příklad příkazu je SELECT.",
     "tags": [
-      "DQL",
-      "dotazování"
-    ]
+      "DQL"]
   },
     {
     "subject": "Databáze",
@@ -1543,8 +1574,8 @@ window.EXERCISES = [
     "subtopic": "SQL jazyky",
     "id": "db-017",
     "type": "choice",
-    "title": "DML podle materiálu",
-    "question": "Co podle materiálu označuje DML (data manipulation language)?",
+    "title": "DCL – řízení přístupových práv",
+    "question": "K čemu slouží DCL (Data Control Language)?",
     "choices": [
       "Řízení přístupových práv",
       "Definici struktury",
@@ -1552,10 +1583,10 @@ window.EXERCISES = [
       "Řízení transakcí"
     ],
     "answer": "Řízení přístupových práv",
-    "solution": "Materiál uvádí u DML řízení přístupových práv a příkazy GRANT a REVOKE.",
-    "hint": "V materiálu jsou u DML uvedeny GRANT a REVOKE.",
+    "solution": "DCL (Data Control Language) slouží k řízení přístupových práv.",
+    "hint": "DCL souvisí s udělováním a odebíráním přístupových práv.",
     "tags": [
-      "DML",
+      "DCL",
       "přístupová práva",
       "GRANT",
       "REVOKE"
@@ -1567,8 +1598,8 @@ window.EXERCISES = [
     "subtopic": "SQL jazyky",
     "id": "db-018",
     "type": "multi",
-    "title": "Příkazy DML",
-    "question": "Které příkazy materiál uvádí u DML?",
+    "title": "Příkazy DCL",
+    "question": "Které příkazy patří mezi příklady DCL?",
     "choices": [
       "GRANT",
       "REVOKE",
@@ -1580,13 +1611,9 @@ window.EXERCISES = [
       "GRANT",
       "REVOKE"
     ],
-    "solution": "U DML materiál uvádí GRANT a REVOKE.",
-    "hint": "Jde o dvojici uvedenou za DML.",
-    "tags": [
-      "DML",
-      "GRANT",
-      "REVOKE"
-    ]
+    "solution": "Typickými příkazy DCL jsou GRANT a REVOKE.",
+    "hint": "Jde o příkazy pro udělování a odebírání přístupových práv.",
+    "tags": ["DCL"]
   },
     {
     "subject": "Databáze",
@@ -1594,8 +1621,8 @@ window.EXERCISES = [
     "subtopic": "SQL jazyky",
     "id": "db-019",
     "type": "choice",
-    "title": "DTL/TCL",
-    "question": "K čemu podle materiálu slouží DTL/TCL (transaction control language)?",
+    "title": "TCL",
+    "question": "K čemu slouží TCL (Transaction Control Language)?",
     "choices": [
       "K řízení transakcí",
       "K definici struktury",
@@ -1603,10 +1630,9 @@ window.EXERCISES = [
       "K importu CSV"
     ],
     "answer": "K řízení transakcí",
-    "solution": "Materiál označuje DTL/TCL jako transaction control language pro řízení transakcí.",
-    "hint": "V názvu je slovo transaction.",
+    "solution": "TCL slouží k řízení transakcí.",
+    "hint": "V názvu je slovo „transaction“.",
     "tags": [
-      "DTL",
       "TCL",
       "transakce"
     ]
@@ -1617,8 +1643,8 @@ window.EXERCISES = [
     "subtopic": "SQL jazyky",
     "id": "db-020",
     "type": "multi",
-    "title": "Příkazy DTL/TCL",
-    "question": "Které dva příkazy materiál uvádí u DTL/TCL?",
+    "title": "Příkazy TCL",
+    "question": "Které dva příkazy se používají pro řízení transakcí?",
     "choices": [
       "COMMIT",
       "ROLLBACK",
@@ -1630,14 +1656,9 @@ window.EXERCISES = [
       "COMMIT",
       "ROLLBACK"
     ],
-    "solution": "U DTL/TCL jsou uvedeny příkazy COMMIT a ROLLBACK.",
-    "hint": "Jsou uvedeny přímo za názvem transaction control language.",
-    "tags": [
-      "DTL",
-      "TCL",
-      "COMMIT",
-      "ROLLBACK"
-    ]
+    "solution": "Pro řízení transakcí se používají například COMMIT a ROLLBACK.",
+    "hint": "COMMIT potvrzuje změny a ROLLBACK je vrací.",
+    "tags": ["TCL"]
   },
     {
     "subject": "Databáze",
@@ -1645,11 +1666,11 @@ window.EXERCISES = [
     "subtopic": "SQL jazyky",
     "id": "db-021",
     "type": "match",
-    "title": "Jazyky a příklady",
-    "question": "Spoj jazyk s jeho účelem a příkazem podle materiálu.",
+    "title": "SQL skupiny a jejich účel",
+    "question": "Spoj každou skupinu SQL příkazů s jejím účelem a příklady.",
     "pairs": [
       {
-        "left": "DLL",
+        "left": "DDL",
         "right": "Definice struktury — CREATE, ALTER, DROP"
       },
       {
@@ -1658,46 +1679,48 @@ window.EXERCISES = [
       },
       {
         "left": "DML",
+        "right": "Úprava dat — INSERT, UPDATE, DELETE"
+      },
+      {
+        "left": "DCL",
         "right": "Řízení přístupových práv — GRANT, REVOKE"
       },
       {
-        "left": "DTL/TCL",
+        "left": "TCL",
         "right": "Řízení transakcí — COMMIT, ROLLBACK"
       }
     ],
-    "solution": "Páry odpovídají rozdělení jazyků a příkazů uvedenému v materiálu.",
-    "hint": "Pomoz si prvními slovy popisu jednotlivých jazyků.",
-    "tags": [
-      "DLL",
-      "DQL",
-      "DML",
-      "DTL",
-      "TCL"
-    ]
+    "solution": "DDL definuje strukturu, DQL slouží k dotazování, DML upravuje data, DCL řídí přístupová práva a TCL řídí transakce.",
+    "hint": "Zaměř se na rozdíl mezi strukturou databáze, dotazováním, úpravou dat, oprávněními a transakcemi.",
+    "tags": []
   },
     {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "SQL jazyky",
     "id": "db-022",
-    "type": "order",
-    "title": "Zařazení jazyků",
-    "question": "Seřaď typy jazyků ve stejném pořadí, v jakém jsou uvedeny v materiálu.",
-    "order": [
-      "DLL",
-      "DQL",
-      "DML",
-      "DTL/TCL"
+    "type": "multi",
+    "title": "SQL skupiny – příklady",
+    "question": "Které dvojice správně spojují SQL skupinu s typickým příkazem?",
+    "choices": [
+      "DDL — CREATE",
+      "DQL — SELECT",
+      "DML — INSERT",
+      "DCL — GRANT",
+      "TCL — COMMIT",
+      "DDL — SELECT",
+      "DML — GRANT"
     ],
-    "solution": "V materiálu následují DLL, DQL, DML a DTL/TCL.",
-    "hint": "Po definici struktury následuje dotazování, potom přístupová práva a nakonec transakce.",
-    "tags": [
-      "DLL",
-      "DQL",
-      "DML",
-      "DTL",
-      "TCL"
-    ]
+    "answers": [
+      "DDL — CREATE",
+      "DQL — SELECT",
+      "DML — INSERT",
+      "DCL — GRANT",
+      "TCL — COMMIT"
+    ],
+    "solution": "DDL používá například CREATE, DQL SELECT, DML INSERT, DCL GRANT a TCL COMMIT.",
+    "hint": "Rozlišuj definici struktury, dotazování, úpravu dat, oprávnění a transakce.",
+    "tags": []
   },
     {
     "subject": "Databáze",
@@ -1705,10 +1728,11 @@ window.EXERCISES = [
     "subtopic": "Agregace",
     "id": "db-023",
     "type": "fill",
+    "autoGrade": true,
     "title": "Význam agregace",
-    "question": "Co podle materiálu znamená agregace?",
+    "question": "Co znamená agregace?",
     "answer": "dávání dohromady",
-    "solution": "Materiál stručně definuje agregaci jako „dávání dohromady“.",
+    "solution": "Agregace znamená dávání nebo spojování prvků dohromady.",
     "hint": "Jde o spojování nebo dávání prvků dohromady.",
     "tags": [
       "agregace"
@@ -1721,7 +1745,7 @@ window.EXERCISES = [
     "id": "db-024",
     "type": "choice",
     "title": "Agregace",
-    "question": "Které vysvětlení odpovídá definici agregace v materiálu?",
+    "question": "Které vysvětlení nejlépe vystihuje agregaci?",
     "choices": [
       "Dávání dohromady",
       "Dotazování pomocí SELECT",
@@ -1729,7 +1753,7 @@ window.EXERCISES = [
       "Zálohování databáze"
     ],
     "answer": "Dávání dohromady",
-    "solution": "Agregace je v materiálu vysvětlena jako dávání dohromady.",
+    "solution": "Agregace znamená dávání dohromady.",
     "hint": "Definice je jednovětá a velmi krátká.",
     "tags": [
       "agregace"
@@ -1742,7 +1766,7 @@ window.EXERCISES = [
     "id": "db-025",
     "type": "choice",
     "title": "Co je ODBC?",
-    "question": "Jak materiál popisuje ODBC?",
+    "question": "Jak ODBC umožňuje aplikacím pracovat s různými databázemi?",
     "choices": [
       "Standardizované rozhraní pro jednotný přístup aplikací k různým databázím nezávisle na výrobci",
       "Formát souboru pro export databáze",
@@ -1750,13 +1774,11 @@ window.EXERCISES = [
       "Typ primárního klíče"
     ],
     "answer": "Standardizované rozhraní pro jednotný přístup aplikací k různým databázím nezávisle na výrobci",
-    "solution": "Materiál popisuje ODBC jako standardizované rozhraní umožňující aplikacím přistupovat k různým databázím jednotným způsobem nezávisle na výrobci.",
+    "solution": "ODBC je standardizované rozhraní, které umožňuje aplikacím přistupovat k různým databázím jednotným způsobem nezávisle na výrobci.",
     "hint": "ODBC je rozhraní, ne příkaz SQL.",
     "tags": [
       "ODBC",
-      "databáze",
-      "rozhraní"
-    ]
+      "databáze"]
   },
     {
     "subject": "Databáze",
@@ -1764,10 +1786,11 @@ window.EXERCISES = [
     "subtopic": "ODBC",
     "id": "db-026",
     "type": "text",
+    "autoGrade": false,
     "title": "Smysl ODBC",
-    "question": "Vysvětli vlastními slovy, jaký problém podle materiálu řeší ODBC.",
+    "question": "Jaký problém řeší ODBC?",
     "answer": "Umožňuje aplikacím přistupovat k různým databázím jednotným způsobem nezávisle na výrobci databáze.",
-    "solution": "ODBC podle materiálu poskytuje standardizované rozhraní, takže aplikace mohou pracovat s různými databázemi jednotným způsobem a nejsou závislé na konkrétním výrobci.",
+    "solution": "ODBC řeší jednotný přístup aplikací k různým databázím pomocí standardizovaného rozhraní.",
     "hint": "Klíčová jsou slova „jednotným způsobem“ a „nezávisle na výrobci“.",
     "tags": [
       "ODBC",
@@ -1781,7 +1804,7 @@ window.EXERCISES = [
     "id": "db-027",
     "type": "choice",
     "title": "Připojovací řetězec",
-    "question": "Co podle materiálu není v připojovacím řetězci k databázi?",
+    "question": "Co nepatří do připojovacího řetězce k databázi?",
     "choices": [
       "Barevné schéma uživatelského rozhraní aplikace",
       "Informace potřebné k práci s databází",
@@ -1789,7 +1812,7 @@ window.EXERCISES = [
       "Prvky související s databází"
     ],
     "answer": "Barevné schéma uživatelského rozhraní aplikace",
-    "solution": "Materiál výslovně uvádí, že v připojovacím řetězci není barevné schéma uživatelského rozhraní aplikace.",
+    "solution": "Do připojovacího řetězce patří informace potřebné k připojení k databázi, nikoli vizuální vzhled aplikace.",
     "hint": "Jde o vizuální vzhled UI, nikoli o databázové připojení.",
     "tags": [
       "připojovací řetězec",
@@ -1803,7 +1826,7 @@ window.EXERCISES = [
     "id": "db-028",
     "type": "multi",
     "title": "Formáty pro import a export",
-    "question": "Které formáty souborů jsou v materiálu uvedeny pro import a export?",
+    "question": "Které formáty souborů lze použít pro import a export databázových dat?",
     "choices": [
       "CSV",
       "JSON",
@@ -1820,53 +1843,26 @@ window.EXERCISES = [
       "DB",
       "TXT"
     ],
-    "solution": "Materiál uvádí CSV, JSON, XML, DB a TXT.",
-    "hint": "Je jich v seznamu pět.",
-    "tags": [
-      "import",
-      "export",
-      "CSV",
-      "JSON",
-      "XML",
-      "DB",
-      "TXT"
-    ]
+    "solution": "Mezi formáty pro import a export patří CSV, JSON, XML, DB a TXT.",
+    "hint": "Je jich pět.",
+    "tags": ["import", "export"]
   },
     {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "Import a export",
     "id": "db-029",
-    "type": "match",
-    "title": "Formáty importu a exportu",
-    "question": "Spoj každý z uvedených formátů s tvrzením „formát uvedený materiálem pro import a export“.",
-    "pairs": [
-      {
-        "left": "CSV",
-        "right": "Formát uvedený v seznamu"
-      },
-      {
-        "left": "JSON",
-        "right": "Formát uvedený v seznamu — 1"
-      },
-      {
-        "left": "XML",
-        "right": "Formát uvedený v seznamu — 2"
-      },
-      {
-        "left": "DB",
-        "right": "Formát uvedený v seznamu — 3"
-      }
-    ],
-    "solution": "CSV, JSON, XML a DB jsou všechny součástí seznamu formátů pro import a export v materiálu.",
-    "hint": "Všechny čtyři pojmy jsou přímo v posledním bodu materiálu.",
+    "type": "text",
+    "autoGrade": false,
+    "title": "Formáty importu a exportu – přehled",
+    "question": "Uveď alespoň tři formáty souborů, které lze použít pro import nebo export databázových dat.",
+    "answer": "CSV, JSON, XML, DB, TXT",
+    "solution": "Mezi správné příklady patří CSV, JSON, XML, DB a TXT. Stačí uvést alespoň tři.",
+    "hint": "Zaměř se na běžné textové a databázové formáty.",
     "tags": [
-      "CSV",
-      "JSON",
-      "XML",
-      "DB",
       "import",
-      "export"
+      "export",
+      "formáty"
     ]
   },
     {
@@ -1876,10 +1872,10 @@ window.EXERCISES = [
     "id": "db-030",
     "type": "number",
     "title": "Počet uvedených formátů",
-    "question": "Kolik různých formátů souborů materiál uvádí pro import a export?",
+    "question": "Kolik různých formátů souborů lze použít pro import a export databázových dat?",
     "answer": "5",
-    "solution": "Materiál uvádí pět formátů: CSV, JSON, XML, DB a TXT.",
-    "hint": "Spočítej položky v seznamu na konci materiálu.",
+    "solution": "Pro import a export databázových dat lze použít pět formátů: CSV, JSON, XML, DB a TXT.",
+    "hint": "Spočítej pět formátů: CSV, JSON, XML, DB a TXT.",
     "tags": [
       "import",
       "export",
@@ -1893,7 +1889,7 @@ window.EXERCISES = [
     "id": "db-031",
     "type": "choice",
     "title": "TXT v seznamu formátů",
-    "question": "Který z následujících formátů je podle materiálu uveden mezi formáty pro import a export?",
+    "question": "Který z následujících formátů lze použít pro import nebo export databázových dat?",
     "choices": [
       "TXT",
       "SVG",
@@ -1901,13 +1897,9 @@ window.EXERCISES = [
       "EXE"
     ],
     "answer": "TXT",
-    "solution": "TXT je součástí seznamu CSV, JSON, XML, DB, TXT.",
-    "hint": "Je na konci seznamu.",
-    "tags": [
-      "TXT",
-      "import",
-      "export"
-    ]
+    "solution": "TXT patří mezi podporované formáty pro import a export databázových dat.",
+    "hint": "Jde o textový formát.",
+    "tags": ["import", "export"]
   },
     {
     "subject": "Databáze",
@@ -1916,7 +1908,7 @@ window.EXERCISES = [
     "id": "db-032",
     "type": "multi",
     "title": "Přehled databázových pojmů",
-    "question": "Které pojmy jsou přímo uvedeny v materiálu ZDB?",
+    "question": "Které pojmy patří mezi základní témata databází?",
     "choices": [
       "Entita",
       "Atribut",
@@ -1931,14 +1923,9 @@ window.EXERCISES = [
       "ODBC",
       "Agregace"
     ],
-    "solution": "Materiál obsahuje entity, atributy, agregaci a ODBC; header a favicon patří do jiného tématu.",
-    "hint": "Hledej pojmy z databázové části, ne z webového materiálu.",
-    "tags": [
-      "entita",
-      "atribut",
-      "ODBC",
-      "agregace"
-    ]
+    "solution": "Mezi základní databázové pojmy patří entita, atribut, agregace a ODBC.",
+    "hint": "Hledej pojmy z databází, ne z webového designu.",
+    "tags": []
   },
     {
     "subject": "Databáze",
@@ -1946,10 +1933,11 @@ window.EXERCISES = [
     "subtopic": "Shrnutí",
     "id": "db-033",
     "type": "text",
+    "autoGrade": false,
     "title": "Entita versus atribut",
-    "question": "Vysvětli rozdíl mezi entitou a atributem podle materiálu.",
+    "question": "Vysvětli rozdíl mezi entitou a atributem.",
     "answer": "Entita je reálný nebo abstraktní objekt v databázi, zatímco atribut je vlastnost entity.",
-    "solution": "Materiál definuje entitu jako reálný nebo abstraktní objekt v databázi a atribut jako vlastnost entity.",
+    "solution": "Entita je reálný nebo abstraktní objekt v databázi, atribut je vlastnost entity.",
     "hint": "Objekt versus jeho vlastnost.",
     "tags": [
       "entita",
@@ -1963,7 +1951,7 @@ window.EXERCISES = [
     "id": "db-034",
     "type": "choice",
     "title": "Který příkaz kam patří?",
-    "question": "Která dvojice je podle materiálu správně spojena?",
+    "question": "Která dvojice je správně spojena?",
     "choices": [
       "DQL — SELECT",
       "DLL — SELECT",
@@ -1971,12 +1959,9 @@ window.EXERCISES = [
       "DTL/TCL — GRANT"
     ],
     "answer": "DQL — SELECT",
-    "solution": "Materiál uvádí DQL pro dotazování a jako příklad SELECT.",
-    "hint": "SELECT souvisí v materiálu s dotazováním.",
-    "tags": [
-      "DQL",
-      "SELECT"
-    ]
+    "solution": "DQL souvisí s dotazováním a SELECT je typický dotazovací příkaz.",
+    "hint": "SELECT patří k dotazování.",
+    "tags": []
   },
     {
     "subject": "Databáze",
@@ -1984,11 +1969,12 @@ window.EXERCISES = [
     "subtopic": "Shrnutí",
     "id": "db-035",
     "type": "text",
-    "title": "Shrnutí materiálu ZDB",
-    "question": "Uveď alespoň čtyři oblasti nebo pojmy, které materiál ZDB probírá.",
-    "answer": "Například relační databáze, klíče, entity a atributy, vlastnosti databází, DLL, DQL, DML, DTL/TCL, agregace, ODBC nebo import a export dat.",
-    "solution": "Mezi témata materiálu patří relační databáze a klíče, entity a atributy, vlastnosti databází, rozdělení databázových jazyků, agregace, ODBC a formáty pro import a export.",
-    "hint": "Projdi si nadpisy a jednotlivé pojmy z celého materiálu.",
+    "autoGrade": false,
+    "title": "Shrnutí základů databází",
+    "question": "Uveď alespoň čtyři oblasti nebo pojmy ze základů databází.",
+    "answer": "Například relační databáze, klíče, entity a atributy, vlastnosti databází, DDL, DQL, DML, DCL, TCL, agregace, ODBC nebo import a export dat.",
+    "solution": "Mezi základní oblasti patří relační databáze a klíče, entity a atributy, vlastnosti databází, SQL skupiny, agregace, ODBC a import a export dat.",
+    "hint": "Vyjmenuj libovolné čtyři pojmy nebo oblasti ze základů databází.",
     "tags": [
       "shrnutí",
       "ZDB",

@@ -54,6 +54,13 @@ function difficultyText(value) {
   return DIFFICULTY_LABELS[Number(value)] || 'Neuvedená';
 }
 
+function shouldAutoGradeTextInput(exercise) {
+  if (!exercise) return false;
+  if (exercise.type === 'number') return true;
+  if (exercise.type === 'fill' || exercise.type === 'text') return exercise.autoGrade === true;
+  return false;
+}
+
 
 let activeExerciseElement = null;
 
@@ -360,6 +367,7 @@ function normalizeExercises(list) {
     topic: e.topic || '',
     subtopic: e.subtopic || '',
     tags: Array.isArray(e.tags) ? e.tags : [],
+    autoGrade: e.autoGrade === true,
     answers: Array.isArray(e.answers) ? e.answers : [],
     pairs: Array.isArray(e.pairs) ? e.pairs : [],
     order: Array.isArray(e.order) ? e.order : [],
@@ -693,7 +701,7 @@ function renderExercise(e, index) {
     const orderItems = shuffle(e.order);
     inner = `
       <div class="order-wrap" data-order-wrap="${id}">
-        <div class="small">Klikni na položky v pořadí, v jakém mají být.</div>
+        <div class="small">Klikni na položky v logickém nebo správném pořadí.</div>
         <div class="order-selected" data-order-selected="${id}"><span class="order-empty">Zatím nic nevybráno.</span></div>
         <div class="order-palette">
           ${orderItems.map(item => `<button type="button" class="order-pick" data-order-pick="${id}" data-order-value="${esc(item)}">${esc(item)}</button>`).join('')}
@@ -733,20 +741,25 @@ function renderExercise(e, index) {
       </div>
       <div class="output" data-out="${id}">Výstup programu se objeví zde.</div>`;
   } else if (e.type === 'number' || e.type === 'fill') {
+    const autoGrade = shouldAutoGradeTextInput(e);
+    const action = autoGrade ? 'check-short' : 'show-self-check';
+    const buttonLabel = state.mode === 'test'
+      ? 'Zaznamenat odpověď'
+      : (autoGrade ? 'Zkontrolovat' : 'Porovnat s řešením');
     inner = `
       <input class="answer-input" data-answer="${id}" placeholder="${e.type === 'number' ? 'Napiš číslo…' : 'Doplň odpověď…'}" />
       <div class="row" style="margin-top:10px">
-        <button data-action="check-short" data-id="${id}">${state.mode === 'test' ? 'Zaznamenat odpověď' : 'Zkontrolovat'}</button>
+        <button data-action="${action}" data-id="${id}">${buttonLabel}</button>
       </div>
-      <div class="output" data-out="${id}">Napiš odpověď a zkontroluj.</div>`;
+      <div class="output" data-out="${id}">${autoGrade ? 'Napiš odpověď a zkontroluj.' : 'Odpověď se automaticky nehodnotí.'}</div>`;
   } else {
-    const isPersonality = e.topic === 'Osobnosti';
+    const autoGrade = shouldAutoGradeTextInput(e);
     inner = `
       <textarea class="answer-input" data-answer="${id}" placeholder="Napiš svoji odpověď…"></textarea>
       <div class="row" style="margin-top:10px">
-        <button data-action="${isPersonality ? 'check-personality' : 'show-self-check'}" data-id="${id}">${state.mode === 'test' ? 'Zaznamenat odpověď' : (isPersonality ? 'Zkontrolovat' : 'Zkontrolovat odpověď')}</button>
+        <button data-action="${autoGrade ? 'check-personality' : 'show-self-check'}" data-id="${id}">${state.mode === 'test' ? 'Zaznamenat odpověď' : (autoGrade ? 'Zkontrolovat' : 'Porovnat s řešením')}</button>
       </div>
-      <div class="output" data-out="${id}">${isPersonality ? 'Napiš odpověď a zkontroluj.' : 'Řešení je zatím skryté.'}</div>`;
+      <div class="output" data-out="${id}">${autoGrade ? 'Napiš odpověď a zkontroluj.' : 'Odpověď se automaticky nehodnotí.'}</div>`;
   }
 
   const hint = e.hint
@@ -754,9 +767,8 @@ function renderExercise(e, index) {
     : '';
 
   const category = [e.subject, e.topic, e.subtopic].filter(Boolean);
-  const extraTags = e.tags.map(t => `<span class="tag">${esc(t)}</span>`).join('');
   const difficultyTag = `<span class="tag difficulty-tag difficulty-${Number(e.difficulty)}">${esc(difficultyText(e.difficulty))}</span>`;
-  const tags = `<div class="tags">${difficultyTag}${extraTags}</div>`;
+  const tags = `<div class="tags">${difficultyTag}</div>`;
 
   const typeLabels = {choice:'Výběr', multi:'Více správných', match:'Párování', order:'Řazení', text:'Text', code:'Kód', fill:'Doplňování', number:'Výpočet', conversion:'Převod soustavy'};
   return `<article class="exercise" data-type="${esc(e.type)}">
@@ -1040,7 +1052,7 @@ function readExerciseResponse(e) {
     return result || { answered: false, correct: false, graded: true };
   }
   const answer = document.querySelector(`[data-answer="${id}"]`)?.value?.trim() || '';
-  if (e.type === 'text') return { answered: Boolean(answer), correct: null, graded: false };
+  if ((e.type === 'text' || e.type === 'fill') && !e.autoGrade) return { answered: Boolean(answer), correct: null, graded: false };
   const expected = String(e.answer ?? '').trim();
   const numeric = e.type === 'number' && answer !== '' && expected !== '' && Number(answer.replace(',', '.')) === Number(expected.replace(',', '.'));
   const correct = e.type === 'number' ? numeric : answer.toLowerCase() === expected.toLowerCase();
@@ -1309,20 +1321,28 @@ function attachExerciseEvents() {
       if (button.dataset.action === 'check-short') {
         const answer = document.querySelector(`[data-answer="${CSS.escape(id)}"]`)?.value?.trim() || '';
         if (!out) return;
+        if (!shouldAutoGradeTextInput(e)) {
+          recordExerciseResult(e, { answered: answer !== '', correct: null, graded: false });
+          if (state.mode === 'test') { renderNeutralFeedback(out, answer !== ''); return; }
+          out.className = 'output';
+          out.textContent = `Tvoje odpověď: ${answer || '(prázdná)'}\n\nŘešení: ${e.answer || 'Řešení není uvedeno.'}`;
+          return;
+        }
         const expected = String(e.answer ?? '').trim();
         const numeric = e.type === 'number' && answer !== '' && expected !== '' &&
           Number(answer.replace(',', '.')) === Number(expected.replace(',', '.'));
         const correct = e.type === 'number' ? numeric : answer.toLowerCase() === expected.toLowerCase();
+        recordExerciseResult(e, { answered: answer !== '', correct, graded: true });
+        if (state.mode === 'test') { renderNeutralFeedback(out, answer !== ''); return; }
         out.className = `output ${correct ? 'ok' : 'bad'}`;
         out.textContent = correct
           ? '✓ Správně.'
-          : `✗ Zatím ne.
-
-Správná odpověď: ${expected}`;
+          : `✗ Zatím ne.\n\nSprávná odpověď: ${expected}`;
         return;
       }
 
       if (button.dataset.action === 'check-personality') {
+        if (!e.autoGrade) return;
         const answer = document.querySelector(`[data-answer="${CSS.escape(id)}"]`)?.value || '';
         if (!out) return;
         const expected = String(e.answer ?? '');

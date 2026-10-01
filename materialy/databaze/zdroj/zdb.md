@@ -1,6 +1,6 @@
 # ZDB
 
-Zdrojový materiál pro modul **Databáze**. Text je přepsán z dodaného PDF bez doplňování obsahu mimo zdroj.
+Zdrojový materiál pro modul **Databáze**. Původní přepis byl při přípravě úloh terminologicky sjednocen, aby se používala standardní označení DDL, DQL, DML, DCL a TCL.
 
 - Informace jsou zpracovaná data.
 - Open data (big data) jsou veřejná data.
@@ -9,10 +9,11 @@ Zdrojový materiál pro modul **Databáze**. Text je přepsán z dodaného PDF b
 - Vlastnosti databází: práva, ukládání, zabezpečení, správa dat, integrita dat, zálohování a obnova dat.
 - Entita – reálný nebo abstraktní objekt v databázi.
 - Atribut – vlastnost entity.
-- DLL (data definition language) – definice struktury, CREATE, ALTER, DROP.
+- DDL (Data Definition Language) – definice struktury, CREATE, ALTER, DROP.
 - DQL (data Query language) – dotazování, SELECT.
-- DML (data manipulation language) – řízení přístupových práv, GRANT, REVOKE.
-- DTL/TCL (transaction control language) – řízení transakcí, COMMIT, ROLLBACK.
+- DCL (Data Control Language) – řízení přístupových práv, GRANT, REVOKE.
+- DML (Data Manipulation Language) – úprava dat, například INSERT, UPDATE, DELETE.
+- TCL (Transaction Control Language) – řízení transakcí, COMMIT, ROLLBACK.
 - Agregace – dávání dohromady.
 - ODBC – standardizované rozhraní umožňující aplikacím přistupovat k různým databázím jednotným způsobem nezávisle na výrobci.
 - V připojovacím řetězci k databázi není barevné schéma uživatelského rozhraní aplikace.

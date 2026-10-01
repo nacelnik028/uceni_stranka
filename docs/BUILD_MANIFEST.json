@@ -10,7 +10,7 @@
   ],
   "ui_revision": "restore_subject_modules_and_colors",
   "ui_revision_date": "2026-09-30",
-  "notes": "Final runtime preserves all 377 exercises including the Databáze module and materialy/databaze sources. Dark theme remains the default; light theme is optional. Subject cards use stable per-subject accent colors. Code editor Tab inserts 4 spaces and Shift+Tab removes one indentation; mobile uses tab-size 4. No .git directory in the delivery archive.",
+  "notes": "Final runtime preserves all 377 exercises including the Databáze module and materialy/databaze sources. Dark theme remains the default; light theme is optional. Subject cards use stable per-subject accent colors. Code editor Tab inserts 4 spaces and Shift+Tab removes one indentation; mobile uses tab-size 4. No .git directory in the delivery archive. Validator navíc zakazuje tagy, které po normalizaci přesně odpovídají správné odpovědi, a kontroluje samostatnou řešitelnost otázek bez pořadí zdrojového materiálu. Open-ended text inputs now use explicit autoGrade metadata: ambiguous text is self-check only; automated text grading is opt-in for a single canonical answer. Validator rejects missing autoGrade on text/fill and rejects tags that directly reveal the correct answer or an unambiguous answer component.",
   "checks": {
     "static_exercises": 377,
     "unique_ids": 377,
@@ -31,14 +31,24 @@
     "local_set_summary": true,
     "tab_indent_spaces": 4,
     "shift_tab": true,
-    "tab_navigation_outside_code_editor": true
+    "tab_navigation_outside_code_editor": true,
+    "answer_tag_rule": true,
+    "source_independent_question_rule": true,
+    "auto_grade_rule": true,
+    "open_input_metadata": 64,
+    "ambiguous_text_self_check": true
   },
   "runtime_sha256": {
-    "index.html": "dadd176166bf80f362fcece300fc6b72c742ac1067ca47ff523f260bcb794c79",
-    "app.js": "4cdffbae9e3af0ac878de70e8c294c8cef40383d8eabf58133fa1773730d659b",
-    "data/exercises.js": "c085ff12af0110de7cb556157ea4823ad401f17c4f59ddf26f2c7955c7271d89",
-    "data/network_exercises.js": "1f5305b9336ac10f7eddc3ea570130d9c1b8d078f70f75cf533dcefadcf4c875",
-    "data/literature_exercises.js": "249c45f91075c4a97fa6f4727448364f27504ec26d53062ee7d18ab49a94337f",
-    "data/cislicova_technika_exercises.js": "7c1158baef325edcccb454c3c334ae0a5dc28a22d6a2718313045da4b20f8a66"
+    "index.html": "55cfdcaf091a1b6b98d0387c0e9cc4edbd464aa072d920bdcb76aa3e250d0254",
+    "app.js": "874e588880de3213f8d5d3581ca8575563d24665e2c6a99c5b9b1660d892be2b",
+    "data/exercises.js": "105306b2a445a760e941c5a330d5ee23e01852839c423070b565c44e04de8e72",
+    "data/network_exercises.js": "b3843a29d51eaaca6b9fd33f65db183c1d90861e0db03da438a3cd79c7ac3f76",
+    "data/literature_exercises.js": "622dac0c68b2be6ab243882d51fcf0605f2e5e88845274f993cc7a821328d082",
+    "data/cislicova_technika_exercises.js": "a4b508ad143deacfa2060465304f9ae3181760ab89c9622be6fda932b74d8ba7"
+  },
+  "validation": {
+    "validator": "scripts/validate_questions.js",
+    "answer_tag_rule": "error",
+    "normalization": "Unicode NFKC, odstranění Markdown delimitérů/diakritiky, case-insensitive, tolerantní formátování; navíc detekce zkratek a přímých částí odpovědí u objektivních typů"
   }
 }

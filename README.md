@@ -302,6 +302,13 @@ Zdroj materiálu drž v `materialy/<predmet>/zdroj/`. Generátory a pomocné vý
 
 ## Pravidla pro obsah
 
+### Povinná pravidla při tvorbě a úpravě úloh
+
+- **Nedávat k úlohám tagy, které přímo tvoří správnou odpověď úlohy.** Tag nesmí prozrazovat řešení ani být jen jinou podobou správné odpovědi. Tagy používej pouze jako neutrální tematické/kategoriální metadata, která nepomáhají odpověď uhodnout.
+- **Nikdy se neodkazovat na přesné pořadí informací v materiálu.** Otázka nesmí vyžadovat znalost toho, co bylo v materiálu uvedeno jako první, druhé, třetí apod., ani formulace typu „podle pořadí v materiálu“, „co bylo uvedeno jako první“ nebo jinou znalost struktury či pořadí podkladového textu.
+- Úlohy musí být řešitelné z pochopení tématu a z běžné znalosti pojmů, pravidel, postupů nebo konkrétního obsahu, nikoli z mechanického zapamatování pořadí v podkladech.
+- Při kontrole nových úloh vždy ověř, že tagy neprozrazují správnou odpověď a že zadání není závislé na pořadí informací v žádném materiálu. Validátor toto pravidlo vynucuje jako chybu; porovnání je case-insensitive, bez diakritiky a ignoruje běžné interpunkční/Markdown odlišnosti.
+
 - Otázky tvoř z dodaného studijního materiálu.
 - Každé ID je unikátní v celém projektu.
 - U `choice` je `answer` přesně jedna hodnota z `choices`.
@@ -310,7 +317,8 @@ Zdroj materiálu drž v `materialy/<predmet>/zdroj/`. Generátory a pomocné vý
 - U `order` nejsou duplicitní položky.
 - U `conversion` je základ celé číslo 2–36 a odpověď není prázdná.
 - U `number` je odpověď skutečně číselná.
-- U `text` se správnost automaticky neklasifikuje; jde o self-check.
+- U `text` je `autoGrade` povinné; `false` znamená self-check, `true` je povoleno jen pro jednoznačnou odpověď.
+- U `fill` je `autoGrade` povinné; `true` jen pro jednoznačné doplnění, jinak `false` a self-check.
 - U `code` musí existovat `solution` a `expectedOutput`.
 
 ## Poznámka k GitHub Pages

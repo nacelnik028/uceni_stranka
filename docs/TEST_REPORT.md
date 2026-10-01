@@ -227,3 +227,34 @@ Kódový editor má `Tab = 4 mezery`, `Shift+Tab` pro odebrání jednoho odsazen
 Do hlavičky studia byl zaveden princip **progress-first**: na první pohled zůstává pouze přepínač režimu a průběh aktuální sady. Vyhledávání, pět filtrů, velikost sady a obslužná tlačítka jsou uvnitř sbalitelného panelu **Nastavení sady**, který je po vstupu do studia standardně zavřený. Progress bar je `position: sticky`, takže zůstává viditelný i při scrollování dlouhou sadou.
 
 Na mobilu má `.mobile-check-bar` `z-index: 50`; `.toast` je posunut nad ní pomocí `bottom: calc(82px + env(safe-area-inset-bottom))` a `z-index: 60`, takže potvrzovací/chybové hlášky nejsou překryté spodní lištou.
+
+## Audit zadání a oprav otázek – 1. 10. 2026
+
+Byla provedena celková kontrola všech 377 úloh v aktivním kořeni projektu.
+
+- 377 úloh, 377 unikátních ID; validátor hlásí 0 kritických chyb.
+- V textu žádné otázky nezůstaly odkázané na pořadí nebo obsah „materiálu“; celkem 0 výskytů problematických formulací ve viditelném zadání.
+- Úloha `db-022` už nevyžaduje pořadí uvedené ve studijním materiálu; byla změněna na objektivní výběr správných dvojic SQL skupina → příkaz.
+- Úloha `db-028` je samostatně formulovaná a tagy tématu/klíčová slova se ve vykresleném zadání nezobrazují; zůstává pouze obtížnost.
+- Úloha `db-029` už není triviální opakované přiřazování stejné položky, ale otevřená otázka na uvedení více formátů.
+- Byla opravena terminologie `DDL / DQL / DML / DCL / TCL` a související vysvětlení ve zdroji databází.
+- Duplicitní literární otázky `lit-opakovani-001/002/003` byly obsahově rozlišeny.
+- Překlep `Dario Amondei` → `Dario Amodei` byl opraven.
+- Všech 10 zbývajících úloh typu `order` má logické, chronologické nebo technické pořadí; žádná nevyžaduje znalost pořadí ve studijním materiálu.
+- Provedena kontrola viditelnosti tagů, zdrojově závislých formulací, duplicit otázek a konzistence odpovědí napříč datovými soubory.
+
+### Mobilní/regresní kontrola
+
+Chromium smoke test proběhl na šířkách `320 / 375 / 390 / 768 / 1280 px` bez horizontálního přetečení a bez `pageerror`. Na 390 px byla ověřena interakce v procvičování, sticky kontrolní lišta a odeslání správné odpovědi na `db-022`.
+
+### Kódové úlohy
+
+Všech 16 úloh typu `code` bylo zkompilováno CPythonem a všechny prošly syntaktickou kontrolou; očekávané výstupy byly ověřeny při samostatném spuštění.
+
+## Audit pravidla pro tagy – 1. 10. 2026
+
+- Validátor `scripts/validate_questions.js` nově kontroluje, zda žádný tag není správnou odpovědí úlohy.
+- Kontrola zahrnuje správné hodnoty pro `choice`, `multi`, `match`, `order`, `fill`, `number`, `conversion`, `text` a `code`.
+- Porovnání je odolné vůči velikosti písmen, diakritice, běžné interpunkci a Markdown delimitérům, aby nešlo pravidlo obejít jen změnou zápisu.
+- Z aktivních dat byly odstraněny tagy, které toto pravidlo porušovaly.
+- Výsledná kontrola: **377 úloh, 377 unikátních ID, 0 kritických chyb**.
