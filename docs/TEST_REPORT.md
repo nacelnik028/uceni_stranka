@@ -258,3 +258,11 @@ Všech 16 úloh typu `code` bylo zkompilováno CPythonem a všechny prošly synt
 - Porovnání je odolné vůči velikosti písmen, diakritice, běžné interpunkci a Markdown delimitérům, aby nešlo pravidlo obejít jen změnou zápisu.
 - Z aktivních dat byly odstraněny tagy, které toto pravidlo porušovaly.
 - Výsledná kontrola: **377 úloh, 377 unikátních ID, 0 kritických chyb**.
+
+## Oprava otevřeného textového pole – Databáze – 1. 10. 2026
+
+V úloze `db-023` („Co znamená agregace?“) bylo automatické hodnocení vypnuto (`autoGrade: false`). Jde o otevřenou definici, kde mohou být věcně správné různé formulace, například „dávání dohromady“ nebo „shromažďování dat“. Aplikace proto místo automatického verdiktu používá self-check a zobrazí odpověď uživatele spolu s řešením k vlastnímu porovnání.
+
+Validátor byl rozšířen o kontrolu otevřených formulací: pokud má `text` nebo `fill` `autoGrade: true` a zadání začíná typickou otevřenou formulací (např. „Co znamená…“, „Vysvětli…“, „Proč…“, „Uveď…“), vrátí chybu a vyžádá `autoGrade: false`.
+
+Součástí závěrečné kontroly je také přesný test tagů proti všem evidovaným správným odpovědím. Výsledek pro aktuálních 377 úloh: **0 přesných kolizí tag = správná odpověď**.

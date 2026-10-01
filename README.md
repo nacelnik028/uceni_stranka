@@ -319,6 +319,8 @@ Zdroj materiálu drž v `materialy/<predmet>/zdroj/`. Generátory a pomocné vý
 - U `number` je odpověď skutečně číselná.
 - U `text` je `autoGrade` povinné; `false` znamená self-check, `true` je povoleno jen pro jednoznačnou odpověď.
 - U `fill` je `autoGrade` povinné; `true` jen pro jednoznačné doplnění, jinak `false` a self-check.
+- **Textová/doplňovací úloha nesmí být automaticky hodnocena, pokud může mít více věcně správných formulací.** U otevřených definic, vysvětlení, důvodů, popisů nebo otázek typu „co to znamená“ nastav `autoGrade: false`. Automatickou kontrolu používej jen tam, kde je správná odpověď objektivně kanonická a jednoznačná (např. jméno konkrétní osobnosti, přesná zkratka, jednoznačný příkaz nebo přesně definovaná hodnota).
+- **Příklad:** otázka „Co znamená agregace?“ nesmí automaticky označit odpověď „shromážďování dat“ jako chybnou jen proto, že kanonická odpověď je „dávání dohromady“. Taková úloha musí být self-check.
 - U `code` musí existovat `solution` a `expectedOutput`.
 
 ## Poznámka k GitHub Pages

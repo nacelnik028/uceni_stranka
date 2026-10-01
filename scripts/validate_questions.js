@@ -92,12 +92,14 @@ function answerRevealedByTag(tag, answer, exerciseType, autoGrade, question) {
   const questionValue = normalizeMetadataValue(question);
   if (!tagValue || !answerValue) return false;
 
-  // When the term is already present in the question, the tag does not introduce new answer information.
+  // Exact answer or formatting-only variant is always forbidden, even when the same
+  // word already appears in the question. The project rule forbids answer-equal tags.
+  if (tagValue === answerValue || compactMetadataValue(tagRaw) === compactMetadataValue(answerRaw)) return true;
+
+  // When the term is already present in the question, a broader thematic tag does not
+  // add a new clue. This exception is only for non-exact matches below.
   const questionWords = new Set(questionValue.split(' ').filter(Boolean));
   if (questionWords.has(tagValue) || questionValue.includes(` ${tagValue} `) || questionValue.startsWith(`${tagValue} `) || questionValue.endsWith(` ${tagValue}`)) return false;
-
-  // Exact answer or formatting-only variant is always a direct leak.
-  if (tagValue === answerValue || compactMetadataValue(tagRaw) === compactMetadataValue(answerRaw)) return true;
 
   // An acronym such as PoE / CTR directly reveals a multi-word expected answer.
   if (acronymOf(answerRaw) === tagValue && answerValue.split(' ').length >= 2) return true;
@@ -211,6 +213,13 @@ for (const e of all) {
     }
     if (e.type === 'text' && e.autoGrade === true && !String(e.answer ?? '').trim()) {
       errors.push(`${prefix}: text s autoGrade=true musí mít kanonickou answer`);
+    }
+
+    // Konzervativní ochrana proti automatickému hodnocení otevřených formulací.
+    // Tyto typy zadání mohou mít více věcně správných odpovědí, takže mají být self-check.
+    const openEndedCue = /^(?:co znamená|co je|vysvětli|objasni|popiš|proč|jaký problém řeší|jak funguje|jak fungují|uveď|vyjmenuj|popiš rozdíl|vysvětlete|objasněte)(?=\s|$|[.!?])/i.test(String(e.question ?? '').trim());
+    if (e.autoGrade === true && openEndedCue) {
+      errors.push(`${prefix}: ${e.type} s autoGrade=true vypadá jako otevřená otázka s více možnými formulacemi; nastav autoGrade=false a použij self-check`);
     }
   }
 

@@ -1728,7 +1728,7 @@ window.EXERCISES = [
     "subtopic": "Agregace",
     "id": "db-023",
     "type": "fill",
-    "autoGrade": true,
+    "autoGrade": false,
     "title": "Význam agregace",
     "question": "Co znamená agregace?",
     "answer": "dávání dohromady",
