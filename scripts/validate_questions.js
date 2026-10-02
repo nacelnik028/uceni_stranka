@@ -32,7 +32,7 @@ const groups = [
   { file: 'pocitacova_grafika_exercises.js', variable: 'PC_GRAPHICS_EXERCISES' },
 ];
 
-const allowedTypes = new Set(['choice', 'multi', 'match', 'order', 'text', 'code', 'fill', 'number', 'conversion']);
+const allowedTypes = new Set(['choice', 'multi', 'match', 'order', 'scenario', 'diagnostic', 'classification', 'compare', 'image-choice', 'text', 'code', 'fill', 'number', 'conversion']);
 const all = [];
 const errors = [];
 const warnings = [];
@@ -108,7 +108,7 @@ function answerRevealedByTag(tag, answer, exerciseType, autoGrade, question) {
   // Only objective-answer types should reject a tag that is a whole-word component
   // of the answer. For open-ended text, thematic words commonly occur in explanations
   // and do not by themselves expose a unique response.
-  const objectiveType = new Set(['choice', 'multi', 'match', 'order', 'fill', 'number', 'conversion']).has(exerciseType)
+  const objectiveType = new Set(['choice', 'scenario', 'image-choice', 'diagnostic', 'classification', 'compare', 'multi', 'match', 'order', 'fill', 'number', 'conversion']).has(exerciseType)
     || (exerciseType === 'text' && autoGrade === true);
   if (!objectiveType) return false;
 
@@ -139,7 +139,17 @@ function answerRevealedByTag(tag, answer, exerciseType, autoGrade, question) {
 function getCorrectAnswerValues(exercise) {
   switch (exercise.type) {
     case 'choice':
+    case 'scenario':
+    case 'image-choice':
       return [exercise.answer];
+    case 'diagnostic': {
+      const ids = new Set(Array.isArray(exercise.answerIds) ? exercise.answerIds.map(String) : []);
+      return Array.isArray(exercise.items) ? exercise.items.filter(item => ids.has(String(item?.id))).map(item => item?.label) : [];
+    }
+    case 'classification':
+      return Array.isArray(exercise.items) ? exercise.items.flatMap(item => [item?.text, item?.category]) : [];
+    case 'compare':
+      return [exercise.leftLabel, exercise.rightLabel];
     case 'multi':
       return Array.isArray(exercise.answers) ? exercise.answers : [];
     case 'match':
@@ -253,6 +263,67 @@ for (const e of all) {
     }
   }
 
+  if (e.type === 'scenario' || e.type === 'image-choice') {
+    if (!Array.isArray(e.choices) || e.choices.length < 2) errors.push(`${prefix}: ${e.type} potřebuje alespoň 2 choices`);
+    else validateUniqueStrings(e.choices, 'choice', prefix);
+    if (!String(e.answer ?? '').trim()) errors.push(`${prefix}: ${e.type} nemá answer`);
+    else if (!Array.isArray(e.choices) || !e.choices.some(c => String(c).trim() === String(e.answer).trim())) errors.push(`${prefix}: answer není mezi choices`);
+    if (e.type === 'scenario' && !String(e.scenario ?? '').trim()) errors.push(`${prefix}: scenario nemá text scénáře`);
+    if (e.type === 'image-choice' && !String(e.image ?? '').trim()) errors.push(`${prefix}: image-choice nemá image`);
+  }
+
+  if (e.type === 'diagnostic') {
+    if (!Array.isArray(e.items) || e.items.length < 2) errors.push(`${prefix}: diagnostic potřebuje alespoň 2 items`);
+    else {
+      const itemIds = new Set();
+      for (const item of e.items) {
+        const itemId = String(item?.id ?? '').trim();
+        const label = String(item?.label ?? '').trim();
+        if (!itemId || !label) errors.push(`${prefix}: diagnostic item musí mít id a label`);
+        if (itemIds.has(itemId)) errors.push(`${prefix}: diagnostic má duplicitní item id "${itemId}"`);
+        itemIds.add(itemId);
+      }
+      if (!Array.isArray(e.answerIds) || e.answerIds.length < 1) errors.push(`${prefix}: diagnostic nemá answerIds`);
+      else for (const id of e.answerIds) if (!itemIds.has(String(id).trim())) errors.push(`${prefix}: diagnostic answerIds obsahuje neexistující item "${id}"`);
+    }
+  }
+
+  if (e.type === 'classification') {
+    if (!Array.isArray(e.categories) || e.categories.length < 2) errors.push(`${prefix}: classification potřebuje alespoň 2 categories`);
+    else validateUniqueStrings(e.categories, 'category', prefix);
+    if (!Array.isArray(e.items) || e.items.length < 2) errors.push(`${prefix}: classification potřebuje alespoň 2 items`);
+    else {
+      const itemIds = new Set();
+      const categories = new Set((e.categories || []).map(String));
+      for (const item of e.items) {
+        const itemId = String(item?.id ?? '').trim();
+        const text = String(item?.text ?? '').trim();
+        const category = String(item?.category ?? '').trim();
+        if (!itemId || !text || !category) errors.push(`${prefix}: classification item musí mít id, text a category`);
+        if (itemIds.has(itemId)) errors.push(`${prefix}: classification má duplicitní item id "${itemId}"`);
+        itemIds.add(itemId);
+        if (!categories.has(category)) errors.push(`${prefix}: classification item "${itemId}" má neznámou kategorii "${category}"`);
+      }
+    }
+  }
+
+  if (e.type === 'compare') {
+    if (!String(e.leftLabel ?? '').trim() || !String(e.rightLabel ?? '').trim()) errors.push(`${prefix}: compare potřebuje leftLabel a rightLabel`);
+    if (!Array.isArray(e.criteria) || e.criteria.length < 2) errors.push(`${prefix}: compare potřebuje alespoň 2 criteria`);
+    else {
+      const ids = new Set();
+      for (const item of e.criteria) {
+        const id = String(item?.id ?? '').trim();
+        const text = String(item?.text ?? '').trim();
+        const answer = String(item?.answer ?? '').trim();
+        if (!id || !text) errors.push(`${prefix}: compare criterion musí mít id a text`);
+        if (ids.has(id)) errors.push(`${prefix}: compare má duplicitní id kritéria "${id}"`);
+        ids.add(id);
+        if (!['left','right'].includes(answer)) errors.push(`${prefix}: compare criterion "${id}" musí mít answer left nebo right`);
+      }
+    }
+  }
+
   if (e.type === 'match') {
     if (!Array.isArray(e.pairs) || e.pairs.length < 2) errors.push(`${prefix}: match potřebuje alespoň 2 páry`);
     else {
@@ -326,6 +397,11 @@ for (const e of all) {
   if (e.type === 'code') {
     if (!String(e.solution ?? '').trim()) errors.push(`${prefix}: code nemá solution`);
     if (e.expectedOutput == null) errors.push(`${prefix}: code nemá expectedOutput`);
+  }
+
+  if (e.image) {
+    const imagePath = path.resolve(__dirname, '..', String(e.image));
+    if (!fs.existsSync(imagePath)) errors.push(`${prefix}: image neexistuje: ${e.image}`);
   }
 
   if (typeof e.tags !== 'undefined' && !Array.isArray(e.tags)) {

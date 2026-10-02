@@ -46,8 +46,10 @@ function inferDifficulty(e) {
   if (e.type === 'conversion' || e.type === 'number') return e.topic === 'Hornerovo schéma' ? 4 : 3;
   if (e.topic === 'Hornerovo schéma') return e.type === 'order' ? 4 : 3;
   if (e.type === 'match' && Array.isArray(e.pairs) && e.pairs.length >= 5) return 3;
+  if (['diagnostic', 'classification', 'compare'].includes(e.type)) return 3;
   if (e.type === 'order') return 3;
   if (e.type === 'multi') return 3;
+  if (['scenario', 'image-choice'].includes(e.type)) return 2;
   return 2;
 }
 
@@ -76,7 +78,7 @@ function setupEnterShortcut() {
     if (exercise.dataset.type === 'code' || target?.matches('textarea.code')) return;
     if (target?.matches('button, a, select')) return;
 
-    const quickCheck = exercise.querySelector('[data-action="check-choice"], [data-action="check-multi"], [data-action="check-match"], [data-action="check-order"], [data-action="check-conversion"]');
+    const quickCheck = exercise.querySelector('[data-action="check-choice"], [data-action="check-multi"], [data-action="check-match"], [data-action="check-order"], [data-action="check-conversion"], [data-action="check-diagnostic"], [data-action="check-classification"], [data-action="check-compare"]');
     if (quickCheck) {
       ev.preventDefault();
       quickCheck.click();
@@ -294,7 +296,7 @@ function setupCodeTabShortcut() {
 
 function checkActionForExercise(exerciseElement) {
   if (!exerciseElement) return null;
-  return exerciseElement.querySelector('[data-action="check-choice"], [data-action="check-multi"], [data-action="check-match"], [data-action="check-order"], [data-action="check-conversion"], [data-action="check-short"], [data-action="check-personality"], [data-action="show-self-check"], [data-action="run-code"]');
+  return exerciseElement.querySelector('[data-action="check-choice"], [data-action="check-multi"], [data-action="check-match"], [data-action="check-order"], [data-action="check-conversion"], [data-action="check-diagnostic"], [data-action="check-classification"], [data-action="check-compare"], [data-action="check-short"], [data-action="check-personality"], [data-action="show-self-check"], [data-action="run-code"]');
 }
 
 function updateMobileCheckBar() {
@@ -364,6 +366,9 @@ function normalizeExercises(list) {
     starterCode: e.starterCode ?? '',
     testInput: e.testInput ?? '',
     hint: e.hint ?? '',
+    image: e.image ?? '',
+    imageAlt: e.imageAlt ?? '',
+    imageCaption: e.imageCaption ?? '',
     subject: e.subject || '',
     topic: e.topic || '',
     subtopic: e.subtopic || '',
@@ -372,6 +377,13 @@ function normalizeExercises(list) {
     answers: Array.isArray(e.answers) ? e.answers : [],
     pairs: Array.isArray(e.pairs) ? e.pairs : [],
     order: Array.isArray(e.order) ? e.order : [],
+    scenario: e.scenario ?? '',
+    items: Array.isArray(e.items) ? e.items : [],
+    answerIds: Array.isArray(e.answerIds) ? e.answerIds : [],
+    categories: Array.isArray(e.categories) ? e.categories : [],
+    leftLabel: e.leftLabel ?? '',
+    rightLabel: e.rightLabel ?? '',
+    criteria: Array.isArray(e.criteria) ? e.criteria : [],
     value: e.value ?? '',
     fromBase: e.fromBase ?? null,
     toBase: e.toBase ?? null,
@@ -383,7 +395,7 @@ function normalizeExercises(list) {
 function validateExercises(list) {
   const seen = new Set();
   const problems = [];
-  const types = ['choice', 'multi', 'match', 'order', 'text', 'code', 'fill', 'number', 'conversion'];
+  const types = ['choice', 'multi', 'match', 'order', 'scenario', 'diagnostic', 'classification', 'compare', 'image-choice', 'text', 'code', 'fill', 'number', 'conversion'];
   list.forEach((e) => {
     if (seen.has(e.id)) problems.push(`${e.id}: id se opakuje`);
     seen.add(e.id);
@@ -399,6 +411,47 @@ function validateExercises(list) {
       const choices = new Set(e.choices.map(c => String(c).trim()));
       for (const answer of e.answers) {
         if (!choices.has(String(answer).trim())) problems.push(`${e.id}: answers obsahuje možnost mimo choices`);
+      }
+    }
+    if (e.type === 'scenario' || e.type === 'image-choice') {
+      if (e.choices.length < 2) problems.push(`${e.id}: ${e.type} potřebuje aspoň 2 možnosti v choices`);
+      if (!e.choices.some((c) => String(c).trim() === String(e.answer).trim())) problems.push(`${e.id}: answer není mezi choices`);
+      if (e.type === 'scenario' && !String(e.scenario || '').trim()) problems.push(`${e.id}: scenario potřebuje text scénáře`);
+      if (e.type === 'image-choice' && !String(e.image || '').trim()) problems.push(`${e.id}: image-choice potřebuje image`);
+    }
+    if (e.type === 'diagnostic') {
+      if (!Array.isArray(e.items) || e.items.length < 2) problems.push(`${e.id}: diagnostic potřebuje aspoň 2 items`);
+      const ids = new Set();
+      for (const item of (e.items || [])) {
+        if (!item || !String(item.id || '').trim() || !String(item.label || '').trim()) problems.push(`${e.id}: každý diagnostic item potřebuje id a label`);
+        if (ids.has(String(item?.id || '').trim())) problems.push(`${e.id}: diagnostic má duplicitní id položky`);
+        ids.add(String(item?.id || '').trim());
+      }
+      if (!Array.isArray(e.answerIds) || e.answerIds.length < 1) problems.push(`${e.id}: diagnostic potřebuje neprázdné answerIds`);
+      for (const answerId of (e.answerIds || [])) if (!ids.has(String(answerId).trim())) problems.push(`${e.id}: diagnostic answerIds obsahuje neexistující položku ${answerId}`);
+    }
+    if (e.type === 'classification') {
+      if (!Array.isArray(e.categories) || e.categories.length < 2) problems.push(`${e.id}: classification potřebuje aspoň 2 categories`);
+      if (!Array.isArray(e.items) || e.items.length < 2) problems.push(`${e.id}: classification potřebuje aspoň 2 items`);
+      const ids = new Set(); const cats = new Set((e.categories || []).map(c => String(c).trim()));
+      for (const item of (e.items || [])) {
+        const itemId = String(item?.id || '').trim();
+        if (!itemId || !String(item?.text || '').trim()) problems.push(`${e.id}: každý classification item potřebuje id a text`);
+        if (ids.has(itemId)) problems.push(`${e.id}: classification má duplicitní id položky`);
+        ids.add(itemId);
+        if (!cats.has(String(item?.category || '').trim())) problems.push(`${e.id}: classification položka ${itemId} odkazuje na neexistující kategorii`);
+      }
+    }
+    if (e.type === 'compare') {
+      if (!String(e.leftLabel || '').trim() || !String(e.rightLabel || '').trim()) problems.push(`${e.id}: compare potřebuje leftLabel a rightLabel`);
+      if (!Array.isArray(e.criteria) || e.criteria.length < 2) problems.push(`${e.id}: compare potřebuje aspoň 2 criteria`);
+      const ids = new Set();
+      for (const item of (e.criteria || [])) {
+        const itemId = String(item?.id || '').trim();
+        if (!itemId || !String(item?.text || '').trim()) problems.push(`${e.id}: každý compare criterion potřebuje id a text`);
+        if (ids.has(itemId)) problems.push(`${e.id}: compare má duplicitní id kritéria`);
+        ids.add(itemId);
+        if (!['left','right'].includes(String(item?.answer || ''))) problems.push(`${e.id}: compare ${itemId} musí mít answer left nebo right`);
       }
     }
     if (e.type === 'match') {
@@ -539,7 +592,7 @@ function filterSummaryText() {
   if (subject !== 'all') parts.push(subject);
   if (topic !== 'all') parts.push(topic);
   if (subtopic !== 'all') parts.push(subtopic);
-  if (type !== 'all') parts.push(({choice:'Výběr',multi:'Více správných',match:'Párování',order:'Řazení',text:'Textová odpověď',code:'Kód',fill:'Doplňování',number:'Výpočet',conversion:'Převod soustavy'})[type] || type);
+  if (type !== 'all') parts.push(({choice:'Výběr',multi:'Více správných',match:'Párování',order:'Řazení',scenario:'Scénář',diagnostic:'Diagnostika',classification:'Třídění',compare:'Porovnání','image-choice':'Obrázek + výběr',text:'Textová odpověď',code:'Kód',fill:'Doplňování',number:'Výpočet',conversion:'Převod soustavy'})[type] || type);
   if (difficulty !== 'all') parts.push(`obtížnost ${difficulty}`);
   const query = ($('exerciseSearch')?.value || '').trim();
   if (query) parts.push(`hledání „${query}“`);
@@ -641,9 +694,26 @@ function solutionBlock(e) {
   } else if (e.type === 'conversion') {
     parts.push(part('Správný převod', `<div><strong>${rich(e.value)}<sub>${esc(e.fromBase)}</sub></strong> → <strong>${rich(e.answer)}<sub>${esc(e.toBase)}</sub></strong></div>`));
     if (e.solution) parts.push(part('Postup / vysvětlení', `<div>${rich(e.solution)}</div>`));
+  } else if (e.type === 'diagnostic') {
+    const ids = new Set((e.answerIds || []).map(String));
+    const badItems = (e.items || []).filter(item => ids.has(String(item.id)));
+    if (badItems.length) parts.push(part('Chybné položky', `<div>${badItems.map(item => `<div>• ${rich(item.label)}</div>`).join('')}</div>`));
+    if (e.solution) parts.push(part('Vysvětlení', `<div>${rich(e.solution)}</div>`));
+  } else if (e.type === 'classification') {
+    if (e.items?.length) parts.push(part('Správné zařazení', `<div>${e.items.map(item => `<div><strong>${rich(item.text)}</strong> → ${rich(item.category)}</div>`).join('')}</div>`));
+    if (e.solution) parts.push(part('Vysvětlení', `<div>${rich(e.solution)}</div>`));
+  } else if (e.type === 'compare') {
+    if (e.criteria?.length) parts.push(part('Správné porovnání', `<div>${e.criteria.map(item => `<div><strong>${rich(item.text)}</strong> → ${rich(item.answer === 'left' ? e.leftLabel : e.rightLabel)}</div>`).join('')}</div>`));
+    if (e.solution) parts.push(part('Vysvětlení', `<div>${rich(e.solution)}</div>`));
+  } else if (e.type === 'scenario') {
+    if (e.answer) parts.push(part('Správná odpověď', `<div>${rich(e.answer)}</div>`));
+    if (e.solution) parts.push(part('Vysvětlení', `<div>${rich(e.solution)}</div>`));
+  } else if (e.type === 'image-choice') {
+    if (e.answer) parts.push(part('Správná odpověď', `<div>${rich(e.answer)}</div>`));
+    if (e.solution) parts.push(part('Vysvětlení', `<div>${rich(e.solution)}</div>`));
   } else {
     if (e.answer) {
-      const label = ['choice', 'number', 'fill'].includes(e.type) ? 'Správná odpověď' : 'Řešení';
+      const label = ['choice', 'scenario', 'image-choice', 'number', 'fill'].includes(e.type) ? 'Správná odpověď' : 'Řešení';
       parts.push(part(label, `<div>${rich(e.answer)}</div>`));
     }
     if (e.solution) parts.push(part('Vysvětlení', `<div>${rich(e.solution)}</div>`));
@@ -669,6 +739,80 @@ function renderExercise(e, index) {
         <button data-action="check-choice" data-id="${id}">${state.mode === 'test' ? 'Zaznamenat odpověď' : 'Zkontrolovat'}</button>
       </div>
       <div class="output" data-out="${id}">Vyber odpověď a zkontroluj.</div>`;
+  } else if (e.type === 'scenario') {
+    inner = `
+      <div class="scenario-box">${rich(e.scenario)}</div>
+      <div class="choices">
+        ${shuffledChoices(e).map((choice) => `
+          <label class="choice">
+            <input type="radio" name="choice-${id}" value="${esc(choice)}">
+            <span>${esc(choice)}</span>
+          </label>`).join('')}
+      </div>
+      <div class="row" style="margin-top:12px">
+        <button data-action="check-choice" data-id="${id}">${state.mode === 'test' ? 'Zaznamenat odpověď' : 'Zkontrolovat scénář'}</button>
+      </div>
+      <div class="output" data-out="${id}">Vyber řešení scénáře.</div>`;
+  } else if (e.type === 'diagnostic') {
+    inner = `
+      <div class="diagnostic-list">
+        ${(e.items || []).map((item) => `
+          <label class="diagnostic-item">
+            <input type="checkbox" name="diagnostic-${id}" value="${esc(item.id)}">
+            <span><strong>${esc(item.label)}</strong><small>${rich(item.detail || '')}</small></span>
+          </label>`).join('')}
+      </div>
+      <div class="row" style="margin-top:12px">
+        <button data-action="check-diagnostic" data-id="${id}">${state.mode === 'test' ? 'Zaznamenat odpověď' : 'Zkontrolovat chyby'}</button>
+      </div>
+      <div class="output" data-out="${id}">Označ všechny položky, které jsou chybně.</div>`;
+  } else if (e.type === 'classification') {
+    const items = shuffle(e.items || []);
+    inner = `
+      <div class="classification-list">
+        ${items.map(item => `
+          <div class="classification-item" data-classification-item="${esc(item.id)}" data-selected-category="">
+            <div class="classification-label">${rich(item.text)}</div>
+            <div class="classification-categories">
+              ${(e.categories || []).map(category => `<button type="button" class="classification-pick" data-classification-item="${esc(item.id)}" data-classification-category="${esc(category)}">${esc(category)}</button>`).join('')}
+            </div>
+          </div>`).join('')}
+      </div>
+      <div class="row" style="margin-top:12px">
+        <button data-action="check-classification" data-id="${id}">${state.mode === 'test' ? 'Zaznamenat odpověď' : 'Zkontrolovat zařazení'}</button>
+        <button data-action="reset-classification" data-id="${id}">Začít znovu</button>
+      </div>
+      <div class="output" data-out="${id}">Zařaď všechny položky.</div>`;
+  } else if (e.type === 'compare') {
+    inner = `
+      <div class="compare-list">
+        ${(e.criteria || []).map(item => `
+          <div class="compare-row">
+            <div class="compare-criterion">${rich(item.text)}</div>
+            <div class="compare-options">
+              <label class="choice"><input type="radio" name="compare-${id}-${esc(item.id)}" value="left"><span>${esc(e.leftLabel)}</span></label>
+              <label class="choice"><input type="radio" name="compare-${id}-${esc(item.id)}" value="right"><span>${esc(e.rightLabel)}</span></label>
+            </div>
+          </div>`).join('')}
+      </div>
+      <div class="row" style="margin-top:12px">
+        <button data-action="check-compare" data-id="${id}">${state.mode === 'test' ? 'Zaznamenat odpověď' : 'Zkontrolovat porovnání'}</button>
+      </div>
+      <div class="output" data-out="${id}">Vyber stranu u všech tvrzení.</div>`;
+  } else if (e.type === 'image-choice') {
+    inner = `
+      <div class="image-choice-note">Vyber odpověď podle toho, co skutečně vidíš na obrázku.</div>
+      <div class="choices visual-choices">
+        ${shuffledChoices(e).map((choice) => `
+          <label class="choice">
+            <input type="radio" name="choice-${id}" value="${esc(choice)}">
+            <span>${esc(choice)}</span>
+          </label>`).join('')}
+      </div>
+      <div class="row" style="margin-top:12px">
+        <button data-action="check-choice" data-id="${id}">${state.mode === 'test' ? 'Zaznamenat odpověď' : 'Zkontrolovat podle obrázku'}</button>
+      </div>
+      <div class="output" data-out="${id}">Vyber odpověď.</div>`;
   } else if (e.type === 'multi') {
     inner = `
       <div class="multi-list">
@@ -776,7 +920,7 @@ function renderExercise(e, index) {
   const difficultyTag = `<span class="tag difficulty-tag difficulty-${Number(e.difficulty)}">${esc(difficultyText(e.difficulty))}</span>`;
   const tags = `<div class="tags">${difficultyTag}</div>`;
 
-  const typeLabels = {choice:'Výběr', multi:'Více správných', match:'Párování', order:'Řazení', text:'Text', code:'Kód', fill:'Doplňování', number:'Výpočet', conversion:'Převod soustavy'};
+  const typeLabels = {choice:'Výběr', multi:'Více správných', match:'Párování', order:'Řazení', scenario:'Scénář', diagnostic:'Diagnostika', classification:'Třídění', compare:'Porovnání', 'image-choice':'Obrázek + výběr', text:'Text', code:'Kód', fill:'Doplňování', number:'Výpočet', conversion:'Převod soustavy'};
   return `<article class="exercise" data-type="${esc(e.type)}">
     <div class="exercise-head">
       <div>
@@ -1027,9 +1171,28 @@ function currentSessionElements() {
 
 function readExerciseResponse(e) {
   const id = CSS.escape(e.id);
-  if (e.type === 'choice') {
+  if (['choice', 'scenario', 'image-choice'].includes(e.type)) {
     const selected = document.querySelector(`input[name="choice-${id}"]:checked`)?.value;
     return { answered: Boolean(selected), correct: Boolean(selected) && String(selected).trim() === String(e.answer).trim(), graded: true };
+  }
+  if (e.type === 'diagnostic') {
+    const selected = [...document.querySelectorAll(`input[name="diagnostic-${id}"]:checked`)].map(i => String(i.value).trim()).sort();
+    const expected = [...(e.answerIds || [])].map(String).sort();
+    return { answered: selected.length > 0, correct: selected.length === expected.length && expected.every((v,i) => v === selected[i]), graded: true };
+  }
+  if (e.type === 'classification') {
+    const wrap = document.querySelector(`.exercise[data-type="classification"] [data-out="${id}"]`)?.closest('.exercise');
+    const rows = wrap ? [...wrap.querySelectorAll('.classification-item')] : [];
+    const byId = new Map((e.items || []).map(item => [String(item.id), String(item.category)]));
+    const answered = rows.length === (e.items || []).length && rows.every(row => Boolean(row.dataset.selectedCategory));
+    const correct = answered && rows.every(row => byId.get(row.dataset.classificationItem) === row.dataset.selectedCategory);
+    return { answered: rows.some(row => Boolean(row.dataset.selectedCategory)), correct, graded: true };
+  }
+  if (e.type === 'compare') {
+    const criteria = e.criteria || [];
+    const answered = criteria.length > 0 && criteria.every(item => document.querySelector(`input[name="compare-${id}-${CSS.escape(item.id)}"]:checked`));
+    const correct = answered && criteria.every(item => document.querySelector(`input[name="compare-${id}-${CSS.escape(item.id)}"]:checked`)?.value === item.answer);
+    return { answered, correct, graded: true };
   }
   if (e.type === 'multi') {
     const selected = [...document.querySelectorAll(`input[name="multi-${id}"]:checked`)].map(i => String(i.value).trim()).sort();
@@ -1373,6 +1536,54 @@ function attachExerciseEvents() {
         return;
       }
 
+      if (button.dataset.action === 'check-diagnostic') {
+        const selected = [...document.querySelectorAll(`input[name="diagnostic-${CSS.escape(id)}"]:checked`)].map(input => String(input.value).trim()).sort();
+        if (!out) return;
+        const expected = [...(e.answerIds || [])].map(String).sort();
+        const correct = selected.length === expected.length && expected.every((value, i) => value === selected[i]);
+        recordExerciseResult(e, { answered: selected.length > 0, correct, graded: true });
+        if (state.mode === 'test') { renderNeutralFeedback(out, selected.length > 0); return; }
+        out.className = `output ${correct ? 'ok' : 'bad'}`;
+        out.textContent = correct ? '✓ Správně – všechny chybné položky jsi označil/a.' : '✗ Diagnostika nesedí. Některá chybná položka chybí nebo je označena navíc.';
+        return;
+      }
+
+      if (button.dataset.action === 'check-classification') {
+        const rows = [...document.querySelectorAll(`.classification-item`)].filter(row => row.closest('.exercise')?.querySelector(`[data-out="${CSS.escape(id)}"]`));
+        const expected = new Map((e.items || []).map(item => [String(item.id), String(item.category)]));
+        const answered = rows.length === (e.items || []).length && rows.every(row => Boolean(row.dataset.selectedCategory));
+        const correct = answered && rows.every(row => expected.get(row.dataset.classificationItem) === row.dataset.selectedCategory);
+        if (!out) return;
+        if (!answered) { out.className = 'output bad'; out.textContent = 'Nejdřív zařaď všechny položky.'; return; }
+        recordExerciseResult(e, { answered: true, correct, graded: true });
+        if (state.mode === 'test') { renderNeutralFeedback(out, true); return; }
+        out.className = `output ${correct ? 'ok' : 'bad'}`;
+        out.textContent = correct ? '✓ Všechny položky jsou zařazené správně.' : '✗ Některé položky jsou zařazené do špatné kategorie.';
+        return;
+      }
+
+      if (button.dataset.action === 'reset-classification') {
+        const exercise = button.closest('.exercise');
+        exercise?.querySelectorAll('[data-classification-item]').forEach(row => { row.dataset.selectedCategory = ''; row.querySelectorAll('.classification-pick').forEach(btn => btn.classList.remove('active')); });
+        if (out) { out.className = 'output'; out.textContent = 'Zařaď všechny položky.'; }
+        delete state.results[e.id];
+        clearCurrentStats();
+        return;
+      }
+
+      if (button.dataset.action === 'check-compare') {
+        if (!out) return;
+        const criteria = e.criteria || [];
+        const selected = criteria.map(item => document.querySelector(`input[name="compare-${CSS.escape(id)}-${CSS.escape(item.id)}"]:checked`)?.value || '');
+        const answered = selected.length === criteria.length && selected.every(Boolean);
+        const correct = answered && criteria.every((item, i) => selected[i] === item.answer);
+        recordExerciseResult(e, { answered, correct, graded: true });
+        if (state.mode === 'test') { renderNeutralFeedback(out, answered); return; }
+        out.className = `output ${correct ? 'ok' : 'bad'}`;
+        out.textContent = answered ? (correct ? '✓ Porovnání je správně.' : '✗ Některé přiřazení na levou/pravou stranu nesedí.') : 'Nejdřív vyber stranu u všech tvrzení.';
+        return;
+      }
+
       if (button.dataset.action === 'check-multi') {
         const selected = [...document.querySelectorAll(`input[name="multi-${CSS.escape(id)}"]:checked`)].map(input => String(input.value).trim());
         if (!out) return;
@@ -1446,6 +1657,20 @@ function attachExerciseEvents() {
       if (button.dataset.action === 'run-code') {
         await runCode(e, out);
       }
+    });
+  });
+
+  document.querySelectorAll('[data-classification-category]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const item = button.closest('.classification-item');
+      if (!item) return;
+      const category = button.dataset.classificationCategory || '';
+      item.dataset.selectedCategory = category;
+      item.querySelectorAll('.classification-pick').forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+      const out = item.closest('.exercise')?.querySelector('[data-out]');
+      if (out) { out.className = 'output'; out.textContent = 'Pokračuj v zařazování položek.'; }
+      clearCurrentStats();
     });
   });
 
@@ -1677,6 +1902,10 @@ $('resetProgress').addEventListener('click', () => {
   });
   document.querySelectorAll('.order-pick').forEach((btn) => btn.classList.remove('used'));
   document.querySelectorAll('[data-match-left]').forEach((select) => { select.value = ''; });
+  document.querySelectorAll('.classification-item').forEach((row) => {
+    row.dataset.selectedCategory = '';
+    row.querySelectorAll('.classification-pick').forEach((btn) => btn.classList.remove('active'));
+  });
   document.querySelectorAll('.output').forEach((out) => {
     out.className = 'output';
     out.textContent = state.mode === 'test' ? 'Odpověď zatím není zaznamenána.' : 'Výstup / kontrola se objeví zde.';

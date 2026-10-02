@@ -1,1227 +1,1747 @@
-// ============================================================
-// ÚLOHY VYTVOŘENÉ PODLE MATERIÁLU "seznamy.py"
-// Materiál: Python seznamy
-// ============================================================
-
-window.EXERCISE_SET_TITLE = 'Procvičovna';
-window.EXERCISE_SUBJECT = 'Programování';
-window.EXERCISE_TOPIC = 'Python';
-window.EXERCISE_SUBTOPIC = 'Seznamy';
-
+// Aktivní otázky – společný katalog
 window.EXERCISES = [
   {
-    subject: 'Programování',
-    topic: 'Python',
-    subtopic: 'Seznamy',
-    id: 'seznamy-001',
-    type: 'choice',
-    title: 'První prvek seznamu',
-    question: 'Měj seznam: `seznam = ["Karel", "Frank", "Jana"]`. Co vypíše `print(seznam[0])`?',
-    choices: ['Karel', 'Frank', 'Jana'],
-    answer: 'Karel',
-    tags: ['Python', 'seznamy', 'indexování']
-  },
-  {
-    subject: 'Programování',
-    topic: 'Python',
-    subtopic: 'Seznamy',
-    id: 'seznamy-002',
-    type: 'choice',
-    title: 'Poslední prvek pomocí záporného indexu',
-    question: 'Měj seznam: `seznam = ["Karel", "Frank", "Jana"]`. Co vypíše `print(seznam[-1])`?',
-    choices: ['Karel', 'Frank', 'Jana'],
-    answer: 'Jana',
-    tags: ['Python', 'seznamy', 'záporné indexy']
-  },
-  {
-    subject: 'Programování',
-    topic: 'Python',
-    subtopic: 'Seznamy',
-    id: 'seznamy-003',
-    type: 'choice',
-    title: 'Záporný index -2',
-    question: 'Měj seznam: `seznam = ["Karel", "Frank", "Jana"]`. Co vypíše `print(seznam[-2])`?',
-    choices: ['Karel', 'Frank', 'Jana'],
-    answer: 'Frank',
-    tags: ['Python', 'seznamy', 'záporné indexy']
-  },
-  {
-    subject: 'Programování',
-    topic: 'Python',
-    subtopic: 'Seznamy',
-    id: 'seznamy-004',
-    type: 'text',
-    autoGrade: false,
-    autoGrade: false,
-    title: 'Vysvětli index 3',
-    question: 'Měj `seznam = ["Karel", "Frank", "Jana"]`. Proč je `print(seznam[3])` problém?',
-    answer: 'Protože platné indexy tohoto tříprvkového seznamu jsou 0, 1 a 2. Index 3 v seznamu není.',
-    hint: 'Podívej se, od jakého čísla indexování začíná.',
-    tags: ['Python', 'seznamy', 'indexování']
-  },
-  {
-    subject: 'Programování',
-    topic: 'Python',
-    subtopic: 'Seznamy',
-    id: 'seznamy-005',
-    type: 'code',
-    title: 'Přidej Janu',
-    question: 'Začni s programem `studenti = ["Karel", "Frank"]`. Pomocí `append()` přidej "Jana" a vypiš celý seznam pomocí `print()`.',
-    language: 'python',
-    starterCode: 'studenti = ["Karel", "Frank"]\n# Doplň řešení\n',
-    expectedOutput: "['Karel', 'Frank', 'Jana']",
-    solution: 'studenti = ["Karel", "Frank"]\nstudenti.append("Jana")\nprint(studenti)',
-    tags: ['Python', 'seznamy', 'append', 'kód']
-  },
-  {
-    subject: 'Programování',
-    topic: 'Python',
-    subtopic: 'Seznamy',
-    id: 'seznamy-006',
-    type: 'code',
-    title: 'Nahraď Franka',
-    question: 'Začni s programem `studenti = ["Karel", "Frank"]`. Nahraď pomocí indexu hodnotu "Frank" za "Tomas" a vypiš seznam.',
-    language: 'python',
-    starterCode: 'studenti = ["Karel", "Frank"]\n# Doplň řešení\n',
-    expectedOutput: "['Karel', 'Tomas']",
-    solution: 'studenti = ["Karel", "Frank"]\nstudenti[1] = "Tomas"\nprint(studenti)',
-    tags: ['Python', 'seznamy', 'indexování', 'kód']
-  },
-  {
-    subject: 'Programování',
-    topic: 'Python',
-    subtopic: 'Seznamy',
-    id: 'seznamy-007',
-    type: 'code',
-    title: 'Odstraň Karla',
-    question: 'Začni s programem `studenti = ["Karel", "Frank"]`. Pomocí `remove()` odstraň "Karel" a vypiš seznam.',
-    language: 'python',
-    starterCode: 'studenti = ["Karel", "Frank"]\n# Doplň řešení\n',
-    expectedOutput: "['Frank']",
-    solution: 'studenti = ["Karel", "Frank"]\nstudenti.remove("Karel")\nprint(studenti)',
-    tags: ['Python', 'seznamy', 'remove', 'kód']
-  },
-  {
-    subject: 'Programování',
-    topic: 'Python',
-    subtopic: 'Seznamy',
-    id: 'seznamy-008',
-    type: 'code',
-    title: 'Odstraň první prvek pomocí pop()',
-    question: 'Začni s programem `studenti = ["Karel", "Frank"]`. Pomocí `pop(0)` odstraň první prvek a vypiš seznam.',
-    language: 'python',
-    starterCode: 'studenti = ["Karel", "Frank"]\n# Doplň řešení\n',
-    expectedOutput: "['Frank']",
-    solution: 'studenti = ["Karel", "Frank"]\nstudenti.pop(0)\nprint(studenti)',
-    tags: ['Python', 'seznamy', 'pop', 'kód']
-  },
-  {
-    subject: 'Programování',
-    topic: 'Python',
-    subtopic: 'Seznamy',
-    id: 'seznamy-009',
-    type: 'code',
-    title: 'Append a insert dohromady',
-    question: 'Začni s `cisla = [3, 5]`. Přidej pomocí `append(2)` číslo 2 a potom pomocí `insert(1, 4)` vlož číslo 4 na pozici 1. Vypiš seznam.',
-    language: 'python',
-    starterCode: 'cisla = [3, 5]\n# Doplň řešení\n',
-    expectedOutput: '[3, 4, 5, 2]',
-    solution: 'cisla = [3, 5]\ncisla.append(2)\ncisla.insert(1, 4)\nprint(cisla)',
-    tags: ['Python', 'seznamy', 'append', 'insert', 'kód']
-  },
-  {
-    subject: 'Programování',
-    topic: 'Python',
-    subtopic: 'Seznamy',
-    id: 'seznamy-010',
-    type: 'code',
-    title: 'Seřaď seznam',
-    question: 'Začni s `cisla = [3, 5, 2]`. Přidej 4 pomocí `append()`, pak pomocí `sort()` seznam seřaď a vypiš ho.',
-    language: 'python',
-    starterCode: 'cisla = [3, 5, 2]\n# Doplň řešení\n',
-    expectedOutput: '[2, 3, 4, 5]',
-    solution: 'cisla = [3, 5, 2]\ncisla.append(4)\ncisla.sort()\nprint(cisla)',
-    tags: ['Python', 'seznamy', 'sort', 'kód']
-  },
-  {
-    subject: 'Programování',
-    topic: 'Python',
-    subtopic: 'Seznamy',
-    id: 'seznamy-011',
-    type: 'code',
-    title: 'Obrať pořadí',
-    question: 'Začni s `cisla = [3, 5, 2]`. Použij `reverse()` a vypiš seznam.',
-    language: 'python',
-    starterCode: 'cisla = [3, 5, 2]\n# Doplň řešení\n',
-    expectedOutput: '[2, 5, 3]',
-    solution: 'cisla = [3, 5, 2]\ncisla.reverse()\nprint(cisla)',
-    tags: ['Python', 'seznamy', 'reverse', 'kód']
-  },
-  {
-    subject: 'Programování',
-    topic: 'Python',
-    subtopic: 'Seznamy',
-    id: 'seznamy-012',
-    type: 'choice',
-    title: 'Co udělá insert(1, 4)?',
-    question: 'Co udělá příkaz `cisla.insert(1, 4)` se seznamem `cisla = [3, 5]`?',
-    choices: [
-      'Vloží 4 na pozici 1',
-      'Nahrazuje prvek na pozici 1',
-      'Přidá 4 vždy na konec seznamu',
-      'Seznam seřadí'
+    "subject": "Programování",
+    "topic": "Python",
+    "subtopic": "Seznamy",
+    "id": "seznamy-001",
+    "type": "choice",
+    "title": "První prvek seznamu",
+    "question": "Měj seznam: `seznam = [\"Karel\", \"Frank\", \"Jana\"]`. Co vypíše `print(seznam[0])`?",
+    "choices": [
+      "Karel",
+      "Frank",
+      "Jana"
     ],
-    answer: 'Vloží 4 na pozici 1',
-    tags: ['Python', 'seznamy', 'insert']
+    "answer": "Karel",
+    "tags": [
+      "Python",
+      "seznamy",
+      "indexování"
+    ]
   },
   {
-    subject: 'Programování',
-    topic: 'Python',
-    subtopic: 'Seznamy',
-    id: 'seznamy-013',
-    type: 'choice',
-    title: 'Co udělá reverse()?',
-    question: 'Co udělá `cisla.reverse()`?',
-    choices: [
-      'Seřadí čísla od nejmenšího po největší',
-      'Obrátí pořadí prvků v seznamu',
-      'Odstraní poslední prvek',
-      'Spočítá délku seznamu'
+    "subject": "Programování",
+    "topic": "Python",
+    "subtopic": "Seznamy",
+    "id": "seznamy-002",
+    "type": "choice",
+    "title": "Poslední prvek pomocí záporného indexu",
+    "question": "Měj seznam: `seznam = [\"Karel\", \"Frank\", \"Jana\"]`. Co vypíše `print(seznam[-1])`?",
+    "choices": [
+      "Karel",
+      "Frank",
+      "Jana"
     ],
-    answer: 'Obrátí pořadí prvků v seznamu',
-    tags: ['Python', 'seznamy', 'reverse']
+    "answer": "Jana",
+    "tags": [
+      "Python",
+      "seznamy",
+      "záporné indexy"
+    ]
   },
   {
-    subject: 'Programování',
-    topic: 'Python',
-    subtopic: 'Seznamy',
-    id: 'seznamy-014',
-    type: 'code',
-    title: 'Prohoď Karla a Lukase',
-    question: 'Začni s `studenti = ["Karel", "Tomas", "Lukas"]`. Prohoď pomocí přiřazení první a poslední prvek tak, aby vznikl seznam `["Lukas", "Tomas", "Karel"]`, a seznam vypiš.',
-    language: 'python',
-    starterCode: 'studenti = ["Karel", "Tomas", "Lukas"]\n# Doplň řešení\n',
-    expectedOutput: "['Lukas', 'Tomas', 'Karel']",
-    solution: 'studenti = ["Karel", "Tomas", "Lukas"]\nstudenti[0], studenti[2] = studenti[2], studenti[0]\nprint(studenti)',
-    tags: ['Python', 'seznamy', 'indexování', 'prohazování', 'kód']
-  },
-  {
-    subject: 'Programování',
-    topic: 'Python',
-    subtopic: 'Seznamy',
-    id: 'seznamy-015',
-    type: 'code',
-    title: 'Pozdrav každého studenta',
-    question: 'Začni s `studenti = ["Karel", "Tomas", "Lukas"]`. Pomocí `for` a `range` vypiš každého studenta ve tvaru „Ahoj Karel“, „Ahoj Tomas“, „Ahoj Lukas“, každý na novém řádku.',
-    language: 'python',
-    starterCode: 'studenti = ["Karel", "Tomas", "Lukas"]\n# Doplň řešení\n',
-    expectedOutput: 'Ahoj Karel\nAhoj Tomas\nAhoj Lukas',
-    solution: 'studenti = ["Karel", "Tomas", "Lukas"]\nfor i in range(0, 3):\n    print("Ahoj " + studenti[i])',
-    hint: 'Materiál používá `for i in range(0, 3)` a potom `studenti[i]`.',
-    tags: ['Python', 'seznamy', 'for', 'range', 'kód']
-  },
-  {
-    subject: 'Programování',
-    topic: 'Python',
-    subtopic: 'Seznamy',
-    id: 'seznamy-016',
-    type: 'number',
-    title: 'Délka seznamu',
-    question: 'Kolik prvků má seznam `studenti = ["Karel", "Tomas", "Lukas"]`?',
-    answer: '3',
-    hint: 'Použij `len()`.',
-    tags: ['Python', 'seznamy', 'len']
-  },
-  {
-    subject: 'Programování',
-    topic: 'Python',
-    subtopic: 'Seznamy',
-    id: 'seznamy-017',
-    type: 'code',
-    title: 'Zkontroluj, jestli je Jana v seznamu',
-    question: 'Napiš program pro `studenti = ["Karel", "Tomas", "Lukas"]`, který pomocí `if` a `in` vypíše přesně „Jana je v seznamu“, pokud je Jana v seznamu, jinak „Jana není v seznamu“.',
-    language: 'python',
-    starterCode: 'studenti = ["Karel", "Tomas", "Lukas"]\n# Doplň řešení\n',
-    expectedOutput: 'Jana není v seznamu',
-    solution: 'studenti = ["Karel", "Tomas", "Lukas"]\nif "Jana" in studenti:\n    print("Jana je v seznamu")\nelse:\n    print("Jana není v seznamu")',
-    tags: ['Python', 'seznamy', 'in', 'if', 'kód']
-  },
-  {
-    subject: 'Programování',
-    topic: 'Python',
-    subtopic: 'Seznamy',
-    id: 'seznamy-018',
-    type: 'code',
-    title: 'Použij not in',
-    question: 'Napiš program pro `studenti = ["Karel", "Tomas", "Lukas"]`, který pomocí `not in` vypíše „Jana není v seznamu“, protože Jana v seznamu není.',
-    language: 'python',
-    starterCode: 'studenti = ["Karel", "Tomas", "Lukas"]\n# Doplň řešení\n',
-    expectedOutput: 'Jana není v seznamu',
-    solution: 'studenti = ["Karel", "Tomas", "Lukas"]\nif "Jana" not in studenti:\n    print("Jana není v seznamu")',
-    tags: ['Python', 'seznamy', 'not in', 'if', 'kód']
-  },
-  {
-    subject: 'Programování',
-    topic: 'Python',
-    subtopic: 'Seznamy',
-    id: 'seznamy-019',
-    type: 'code',
-    title: 'Spočítej nuly',
-    question: 'Začni s `cisla = [4, 0, 7, 0, 2]`. Pomocí `count()` zjisti počet nul a vypiš přesně „Počet nul: 2“.',
-    language: 'python',
-    starterCode: 'cisla = [4, 0, 7, 0, 2]\n# Doplň řešení\n',
-    expectedOutput: 'Počet nul: 2',
-    solution: 'cisla = [4, 0, 7, 0, 2]\npocet_nul = cisla.count(0)\nprint("Počet nul:", pocet_nul)',
-    tags: ['Python', 'seznamy', 'count', 'kód']
-  },
-  {
-    subject: 'Programování',
-    topic: 'Python',
-    subtopic: 'Seznamy',
-    id: 'seznamy-020',
-    type: 'choice',
-    title: 'count(0)',
-    question: 'Co vrátí `cisla.count(0)` pro seznam `cisla = [4, 0, 7, 0, 2]`?',
-    choices: ['0', '1', '2', '4'],
-    answer: '2',
-    tags: ['Python', 'seznamy', 'count']
-  },
-  {
-    subject: 'Programování',
-    topic: 'Python',
-    subtopic: 'Seznamy',
-    id: 'seznamy-021',
-    type: 'code',
-    title: 'Ověř počet nul',
-    question: 'Začni s `cisla = [4, 0, 7, 0, 2]`. Pomocí `count()` a `if` vypiš přesně „Dvě nuly jsou v seznamu“, pokud je počet nul roven 2.',
-    language: 'python',
-    starterCode: 'cisla = [4, 0, 7, 0, 2]\npocet_nul = cisla.count(0)\n# Doplň podmínku a výpis\n',
-    expectedOutput: 'Dvě nuly jsou v seznamu',
-    solution: 'cisla = [4, 0, 7, 0, 2]\npocet_nul = cisla.count(0)\nif pocet_nul == 2:\n    print("Dvě nuly jsou v seznamu")',
-    tags: ['Python', 'seznamy', 'count', 'if', 'kód']
-  },
-  {
-    subject: 'Programování',
-    topic: 'Python',
-    subtopic: 'Seznamy',
-    id: 'seznamy-022',
-    type: 'number',
-    title: 'Kolik prvků má cisla?',
-    question: 'Pro `cisla = [5, 2, 9, 1, 7]` určete výsledek `len(cisla)`.',
-    answer: '5',
-    tags: ['Python', 'seznamy', 'len']
-  },
-  {
-    subject: 'Programování',
-    topic: 'Python',
-    subtopic: 'Seznamy',
-    id: 'seznamy-023',
-    type: 'number',
-    title: 'Součet seznamu',
-    question: 'Pro `cisla = [5, 2, 9, 1, 7]` určete výsledek `sum(cisla)`.',
-    answer: '24',
-    tags: ['Python', 'seznamy', 'sum']
-  },
-  {
-    subject: 'Programování',
-    topic: 'Python',
-    subtopic: 'Seznamy',
-    id: 'seznamy-024',
-    type: 'number',
-    title: 'Nejmenší číslo',
-    question: 'Pro `cisla = [5, 2, 9, 1, 7]` určete výsledek `min(cisla)`.',
-    answer: '1',
-    tags: ['Python', 'seznamy', 'min']
-  },
-  {
-    subject: 'Programování',
-    topic: 'Python',
-    subtopic: 'Seznamy',
-    id: 'seznamy-025',
-    type: 'number',
-    title: 'Největší číslo',
-    question: 'Pro `cisla = [5, 2, 9, 1, 7]` určete výsledek `max(cisla)`.',
-    answer: '9',
-    tags: ['Python', 'seznamy', 'max']
-  },
-  {
-    subject: 'Programování',
-    topic: 'Python',
-    subtopic: 'Seznamy',
-    id: 'seznamy-026',
-    type: 'code',
-    title: 'Použij sorted()',
-    question: 'Začni s `cisla = [5, 2, 9, 1, 7]`. Pomocí `sorted()` vypiš seznam seřazený od nejmenšího po největší.',
-    language: 'python',
-    starterCode: 'cisla = [5, 2, 9, 1, 7]\n# Doplň řešení\n',
-    expectedOutput: '[1, 2, 5, 7, 9]',
-    solution: 'cisla = [5, 2, 9, 1, 7]\nprint(sorted(cisla))',
-    tags: ['Python', 'seznamy', 'sorted', 'kód']
-  },
-  {
-    subject: 'Programování',
-    topic: 'Python',
-    subtopic: 'Seznamy',
-    id: 'seznamy-027',
-    type: 'code',
-    title: 'Vypiš všechny základní funkce',
-    question: 'Pro `cisla = [5, 2, 9, 1, 7]` napiš program, který vypíše délku seznamu, součet, nejmenší číslo, největší číslo a seřazený seznam.',
-    language: 'python',
-    starterCode: 'cisla = [5, 2, 9, 1, 7]\n# Doplň řešení\n',
-    expectedOutput: '5\n24\n1\n9\n[1, 2, 5, 7, 9]',
-    solution: 'cisla = [5, 2, 9, 1, 7]\nprint(len(cisla))\nprint(sum(cisla))\nprint(min(cisla))\nprint(max(cisla))\nprint(sorted(cisla))',
-    hint: 'Použij `len()`, `sum()`, `min()`, `max()` a `sorted()`.',
-    tags: ['Python', 'seznamy', 'len', 'sum', 'min', 'max', 'sorted', 'kód']
-  },
-  {
-    subject: 'Programování',
-    topic: 'Python',
-    subtopic: 'Seznamy',
-    id: 'seznamy-028',
-    type: 'choice',
-    title: 'sort vs. sorted',
-    question: 'Které tvrzení správně popisuje rozdíl mezi `sort()` a `sorted()`?',
-    choices: [
-      'sort() seřadí seznam na místě a sorted(cisla) vrátí nový seřazený seznam',
-      'sort() počítá délku seznamu a sorted() hledá maximum',
-      'sort() obrací pořadí a sorted() odstraňuje prvek',
-      'sort() je totéž co count()'
+    "subject": "Programování",
+    "topic": "Python",
+    "subtopic": "Seznamy",
+    "id": "seznamy-003",
+    "type": "choice",
+    "title": "Záporný index -2",
+    "question": "Měj seznam: `seznam = [\"Karel\", \"Frank\", \"Jana\"]`. Co vypíše `print(seznam[-2])`?",
+    "choices": [
+      "Karel",
+      "Frank",
+      "Jana"
     ],
-    answer: 'sort() seřadí seznam na místě a sorted(cisla) vrátí nový seřazený seznam',
-    tags: ['Python', 'seznamy']
+    "answer": "Frank",
+    "tags": [
+      "Python",
+      "seznamy",
+      "záporné indexy"
+    ]
   },
   {
-    subject: 'Programování',
-    topic: 'Python',
-    subtopic: 'Seznamy',
-    id: 'seznamy-029',
-    type: 'text',
-    autoGrade: false,
-    autoGrade: false,
-    title: 'Spoj metody a jejich účel',
-    question: 'Napiš, k čemu slouží tyto operace: `append()`, `insert()`, `remove()`, `pop()`, `sort()`, `reverse()`, `count()`, `len()`, `sum()`, `min()`, `max()`, `sorted()`.',
-    answer: '`append()` přidá prvek; `insert()` vloží prvek na pozici; `remove()` odstraní zadaný prvek; `pop()` odstraní prvek podle indexu; `sort()` seřadí seznam; `reverse()` obrátí pořadí; `count()` spočítá výskyty hodnoty; `len()` vrátí délku seznamu; `sum()` sečte čísla; `min()` vrátí nejmenší číslo; `max()` vrátí největší číslo; `sorted()` vrátí seřazenou podobu seznamu.',
-    hint: 'Zaměř se na komentáře u jednotlivých řádků v materiálu.',
-    tags: ['Python', 'seznamy', 'opakování']
+    "subject": "Programování",
+    "topic": "Python",
+    "subtopic": "Seznamy",
+    "id": "seznamy-004",
+    "type": "text",
+    "autoGrade": false,
+    "title": "Vysvětli index 3",
+    "question": "Měj `seznam = [\"Karel\", \"Frank\", \"Jana\"]`. Proč je `print(seznam[3])` problém?",
+    "answer": "Protože platné indexy tohoto tříprvkového seznamu jsou 0, 1 a 2. Index 3 v seznamu není.",
+    "hint": "Podívej se, od jakého čísla indexování začíná.",
+    "tags": [
+      "Python",
+      "seznamy",
+      "indexování"
+    ]
   },
   {
-    subject: 'Programování',
-    topic: 'Python',
-    subtopic: 'Seznamy',
-    id: 'seznamy-030',
-    type: 'code',
-    title: 'Miniúloha – uprav seznam',
-    question: 'Začni s `studenti = ["Karel", "Frank"]`. Přidej Janu pomocí `append()`, nahraď Franka za Tomase, odeber Karla pomocí `remove()` a nakonec vypiš výsledný seznam.',
-    language: 'python',
-    starterCode: 'studenti = ["Karel", "Frank"]\n# Doplň postupně všechny kroky\n',
-    expectedOutput: "['Tomas', 'Jana']",
-    solution: 'studenti = ["Karel", "Frank"]\nstudenti.append("Jana")\nstudenti[1] = "Tomas"\nstudenti.remove("Karel")\nprint(studenti)',
-    tags: ['Python', 'seznamy', 'append', 'remove', 'indexování', 'kód']
-  },
-
-  // ============================================================
-  // ÚLOHY VYTVOŘENÉ PŘÍMO Z MATERIÁLU "seznam_osobnosti.txt"
-  // Předmět: Vývoj webových aplikací
-  // Téma: Osobnosti
-  // ============================================================
-  {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Osobnosti',
-    subtopic: 'Přehled',
-    id: 'osobnosti-001',
-    type: 'text',
-    autoGrade: true,
-    autoGrade: true,
-    title: 'Systém Windows a osobní počítače',
-    question: 'Kdo je spoluzakladatelem Microsoftu, zásadní osobností osobních počítačů a systému Windows?',
-    answer: 'Bill Gates',
-    solution: '01 Bill Gates — Microsoft — spoluzakladatel Microsoftu, zásadní osobnost osobních počítačů a systému Windows.',
-    tags: ['Osobnosti']
+    "subject": "Programování",
+    "topic": "Python",
+    "subtopic": "Seznamy",
+    "id": "seznamy-005",
+    "type": "code",
+    "title": "Přidej Janu",
+    "question": "Začni s programem `studenti = [\"Karel\", \"Frank\"]`. Pomocí `append()` přidej \"Jana\" a vypiš celý seznam pomocí `print()`.",
+    "language": "python",
+    "starterCode": "studenti = [\"Karel\", \"Frank\"]\n# Doplň řešení\n",
+    "expectedOutput": "['Karel', 'Frank', 'Jana']",
+    "solution": "studenti = [\"Karel\", \"Frank\"]\nstudenti.append(\"Jana\")\nprint(studenti)",
+    "tags": [
+      "Python",
+      "seznamy",
+      "append",
+      "kód"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Osobnosti',
-    subtopic: 'Přehled',
-    id: 'osobnosti-002',
-    type: 'text',
-    autoGrade: true,
-    autoGrade: true,
-    title: 'Vývoj Macu, iPodu a iPhonu',
-    question: 'Která osobnost je spoluzakladatelem Applu a výrazně ovlivnila vývoj Macu, iPodu a iPhonu?',
-    answer: 'Steve Jobs',
-    solution: '02 Steve Jobs — Apple — spoluzakladatel Applu, výrazně ovlivnil vývoj Macu, iPodu a iPhonu.',
-    tags: ['Osobnosti']
+    "subject": "Programování",
+    "topic": "Python",
+    "subtopic": "Seznamy",
+    "id": "seznamy-006",
+    "type": "code",
+    "title": "Nahraď Franka",
+    "question": "Začni s programem `studenti = [\"Karel\", \"Frank\"]`. Nahraď pomocí indexu hodnotu \"Frank\" za \"Tomas\" a vypiš seznam.",
+    "language": "python",
+    "starterCode": "studenti = [\"Karel\", \"Frank\"]\n# Doplň řešení\n",
+    "expectedOutput": "['Karel', 'Tomas']",
+    "solution": "studenti = [\"Karel\", \"Frank\"]\nstudenti[1] = \"Tomas\"\nprint(studenti)",
+    "tags": [
+      "Python",
+      "seznamy",
+      "indexování",
+      "kód"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Osobnosti',
-    subtopic: 'Přehled',
-    id: 'osobnosti-003',
-    type: 'text',
-    autoGrade: true,
-    autoGrade: true,
-    title: 'Technický tvůrce prvních počítačů Apple',
-    question: 'Kdo je spoluzakladatelem Applu a technickým tvůrcem prvních počítačů Apple?',
-    answer: 'Steve Wozniak',
-    solution: '03 Steve Wozniak — Apple — spoluzakladatel Applu a technický tvůrce prvních počítačů Apple.',
-    tags: ['Osobnosti']
+    "subject": "Programování",
+    "topic": "Python",
+    "subtopic": "Seznamy",
+    "id": "seznamy-007",
+    "type": "code",
+    "title": "Odstraň Karla",
+    "question": "Začni s programem `studenti = [\"Karel\", \"Frank\"]`. Pomocí `remove()` odstraň \"Karel\" a vypiš seznam.",
+    "language": "python",
+    "starterCode": "studenti = [\"Karel\", \"Frank\"]\n# Doplň řešení\n",
+    "expectedOutput": "['Frank']",
+    "solution": "studenti = [\"Karel\", \"Frank\"]\nstudenti.remove(\"Karel\")\nprint(studenti)",
+    "tags": [
+      "Python",
+      "seznamy",
+      "remove",
+      "kód"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Osobnosti',
-    subtopic: 'Přehled',
-    id: 'osobnosti-004',
-    type: 'text',
-    autoGrade: true,
-    autoGrade: true,
-    title: 'Autor linuxového jádra',
-    question: 'Kdo je autorem linuxového jádra, na kterém běží velká část serverů a dalších zařízení?',
-    answer: 'Linus Torvalds',
-    solution: '04 Linus Torvalds — Linux — autor linuxového jádra, na kterém běží velká část serverů a dalších zařízení.',
-    tags: ['Osobnosti']
+    "subject": "Programování",
+    "topic": "Python",
+    "subtopic": "Seznamy",
+    "id": "seznamy-008",
+    "type": "code",
+    "title": "Odstraň první prvek pomocí pop()",
+    "question": "Začni s programem `studenti = [\"Karel\", \"Frank\"]`. Pomocí `pop(0)` odstraň první prvek a vypiš seznam.",
+    "language": "python",
+    "starterCode": "studenti = [\"Karel\", \"Frank\"]\n# Doplň řešení\n",
+    "expectedOutput": "['Frank']",
+    "solution": "studenti = [\"Karel\", \"Frank\"]\nstudenti.pop(0)\nprint(studenti)",
+    "tags": [
+      "Python",
+      "seznamy",
+      "pop",
+      "kód"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Osobnosti',
-    subtopic: 'Přehled',
-    id: 'osobnosti-005',
-    type: 'text',
-    autoGrade: true,
-    autoGrade: true,
-    title: 'Základy webu (WWW, HTML a HTTP)',
-    question: 'Kdo vytvořil základy webu, zejména WWW, HTML a HTTP?',
-    answer: 'Tim Berners-Lee',
-    solution: '05 Tim Berners-Lee — World Wide Web — vytvořil základy webu, zejména WWW, HTML a HTTP.',
-    tags: ['Osobnosti']
+    "subject": "Programování",
+    "topic": "Python",
+    "subtopic": "Seznamy",
+    "id": "seznamy-009",
+    "type": "code",
+    "title": "Append a insert dohromady",
+    "question": "Začni s `cisla = [3, 5]`. Přidej pomocí `append(2)` číslo 2 a potom pomocí `insert(1, 4)` vlož číslo 4 na pozici 1. Vypiš seznam.",
+    "language": "python",
+    "starterCode": "cisla = [3, 5]\n# Doplň řešení\n",
+    "expectedOutput": "[3, 4, 5, 2]",
+    "solution": "cisla = [3, 5]\ncisla.append(2)\ncisla.insert(1, 4)\nprint(cisla)",
+    "tags": [
+      "Python",
+      "seznamy",
+      "append",
+      "insert",
+      "kód"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Osobnosti',
-    subtopic: 'Přehled',
-    id: 'osobnosti-006',
-    type: 'text',
-    autoGrade: true,
-    autoGrade: true,
-    title: 'Internetové vyhledávání a Google',
-    question: 'Kdo je spoluzakladatelem Googlu a jednou z klíčových osobností internetového vyhledávání?',
-    answer: 'Larry Page',
-    solution: '06 Larry Page — Google — spoluzakladatel Googlu a jedna z klíčových osobností internetového vyhledávání.',
-    tags: ['Osobnosti']
+    "subject": "Programování",
+    "topic": "Python",
+    "subtopic": "Seznamy",
+    "id": "seznamy-010",
+    "type": "code",
+    "title": "Seřaď seznam",
+    "question": "Začni s `cisla = [3, 5, 2]`. Přidej 4 pomocí `append()`, pak pomocí `sort()` seznam seřaď a vypiš ho.",
+    "language": "python",
+    "starterCode": "cisla = [3, 5, 2]\n# Doplň řešení\n",
+    "expectedOutput": "[2, 3, 4, 5]",
+    "solution": "cisla = [3, 5, 2]\ncisla.append(4)\ncisla.sort()\nprint(cisla)",
+    "tags": [
+      "Python",
+      "seznamy",
+      "sort",
+      "kód"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Osobnosti',
-    subtopic: 'Přehled',
-    id: 'osobnosti-007',
-    type: 'text',
-    autoGrade: true,
-    autoGrade: true,
-    title: 'Zakladatel sociální sítě Facebook',
-    question: 'Kdo je zakladatelem Facebooku, jedné z největších sociálních sítí?',
-    answer: 'Mark Zuckerberg',
-    solution: '07 Mark Zuckerberg — Facebook / Meta — zakladatel Facebooku, jedné z největších sociálních sítí.',
-    tags: ['Osobnosti']
+    "subject": "Programování",
+    "topic": "Python",
+    "subtopic": "Seznamy",
+    "id": "seznamy-011",
+    "type": "code",
+    "title": "Obrať pořadí",
+    "question": "Začni s `cisla = [3, 5, 2]`. Použij `reverse()` a vypiš seznam.",
+    "language": "python",
+    "starterCode": "cisla = [3, 5, 2]\n# Doplň řešení\n",
+    "expectedOutput": "[2, 5, 3]",
+    "solution": "cisla = [3, 5, 2]\ncisla.reverse()\nprint(cisla)",
+    "tags": [
+      "Python",
+      "seznamy",
+      "reverse",
+      "kód"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Osobnosti',
-    subtopic: 'Přehled',
-    id: 'osobnosti-008',
-    type: 'text',
-    autoGrade: true,
-    autoGrade: true,
-    title: 'Zakladatel Amazonu a cloudu AWS',
-    question: 'Kdo je zakladatelem Amazonu, přičemž AWS patří mezi největší cloudové platformy světa?',
-    answer: 'Jeff Bezos',
-    solution: '08 Jeff Bezos — Amazon / AWS — zakladatel Amazonu; AWS patří mezi největší cloudové platformy světa.',
-    tags: ['Osobnosti']
+    "subject": "Programování",
+    "topic": "Python",
+    "subtopic": "Seznamy",
+    "id": "seznamy-012",
+    "type": "choice",
+    "title": "Co udělá insert(1, 4)?",
+    "question": "Co udělá příkaz `cisla.insert(1, 4)` se seznamem `cisla = [3, 5]`?",
+    "choices": [
+      "Vloží 4 na pozici 1",
+      "Nahrazuje prvek na pozici 1",
+      "Přidá 4 vždy na konec seznamu",
+      "Seznam seřadí"
+    ],
+    "answer": "Vloží 4 na pozici 1",
+    "tags": [
+      "Python",
+      "seznamy",
+      "insert"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Osobnosti',
-    subtopic: 'Přehled',
-    id: 'osobnosti-009',
-    type: 'text',
-    autoGrade: true,
-    autoGrade: true,
-    title: 'Grafické karty a hardware pro AI',
-    question: 'Kdo je spoluzakladatelem a šéfem firmy NVIDIA, která je zásadní pro grafické karty a dnešní AI?',
-    answer: 'Jensen Huang',
-    solution: '09 Jensen Huang — NVIDIA — spoluzakladatel a šéf NVIDIA, firmy zásadní pro grafické karty a dnešní AI.',
-    tags: ['Osobnosti']
+    "subject": "Programování",
+    "topic": "Python",
+    "subtopic": "Seznamy",
+    "id": "seznamy-013",
+    "type": "choice",
+    "title": "Co udělá reverse()?",
+    "question": "Co udělá `cisla.reverse()`?",
+    "choices": [
+      "Seřadí čísla od nejmenšího po největší",
+      "Obrátí pořadí prvků v seznamu",
+      "Odstraní poslední prvek",
+      "Spočítá délku seznamu"
+    ],
+    "answer": "Obrátí pořadí prvků v seznamu",
+    "tags": [
+      "Python",
+      "seznamy",
+      "reverse"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Osobnosti',
-    subtopic: 'Přehled',
-    id: 'osobnosti-010',
-    type: 'text',
-    autoGrade: true,
-    autoGrade: true,
-    title: 'Šéf OpenAI a tvůrce ChatGPT',
-    question: 'Kdo je šéfem OpenAI, firmy stojící za ChatGPT a významnými modely generativní AI?',
-    answer: 'Sam Altman',
-    solution: '10 Sam Altman — OpenAI — šéf OpenAI, firmy stojící za ChatGPT a významnými modely generativní AI.',
-    tags: ['Osobnosti']
+    "subject": "Programování",
+    "topic": "Python",
+    "subtopic": "Seznamy",
+    "id": "seznamy-014",
+    "type": "code",
+    "title": "Prohoď Karla a Lukase",
+    "question": "Začni s `studenti = [\"Karel\", \"Tomas\", \"Lukas\"]`. Prohoď pomocí přiřazení první a poslední prvek tak, aby vznikl seznam `[\"Lukas\", \"Tomas\", \"Karel\"]`, a seznam vypiš.",
+    "language": "python",
+    "starterCode": "studenti = [\"Karel\", \"Tomas\", \"Lukas\"]\n# Doplň řešení\n",
+    "expectedOutput": "['Lukas', 'Tomas', 'Karel']",
+    "solution": "studenti = [\"Karel\", \"Tomas\", \"Lukas\"]\nstudenti[0], studenti[2] = studenti[2], studenti[0]\nprint(studenti)",
+    "tags": [
+      "Python",
+      "seznamy",
+      "indexování",
+      "prohazování",
+      "kód"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Osobnosti',
-    subtopic: 'Přehled',
-    id: 'osobnosti-011',
-    type: 'text',
-    autoGrade: true,
-    autoGrade: true,
-    title: 'Spoluzakladatel PayPalu a Palantiru',
-    question: 'Kdo je spoluzakladatelem PayPalu a Palantiru (firmy vyvíjející software pro analýzu velkého množství dat)?',
-    answer: 'Peter Thiel',
-    solution: '11 Peter Thiel — PayPal / Palantir — spoluzakladatel PayPalu a Palantiru; Palantir vyvíjí software pro analýzu velkého množství dat.',
-    tags: ['Osobnosti']
+    "subject": "Programování",
+    "topic": "Python",
+    "subtopic": "Seznamy",
+    "id": "seznamy-015",
+    "type": "code",
+    "title": "Pozdrav každého studenta",
+    "question": "Začni s `studenti = [\"Karel\", \"Tomas\", \"Lukas\"]`. Pomocí `for` a `range` vypiš každého studenta ve tvaru „Ahoj Karel“, „Ahoj Tomas“, „Ahoj Lukas“, každý na novém řádku.",
+    "language": "python",
+    "starterCode": "studenti = [\"Karel\", \"Tomas\", \"Lukas\"]\n# Doplň řešení\n",
+    "expectedOutput": "Ahoj Karel\nAhoj Tomas\nAhoj Lukas",
+    "solution": "studenti = [\"Karel\", \"Tomas\", \"Lukas\"]\nfor i in range(0, 3):\n    print(\"Ahoj \" + studenti[i])",
+    "hint": "Materiál používá `for i in range(0, 3)` a potom `studenti[i]`.",
+    "tags": [
+      "Python",
+      "seznamy",
+      "for",
+      "range",
+      "kód"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Osobnosti',
-    subtopic: 'Přehled',
-    id: 'osobnosti-012',
-    type: 'text',
-    autoGrade: true,
-    autoGrade: true,
-    title: 'Elektromobily, kosmonautika a umělá inteligence',
-    question: 'Který technologický podnikatel je spojený s elektromobily, kosmonautikou a umělou inteligencí (Tesla / SpaceX / xAI)?',
-    answer: 'Elon Musk',
-    solution: '12 Elon Musk — Tesla / SpaceX / xAI — technologický podnikatel spojený s elektromobily, kosmonautikou a umělou inteligencí.',
-    tags: ['Osobnosti']
+    "subject": "Programování",
+    "topic": "Python",
+    "subtopic": "Seznamy",
+    "id": "seznamy-016",
+    "type": "number",
+    "title": "Délka seznamu",
+    "question": "Kolik prvků má seznam `studenti = [\"Karel\", \"Tomas\", \"Lukas\"]`?",
+    "answer": "3",
+    "hint": "Použij `len()`.",
+    "tags": [
+      "Python",
+      "seznamy",
+      "len"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Osobnosti',
-    subtopic: 'Přehled',
-    id: 'osobnosti-013',
-    type: 'text',
-    autoGrade: true,
-    autoGrade: true,
-    title: 'Tvůrce programovacího jazyka Python',
-    question: 'Kdo je tvůrcem programovacího jazyka Python?',
-    answer: 'Guido van Rossum',
-    solution: '13 Guido van Rossum — Python — tvůrce programovacího jazyka Python.',
-    tags: ['Osobnosti']
+    "subject": "Programování",
+    "topic": "Python",
+    "subtopic": "Seznamy",
+    "id": "seznamy-017",
+    "type": "code",
+    "title": "Zkontroluj, jestli je Jana v seznamu",
+    "question": "Napiš program pro `studenti = [\"Karel\", \"Tomas\", \"Lukas\"]`, který pomocí `if` a `in` vypíše přesně „Jana je v seznamu“, pokud je Jana v seznamu, jinak „Jana není v seznamu“.",
+    "language": "python",
+    "starterCode": "studenti = [\"Karel\", \"Tomas\", \"Lukas\"]\n# Doplň řešení\n",
+    "expectedOutput": "Jana není v seznamu",
+    "solution": "studenti = [\"Karel\", \"Tomas\", \"Lukas\"]\nif \"Jana\" in studenti:\n    print(\"Jana je v seznamu\")\nelse:\n    print(\"Jana není v seznamu\")",
+    "tags": [
+      "Python",
+      "seznamy",
+      "in",
+      "if",
+      "kód"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Osobnosti',
-    subtopic: 'Přehled',
-    id: 'osobnosti-014',
-    type: 'text',
-    autoGrade: true,
-    autoGrade: true,
-    title: 'Hlavní autor programovacího jazyka Java',
-    question: 'Kdo je hlavním autorem programovacího jazyka Java?',
-    answer: 'James Gosling',
-    solution: '14 James Gosling — Java — hlavní autor programovacího jazyka Java.',
-    tags: ['Osobnosti']
+    "subject": "Programování",
+    "topic": "Python",
+    "subtopic": "Seznamy",
+    "id": "seznamy-018",
+    "type": "code",
+    "title": "Použij not in",
+    "question": "Napiš program pro `studenti = [\"Karel\", \"Tomas\", \"Lukas\"]`, který pomocí `not in` vypíše „Jana není v seznamu“, protože Jana v seznamu není.",
+    "language": "python",
+    "starterCode": "studenti = [\"Karel\", \"Tomas\", \"Lukas\"]\n# Doplň řešení\n",
+    "expectedOutput": "Jana není v seznamu",
+    "solution": "studenti = [\"Karel\", \"Tomas\", \"Lukas\"]\nif \"Jana\" not in studenti:\n    print(\"Jana není v seznamu\")",
+    "tags": [
+      "Python",
+      "seznamy",
+      "not in",
+      "if",
+      "kód"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Osobnosti',
-    subtopic: 'Přehled',
-    id: 'osobnosti-015',
-    type: 'text',
-    autoGrade: true,
-    autoGrade: true,
-    title: 'Tvůrce jazyka JavaScript',
-    question: 'Kdo je tvůrcem JavaScriptu, jednoho ze základních jazyků webu?',
-    answer: 'Brendan Eich',
-    solution: '15 Brendan Eich — JavaScript — tvůrce JavaScriptu, jednoho ze základních jazyků webu.',
-    tags: ['Osobnosti']
+    "subject": "Programování",
+    "topic": "Python",
+    "subtopic": "Seznamy",
+    "id": "seznamy-019",
+    "type": "code",
+    "title": "Spočítej nuly",
+    "question": "Začni s `cisla = [4, 0, 7, 0, 2]`. Pomocí `count()` zjisti počet nul a vypiš přesně „Počet nul: 2“.",
+    "language": "python",
+    "starterCode": "cisla = [4, 0, 7, 0, 2]\n# Doplň řešení\n",
+    "expectedOutput": "Počet nul: 2",
+    "solution": "cisla = [4, 0, 7, 0, 2]\npocet_nul = cisla.count(0)\nprint(\"Počet nul:\", pocet_nul)",
+    "tags": [
+      "Python",
+      "seznamy",
+      "count",
+      "kód"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Osobnosti',
-    subtopic: 'Přehled',
-    id: 'osobnosti-016',
-    type: 'text',
-    autoGrade: true,
-    autoGrade: true,
-    title: 'Tvůrce jazyka C a spoluautor Unixu',
-    question: 'Kdo je tvůrcem jazyka C a spoluautorem operačního systému Unix?',
-    answer: 'Dennis Ritchie',
-    solution: '16 Dennis Ritchie — C / Unix — tvůrce jazyka C a spoluautor operačního systému Unix.',
-    tags: ['Osobnosti']
+    "subject": "Programování",
+    "topic": "Python",
+    "subtopic": "Seznamy",
+    "id": "seznamy-020",
+    "type": "choice",
+    "title": "count(0)",
+    "question": "Co vrátí `cisla.count(0)` pro seznam `cisla = [4, 0, 7, 0, 2]`?",
+    "choices": [
+      "0",
+      "1",
+      "2",
+      "4"
+    ],
+    "answer": "2",
+    "tags": [
+      "Python",
+      "seznamy",
+      "count"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Osobnosti',
-    subtopic: 'Přehled',
-    id: 'osobnosti-017',
-    type: 'text',
-    autoGrade: true,
-    autoGrade: true,
-    title: 'Teoretická informatika a Turingův test',
-    question: 'Kdo je jedním ze zakladatelů moderní informatiky, známý Turingovým strojem a Turingovým testem?',
-    answer: 'Alan Turing',
-    solution: '17 Alan Turing — teoretická informatika / AI — jeden ze zakladatelů moderní informatiky, známý Turingovým strojem a Turingovým testem.',
-    tags: ['Osobnosti']
+    "subject": "Programování",
+    "topic": "Python",
+    "subtopic": "Seznamy",
+    "id": "seznamy-021",
+    "type": "code",
+    "title": "Ověř počet nul",
+    "question": "Začni s `cisla = [4, 0, 7, 0, 2]`. Pomocí `count()` a `if` vypiš přesně „Dvě nuly jsou v seznamu“, pokud je počet nul roven 2.",
+    "language": "python",
+    "starterCode": "cisla = [4, 0, 7, 0, 2]\npocet_nul = cisla.count(0)\n# Doplň podmínku a výpis\n",
+    "expectedOutput": "Dvě nuly jsou v seznamu",
+    "solution": "cisla = [4, 0, 7, 0, 2]\npocet_nul = cisla.count(0)\nif pocet_nul == 2:\n    print(\"Dvě nuly jsou v seznamu\")",
+    "tags": [
+      "Python",
+      "seznamy",
+      "count",
+      "if",
+      "kód"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Osobnosti',
-    subtopic: 'Přehled',
-    id: 'osobnosti-018',
-    type: 'text',
-    autoGrade: true,
-    autoGrade: true,
-    title: 'První programátorka v historii',
-    question: 'Která osobnost je často označována za první programátorku a popsala algoritmus pro Babbageův analytický stroj?',
-    answer: 'Ada Lovelace',
-    solution: '18 Ada Lovelace — historie programování — často označována za první programátorku, popsala algoritmus pro Babbageův analytický stroj.',
-    tags: ['Osobnosti']
+    "subject": "Programování",
+    "topic": "Python",
+    "subtopic": "Seznamy",
+    "id": "seznamy-022",
+    "type": "number",
+    "title": "Kolik prvků má cisla?",
+    "question": "Pro `cisla = [5, 2, 9, 1, 7]` určete výsledek `len(cisla)`.",
+    "answer": "5",
+    "tags": [
+      "Python",
+      "seznamy",
+      "len"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Osobnosti',
-    subtopic: 'Přehled',
-    id: 'osobnosti-019',
-    type: 'text',
-    autoGrade: true,
-    autoGrade: true,
-    title: 'Architektura moderních počítačů',
-    question: 'Kdo zásadně ovlivnil princip moderního počítače, kde jsou program i data uložené v paměti?',
-    answer: 'John von Neumann',
-    solution: '19 John von Neumann — architektura počítačů — zásadně ovlivnil princip moderního počítače, kde jsou program i data uložené v paměti.',
-    tags: ['Osobnosti']
+    "subject": "Programování",
+    "topic": "Python",
+    "subtopic": "Seznamy",
+    "id": "seznamy-023",
+    "type": "number",
+    "title": "Součet seznamu",
+    "question": "Pro `cisla = [5, 2, 9, 1, 7]` určete výsledek `sum(cisla)`.",
+    "answer": "24",
+    "tags": [
+      "Python",
+      "seznamy",
+      "sum"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Osobnosti',
-    subtopic: 'Přehled',
-    id: 'osobnosti-020',
-    type: 'text',
-    autoGrade: true,
-    autoGrade: true,
-    title: 'Český internetový portál Seznam.cz',
-    question: 'Kdo je zakladatelem Seznam.cz, jednoho z nejvýznamnějších českých internetových portálů?',
-    answer: 'Ivo Lukačovič',
-    solution: '20 Ivo Lukačovič — Seznam.cz — zakladatel Seznam.cz, jednoho z nejvýznamnějších českých internetových portálů.',
-    tags: ['Osobnosti']
+    "subject": "Programování",
+    "topic": "Python",
+    "subtopic": "Seznamy",
+    "id": "seznamy-024",
+    "type": "number",
+    "title": "Nejmenší číslo",
+    "question": "Pro `cisla = [5, 2, 9, 1, 7]` určete výsledek `min(cisla)`.",
+    "answer": "1",
+    "tags": [
+      "Python",
+      "seznamy",
+      "min"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Osobnosti',
-    subtopic: 'Přehled',
-    id: 'osobnosti-021',
-    type: 'text',
-    autoGrade: true,
-    autoGrade: true,
-    title: 'Vedení společnosti Anthropic (CEO)',
-    question: 'Kdo je CEO společnosti Anthropic?',
-    answer: 'Dario Amodei',
-    solution: '21 Dario Amodei - Anthropic CEO',
-    tags: ['Osobnosti']
-  },
-
-  // ============================================================
-  // NOVÉ ÚLOHY Z MATERIÁLU "header-a-favicon.md"
-  // Předmět: Vývoj webových aplikací
-  // Téma: Header a favicon
-  // ============================================================
-  {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Header – základy',
-    id: 'vwa-header-001',
-    type: 'choice',
-    title: 'Co je header?',
-    question: 'Co je header (záhlaví) webové stránky?',
-    choices: ['Horní část webové stránky, která se obvykle zobrazuje na všech podstránkách', 'Dolní část webové stránky určená hlavně pro autorská práva', 'Samostatná stránka s kontaktním formulářem', 'Ikona stránky zobrazená v záložce prohlížeče'],
-    answer: 'Horní část webové stránky, která se obvykle zobrazuje na všech podstránkách',
-    solution: 'Header je horní část webové stránky, která se obvykle zobrazuje na všech podstránkách a obsahuje důležité prvky pro orientaci uživatele.',
-    hint: 'Je to záhlaví webu, nikoli patička.',
-    tags: ['header', 'základy']
+    "subject": "Programování",
+    "topic": "Python",
+    "subtopic": "Seznamy",
+    "id": "seznamy-025",
+    "type": "number",
+    "title": "Největší číslo",
+    "question": "Pro `cisla = [5, 2, 9, 1, 7]` určete výsledek `max(cisla)`.",
+    "answer": "9",
+    "tags": [
+      "Python",
+      "seznamy",
+      "max"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Header – základy',
-    id: 'vwa-header-002',
-    type: 'choice',
-    title: 'Proč je header důležitý?',
-    question: 'Proč má konzistentní header význam pro uživatelskou zkušenost?',
-    choices: ['Návštěvník ví, kde najde navigaci a jak se vrátit na úvodní stránku', 'Zaručuje automaticky vyšší rychlost načítání webu', 'Nahrazuje veškerý obsah jednotlivých podstránek', 'Je nutný pouze kvůli zobrazení reklamy'],
-    answer: 'Návštěvník ví, kde najde navigaci a jak se vrátit na úvodní stránku',
-    solution: 'Header zůstává konzistentní, takže uživatel vždy ví, kde najde navigaci nebo jak se vrátit na úvodní stránku. To podporuje orientaci a UX.',
-    hint: 'Mysli na snadnou orientaci mezi stránkami.',
-    tags: ['header', 'UX', 'navigace']
+    "subject": "Programování",
+    "topic": "Python",
+    "subtopic": "Seznamy",
+    "id": "seznamy-026",
+    "type": "code",
+    "title": "Použij sorted()",
+    "question": "Začni s `cisla = [5, 2, 9, 1, 7]`. Pomocí `sorted()` vypiš seznam seřazený od nejmenšího po největší.",
+    "language": "python",
+    "starterCode": "cisla = [5, 2, 9, 1, 7]\n# Doplň řešení\n",
+    "expectedOutput": "[1, 2, 5, 7, 9]",
+    "solution": "cisla = [5, 2, 9, 1, 7]\nprint(sorted(cisla))",
+    "tags": [
+      "Python",
+      "seznamy",
+      "sorted",
+      "kód"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Header – prvky',
-    id: 'vwa-header-003',
-    type: 'choice',
-    title: 'Úloha loga v headeru',
-    question: 'Jakou funkci má logo v headeru podle běžné webové konvence?',
-    choices: ['Slouží jako odkaz na úvodní stránku', 'Vždy otevře vyhledávání', 'Musí spouštět kontaktní formulář', 'Nahrazuje hlavní navigaci'],
-    answer: 'Slouží jako odkaz na úvodní stránku',
-    solution: 'Uživatelé běžně očekávají, že kliknutí na logo vrátí na úvodní stránku.',
-    hint: 'Logo bývá spojeno s návratem domů.',
-    tags: ['header', 'logo', 'navigace']
+    "subject": "Programování",
+    "topic": "Python",
+    "subtopic": "Seznamy",
+    "id": "seznamy-027",
+    "type": "code",
+    "title": "Vypiš všechny základní funkce",
+    "question": "Pro `cisla = [5, 2, 9, 1, 7]` napiš program, který vypíše délku seznamu, součet, nejmenší číslo, největší číslo a seřazený seznam.",
+    "language": "python",
+    "starterCode": "cisla = [5, 2, 9, 1, 7]\n# Doplň řešení\n",
+    "expectedOutput": "5\n24\n1\n9\n[1, 2, 5, 7, 9]",
+    "solution": "cisla = [5, 2, 9, 1, 7]\nprint(len(cisla))\nprint(sum(cisla))\nprint(min(cisla))\nprint(max(cisla))\nprint(sorted(cisla))",
+    "hint": "Použij `len()`, `sum()`, `min()`, `max()` a `sorted()`.",
+    "tags": [
+      "Python",
+      "seznamy",
+      "len",
+      "sum",
+      "min",
+      "max",
+      "sorted",
+      "kód"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Header – prvky',
-    id: 'vwa-header-004',
-    type: 'choice',
-    title: 'Hlavní navigace',
-    question: 'Co typicky obsahuje hlavní navigace v headeru?',
-    choices: ['Odkazy na klíčové sekce webu, například O nás, Služby, Blog nebo Kontakt', 'Pouze telefonní číslo správce webu', 'Výhradně obrázky bez odkazů', 'Jen právní informace o cookies'],
-    answer: 'Odkazy na klíčové sekce webu, například O nás, Služby, Blog nebo Kontakt',
-    solution: 'Hlavní navigace je seznam odkazů na důležité části webu.',
-    hint: 'Navigace uživateli pomáhá dostat se do hlavních sekcí.',
-    tags: ['header', 'navigace']
+    "subject": "Programování",
+    "topic": "Python",
+    "subtopic": "Seznamy",
+    "id": "seznamy-028",
+    "type": "choice",
+    "title": "sort vs. sorted",
+    "question": "Které tvrzení správně popisuje rozdíl mezi `sort()` a `sorted()`?",
+    "choices": [
+      "sort() seřadí seznam na místě a sorted(cisla) vrátí nový seřazený seznam",
+      "sort() počítá délku seznamu a sorted() hledá maximum",
+      "sort() obrací pořadí a sorted() odstraňuje prvek",
+      "sort() je totéž co count()"
+    ],
+    "answer": "sort() seřadí seznam na místě a sorted(cisla) vrátí nový seřazený seznam",
+    "tags": [
+      "Python",
+      "seznamy"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Header – prvky',
-    id: 'vwa-header-005',
-    type: 'choice',
-    title: 'Call-to-action',
-    question: 'Co je účelem call-to-action (CTA) tlačítka v headeru?',
-    choices: ['Vyzvat návštěvníka k hlavní požadované akci, například k nákupu nebo odeslání poptávky', 'Pouze zobrazit datum vytvoření webu', 'Sloužit výhradně jako dekorace', 'Skrýt hlavní navigaci'],
-    answer: 'Vyzvat návštěvníka k hlavní požadované akci, například k nákupu nebo odeslání poptávky',
-    solution: 'CTA má návštěvníka vést k hlavní akci, kterou web požaduje, například k nákupu, zavolání nebo odeslání poptávky.',
-    hint: 'CTA = výzva k akci.',
-    tags: ['header', 'CTA', 'konverze']
+    "subject": "Programování",
+    "topic": "Python",
+    "subtopic": "Seznamy",
+    "id": "seznamy-029",
+    "type": "text",
+    "autoGrade": false,
+    "title": "Spoj metody a jejich účel",
+    "question": "Napiš, k čemu slouží tyto operace: `append()`, `insert()`, `remove()`, `pop()`, `sort()`, `reverse()`, `count()`, `len()`, `sum()`, `min()`, `max()`, `sorted()`.",
+    "answer": "`append()` přidá prvek; `insert()` vloží prvek na pozici; `remove()` odstraní zadaný prvek; `pop()` odstraní prvek podle indexu; `sort()` seřadí seznam; `reverse()` obrátí pořadí; `count()` spočítá výskyty hodnoty; `len()` vrátí délku seznamu; `sum()` sečte čísla; `min()` vrátí nejmenší číslo; `max()` vrátí největší číslo; `sorted()` vrátí seřazenou podobu seznamu.",
+    "hint": "Zaměř se na komentáře u jednotlivých řádků v materiálu.",
+    "tags": [
+      "Python",
+      "seznamy",
+      "opakování"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Header – prvky',
-    id: 'vwa-header-006',
-    type: 'choice',
-    title: 'Kontaktní údaje',
-    question: 'Proč mohou být kontaktní údaje součástí headeru firemního webu?',
-    choices: ['Zákazník najde telefon nebo e-mail hned v záhlaví', 'Protože bez telefonu nemůže fungovat CSS', 'Aby nahradily veškerý obsah patičky', 'Aby se zabránilo responzivitě'],
-    answer: 'Zákazník najde telefon nebo e-mail hned v záhlaví',
-    solution: 'U firemních webů je výhodné mít telefon nebo e-mail snadno dostupný přímo v headeru.',
-    hint: 'Jde o rychlý přístup ke kontaktu.',
-    tags: ['header', 'kontakt']
+    "subject": "Programování",
+    "topic": "Python",
+    "subtopic": "Seznamy",
+    "id": "seznamy-030",
+    "type": "code",
+    "title": "Miniúloha – uprav seznam",
+    "question": "Začni s `studenti = [\"Karel\", \"Frank\"]`. Přidej Janu pomocí `append()`, nahraď Franka za Tomase, odeber Karla pomocí `remove()` a nakonec vypiš výsledný seznam.",
+    "language": "python",
+    "starterCode": "studenti = [\"Karel\", \"Frank\"]\n# Doplň postupně všechny kroky\n",
+    "expectedOutput": "['Tomas', 'Jana']",
+    "solution": "studenti = [\"Karel\", \"Frank\"]\nstudenti.append(\"Jana\")\nstudenti[1] = \"Tomas\"\nstudenti.remove(\"Karel\")\nprint(studenti)",
+    "tags": [
+      "Python",
+      "seznamy",
+      "append",
+      "remove",
+      "indexování",
+      "kód"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Header – prvky',
-    id: 'vwa-header-007',
-    type: 'choice',
-    title: 'Vyhledávání v headeru',
-    question: 'Pro které weby je vyhledávání v headeru zvlášť užitečné?',
-    choices: ['E-shopy, portály a rozsáhlé weby s velkým množstvím obsahu', 'Pouze osobní vizitky o jedné větě', 'Pouze weby bez podstránek', 'Pouze weby, které nepoužívají navigaci'],
-    answer: 'E-shopy, portály a rozsáhlé weby s velkým množstvím obsahu',
-    solution: 'Vyhledávání je volitelné a hodí se hlavně tam, kde uživatel prochází velké množství obsahu.',
-    hint: 'Čím více obsahu, tím více pomáhá hledání.',
-    tags: ['header', 'vyhledávání', 'UX']
+    "subject": "Vývoj webových aplikací",
+    "topic": "Osobnosti",
+    "subtopic": "Přehled",
+    "id": "osobnosti-001",
+    "type": "text",
+    "autoGrade": true,
+    "title": "Systém Windows a osobní počítače",
+    "question": "Kdo je spoluzakladatelem Microsoftu a je spojen s vývojem osobních počítačů a systému Windows?",
+    "answer": "Bill Gates",
+    "solution": "01 Bill Gates — Microsoft — spoluzakladatel Microsoftu, zásadní osobnost osobních počítačů a systému Windows.",
+    "tags": [
+      "Osobnosti"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Header – prvky',
-    id: 'vwa-header-008',
-    type: 'choice',
-    title: 'Košík a účet',
-    question: 'Který prvek je typický pro e-shop a který pro web s přihlášením?',
-    choices: ['E-shop: nákupní košík; přihlášený web: uživatelský účet/profil', 'E-shop: favicon; přihlášený web: patička', 'E-shop: hamburger pouze; přihlášený web: logo', 'E-shop: slider; přihlášený web: mapa'],
-    answer: 'E-shop: nákupní košík; přihlášený web: uživatelský účet/profil',
-    solution: 'E-shopy často používají ikonu košíku s počtem položek, weby s přihlášením rychlý přístup k profilu.',
-    hint: 'Košík souvisí s nákupem, profil s účtem.',
-    tags: ['header', 'e-shop']
+    "subject": "Vývoj webových aplikací",
+    "topic": "Osobnosti",
+    "subtopic": "Přehled",
+    "id": "osobnosti-002",
+    "type": "text",
+    "autoGrade": true,
+    "title": "Vývoj Macu, iPodu a iPhonu",
+    "question": "Která osobnost je spoluzakladatelem Applu a výrazně ovlivnila vývoj Macu, iPodu a iPhonu?",
+    "answer": "Steve Jobs",
+    "solution": "02 Steve Jobs — Apple — spoluzakladatel Applu, výrazně ovlivnil vývoj Macu, iPodu a iPhonu.",
+    "tags": [
+      "Osobnosti"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Typy headerů',
-    id: 'vwa-header-009',
-    type: 'choice',
-    title: 'Statický header',
-    question: 'Co je charakteristické pro statický header?',
-    choices: ['Při scrollování zůstává na původním místě a může zmizet z obrazovky', 'Vždy se přilepí k hornímu okraji', 'Skryje se při scrollování dolů a objeví se při scrollování nahoru', 'Je vždy průhledný'],
-    answer: 'Při scrollování zůstává na původním místě a může zmizet z obrazovky',
-    solution: 'Statický header není při scrollování trvale viditelný. Pro návrat k menu je potřeba vrátit se nahoru.',
-    hint: 'Statický = nic se při scrollování zvláštně nepřilepuje.',
-    tags: ['header', 'statický']
+    "subject": "Vývoj webových aplikací",
+    "topic": "Osobnosti",
+    "subtopic": "Přehled",
+    "id": "osobnosti-003",
+    "type": "text",
+    "autoGrade": true,
+    "title": "Technický tvůrce prvních počítačů Apple",
+    "question": "Kdo je spoluzakladatelem Applu a technickým tvůrcem prvních počítačů Apple?",
+    "answer": "Steve Wozniak",
+    "solution": "03 Steve Wozniak — Apple — spoluzakladatel Applu a technický tvůrce prvních počítačů Apple.",
+    "tags": [
+      "Osobnosti"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Typy headerů',
-    id: 'vwa-header-010',
-    type: 'choice',
-    title: 'Sticky header',
-    question: 'Jak funguje sticky header?',
-    choices: ['Přilepí se k hornímu okraji obrazovky a zůstává viditelný při scrollování', 'Zmizí při každém scrollování', 'Zobrazuje se pouze na domovské stránce', 'Je určen pouze pro obrázky'],
-    answer: 'Přilepí se k hornímu okraji obrazovky a zůstává viditelný při scrollování',
-    solution: 'Sticky header zůstává při scrollování na dosah uživateli. Nevýhodou je, že zabírá část obrazovky.',
-    hint: 'Sticky = přilepený.',
-    tags: ['header', 'sticky']
+    "subject": "Vývoj webových aplikací",
+    "topic": "Osobnosti",
+    "subtopic": "Přehled",
+    "id": "osobnosti-004",
+    "type": "text",
+    "autoGrade": true,
+    "title": "Autor linuxového jádra",
+    "question": "Kdo je autorem linuxového jádra, na kterém běží velká část serverů a dalších zařízení?",
+    "answer": "Linus Torvalds",
+    "solution": "04 Linus Torvalds — Linux — autor linuxového jádra, na kterém běží velká část serverů a dalších zařízení.",
+    "tags": [
+      "Osobnosti"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Typy headerů',
-    id: 'vwa-header-011',
-    type: 'choice',
-    title: 'Smart sticky header',
-    question: 'Jak se chová smart sticky header?',
-    choices: ['Při scrollování dolů se skryje a při scrollování nahoru se znovu objeví', 'Vždy zůstává viditelný bez ohledu na směr scrollování', 'Automaticky mění barvu podle favicony', 'Funguje pouze na tabletech'],
-    answer: 'Při scrollování dolů se skryje a při scrollování nahoru se znovu objeví',
-    solution: 'Smart sticky header kombinuje úsporu místa při scrollování dolů se snadným návratem k navigaci při scrollování nahoru.',
-    hint: 'Je to „inteligentní“ sticky varianta.',
-    tags: ['header', 'smart sticky']
+    "subject": "Vývoj webových aplikací",
+    "topic": "Osobnosti",
+    "subtopic": "Přehled",
+    "id": "osobnosti-005",
+    "type": "text",
+    "autoGrade": true,
+    "title": "Základy webu (WWW, HTML a HTTP)",
+    "question": "Kdo vytvořil základy webu, zejména WWW, HTML a HTTP?",
+    "answer": "Tim Berners-Lee",
+    "solution": "05 Tim Berners-Lee — World Wide Web — vytvořil základy webu, zejména WWW, HTML a HTTP.",
+    "tags": [
+      "Osobnosti"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Typy headerů',
-    id: 'vwa-header-012',
-    type: 'choice',
-    title: 'Transparentní header',
-    question: 'Kde se hodí transparentní header?',
-    choices: ['Například v portfoliích, kreativních webech nebo landing pages s výrazným hero obrázkem', 'Pouze v tabulkách bez grafiky', 'Pouze v administraci databáze', 'Jen na tiskových stránkách'],
-    answer: 'Například v portfoliích, kreativních webech nebo landing pages s výrazným hero obrázkem',
-    solution: 'Transparentní header překrývá pozadí nebo hero sekci a může působit elegantně a moderně.',
-    hint: 'Transparentní header pracuje s obrázkem nebo pozadím pod sebou.',
-    tags: ['header', 'transparentní']
+    "subject": "Vývoj webových aplikací",
+    "topic": "Osobnosti",
+    "subtopic": "Přehled",
+    "id": "osobnosti-006",
+    "type": "text",
+    "autoGrade": true,
+    "title": "Internetové vyhledávání a Google",
+    "question": "Kdo je spoluzakladatelem Googlu a jednou z klíčových osobností internetového vyhledávání?",
+    "answer": "Larry Page",
+    "solution": "06 Larry Page — Google — spoluzakladatel Googlu a jedna z klíčových osobností internetového vyhledávání.",
+    "tags": [
+      "Osobnosti"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Typy headerů',
-    id: 'vwa-header-013',
-    type: 'choice',
-    title: 'Mega menu',
-    question: 'Co je mega menu header?',
-    choices: ['Rozbalovací velké menu s podkategoriemi, obrázky a dalšími odkazy', 'Menu s jediným odkazem na úvodní stránku', 'Pouze hamburger menu pro telefony', 'Samostatná patička s odkazy'],
-    answer: 'Rozbalovací velké menu s podkategoriemi, obrázky a dalšími odkazy',
-    solution: 'Mega menu umožňuje zobrazit mnoho odkazů a podkategorií najednou. Často se používá u velkých e-shopů a portálů.',
-    hint: 'Mega menu = rozsáhlé rozbalené menu.',
-    tags: ['header', 'mega menu', 'navigace']
+    "subject": "Vývoj webových aplikací",
+    "topic": "Osobnosti",
+    "subtopic": "Přehled",
+    "id": "osobnosti-007",
+    "type": "text",
+    "autoGrade": true,
+    "title": "Zakladatel sociální sítě Facebook",
+    "question": "Kdo je zakladatelem Facebooku, jedné z největších sociálních sítí?",
+    "answer": "Mark Zuckerberg",
+    "solution": "07 Mark Zuckerberg — Facebook / Meta — zakladatel Facebooku, jedné z největších sociálních sítí.",
+    "tags": [
+      "Osobnosti"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Header – design',
-    id: 'vwa-header-014',
-    type: 'choice',
-    title: 'Doporučený počet položek navigace',
-    question: 'Kolik položek hlavní navigace je vhodné mít v jednoduchém headeru?',
-    choices: ['Přibližně 5–7', 'Přesně 20', 'Vždy jen 1', 'Nejméně 30'],
-    answer: 'Přibližně 5–7',
-    solution: 'Materiál doporučuje vybrat 5–7 nejdůležitějších položek a zbytek přesunout například do patičky nebo na samostatné stránky.',
-    hint: 'Méně je více.',
-    tags: ['header', 'design', 'navigace']
+    "subject": "Vývoj webových aplikací",
+    "topic": "Osobnosti",
+    "subtopic": "Přehled",
+    "id": "osobnosti-008",
+    "type": "text",
+    "autoGrade": true,
+    "title": "Zakladatel Amazonu a cloudu AWS",
+    "question": "Kdo je zakladatelem Amazonu, přičemž AWS patří mezi největší cloudové platformy světa?",
+    "answer": "Jeff Bezos",
+    "solution": "08 Jeff Bezos — Amazon / AWS — zakladatel Amazonu; AWS patří mezi největší cloudové platformy světa.",
+    "tags": [
+      "Osobnosti"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Header – design',
-    id: 'vwa-header-015',
-    type: 'choice',
-    title: 'Kontrast v headeru',
-    question: 'Co je důležité pro čitelnost textu v headeru?',
-    choices: ['Dostatečný kontrast mezi textem a pozadím', 'Co nejnižší kontrast', 'Použití co nejmenšího písma', 'Průhlednost textu'],
-    answer: 'Dostatečný kontrast mezi textem a pozadím',
-    solution: 'Text musí být dobře čitelný. U průhledných headerů je potřeba zvlášť hlídat, aby text nesplynul s pozadím.',
-    hint: 'Černá na bílé nebo bílá na tmavé je jednoduchý příklad.',
-    tags: ['header', 'přístupnost']
+    "subject": "Vývoj webových aplikací",
+    "topic": "Osobnosti",
+    "subtopic": "Přehled",
+    "id": "osobnosti-009",
+    "type": "text",
+    "autoGrade": true,
+    "title": "Grafické karty a hardware pro AI",
+    "question": "Kdo je spoluzakladatelem a šéfem firmy NVIDIA, která vyvíjí grafické procesory a technologie pro AI?",
+    "answer": "Jensen Huang",
+    "solution": "09 Jensen Huang — NVIDIA — spoluzakladatel a šéf NVIDIA, firmy zásadní pro grafické karty a dnešní AI.",
+    "tags": [
+      "Osobnosti"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Header – design',
-    id: 'vwa-header-016',
-    type: 'choice',
-    title: 'Výška headeru',
-    question: 'Jaká výška headeru bývá praktická pro desktop a mobil?',
-    choices: ['60–80 px na desktopu a 50–60 px na mobilu', '10–20 px na desktopu a 5–10 px na mobilu', '150–200 px na desktopu a 120–150 px na mobilu', 'Výška je vždy stejná bez ohledu na zařízení'],
-    answer: '60–80 px na desktopu a 50–60 px na mobilu',
-    solution: 'Materiál uvádí jako praktické doporučení 60–80 px pro desktop a 50–60 px pro mobil.',
-    hint: 'Mobilní header bývá nižší.',
-    tags: ['header', 'design', 'responzivita']
+    "subject": "Vývoj webových aplikací",
+    "topic": "Osobnosti",
+    "subtopic": "Přehled",
+    "id": "osobnosti-010",
+    "type": "text",
+    "autoGrade": true,
+    "title": "Šéf OpenAI a tvůrce ChatGPT",
+    "question": "Kdo je šéfem OpenAI, firmy stojící za ChatGPT a významnými modely generativní AI?",
+    "answer": "Sam Altman",
+    "solution": "10 Sam Altman — OpenAI — šéf OpenAI, firmy stojící za ChatGPT a významnými modely generativní AI.",
+    "tags": [
+      "Osobnosti"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Header – mobil',
-    id: 'vwa-header-017',
-    type: 'choice',
-    title: 'Mobilní header',
-    question: 'Které uspořádání je typické pro zjednodušený mobilní header?',
-    choices: ['Logo vlevo nebo uprostřed, hamburger menu vpravo a případně výrazné CTA', 'Rozsáhlá desktopová navigace přes polovinu obrazovky', 'Pouze favicon bez navigace', 'Jen kontaktní formulář přes celou šířku'],
-    answer: 'Logo vlevo nebo uprostřed, hamburger menu vpravo a případně výrazné CTA',
-    solution: 'Na mobilu je méně místa, proto se často používá minimalistický header s hamburger menu a případně CTA.',
-    hint: 'Mobil = méně prostoru, zjednodušená navigace.',
-    tags: ['header', 'mobil']
+    "subject": "Vývoj webových aplikací",
+    "topic": "Osobnosti",
+    "subtopic": "Přehled",
+    "id": "osobnosti-011",
+    "type": "text",
+    "autoGrade": true,
+    "title": "Spoluzakladatel PayPalu a Palantiru",
+    "question": "Kdo je spoluzakladatelem PayPalu a Palantiru (firmy vyvíjející software pro analýzu velkého množství dat)?",
+    "answer": "Peter Thiel",
+    "solution": "11 Peter Thiel — PayPal / Palantir — spoluzakladatel PayPalu a Palantiru; Palantir vyvíjí software pro analýzu velkého množství dat.",
+    "tags": [
+      "Osobnosti"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Header – mobil',
-    id: 'vwa-header-018',
-    type: 'choice',
-    title: 'Dotykový cíl',
-    question: 'Jakou minimální velikost dotykového cíle doporučují Apple Human Interface Guidelines?',
-    choices: ['44 × 44 px', '16 × 16 px', '20 × 20 px', '100 × 100 px'],
-    answer: '44 × 44 px',
-    solution: 'Materiál uvádí minimum 44×44 pixelů, protože menší cíle se hůře trefují prstem.',
-    hint: 'Jde o doporučenou minimální plochu pro dotykové ovládání.',
-    tags: ['mobil', 'UX', 'dotyk']
+    "subject": "Vývoj webových aplikací",
+    "topic": "Osobnosti",
+    "subtopic": "Přehled",
+    "id": "osobnosti-012",
+    "type": "text",
+    "autoGrade": true,
+    "title": "Elektromobily, kosmonautika a umělá inteligence",
+    "question": "Který technologický podnikatel je spojený s elektromobily, kosmonautikou a umělou inteligencí (Tesla / SpaceX / xAI)?",
+    "answer": "Elon Musk",
+    "solution": "12 Elon Musk — Tesla / SpaceX / xAI — technologický podnikatel spojený s elektromobily, kosmonautikou a umělou inteligencí.",
+    "tags": [
+      "Osobnosti"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Header – obsah',
-    id: 'vwa-header-019',
-    type: 'multi',
-    title: 'Prvky dobrého headeru',
-    question: 'Které prvky mohou být součástí dobrého headeru? Vyber všechny správné možnosti.',
-    choices: ['Logo', 'Hlavní navigace', 'Call-to-action tlačítko', 'Kontaktní údaje', 'Vyhledávání', 'Vždy povinně rozsáhlé mega menu'],
-    answers: ['Logo', 'Hlavní navigace', 'Call-to-action tlačítko', 'Kontaktní údaje', 'Vyhledávání'],
-    solution: 'Mezi uvedené prvky patří logo, hlavní navigace, CTA, kontaktní údaje a volitelně vyhledávání. Mega menu není povinné.',
-    hint: 'Vyhledávání je označeno jako volitelné; mega menu je jen jeden typ navigace.',
-    tags: ['header', 'prvky', 'více správných']
+    "subject": "Vývoj webových aplikací",
+    "topic": "Osobnosti",
+    "subtopic": "Přehled",
+    "id": "osobnosti-013",
+    "type": "text",
+    "autoGrade": true,
+    "title": "Tvůrce programovacího jazyka Python",
+    "question": "Kdo je tvůrcem programovacího jazyka Python?",
+    "answer": "Guido van Rossum",
+    "solution": "13 Guido van Rossum — Python — tvůrce programovacího jazyka Python.",
+    "tags": [
+      "Osobnosti"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Header – design',
-    id: 'vwa-header-020',
-    type: 'multi',
-    title: 'Zásady jednoduchého headeru',
-    question: 'Která tvrzení odpovídají praktickým tipům pro design headeru?',
-    choices: ['Méně prvků často pomáhá přehlednosti', 'Je vhodné respektovat známé konvence rozmístění', 'Text musí mít dostatečný kontrast', 'CTA může být vizuálně výraznější', 'Navigace by měla vždy obsahovat co nejvíce položek'],
-    answers: ['Méně prvků často pomáhá přehlednosti', 'Je vhodné respektovat známé konvence rozmístění', 'Text musí mít dostatečný kontrast', 'CTA může být vizuálně výraznější'],
-    solution: 'Materiál zdůrazňuje jednoduchost, standardní očekávání uživatelů, kontrast a prioritu CTA. Příliš mnoho položek navigaci znepřehledňuje.',
-    hint: 'Vzpomeň si na zásadu „Méně je více“.',
-    tags: ['header', 'design', 'UX', 'více správných']
+    "subject": "Vývoj webových aplikací",
+    "topic": "Osobnosti",
+    "subtopic": "Přehled",
+    "id": "osobnosti-014",
+    "type": "text",
+    "autoGrade": true,
+    "title": "Hlavní autor programovacího jazyka Java",
+    "question": "Kdo je hlavním autorem programovacího jazyka Java?",
+    "answer": "James Gosling",
+    "solution": "14 James Gosling — Java — hlavní autor programovacího jazyka Java.",
+    "tags": [
+      "Osobnosti"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Header – mobil',
-    id: 'vwa-header-021',
-    type: 'multi',
-    title: 'Požadavky mobilního headeru',
-    question: 'Co je důležité při návrhu headeru pro mobilní zařízení?',
-    choices: ['Responzivní přizpůsobení šířce obrazovky', 'Dostatečně velké dotykové cíle', 'Zjednodušená navigace', 'Možnost použít hamburger menu', 'Povinně ponechat stejnou širokou navigaci jako na desktopu'],
-    answers: ['Responzivní přizpůsobení šířce obrazovky', 'Dostatečně velké dotykové cíle', 'Zjednodušená navigace', 'Možnost použít hamburger menu'],
-    solution: 'Mobilní header má šetřit místo, přizpůsobit se šířce displeje a být dobře ovladatelný dotykem.',
-    hint: 'Mobilní verze není jen zmenšený desktop.',
-    tags: ['header', 'mobil', 'responzivita', 'více správných']
+    "subject": "Vývoj webových aplikací",
+    "topic": "Osobnosti",
+    "subtopic": "Přehled",
+    "id": "osobnosti-015",
+    "type": "text",
+    "autoGrade": true,
+    "title": "Tvůrce jazyka JavaScript",
+    "question": "Kdo je tvůrcem JavaScriptu, jednoho ze základních jazyků webu?",
+    "answer": "Brendan Eich",
+    "solution": "15 Brendan Eich — JavaScript — tvůrce JavaScriptu, jednoho ze základních jazyků webu.",
+    "tags": [
+      "Osobnosti"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Favicon – význam',
-    id: 'vwa-favicon-001',
-    type: 'multi',
-    title: 'Kde lze favicon vidět',
-    question: 'Kde se dnes může favicon zobrazovat nebo pomáhat s identifikací webu?',
-    choices: ['V horní liště prohlížeče u otevřených oken a záložek', 'V historii prohlížeče', 'Ve vyhledávačích', 'Při práci s mnoha otevřenými záložkami pro snadnější rozpoznání webu', 'Výhradně uvnitř zdrojového kódu HTML'],
-    answers: ['V horní liště prohlížeče u otevřených oken a záložek', 'V historii prohlížeče', 'Ve vyhledávačích', 'Při práci s mnoha otevřenými záložkami pro snadnější rozpoznání webu'],
-    solution: 'Favicon dnes pomáhá s rozpoznáním webu v panelech a záložkách prohlížeče, historii i některých výsledcích vyhledávání.',
-    hint: 'Favicon není jen obrázek uložený uvnitř HTML zdroje.',
-    tags: ['favicon', 'branding', 'UX', 'více správných']
+    "subject": "Vývoj webových aplikací",
+    "topic": "Osobnosti",
+    "subtopic": "Přehled",
+    "id": "osobnosti-016",
+    "type": "text",
+    "autoGrade": true,
+    "title": "Tvůrce jazyka C a spoluautor Unixu",
+    "question": "Kdo je tvůrcem jazyka C a spoluautorem operačního systému Unix?",
+    "answer": "Dennis Ritchie",
+    "solution": "16 Dennis Ritchie — C / Unix — tvůrce jazyka C a spoluautor operačního systému Unix.",
+    "tags": [
+      "Osobnosti"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Favicon – tvorba',
-    id: 'vwa-favicon-002',
-    type: 'multi',
-    title: 'Online generátory favicon',
-    question: 'Které nástroje fungují jako online generátory favicon?',
-    choices: ['favicon-generator.org', 'favicon.io', 'favicomatic.com', 'realfavicongenerator.net', 'Word bez grafických funkcí'],
-    answers: ['favicon-generator.org', 'favicon.io', 'favicomatic.com', 'realfavicongenerator.net'],
-    solution: 'Materiál uvádí čtyři online generátory: favicon-generator.org, favicon.io, favicomatic.com a realfavicongenerator.net.',
-    hint: 'Jsou to čtyři konkrétní webové generátory uvedené v materiálu.',
-    tags: ['favicon', 'generátory', 'více správných']
+    "subject": "Vývoj webových aplikací",
+    "topic": "Osobnosti",
+    "subtopic": "Přehled",
+    "id": "osobnosti-017",
+    "type": "text",
+    "autoGrade": true,
+    "title": "Teoretická informatika a Turingův test",
+    "question": "Kdo je jedním ze zakladatelů moderní informatiky, známý Turingovým strojem a Turingovým testem?",
+    "answer": "Alan Turing",
+    "solution": "17 Alan Turing — teoretická informatika / AI — jeden ze zakladatelů moderní informatiky, známý Turingovým strojem a Turingovým testem.",
+    "tags": [
+      "Osobnosti"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Favicon – formáty',
-    id: 'vwa-favicon-003',
-    type: 'multi',
-    title: 'Doporučené velikosti favicon',
-    question: 'Které velikosti favicon se hodí pro různá prostředí?',
-    choices: ['16×16 px', '32×32 px', '192×192 px', '512×512 px', '7×7 px'],
-    answers: ['16×16 px', '32×32 px', '192×192 px', '512×512 px'],
-    solution: 'Pro panely a záložky postačují 16×16 nebo 32×32 px, pro mobilní zařízení a webové aplikace se hodí větší verze 192×192 a 512×512 px.',
-    hint: 'Malé rozměry pro prohlížeč, větší pro mobilní zařízení a PWA.',
-    tags: ['favicon', 'velikost', 'PWA', 'více správných']
+    "subject": "Vývoj webových aplikací",
+    "topic": "Osobnosti",
+    "subtopic": "Přehled",
+    "id": "osobnosti-018",
+    "type": "text",
+    "autoGrade": true,
+    "title": "První programátorka v historii",
+    "question": "Která osobnost je často označována za první programátorku a popsala algoritmus pro Babbageův analytický stroj?",
+    "answer": "Ada Lovelace",
+    "solution": "18 Ada Lovelace — historie programování — často označována za první programátorku, popsala algoritmus pro Babbageův analytický stroj.",
+    "tags": [
+      "Osobnosti"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Favicon – formáty',
-    id: 'vwa-favicon-004',
-    type: 'match',
-    title: 'Favicon – velikost a použití',
-    question: 'Přiřaď velikost favicon k typickému použití.',
-    pairs: [{ left: '16×16 px', right: 'Základní favicon v prohlížeči' }, { left: '32×32 px', right: 'Základní favicon v prohlížeči / vyšší běžná velikost' }, { left: '192×192 px', right: 'Mobilní zařízení a webové aplikace' }, { left: '512×512 px', right: 'Větší verze pro mobilní zařízení a PWA' }],
-    solution: 'Materiál uvádí 16×16 a 32×32 px pro základní použití v prohlížečích a 192×192 a 512×512 px pro větší ikony používané na mobilních zařízeních a v PWA.',
-    hint: 'Čím větší rozlišení, tím více se hodí pro větší ikony mimo běžný panel prohlížeče.',
-    tags: ['favicon', 'velikost', 'přiřazování']
+    "subject": "Vývoj webových aplikací",
+    "topic": "Osobnosti",
+    "subtopic": "Přehled",
+    "id": "osobnosti-019",
+    "type": "text",
+    "autoGrade": true,
+    "title": "Architektura moderních počítačů",
+    "question": "Kdo zásadně ovlivnil princip moderního počítače, kde jsou program i data uložené v paměti?",
+    "answer": "John von Neumann",
+    "solution": "19 John von Neumann — architektura počítačů — zásadně ovlivnil princip moderního počítače, kde jsou program i data uložené v paměti.",
+    "tags": [
+      "Osobnosti"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Favicon – formáty',
-    id: 'vwa-favicon-005',
-    type: 'match',
-    title: 'Favicon – formát a vlastnost',
-    question: 'Přiřaď formát nebo vlastnost k jeho charakteristice.',
-    pairs: [{ left: 'SVG', right: 'Škálovatelnost' }, { left: 'PNG', right: 'Vhodný i pro vyšší rozlišení a kompatibilitu' }, { left: 'ICO', right: 'Široce podporovaný formát pro favicon' }, { left: 'Jednoduchý symbol', right: 'Často vhodnější než složitý detailní obrázek' }],
-    solution: 'Materiál doporučuje SVG pro škálovatelnost, PNG ve vyšších rozlišeních, ICO pro širokou podporu a jednoduchý symbol pro dobrou čitelnost v malé velikosti.',
-    hint: 'SVG souvisí se škálováním, ICO s kompatibilitou.',
-    tags: ["přiřazování"]
+    "subject": "Vývoj webových aplikací",
+    "topic": "Osobnosti",
+    "subtopic": "Přehled",
+    "id": "osobnosti-020",
+    "type": "text",
+    "autoGrade": true,
+    "title": "Český internetový portál Seznam.cz",
+    "question": "Kdo založil Seznam.cz?",
+    "answer": "Ivo Lukačovič",
+    "solution": "20 Ivo Lukačovič — Seznam.cz — zakladatel Seznam.cz, jednoho z nejvýznamnějších českých internetových portálů.",
+    "tags": [
+      "Osobnosti"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Favicon – WordPress',
-    id: 'vwa-favicon-006',
-    type: 'match',
-    title: 'WordPress – kroky nastavení',
-    question: 'Přiřaď část postupu WordPressu k tomu, co se v ní provádí.',
-    pairs: [{ left: 'Vzhled > Přizpůsobit', right: 'Přejití do nástroje pro úpravu webu' }, { left: 'Identita webu', right: 'Sekce pro nastavení identity webu' }, { left: 'Ikona webu', right: 'Místo pro výběr a nahrání favicony' }, { left: 'Publikovat', right: 'Uložení a zveřejnění změny' }],
-    solution: 'Postup v materiálu vede přes Vzhled > Přizpůsobit, Identitu webu, Ikonu webu a nakonec Publikovat.',
-    hint: 'Je to postup shora dolů v administraci WordPressu.',
-    tags: ['favicon', 'WordPress', 'přiřazování']
+    "subject": "Vývoj webových aplikací",
+    "topic": "Osobnosti",
+    "subtopic": "Přehled",
+    "id": "osobnosti-021",
+    "type": "text",
+    "autoGrade": true,
+    "title": "Vedení společnosti Anthropic (CEO)",
+    "question": "Kdo je CEO společnosti Anthropic?",
+    "answer": "Dario Amodei",
+    "solution": "21 Dario Amodei - Anthropic CEO",
+    "tags": [
+      "Osobnosti"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'WordPress',
-    id: 'vwa-favicon-007',
-    type: 'order',
-    title: 'Nastavení favicony ve WordPressu',
-    question: 'Seřaď kroky nastavení favicony ve WordPressu od prvního po poslední.',
-    order: ['Přihlásit se do administrace WordPressu a otevřít Vzhled > Přizpůsobit.', 'Vybrat sekci Identita webu.', 'V části Ikona webu kliknout na Vybrat soubor a nahrát PNG nebo ICO.', 'Kliknout na Publikovat.'],
-    solution: 'Postup je: Vzhled > Přizpůsobit → Identita webu → Ikona webu → nahrání souboru → Publikovat.',
-    hint: 'Nejdříve se dostaneš do Přizpůsobení, nakonec změnu publikuješ.',
-    tags: ['favicon', 'WordPress', 'řazení']
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Header – základy",
+    "id": "vwa-header-001",
+    "type": "choice",
+    "title": "Co je header?",
+    "question": "Co je header (záhlaví) webové stránky?",
+    "choices": [
+      "Horní část webové stránky, která se obvykle zobrazuje na všech podstránkách",
+      "Dolní část webové stránky určená hlavně pro autorská práva",
+      "Samostatná stránka s kontaktním formulářem",
+      "Ikona stránky zobrazená v záložce prohlížeče"
+    ],
+    "answer": "Horní část webové stránky, která se obvykle zobrazuje na všech podstránkách",
+    "solution": "Header je horní část webové stránky, která se obvykle zobrazuje na všech podstránkách a obsahuje důležité prvky pro orientaci uživatele.",
+    "hint": "Je to záhlaví webu, nikoli patička.",
+    "tags": [
+      "header",
+      "základy"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Favicon – tvorba',
-    id: 'vwa-favicon-008',
-    type: 'order',
-    title: 'Tvorba jednoduché favicony',
-    question: 'Seřaď základní postup vytvoření favicony z obrázku.',
-    order: ['Vybrat obrázek, logo nebo jednoduchý symbol reprezentující značku.', 'Případně použít online favicon generátor nebo grafický editor.', 'Vytvořit potřebné velikosti a formáty favicony.', 'Otestovat vzhled v různých prohlížečích a na různých zařízeních.'],
-    solution: 'Nejprve se volí motiv, následně se favicon vytvoří, připraví se vhodné velikosti/formáty a nakonec se ověří její fungování v různých prostředích.',
-    hint: 'Po vytvoření je důležité ověření v praxi.',
-    tags: [ 'tvorba', 'řazení']
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Header – základy",
+    "id": "vwa-header-002",
+    "type": "choice",
+    "title": "Proč je header důležitý?",
+    "question": "Proč má konzistentní header význam pro uživatelskou zkušenost?",
+    "choices": [
+      "Návštěvník ví, kde najde navigaci a jak se vrátit na úvodní stránku",
+      "Zaručuje automaticky vyšší rychlost načítání webu",
+      "Nahrazuje veškerý obsah jednotlivých podstránek",
+      "Je nutný pouze kvůli zobrazení reklamy"
+    ],
+    "answer": "Návštěvník ví, kde najde navigaci a jak se vrátit na úvodní stránku",
+    "solution": "Header zůstává konzistentní, takže uživatel vždy ví, kde najde navigaci nebo jak se vrátit na úvodní stránku. To podporuje orientaci a UX.",
+    "hint": "Mysli na snadnou orientaci mezi stránkami.",
+    "tags": [
+      "header",
+      "UX",
+      "navigace"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Favicon – formáty',
-    id: 'vwa-favicon-009',
-    type: 'fill',
-    autoGrade: true,
-    autoGrade: true,
-    title: 'Zkratka pro míru prokliku',
-    question: 'Jakou třípísmennou zkratkou se označuje míra prokliku?',
-    answer: 'CTR',
-    solution: 'CTR znamená click-through rate, tedy míru prokliku.',
-    hint: 'První písmena anglického názvu Click-Through Rate.',
-    tags: ["favicon","SEO"]
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Header – prvky",
+    "id": "vwa-header-003",
+    "type": "choice",
+    "title": "Úloha loga v headeru",
+    "question": "Jakou funkci má logo v headeru podle běžné webové konvence?",
+    "choices": [
+      "Slouží jako odkaz na úvodní stránku",
+      "Vždy otevře vyhledávání",
+      "Musí spouštět kontaktní formulář",
+      "Nahrazuje hlavní navigaci"
+    ],
+    "answer": "Slouží jako odkaz na úvodní stránku",
+    "solution": "Uživatelé běžně očekávají, že kliknutí na logo vrátí na úvodní stránku.",
+    "hint": "Logo bývá spojeno s návratem domů.",
+    "tags": [
+      "header",
+      "logo",
+      "navigace"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Favicon – formáty',
-    id: 'vwa-favicon-010',
-    type: 'fill',
-    autoGrade: true,
-    autoGrade: true,
-    title: 'Formát pro širokou podporu favicony',
-    question: 'Který formát je popsán jako široce podporovaný pro favicon?',
-    answer: 'ICO',
-    solution: 'ICO je v materiálu uvedeno jako široce podporovaný formát favicony.',
-    hint: 'Je to třípísmenná zkratka obrazového formátu.',
-    tags: ["favicon"]
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Header – prvky",
+    "id": "vwa-header-004",
+    "type": "choice",
+    "title": "Hlavní navigace",
+    "question": "Co typicky obsahuje hlavní navigace v headeru?",
+    "choices": [
+      "Odkazy na klíčové sekce webu, například O nás, Služby, Blog nebo Kontakt",
+      "Pouze telefonní číslo správce webu",
+      "Výhradně obrázky bez odkazů",
+      "Jen právní informace o cookies"
+    ],
+    "answer": "Odkazy na klíčové sekce webu, například O nás, Služby, Blog nebo Kontakt",
+    "solution": "Hlavní navigace je seznam odkazů na důležité části webu.",
+    "hint": "Navigace uživateli pomáhá dostat se do hlavních sekcí.",
+    "tags": [
+      "header",
+      "navigace"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Favicon – význam',
-    id: 'vwa-favicon-011',
-    type: 'fill',
-    autoGrade: true,
-    autoGrade: true,
-    title: 'Vizuální konzistence značky',
-    question: 'Jak se jedním slovem označuje oblast, ve které favicon podporuje vizuální konzistenci webu a značky?',
-    answer: 'branding',
-    solution: 'Favicon je malý prvek brandingu a může podporovat vizuální konzistenci značky.',
-    hint: 'Jde o práci se značkou a její vizuální identitou.',
-    tags: ["favicon"]
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Header – prvky",
+    "id": "vwa-header-005",
+    "type": "choice",
+    "title": "Call-to-action",
+    "question": "Co je účelem call-to-action (CTA) tlačítka v headeru?",
+    "choices": [
+      "Vyzvat návštěvníka k hlavní požadované akci, například k nákupu nebo odeslání poptávky",
+      "Pouze zobrazit datum vytvoření webu",
+      "Sloužit výhradně jako dekorace",
+      "Skrýt hlavní navigaci"
+    ],
+    "answer": "Vyzvat návštěvníka k hlavní požadované akci, například k nákupu nebo odeslání poptávky",
+    "solution": "CTA má návštěvníka vést k hlavní akci, kterou web požaduje, například k nákupu, zavolání nebo odeslání poptávky.",
+    "hint": "CTA = výzva k akci.",
+    "tags": [
+      "header",
+      "CTA",
+      "konverze"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Header – design',
-    id: 'vwa-header-022',
-    type: 'text',
-    autoGrade: false,
-    autoGrade: false,
-    title: 'Proč nezahlcovat header',
-    question: 'Vysvětli vlastními slovy, proč může příliš mnoho prvků v headeru působit problematicky.',
-    answer: 'Příliš mnoho prvků může header znepřehlednit a zkomplikovat orientaci uživatele. Proto je vhodné ponechat jen nejdůležitější položky a zbytek přesunout jinam.',
-    solution: 'Materiál zdůrazňuje jednoduchost a přehlednost. Doporučuje vybrat několik nejdůležitějších položek navigace a zbytek přesunout například do patičky.',
-    hint: 'Méně je více.',
-    tags: ['header', 'UX', 'design']
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Header – prvky",
+    "id": "vwa-header-006",
+    "type": "choice",
+    "title": "Kontaktní údaje",
+    "question": "Proč mohou být kontaktní údaje součástí headeru firemního webu?",
+    "choices": [
+      "Zákazník najde telefon nebo e-mail hned v záhlaví",
+      "Protože bez telefonu nemůže fungovat CSS",
+      "Aby nahradily veškerý obsah patičky",
+      "Aby se zabránilo responzivitě"
+    ],
+    "answer": "Zákazník najde telefon nebo e-mail hned v záhlaví",
+    "solution": "U firemních webů je výhodné mít telefon nebo e-mail snadno dostupný přímo v headeru.",
+    "hint": "Jde o rychlý přístup ke kontaktu.",
+    "tags": [
+      "header",
+      "kontakt"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Header – mobil',
-    id: 'vwa-header-023',
-    type: 'text',
-    autoGrade: false,
-    autoGrade: false,
-    title: 'Proč je důležitá responzivita headeru',
-    question: 'Proč se musí header automaticky přizpůsobovat šířce obrazovky? Uveď hlavní důvod.',
-    answer: 'Protože desktop, tablet a telefon mají různě velký prostor a header se musí přizpůsobit, aby zůstal přehledný a ovladatelný.',
-    solution: 'Materiál uvádí, že na širokém monitoru může být plná navigace, zatímco na telefonu je vhodná minimalistická verze s hamburger menu. Header tedy musí reagovat na šířku displeje.',
-    hint: 'Telefon nemá tolik prostoru jako desktop.',
-    tags: ['header', 'responzivita', 'mobil']
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Header – prvky",
+    "id": "vwa-header-007",
+    "type": "choice",
+    "title": "Vyhledávání v headeru",
+    "question": "Pro které weby je vyhledávání v headeru zvlášť užitečné?",
+    "choices": [
+      "E-shopy, portály a rozsáhlé weby s velkým množstvím obsahu",
+      "Pouze osobní vizitky o jedné větě",
+      "Pouze weby bez podstránek",
+      "Pouze weby, které nepoužívají navigaci"
+    ],
+    "answer": "E-shopy, portály a rozsáhlé weby s velkým množstvím obsahu",
+    "solution": "Vyhledávání je volitelné a hodí se hlavně tam, kde uživatel prochází velké množství obsahu.",
+    "hint": "Čím více obsahu, tím více pomáhá hledání.",
+    "tags": [
+      "header",
+      "vyhledávání",
+      "UX"
+    ]
   },
   {
-    subject: 'Vývoj webových aplikací',
-    topic: 'Header a favicon',
-    subtopic: 'Favicon – význam',
-    id: 'vwa-favicon-012',
-    type: 'text',
-    autoGrade: false,
-    autoGrade: false,
-    title: 'Jednoduchost favicony',
-    question: 'Proč by měla být favicon jednoduchá a dobře rozpoznatelná i po zmenšení?',
-    answer: 'Protože se zobrazuje ve velmi malé velikosti, například 16×16 px, kde se složité detaily mohou stát nečitelnými.',
-    solution: 'Materiál doporučuje jednoduchý a snadno rozpoznatelný motiv. Příliš detailní obrázek může být v minimální velikosti nečitelný.',
-    hint: 'Představ si logo zmenšené na 16×16 pixelů.',
-    tags: ['favicon', 'design', 'čitelnost']
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Header – prvky",
+    "id": "vwa-header-008",
+    "type": "scenario",
+    "title": "Košík a účet – praktický scénář",
+    "question": "Kterou dvojici prvků bys použil/a v těchto dvou situacích?",
+    "choices": [
+      "E-shop: nákupní košík; přihlášený web: uživatelský účet/profil",
+      "E-shop: favicon; přihlášený web: patička",
+      "E-shop: hamburger pouze; přihlášený web: logo",
+      "E-shop: slider; přihlášený web: mapa"
+    ],
+    "answer": "E-shop: nákupní košík; přihlášený web: uživatelský účet/profil",
+    "solution": "E-shopy často používají ikonu košíku s počtem položek, zatímco weby s přihlášením nabízejí rychlý přístup k uživatelskému účtu nebo profilu.",
+    "hint": "Košík souvisí s nákupem, profil s účtem.",
+    "tags": [
+      "header",
+      "nákup"
+    ],
+    "scenario": "Navrhuješ header pro dva weby: e-shop a web, na kterém se uživatelé přihlašují ke svému účtu. Která dvojice prvků dává největší smysl?"
   },
-
-  // ============================================================
-  // ÚLOHY VYTVOŘENÉ Z PDF MATERIÁLU "ZDB"
-  // Předmět: Databáze
-  // Téma: Základy databází
-  // ============================================================
-    {
+  {
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Typy headerů",
+    "id": "vwa-header-009",
+    "type": "choice",
+    "title": "Statický header",
+    "question": "Co je charakteristické pro statický header?",
+    "choices": [
+      "Při scrollování zůstává na původním místě a může zmizet z obrazovky",
+      "Vždy se přilepí k hornímu okraji",
+      "Skryje se při scrollování dolů a objeví se při scrollování nahoru",
+      "Je vždy průhledný"
+    ],
+    "answer": "Při scrollování zůstává na původním místě a může zmizet z obrazovky",
+    "solution": "Statický header není při scrollování trvale viditelný. Pro návrat k menu je potřeba vrátit se nahoru.",
+    "hint": "Statický = nic se při scrollování zvláštně nepřilepuje.",
+    "tags": [
+      "header",
+      "statický"
+    ]
+  },
+  {
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Typy headerů",
+    "id": "vwa-header-010",
+    "type": "choice",
+    "title": "Sticky header",
+    "question": "Jak funguje sticky header?",
+    "choices": [
+      "Přilepí se k hornímu okraji obrazovky a zůstává viditelný při scrollování",
+      "Zmizí při každém scrollování",
+      "Zobrazuje se pouze na domovské stránce",
+      "Je určen pouze pro obrázky"
+    ],
+    "answer": "Přilepí se k hornímu okraji obrazovky a zůstává viditelný při scrollování",
+    "solution": "Sticky header zůstává při scrollování na dosah uživateli. Nevýhodou je, že zabírá část obrazovky.",
+    "hint": "Sticky = přilepený.",
+    "tags": [
+      "header",
+      "sticky"
+    ]
+  },
+  {
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Typy headerů",
+    "id": "vwa-header-011",
+    "type": "choice",
+    "title": "Smart sticky header",
+    "question": "Jak se chová smart sticky header?",
+    "choices": [
+      "Při scrollování dolů se skryje a při scrollování nahoru se znovu objeví",
+      "Vždy zůstává viditelný bez ohledu na směr scrollování",
+      "Automaticky mění barvu podle favicony",
+      "Funguje pouze na tabletech"
+    ],
+    "answer": "Při scrollování dolů se skryje a při scrollování nahoru se znovu objeví",
+    "solution": "Smart sticky header kombinuje úsporu místa při scrollování dolů se snadným návratem k navigaci při scrollování nahoru.",
+    "hint": "Je to „inteligentní“ sticky varianta.",
+    "tags": [
+      "header",
+      "smart sticky"
+    ]
+  },
+  {
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Typy headerů",
+    "id": "vwa-header-012",
+    "type": "choice",
+    "title": "Transparentní header",
+    "question": "Kde se hodí transparentní header?",
+    "choices": [
+      "Například v portfoliích, kreativních webech nebo landing pages s výrazným hero obrázkem",
+      "Pouze v tabulkách bez grafiky",
+      "Pouze v administraci databáze",
+      "Jen na tiskových stránkách"
+    ],
+    "answer": "Například v portfoliích, kreativních webech nebo landing pages s výrazným hero obrázkem",
+    "solution": "Transparentní header překrývá pozadí nebo hero sekci a může působit elegantně a moderně.",
+    "hint": "Transparentní header pracuje s obrázkem nebo pozadím pod sebou.",
+    "tags": [
+      "header",
+      "transparentní"
+    ]
+  },
+  {
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Typy headerů",
+    "id": "vwa-header-013",
+    "type": "choice",
+    "title": "Mega menu",
+    "question": "Co je mega menu header?",
+    "choices": [
+      "Rozbalovací velké menu s podkategoriemi, obrázky a dalšími odkazy",
+      "Menu s jediným odkazem na úvodní stránku",
+      "Pouze hamburger menu pro telefony",
+      "Samostatná patička s odkazy"
+    ],
+    "answer": "Rozbalovací velké menu s podkategoriemi, obrázky a dalšími odkazy",
+    "solution": "Mega menu umožňuje zobrazit mnoho odkazů a podkategorií najednou. Často se používá u velkých e-shopů a portálů.",
+    "hint": "Mega menu = rozsáhlé rozbalené menu.",
+    "tags": [
+      "header",
+      "mega menu",
+      "navigace"
+    ]
+  },
+  {
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Header – design",
+    "id": "vwa-header-014",
+    "type": "choice",
+    "title": "Doporučený počet položek navigace",
+    "question": "Kolik položek hlavní navigace je vhodné mít v jednoduchém headeru?",
+    "choices": [
+      "Přibližně 5–7",
+      "Přesně 20",
+      "Vždy jen 1",
+      "Nejméně 30"
+    ],
+    "answer": "Přibližně 5–7",
+    "solution": "Materiál doporučuje vybrat 5–7 nejdůležitějších položek a zbytek přesunout například do patičky nebo na samostatné stránky.",
+    "hint": "Méně je více.",
+    "tags": [
+      "header",
+      "design",
+      "navigace"
+    ]
+  },
+  {
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Header – design",
+    "id": "vwa-header-015",
+    "type": "choice",
+    "title": "Kontrast v headeru",
+    "question": "Co je důležité pro čitelnost textu v headeru?",
+    "choices": [
+      "Dostatečný kontrast mezi textem a pozadím",
+      "Co nejnižší kontrast",
+      "Použití co nejmenšího písma",
+      "Průhlednost textu"
+    ],
+    "answer": "Dostatečný kontrast mezi textem a pozadím",
+    "solution": "Text musí být dobře čitelný. U průhledných headerů je potřeba zvlášť hlídat, aby text nesplynul s pozadím.",
+    "hint": "Černá na bílé nebo bílá na tmavé je jednoduchý příklad.",
+    "tags": [
+      "header",
+      "přístupnost"
+    ]
+  },
+  {
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Header – design",
+    "id": "vwa-header-016",
+    "type": "choice",
+    "title": "Výška headeru",
+    "question": "Jaká výška headeru bývá praktická pro desktop a mobil?",
+    "choices": [
+      "60–80 px na desktopu a 50–60 px na mobilu",
+      "10–20 px na desktopu a 5–10 px na mobilu",
+      "150–200 px na desktopu a 120–150 px na mobilu",
+      "Výška je vždy stejná bez ohledu na zařízení"
+    ],
+    "answer": "60–80 px na desktopu a 50–60 px na mobilu",
+    "solution": "Materiál uvádí jako praktické doporučení 60–80 px pro desktop a 50–60 px pro mobil.",
+    "hint": "Mobilní header bývá nižší.",
+    "tags": [
+      "header",
+      "design",
+      "responzivita"
+    ]
+  },
+  {
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Header – mobil",
+    "id": "vwa-header-017",
+    "type": "choice",
+    "title": "Mobilní header",
+    "question": "Které uspořádání je typické pro zjednodušený mobilní header?",
+    "choices": [
+      "Logo vlevo nebo uprostřed, hamburger menu vpravo a případně výrazné CTA",
+      "Rozsáhlá desktopová navigace přes polovinu obrazovky",
+      "Pouze favicon bez navigace",
+      "Jen kontaktní formulář přes celou šířku"
+    ],
+    "answer": "Logo vlevo nebo uprostřed, hamburger menu vpravo a případně výrazné CTA",
+    "solution": "Na mobilu je méně místa, proto se často používá minimalistický header s hamburger menu a případně CTA.",
+    "hint": "Mobil = méně prostoru, zjednodušená navigace.",
+    "tags": [
+      "header",
+      "mobil"
+    ]
+  },
+  {
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Header – mobil",
+    "id": "vwa-header-018",
+    "type": "choice",
+    "title": "Dotykový cíl",
+    "question": "Jakou minimální velikost dotykového cíle doporučují Apple Human Interface Guidelines?",
+    "choices": [
+      "44 × 44 px",
+      "16 × 16 px",
+      "20 × 20 px",
+      "100 × 100 px"
+    ],
+    "answer": "44 × 44 px",
+    "solution": "Materiál uvádí minimum 44×44 pixelů, protože menší cíle se hůře trefují prstem.",
+    "hint": "Jde o doporučenou minimální plochu pro dotykové ovládání.",
+    "tags": [
+      "mobil",
+      "UX",
+      "dotyk"
+    ]
+  },
+  {
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Header – obsah",
+    "id": "vwa-header-019",
+    "type": "multi",
+    "title": "Prvky dobrého headeru",
+    "question": "Které prvky mohou být součástí dobrého headeru? Vyber všechny správné možnosti.",
+    "choices": [
+      "Logo",
+      "Hlavní navigace",
+      "Call-to-action tlačítko",
+      "Kontaktní údaje",
+      "Vyhledávání",
+      "Vždy povinně rozsáhlé mega menu"
+    ],
+    "answers": [
+      "Logo",
+      "Hlavní navigace",
+      "Call-to-action tlačítko",
+      "Kontaktní údaje",
+      "Vyhledávání"
+    ],
+    "solution": "Mezi uvedené prvky patří logo, hlavní navigace, CTA, kontaktní údaje a volitelně vyhledávání. Mega menu není povinné.",
+    "hint": "Vyhledávání je označeno jako volitelné; mega menu je jen jeden typ navigace.",
+    "tags": [
+      "header",
+      "prvky",
+      "více správných"
+    ]
+  },
+  {
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Header – design",
+    "id": "vwa-header-020",
+    "type": "multi",
+    "title": "Zásady jednoduchého headeru",
+    "question": "Která tvrzení odpovídají praktickým tipům pro design headeru?",
+    "choices": [
+      "Méně prvků často pomáhá přehlednosti",
+      "Je vhodné respektovat známé konvence rozmístění",
+      "Text musí mít dostatečný kontrast",
+      "CTA může být vizuálně výraznější",
+      "Navigace by měla vždy obsahovat co nejvíce položek"
+    ],
+    "answers": [
+      "Méně prvků často pomáhá přehlednosti",
+      "Je vhodné respektovat známé konvence rozmístění",
+      "Text musí mít dostatečný kontrast",
+      "CTA může být vizuálně výraznější"
+    ],
+    "solution": "Materiál zdůrazňuje jednoduchost, standardní očekávání uživatelů, kontrast a prioritu CTA. Příliš mnoho položek navigaci znepřehledňuje.",
+    "hint": "Vzpomeň si na zásadu „Méně je více“.",
+    "tags": [
+      "header",
+      "design",
+      "UX",
+      "více správných"
+    ]
+  },
+  {
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Header – mobil",
+    "id": "vwa-header-021",
+    "type": "multi",
+    "title": "Požadavky mobilního headeru",
+    "question": "Co je důležité při návrhu headeru pro mobilní zařízení?",
+    "choices": [
+      "Responzivní přizpůsobení šířce obrazovky",
+      "Dostatečně velké dotykové cíle",
+      "Zjednodušená navigace",
+      "Možnost použít hamburger menu",
+      "Povinně ponechat stejnou širokou navigaci jako na desktopu"
+    ],
+    "answers": [
+      "Responzivní přizpůsobení šířce obrazovky",
+      "Dostatečně velké dotykové cíle",
+      "Zjednodušená navigace",
+      "Možnost použít hamburger menu"
+    ],
+    "solution": "Mobilní header má šetřit místo, přizpůsobit se šířce displeje a být dobře ovladatelný dotykem.",
+    "hint": "Mobilní verze není jen zmenšený desktop.",
+    "tags": [
+      "header",
+      "mobil",
+      "responzivita",
+      "více správných"
+    ]
+  },
+  {
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Favicon – význam",
+    "id": "vwa-favicon-001",
+    "type": "multi",
+    "title": "Kde lze favicon vidět",
+    "question": "Kde se může favicon zobrazovat nebo pomáhat s identifikací webu?",
+    "choices": [
+      "V horní liště prohlížeče u otevřených oken a záložek",
+      "V historii prohlížeče",
+      "Ve vyhledávačích",
+      "Při práci s mnoha otevřenými záložkami pro snadnější rozpoznání webu",
+      "Výhradně uvnitř zdrojového kódu HTML"
+    ],
+    "answers": [
+      "V horní liště prohlížeče u otevřených oken a záložek",
+      "V historii prohlížeče",
+      "Ve vyhledávačích",
+      "Při práci s mnoha otevřenými záložkami pro snadnější rozpoznání webu"
+    ],
+    "solution": "Favicon dnes pomáhá s rozpoznáním webu v panelech a záložkách prohlížeče, historii i některých výsledcích vyhledávání.",
+    "hint": "Favicon není jen obrázek uložený uvnitř HTML zdroje.",
+    "tags": [
+      "favicon",
+      "branding",
+      "UX",
+      "více správných"
+    ]
+  },
+  {
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Favicon – tvorba",
+    "id": "vwa-favicon-002",
+    "type": "multi",
+    "title": "Online generátory favicon",
+    "question": "Které nástroje fungují jako online generátory favicon?",
+    "choices": [
+      "favicon-generator.org",
+      "favicon.io",
+      "favicomatic.com",
+      "realfavicongenerator.net",
+      "Word bez grafických funkcí"
+    ],
+    "answers": [
+      "favicon-generator.org",
+      "favicon.io",
+      "favicomatic.com",
+      "realfavicongenerator.net"
+    ],
+    "solution": "Materiál uvádí čtyři online generátory: favicon-generator.org, favicon.io, favicomatic.com a realfavicongenerator.net.",
+    "hint": "Jsou to čtyři konkrétní webové generátory uvedené v materiálu.",
+    "tags": [
+      "favicon",
+      "generátory",
+      "více správných"
+    ]
+  },
+  {
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Favicon – formáty",
+    "id": "vwa-favicon-003",
+    "type": "multi",
+    "title": "Doporučené velikosti favicon",
+    "question": "Které velikosti favicon se hodí pro různá prostředí?",
+    "choices": [
+      "16×16 px",
+      "32×32 px",
+      "192×192 px",
+      "512×512 px",
+      "7×7 px"
+    ],
+    "answers": [
+      "16×16 px",
+      "32×32 px",
+      "192×192 px",
+      "512×512 px"
+    ],
+    "solution": "Pro panely a záložky postačují 16×16 nebo 32×32 px, pro mobilní zařízení a webové aplikace se hodí větší verze 192×192 a 512×512 px.",
+    "hint": "Malé rozměry pro prohlížeč, větší pro mobilní zařízení a PWA.",
+    "tags": [
+      "favicon",
+      "velikost",
+      "PWA",
+      "více správných"
+    ]
+  },
+  {
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Favicon – formáty",
+    "id": "vwa-favicon-004",
+    "type": "compare",
+    "title": "Malé versus velké verze favicony",
+    "question": "Porovnej velikosti favicony podle typického použití.",
+    "pairs": [
+      {
+        "left": "16×16 px",
+        "right": "Základní favicon v prohlížeči"
+      },
+      {
+        "left": "32×32 px",
+        "right": "Základní favicon v prohlížeči / vyšší běžná velikost"
+      },
+      {
+        "left": "192×192 px",
+        "right": "Mobilní zařízení a webové aplikace"
+      },
+      {
+        "left": "512×512 px",
+        "right": "Větší verze pro mobilní zařízení a PWA"
+      }
+    ],
+    "solution": "Materiál rozlišuje 16×16 a 32×32 px jako základní verze pro prohlížeče a 192×192 a 512×512 px jako větší verze pro mobilní zařízení a PWA.",
+    "hint": "Zamysli se nad velikostí výsledného obrazu a jeho cílovým prostředím.",
+    "tags": [
+      "favicon",
+      "velikost",
+      "přiřazování"
+    ],
+    "leftLabel": "Základní verze",
+    "rightLabel": "Větší verze",
+    "criteria": [
+      {
+        "id": "16",
+        "text": "16×16 px – základní favicon v prohlížeči.",
+        "answer": "left"
+      },
+      {
+        "id": "32",
+        "text": "32×32 px – běžná velikost pro prohlížeče.",
+        "answer": "left"
+      },
+      {
+        "id": "192",
+        "text": "192×192 px – mobilní zařízení a webové aplikace.",
+        "answer": "right"
+      },
+      {
+        "id": "512",
+        "text": "512×512 px – větší verze pro mobilní zařízení a PWA.",
+        "answer": "right"
+      }
+    ]
+  },
+  {
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Favicon – formáty",
+    "id": "vwa-favicon-005",
+    "type": "match",
+    "title": "Favicon – formát a vlastnost",
+    "question": "Přiřaď formát nebo vlastnost k jeho charakteristice.",
+    "pairs": [
+      {
+        "left": "SVG",
+        "right": "Škálovatelnost"
+      },
+      {
+        "left": "PNG",
+        "right": "Vhodný i pro vyšší rozlišení a kompatibilitu"
+      },
+      {
+        "left": "ICO",
+        "right": "Široce podporovaný formát pro favicon"
+      },
+      {
+        "left": "Jednoduchý symbol",
+        "right": "Často vhodnější než složitý detailní obrázek"
+      }
+    ],
+    "solution": "Materiál doporučuje SVG pro škálovatelnost, PNG ve vyšších rozlišeních, ICO pro širokou podporu a jednoduchý symbol pro dobrou čitelnost v malé velikosti.",
+    "hint": "SVG souvisí se škálováním, ICO s kompatibilitou.",
+    "tags": [
+      "přiřazování"
+    ]
+  },
+  {
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Favicon – WordPress",
+    "id": "vwa-favicon-006",
+    "type": "match",
+    "title": "WordPress – kroky nastavení",
+    "question": "Přiřaď část postupu WordPressu k tomu, co se v ní provádí.",
+    "pairs": [
+      {
+        "left": "Vzhled > Přizpůsobit",
+        "right": "Přejití do nástroje pro úpravu webu"
+      },
+      {
+        "left": "Identita webu",
+        "right": "Sekce pro nastavení identity webu"
+      },
+      {
+        "left": "Ikona webu",
+        "right": "Místo pro výběr a nahrání favicony"
+      },
+      {
+        "left": "Publikovat",
+        "right": "Uložení a zveřejnění změny"
+      }
+    ],
+    "solution": "Postup v materiálu vede přes Vzhled > Přizpůsobit, Identitu webu, Ikonu webu a nakonec Publikovat.",
+    "hint": "Je to postup shora dolů v administraci WordPressu.",
+    "tags": [
+      "favicon",
+      "WordPress",
+      "přiřazování"
+    ]
+  },
+  {
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "WordPress",
+    "id": "vwa-favicon-007",
+    "type": "order",
+    "title": "Nastavení favicony ve WordPressu",
+    "question": "Seřaď kroky nastavení favicony ve WordPressu od prvního po poslední.",
+    "order": [
+      "Přihlásit se do administrace WordPressu a otevřít Vzhled > Přizpůsobit.",
+      "Vybrat sekci Identita webu.",
+      "V části Ikona webu kliknout na Vybrat soubor a nahrát PNG nebo ICO.",
+      "Kliknout na Publikovat."
+    ],
+    "solution": "Postup je: Vzhled > Přizpůsobit → Identita webu → Ikona webu → nahrání souboru → Publikovat.",
+    "hint": "Nejdříve se dostaneš do Přizpůsobení, nakonec změnu publikuješ.",
+    "tags": [
+      "favicon",
+      "WordPress",
+      "řazení"
+    ]
+  },
+  {
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Favicon – tvorba",
+    "id": "vwa-favicon-008",
+    "type": "order",
+    "title": "Tvorba jednoduché favicony",
+    "question": "Seřaď základní postup vytvoření favicony z obrázku.",
+    "order": [
+      "Vybrat obrázek, logo nebo jednoduchý symbol reprezentující značku.",
+      "Případně použít online favicon generátor nebo grafický editor.",
+      "Vytvořit potřebné velikosti a formáty favicony.",
+      "Otestovat vzhled v různých prohlížečích a na různých zařízeních."
+    ],
+    "solution": "Nejprve se volí motiv, následně se favicon vytvoří, připraví se vhodné velikosti/formáty a nakonec se ověří její fungování v různých prostředích.",
+    "hint": "Po vytvoření je důležité ověření v praxi.",
+    "tags": [
+      "tvorba",
+      "řazení"
+    ]
+  },
+  {
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Favicon – formáty",
+    "id": "vwa-favicon-009",
+    "type": "fill",
+    "autoGrade": true,
+    "title": "Zkratka pro míru prokliku",
+    "question": "Jakou třípísmennou zkratkou se označuje míra prokliku?",
+    "answer": "CTR",
+    "solution": "CTR znamená click-through rate, tedy míru prokliku.",
+    "hint": "První písmena anglického názvu Click-Through Rate.",
+    "tags": [
+      "favicon",
+      "SEO"
+    ]
+  },
+  {
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Favicon – formáty",
+    "id": "vwa-favicon-010",
+    "type": "fill",
+    "autoGrade": true,
+    "title": "Formát pro širokou podporu favicony",
+    "question": "Který formát je popsán jako široce podporovaný pro favicon?",
+    "answer": "ICO",
+    "solution": "ICO je v materiálu uvedeno jako široce podporovaný formát favicony.",
+    "hint": "Je to třípísmenná zkratka obrazového formátu.",
+    "tags": [
+      "favicon"
+    ]
+  },
+  {
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Favicon – význam",
+    "id": "vwa-favicon-011",
+    "type": "fill",
+    "autoGrade": true,
+    "title": "Vizuální konzistence značky",
+    "question": "Jak se jedním slovem označuje oblast, ve které favicon podporuje vizuální konzistenci webu a značky?",
+    "answer": "branding",
+    "solution": "Favicon je malý prvek brandingu a může podporovat vizuální konzistenci značky.",
+    "hint": "Jde o práci se značkou a její vizuální identitou.",
+    "tags": [
+      "favicon"
+    ]
+  },
+  {
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Header – design",
+    "id": "vwa-header-022",
+    "type": "text",
+    "autoGrade": false,
+    "title": "Proč nezahlcovat header",
+    "question": "Vysvětli vlastními slovy, proč může příliš mnoho prvků v headeru působit problematicky.",
+    "answer": "Příliš mnoho prvků může header znepřehlednit a zkomplikovat orientaci uživatele. Proto je vhodné ponechat jen nejdůležitější položky a zbytek přesunout jinam.",
+    "solution": "Materiál zdůrazňuje jednoduchost a přehlednost. Doporučuje vybrat několik nejdůležitějších položek navigace a zbytek přesunout například do patičky.",
+    "hint": "Méně je více.",
+    "tags": [
+      "header",
+      "UX",
+      "design"
+    ]
+  },
+  {
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Header – mobil",
+    "id": "vwa-header-023",
+    "type": "text",
+    "autoGrade": false,
+    "title": "Proč je důležitá responzivita headeru",
+    "question": "Proč je důležité, aby se header automaticky přizpůsoboval šířce obrazovky? Uveď hlavní důvod.",
+    "answer": "Protože desktop, tablet a telefon mají různě velký prostor a header se musí přizpůsobit, aby zůstal přehledný a ovladatelný.",
+    "solution": "Materiál uvádí, že na širokém monitoru může být plná navigace, zatímco na telefonu je vhodná minimalistická verze s hamburger menu. Header tedy musí reagovat na šířku displeje.",
+    "hint": "Telefon nemá tolik prostoru jako desktop.",
+    "tags": [
+      "header",
+      "responzivita",
+      "mobil"
+    ]
+  },
+  {
+    "subject": "Vývoj webových aplikací",
+    "topic": "Header a favicon",
+    "subtopic": "Favicon – význam",
+    "id": "vwa-favicon-012",
+    "type": "text",
+    "autoGrade": false,
+    "title": "Jednoduchost favicony",
+    "question": "Proč by měla být favicon jednoduchá a dobře rozpoznatelná i po zmenšení?",
+    "answer": "Protože se zobrazuje ve velmi malé velikosti, například 16×16 px, kde se složité detaily mohou stát nečitelnými.",
+    "solution": "Materiál doporučuje jednoduchý a snadno rozpoznatelný motiv. Příliš detailní obrázek může být v minimální velikosti nečitelný.",
+    "hint": "Představ si logo zmenšené na 16×16 pixelů.",
+    "tags": [
+      "favicon",
+      "design",
+      "čitelnost"
+    ]
+  },
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "Základní pojmy",
@@ -1243,14 +1763,14 @@ window.EXERCISES = [
       "informace"
     ]
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "Základní pojmy",
     "id": "db-002",
     "type": "choice",
     "title": "Open data",
-    "question": "Jak jsou definována open data (big data)?",
+    "question": "Jak jsou definována open data?",
     "choices": [
       "Jako veřejná data",
       "Jako data uložená jen v relacích",
@@ -1258,43 +1778,43 @@ window.EXERCISES = [
       "Jako data uložená výhradně v CSV"
     ],
     "answer": "Jako veřejná data",
-    "solution": "Open data (big data) jsou veřejná data.",
+    "solution": "Open data jsou veřejná data dostupná veřejnosti.",
     "hint": "Jde o data přístupná veřejnosti.",
     "tags": [
       "databáze",
       "open data"
     ]
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "Relační databáze",
     "id": "db-003",
     "type": "choice",
-    "title": "Struktura relační databáze",
-    "question": "Co charakterizuje relační databázi?",
+    "title": "Role klíčů v relační databázi",
+    "question": "Jakou roli mají klíče v relační databázi?",
     "choices": [
-      "Má řádky a sloupce a je propojena pomocí klíčů",
-      "Obsahuje pouze jeden sloupec",
-      "Je vždy propojena pouze obrázky",
-      "Nepoužívá žádné klíče"
+      "Propojují související data nebo tabulky",
+      "Slouží pouze ke změně barev uživatelského rozhraní",
+      "Nahrazují všechny sloupce tabulky",
+      "Používají se jen k přehrávání animací"
     ],
-    "answer": "Má řádky a sloupce a je propojena pomocí klíčů",
-    "solution": "Relační databáze pracuje s řádky a sloupci a tabulky propojuje pomocí klíčů.",
-    "hint": "Vzpomeň si na řádky, sloupce a klíče.",
+    "answer": "Propojují související data nebo tabulky",
+    "solution": "Materiál uvádí, že relační databáze jsou propojeny pomocí klíčů.",
+    "hint": "Primární a cizí klíče pomáhají propojit související data.",
     "tags": [
       "relační databáze",
       "klíče"
     ]
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "Relační databáze",
     "id": "db-004",
-    "type": "multi",
-    "title": "Součásti popisu relační databáze",
-    "question": "Která tvrzení jsou správná pro relační databázi?",
+    "type": "diagnostic",
+    "title": "Odhal chybné tvrzení o relační databázi",
+    "question": "Prohlédni tvrzení a označ všechna, která jsou o relační databázi chybná.",
     "choices": [
       "Má řádky",
       "Má sloupce",
@@ -1307,13 +1827,50 @@ window.EXERCISES = [
       "Má sloupce",
       "Je propojena pomocí klíčů"
     ],
-    "solution": "Relační databáze má řádky, sloupce a propojení pomocí klíčů.",
-    "hint": "Vyber tři základní vlastnosti relační databáze.",
+    "solution": "Chybná jsou tvrzení, že databáze musí obsahovat pouze textová data a že nemůže mít více tabulek. Relační databáze běžně obsahuje řádky, sloupce a více tabulek propojených klíči.",
+    "hint": "Hledej tvrzení, která jsou formulována příliš absolutně.",
     "tags": [
-      "relační databáze"
+      "tabulky",
+      "klíče"
+    ],
+    "items": [
+      {
+        "id": "rows",
+        "label": "Databáze má řádky",
+        "detail": "Řádky představují záznamy.",
+        "correct": false
+      },
+      {
+        "id": "cols",
+        "label": "Databáze má sloupce",
+        "detail": "Sloupce představují atributy.",
+        "correct": false
+      },
+      {
+        "id": "keys",
+        "label": "Tabulky mohou být propojeny pomocí klíčů",
+        "detail": "Klíče umožňují definovat vazby mezi tabulkami.",
+        "correct": false
+      },
+      {
+        "id": "text-only",
+        "label": "Databáze musí obsahovat pouze textová data",
+        "detail": "Relační databáze může obsahovat i číselná, datumová a další data.",
+        "correct": true
+      },
+      {
+        "id": "one-table",
+        "label": "Relační databáze nemůže mít více tabulek",
+        "detail": "Relační databáze běžně pracují s více tabulkami.",
+        "correct": true
+      }
+    ],
+    "answerIds": [
+      "text-only",
+      "one-table"
     ]
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "Klíče",
@@ -1336,7 +1893,7 @@ window.EXERCISES = [
       "cizí klíč"
     ]
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "Atributy a entity",
@@ -1348,9 +1905,11 @@ window.EXERCISES = [
     "answer": "atribut",
     "solution": "Sloupec odpovídá atributu.",
     "hint": "Je to vlastnost entity.",
-    "tags": ["sloupec"]
+    "tags": [
+      "sloupec"
+    ]
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "Atributy a entity",
@@ -1372,7 +1931,7 @@ window.EXERCISES = [
       "základní pojmy"
     ]
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "Atributy a entity",
@@ -1394,14 +1953,14 @@ window.EXERCISES = [
       "entita"
     ]
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "Atributy a entity",
     "id": "db-009",
-    "type": "match",
-    "title": "Entita a atribut",
-    "question": "Spoj každý pojem s jeho správným popisem.",
+    "type": "classification",
+    "title": "Entita, atribut nebo obojí?",
+    "question": "Zařaď každý pojem do správné kategorie.",
     "pairs": [
       {
         "left": "Entita",
@@ -1416,11 +1975,37 @@ window.EXERCISES = [
         "right": "Atribut"
       }
     ],
-    "solution": "Entita je objekt v databázi, atribut je její vlastnost a sloupec představuje atribut.",
-    "hint": "Dva pojmy spolu přímo souvisejí: objekt a jeho vlastnost.",
-    "tags": []
+    "solution": "Entita představuje objekt, o kterém data uchováváme. Atribut je vlastnost takové entity; v tabulce se typicky projeví jako sloupec.",
+    "hint": "Ptej se: Je to objekt, nebo jeho vlastnost?",
+    "tags": [],
+    "categories": [
+      "Entita",
+      "Atribut"
+    ],
+    "items": [
+      {
+        "id": "entity",
+        "text": "Student",
+        "category": "Entita"
+      },
+      {
+        "id": "property",
+        "text": "Věk studenta",
+        "category": "Atribut"
+      },
+      {
+        "id": "column",
+        "text": "Sloupec s e-mailem",
+        "category": "Atribut"
+      },
+      {
+        "id": "object",
+        "text": "Kniha",
+        "category": "Entita"
+      }
+    ]
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "Vlastnosti databází",
@@ -1448,9 +2033,10 @@ window.EXERCISES = [
     "solution": "Mezi základní oblasti patří práva, ukládání, zabezpečení, správa dat, integrita dat a zálohování a obnova dat.",
     "hint": "Vyber všechny položky, které patří mezi základní vlastnosti databází.",
     "tags": [
-      "vlastnosti databází"]
+      "vlastnosti databází"
+    ]
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "Vlastnosti databází",
@@ -1467,9 +2053,11 @@ window.EXERCISES = [
     "answer": "Integrita dat",
     "solution": "Integrita dat je přímo uvedena mezi vlastnostmi databází.",
     "hint": "Souvisí s daty, ne s grafikou rozhraní.",
-    "tags": ["vlastnosti databází"]
+    "tags": [
+      "vlastnosti databází"
+    ]
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "Vlastnosti databází",
@@ -1488,29 +2076,30 @@ window.EXERCISES = [
     "hint": "Jde o možnost data zálohovat a obnovit.",
     "tags": []
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "SQL jazyky",
     "id": "db-013",
-    "type": "choice",
-    "title": "DDL – definice struktury",
-    "question": "K čemu slouží DDL (Data Definition Language)?",
+    "type": "scenario",
+    "title": "DDL v praxi",
+    "question": "Která činnost odpovídá tomuto scénáři?",
     "choices": [
-      "K definici struktury",
-      "K dotazování",
-      "K řízení transakcí",
-      "K přístupu k různým databázím přes standardizované rozhraní"
+      "Definice struktury databázových objektů (DDL)",
+      "Dotazování na data (SELECT)",
+      "Řízení transakcí",
+      "Standardizovaný přístup k různým databázím"
     ],
-    "answer": "K definici struktury",
-    "solution": "DDL (Data Definition Language) slouží k definici struktury databázových objektů.",
-    "hint": "Jde o definici databázové struktury.",
+    "answer": "Definice struktury databázových objektů (DDL)",
+    "solution": "DDL (Data Definition Language) slouží k definici struktury databázových objektů, například tabulek.",
+    "hint": "DDL = Data Definition Language: zaměř se na definici struktury.",
     "tags": [
-      "DDL",
-      "Data Definition Language"
-    ]
+      "databázová struktura",
+      "jazyk definice"
+    ],
+    "scenario": "Databázový administrátor připravuje novou tabulku a potřebuje definovat její strukturu. Neřeší zatím samotné vyhledávání dat ani transakce."
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "SQL jazyky",
@@ -1532,9 +2121,11 @@ window.EXERCISES = [
     ],
     "solution": "Typickými příkazy DDL jsou CREATE, ALTER a DROP.",
     "hint": "Hledej příkazy spojené s definicí struktury.",
-    "tags": ["DDL"]
+    "tags": [
+      "DDL"
+    ]
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "SQL jazyky",
@@ -1546,9 +2137,12 @@ window.EXERCISES = [
     "answer": "SELECT",
     "solution": "DQL slouží k dotazování; typickým příkladem je SELECT.",
     "hint": "Je to základní dotazovací příkaz.",
-    "tags": ["DQL", "dotazování"]
+    "tags": [
+      "DQL",
+      "dotazování"
+    ]
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "SQL jazyky",
@@ -1566,9 +2160,10 @@ window.EXERCISES = [
     "solution": "DQL je jazyk pro dotazování nad daty.",
     "hint": "Příklad příkazu je SELECT.",
     "tags": [
-      "DQL"]
+      "DQL"
+    ]
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "SQL jazyky",
@@ -1592,7 +2187,7 @@ window.EXERCISES = [
       "REVOKE"
     ]
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "SQL jazyky",
@@ -1613,9 +2208,11 @@ window.EXERCISES = [
     ],
     "solution": "Typickými příkazy DCL jsou GRANT a REVOKE.",
     "hint": "Jde o příkazy pro udělování a odebírání přístupových práv.",
-    "tags": ["DCL"]
+    "tags": [
+      "DCL"
+    ]
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "SQL jazyky",
@@ -1637,7 +2234,7 @@ window.EXERCISES = [
       "transakce"
     ]
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "SQL jazyky",
@@ -1658,9 +2255,11 @@ window.EXERCISES = [
     ],
     "solution": "Pro řízení transakcí se používají například COMMIT a ROLLBACK.",
     "hint": "COMMIT potvrzuje změny a ROLLBACK je vrací.",
-    "tags": ["TCL"]
+    "tags": [
+      "TCL"
+    ]
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "SQL jazyky",
@@ -1694,7 +2293,7 @@ window.EXERCISES = [
     "hint": "Zaměř se na rozdíl mezi strukturou databáze, dotazováním, úpravou dat, oprávněními a transakcemi.",
     "tags": []
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "SQL jazyky",
@@ -1722,7 +2321,7 @@ window.EXERCISES = [
     "hint": "Rozlišuj definici struktury, dotazování, úpravu dat, oprávnění a transakce.",
     "tags": []
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "Agregace",
@@ -1738,28 +2337,29 @@ window.EXERCISES = [
       "agregace"
     ]
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
-    "subtopic": "Agregace",
+    "subtopic": "Připojení k databázi",
     "id": "db-024",
     "type": "choice",
-    "title": "Agregace",
-    "question": "Které vysvětlení nejlépe vystihuje agregaci?",
+    "title": "Účel připojovacího řetězce",
+    "question": "Jaký je hlavní účel připojovacího řetězce k databázi?",
     "choices": [
-      "Dávání dohromady",
-      "Dotazování pomocí SELECT",
-      "Řízení transakcí",
-      "Zálohování databáze"
+      "Předat informace potřebné k připojení k databázi",
+      "Určit barevné schéma aplikace",
+      "Seřadit záznamy bez SQL dotazu",
+      "Vytvořit favicon webu"
     ],
-    "answer": "Dávání dohromady",
-    "solution": "Agregace znamená dávání dohromady.",
-    "hint": "Definice je jednovětá a velmi krátká.",
+    "answer": "Předat informace potřebné k připojení k databázi",
+    "solution": "Připojovací řetězec obsahuje informace potřebné pro práci s databázovým připojením; vizuální nastavení aplikace do něj nepatří.",
+    "hint": "Souvisí s připojením aplikace k databázi, ne s vzhledem rozhraní.",
     "tags": [
-      "agregace"
+      "databáze",
+      "připojovací řetězec"
     ]
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "ODBC",
@@ -1778,9 +2378,10 @@ window.EXERCISES = [
     "hint": "ODBC je rozhraní, ne příkaz SQL.",
     "tags": [
       "ODBC",
-      "databáze"]
+      "databáze"
+    ]
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "ODBC",
@@ -1797,7 +2398,7 @@ window.EXERCISES = [
       "rozhraní"
     ]
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "Připojení k databázi",
@@ -1819,7 +2420,7 @@ window.EXERCISES = [
       "uživatelské rozhraní"
     ]
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "Import a export",
@@ -1845,27 +2446,30 @@ window.EXERCISES = [
     ],
     "solution": "Mezi formáty pro import a export patří CSV, JSON, XML, DB a TXT.",
     "hint": "Je jich pět.",
-    "tags": ["import", "export"]
+    "tags": [
+      "import",
+      "export"
+    ]
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "Import a export",
     "id": "db-029",
     "type": "text",
     "autoGrade": false,
-    "title": "Formáty importu a exportu – přehled",
-    "question": "Uveď alespoň tři formáty souborů, které lze použít pro import nebo export databázových dat.",
-    "answer": "CSV, JSON, XML, DB, TXT",
-    "solution": "Mezi správné příklady patří CSV, JSON, XML, DB a TXT. Stačí uvést alespoň tři.",
-    "hint": "Zaměř se na běžné textové a databázové formáty.",
+    "title": "Společná vlastnost exportních formátů",
+    "question": "Co mají v kontextu databází společného formáty CSV, JSON a XML?",
+    "answer": "Mohou sloužit k importu nebo exportu databázových dat.",
+    "solution": "V materiálu jsou CSV, JSON a XML uvedeny mezi formáty, které lze použít pro import a export databázových dat.",
+    "hint": "Všechny tři se objevují v seznamu formátů pro import a export.",
     "tags": [
       "import",
       "export",
       "formáty"
     ]
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "Import a export",
@@ -1882,26 +2486,29 @@ window.EXERCISES = [
       "formáty"
     ]
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "Import a export",
     "id": "db-031",
     "type": "choice",
-    "title": "TXT v seznamu formátů",
-    "question": "Který z následujících formátů lze použít pro import nebo export databázových dat?",
+    "title": "Formát, který nepatří do seznamu",
+    "question": "Který z následujících formátů není uveden mezi možnostmi pro import nebo export databázových dat?",
     "choices": [
-      "TXT",
-      "SVG",
-      "MP3",
-      "EXE"
+      "PNG",
+      "CSV",
+      "JSON",
+      "TXT"
     ],
-    "answer": "TXT",
-    "solution": "TXT patří mezi podporované formáty pro import a export databázových dat.",
-    "hint": "Jde o textový formát.",
-    "tags": ["import", "export"]
+    "answer": "PNG",
+    "solution": "Mezi uvedené databázové formáty patří CSV, JSON, XML, DB a TXT. PNG v tomto seznamu není.",
+    "hint": "PNG je obrazový formát; v seznamu databázových formátů ho nenajdeš.",
+    "tags": [
+      "import",
+      "export"
+    ]
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "Shrnutí",
@@ -1927,7 +2534,7 @@ window.EXERCISES = [
     "hint": "Hledej pojmy z databází, ne z webového designu.",
     "tags": []
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "Shrnutí",
@@ -1944,7 +2551,7 @@ window.EXERCISES = [
       "atribut"
     ]
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "Shrnutí",
@@ -1963,7 +2570,7 @@ window.EXERCISES = [
     "hint": "SELECT patří k dotazování.",
     "tags": []
   },
-    {
+  {
     "subject": "Databáze",
     "topic": "Základy databází",
     "subtopic": "Shrnutí",

@@ -12,7 +12,7 @@ Statická webová aplikace pro procvičování školních materiálů. GitHub Pa
 - Číslicová technika
 - Počítačová grafika
 
-Aktuální runtime obsahuje 436 úloh: 121 v obecném souboru `exercises.js` (30 v Programování, 56 ve Vývoji webových aplikací, 35 v Databázích), 110 ze sítí, 106 z literatury, 40 z číslicové techniky a 59 z počítačové grafiky.
+Aktuální runtime obsahuje 436 úloh: 121 v obecném souboru `exercises.js` (30 v Programování, 56 ve Vývoji webových aplikací, 35 v Databázích), 110 ze sítí, 106 z literatury, 40 z číslicové techniky a 59 z počítačové grafiky. Z toho 14 existujících úloh používá novou interakční vrstvu `scenario`, `diagnostic`, `classification`, `compare` nebo `image-choice`.
 
 ## Struktura projektu
 
@@ -77,7 +77,8 @@ procvicovna-github/
 ├── .nojekyll
 ├── README.md
 └── docs/
-    └── STRUKTURA.md
+    ├── STRUKTURA.md
+    └── TYPY_OTAZEK.md
 ```
 
 ### Co je aktivní
@@ -142,6 +143,13 @@ Typy aktuálně podporované aplikací:
 - `number` – číselná odpověď (`answer`)
 - `code` – spuštění Pythonu (`starterCode`, `solution`, `expectedOutput`)
 - `conversion` – převod mezi číselnými soustavami (`value`, `fromBase`, `toBase`, `answer`)
+- `scenario` – praktický scénář + jedna správná volba (`scenario`, `choices`, `answer`)
+- `diagnostic` – označení všech chybných položek (`items`, `answerIds`)
+- `classification` – zařazení více položek do kategorií (`categories`, `items`)
+- `compare` – porovnání dvou stran podle více kritérií (`leftLabel`, `rightLabel`, `criteria`)
+- `image-choice` – obrazová otázka s výběrem (`image`, `imageAlt`, `choices`, `answer`)
+
+Podrobně popsané principy, datové struktury, validace a ukázky jsou v [`docs/TYPY_OTAZEK.md`](docs/TYPY_OTAZEK.md).
 
 ### `conversion` – nový typ úlohy
 
@@ -351,4 +359,4 @@ Do aplikace byly doplněny tyto uživatelské funkce:
 
 Při kontrole 30. 9. 2026 byly ověřeny syntaxe JS, aktivní datový validator a runtime DOM v Chromium na šířkách 320, 375, 390, 768 a 1280 px. Kontrolován byl také horizontální overflow, přepínání motivu, vyhledávání, kódový editor, `Tab`, sticky kontrola a workflow **Procvičit jen chyby**. Prohlížečový test použil self-contained DOM harness; přímá navigace sandboxem na `file://`/lokální HTTP byla blokována prostředím.
 
-**Poznámka k počtu úloh:** validator v dodaném projektu potvrzuje **377 aktivních úloh** a 377 unikátních ID. Číslo 377 odpovídá skutečně načteným datům; UI počet bere dynamicky z runtime a nepoužívá pevně zapsanou hodnotu.
+**Poznámka k počtu úloh:** validator v dodaném projektu potvrzuje **436 aktivních úloh** a 436 unikátních ID. UI počet bere dynamicky z runtime a nepoužívá pevně zapsanou hodnotu.

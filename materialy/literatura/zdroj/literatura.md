@@ -10,8 +10,8 @@
 
 ### Sofoklés
 
-- Antigona — tragedie
-  - Drama = divadelní hra — tragedie, komedie
+- Antigona — tragédie
+  - Drama = divadelní hra — tragédie, komedie
 
 ## Románský sloh
 
@@ -30,7 +30,7 @@
 
 - Francesco Petrarca — Sonety Lauře = **sonet** (4. sloky/strofy ~ 2×4 verše, 2×3 verše)
   - **verš** = 1 řádek básně
-- Giovanni Boccacio — Dekameron = **ramcová novela**
+- Giovanni Boccacio — Dekameron = **rámcová novela**
 - William Shakespeare
   - Hamlet — monolog „Být či nebýt.“ (bojí se toho, co je po smrti)
   - Romeo a Julie — balkónová scéna
@@ -52,7 +52,7 @@ Začátek **18. století**
 ### Vysoká literatura
 
 - ódy (oslavná píseň/báseň)
-- tragedie
+- tragédie
 
 ### Nízká literatura
 

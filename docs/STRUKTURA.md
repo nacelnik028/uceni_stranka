@@ -37,7 +37,8 @@ procvicovna-github/
 ├── archiv/
 │   └── puvodni-koren/
 ├── docs/
-│   └── STRUKTURA.md
+│   ├── STRUKTURA.md
+│   └── TYPY_OTAZEK.md
 ├── favicon.svg
 ├── .nojekyll
 └── README.md
@@ -73,3 +74,7 @@ Lokální statistiky používají `localStorage` a jsou oddělené od serveru i 
 ## Zdrojový materiál – Databáze
 
 Materiál `materialy/databaze/zdroj/zdb.md` a původní PDF `ZDB.pdf` slouží jako podklad pro aktivní úlohy `db-*` v `data/exercises.js`.
+
+## Interaktivní typy úloh
+
+Aplikace kromě klasických typů podporuje také `scenario`, `diagnostic`, `classification`, `compare` a `image-choice`. Podrobný princip a datové schéma je v `docs/TYPY_OTAZEK.md`. Nové typy jsou navržené jako univerzální interakce použitelné napříč předměty.

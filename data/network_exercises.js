@@ -1,8 +1,4 @@
-// ============================================================
-// ÚLOHY VYTVOŘENÉ PODLE MATERIÁLU "Počítačové sítě - 1. ročník.canvas"
-// 110 úloh: základy, topologie, kabeláž, modely, adresace, služby
-// ============================================================
-
+// Aktivní otázky – počítačové sítě
 window.NETWORK_EXERCISES = [
   {
     "subject": "Počítačové sítě",
@@ -66,7 +62,8 @@ window.NETWORK_EXERCISES = [
     "hint": "Zkratka vychází z anglického „Personal Area Network“.",
     "tags": [
       "Dělení sítí",
-      "Rozlehlost"]
+      "Rozlehlost"
+    ]
   },
   {
     "subject": "Počítačové sítě",
@@ -101,7 +98,9 @@ window.NETWORK_EXERCISES = [
     "answer": "MAN",
     "solution": "MAN (Metropolitan Area Network) je metropolitní síť pokrývající město či aglomeraci. Vyznačuje se vysokými rychlostmi a optickými páteřními trasami.",
     "hint": "M jako Metropolitan.",
-    "tags": ["Dělení sítí"]
+    "tags": [
+      "Dělení sítí"
+    ]
   },
   {
     "subject": "Počítačové sítě",
@@ -120,7 +119,8 @@ window.NETWORK_EXERCISES = [
     "answer": "WAN (Wide Area Network)",
     "solution": "WAN (Wide Area Network) pokrývá velké geografické plochy (státy, kontinenty, globální internet). Využívá páteřní broadband technologie, podmořské kabely i satelitní spoje.",
     "tags": [
-      "Dělení sítí"]
+      "Dělení sítí"
+    ]
   },
   {
     "subject": "Počítačové sítě",
@@ -169,21 +169,34 @@ window.NETWORK_EXERCISES = [
     "topic": "Základy a rozdělení sítí",
     "subtopic": "Typy vysílání a přenosové módy",
     "id": "ps-zaklady-009",
-    "type": "choice",
-    "title": "Vysílání typu Unicast",
-    "question": "Co charakterizuje vysílání typu Unicast?",
-    "choices": [
-      "Komunikace 1:1 – data putují z jednoho zdroje k jednomu konkrétnímu příjemci",
-      "Komunikace 1:všichni – data obdrží každé zařízení v dosahu bez výjimky",
-      "Komunikace 1:n – data jsou doručena pouze vybrané skupině odběratelů",
-      "Přenášení dat výhradně v analogové podobě bez adresace"
-    ],
-    "answer": "Komunikace 1:1 – data putují z jednoho zdroje k jednomu konkrétnímu příjemci",
-    "solution": "Unicast je přímá komunikace mezi dvěma uzly (1:1), např. prohlížení webu mezi klientem a serverem nebo běžný telefonní hovor. Představuje nízkou zbytečnou zátěž pro ostatní stanice v síti.",
+    "type": "compare",
+    "title": "Unicast versus jiné typy vysílání",
+    "question": "Rozděl jednotlivá tvrzení podle toho, zda popisují Unicast, nebo jiný typ doručování.",
+    "solution": "Unicast znamená komunikaci 1:1 – jeden zdroj posílá data jednomu konkrétnímu příjemci. Broadcast doručuje data všem a multicast vybrané skupině příjemců.",
     "tags": [
-      "Vysílání",
-      "Unicast"
-    ]
+      "adresace",
+      "komunikace"
+    ],
+    "leftLabel": "Unicast",
+    "rightLabel": "Nejde o Unicast",
+    "criteria": [
+      {
+        "id": "one-one",
+        "text": "Data putují z jednoho zdroje k jednomu konkrétnímu příjemci.",
+        "answer": "left"
+      },
+      {
+        "id": "one-all",
+        "text": "Data obdrží všechna zařízení v dosahu.",
+        "answer": "right"
+      },
+      {
+        "id": "one-group",
+        "text": "Data jsou doručena vybrané skupině odběratelů.",
+        "answer": "right"
+      }
+    ],
+    "hint": "U Unicastu je důležitý poměr 1:1."
   },
   {
     "subject": "Počítačové sítě",
@@ -323,7 +336,8 @@ window.NETWORK_EXERCISES = [
     "answer": "Balíčkově orientovaná komunikace (packet switching) – data se dělí na pakety putující sítí nezávisle",
     "solution": "Paul Baran (USA) a Donald Davies (Velká Británie) navrhli rozdělení dat na menší části – pakety (packet switching), které putují sítí nezávisle na sobě, což zajišťuje odolnost i při výpadku části sítě.",
     "tags": [
-      "Historie"]
+      "Historie"
+    ]
   },
   {
     "subject": "Počítačové sítě",
@@ -359,7 +373,9 @@ window.NETWORK_EXERCISES = [
     "answer": "Flag Day",
     "solution": "1. ledna 1983 nastal tzv. „Flag Day“, kdy došlo k plnému přechodu sítě ARPANET z protokolu NCP na sadu TCP/IP. Tento den je považován za vznik internetu v moderním slova smyslu.",
     "hint": "Anglicky „den vlajky“.",
-    "tags": ["Historie"]
+    "tags": [
+      "Historie"
+    ]
   },
   {
     "subject": "Počítačové sítě",
@@ -454,7 +470,9 @@ window.NETWORK_EXERCISES = [
     "answer": "SPOF",
     "solution": "SPOF (Single Point of Failure – jediný bod selhání) znamená, že selhání centrálního prvku (např. centrálního switche) vyřadí z provozu celou připojenou síť.",
     "hint": "Zkratka ze slov Single Point Of Failure.",
-    "tags": ["Topologie"]
+    "tags": [
+      "Topologie"
+    ]
   },
   {
     "subject": "Počítačové sítě",
@@ -523,7 +541,7 @@ window.NETWORK_EXERCISES = [
     "id": "ps-topologie-007",
     "type": "choice",
     "title": "Využití MESH topologie v praxi",
-    "question": "Kde se dnes princip MESH topologie nejčastěji využívá v běžné praxi?",
+    "question": "Kde se princip MESH topologie běžně využívá v praxi?",
     "choices": [
       "V bezdrátových Wi-Fi Mesh sítích (pokrytí velkých domů) a v páteřních sítích poskytovatelů internetu (ISP)",
       "Výhradně v malých kancelářích se dvěma počítači a jednou tiskárnou",
@@ -555,7 +573,8 @@ window.NETWORK_EXERCISES = [
     "answer": "Aktivní prvky signál/data zpracovávají, upravují či směrují a potřebují napájení; pasivní prvky signál pouze přenášejí a napájení nepotřebují",
     "solution": "Aktivní prvky provádějí s daty/signálem aktivní činnost (zesílení, přepínání, směrování) a vyžadují napájení ze sítě. Pasivní prvky (kabely, konektory, zásuvky, patch panely) signál nijak nemění a napájení nepotřebují.",
     "tags": [
-      "Síťové prvky"]
+      "Síťové prvky"
+    ]
   },
   {
     "subject": "Počítačové sítě",
@@ -611,7 +630,10 @@ window.NETWORK_EXERCISES = [
     "answer": "SFP",
     "solution": "SFP modul (Small Form-factor Pluggable) je zásuvný transceiver do switchů a routerů, který převádí elektrický signál na optický a naopak.",
     "hint": "Zkratka ze slov Small Form-factor Pluggable.",
-    "tags": ["Hardware", "Optika"]
+    "tags": [
+      "Hardware",
+      "Optika"
+    ]
   },
   {
     "subject": "Počítačové sítě",
@@ -748,7 +770,9 @@ window.NETWORK_EXERCISES = [
     "answer": "RJ-45",
     "solution": "RJ-45 (Registered Jack 45) je standardizovaný 8pinový konektor pro kroucenou dvojlinku v Ethernetu.",
     "hint": "RJ pomlčka číslo.",
-    "tags": ["Kabeláž"]
+    "tags": [
+      "Kabeláž"
+    ]
   },
   {
     "subject": "Počítačové sítě",
@@ -827,7 +851,10 @@ window.NETWORK_EXERCISES = [
     "answer": "BNC",
     "solution": "BNC (Bayonet Neill–Concelman) konektor je bajonetový konektor používaný u koaxiálních kabelů (např. v historickém standardu 10BASE2).",
     "hint": "Tři písmena začínající na B.",
-    "tags": ["Koaxiál", "Konektory"]
+    "tags": [
+      "Koaxiál",
+      "Konektory"
+    ]
   },
   {
     "subject": "Počítačové sítě",
@@ -884,7 +911,9 @@ window.NETWORK_EXERCISES = [
     "answer": "SYKFY",
     "solution": "Kabel SYKFY je tradiční vnitřní telekomunikační sdělovací kabel s měděnými vodiči, používaný pro pevnou telefonii, interkomy a EZS rozvody.",
     "hint": "Pět písmen začínajících na S a končících na Y.",
-    "tags": ["Kabeláž"]
+    "tags": [
+      "Kabeláž"
+    ]
   },
   {
     "subject": "Počítačové sítě",
@@ -1240,7 +1269,8 @@ window.NETWORK_EXERCISES = [
     "answer": "Prvních 24 bitů je OUI (kód výrobce) a druhých 24 bitů je unikátní číslo zařízení (NIC specific) přidělené výrobcem",
     "solution": "MAC adresa se dělí na 2 poloviny (po 24 bitech / 3 bajtech): OUI (Organizationally Unique Identifier) identifikuje výrobce síťové karty (např. Intel, Cisco, Realtek), zbývající část (NIC) je unikátní sériové číslo daného kusu.",
     "tags": [
-      "MAC"]
+      "MAC"
+    ]
   },
   {
     "subject": "Počítačové sítě",
@@ -1365,7 +1395,7 @@ window.NETWORK_EXERCISES = [
     "type": "fill",
     "autoGrade": true,
     "title": "Adresa zpětné smyčky (Loopback)",
-    "question": "Jaká je nejznámější IPv4 adresa lokální zpětné smyčky (Loopback / localhost), sloužící k testování síťového zásobníku na vlastním počítači?",
+    "question": "Jaká IPv4 adresa označuje lokální zpětnou smyčku (Loopback / localhost) pro testování síťového zásobníku na vlastním počítači?",
     "answer": "127.0.0.1",
     "solution": "Adresa 127.0.0.1 (z bloku 127.0.0.0/8) reprezentuje loopback adaptér (localhost). Pakety poslané na tuto adresu neopouštějí zařízení a testují funkčnost TCP/IP zásobníku.",
     "hint": "Začíná číslem 127.",
@@ -1409,7 +1439,10 @@ window.NETWORK_EXERCISES = [
     "answer": "DHCP",
     "solution": "DHCP (Dynamic Host Configuration Protocol) automaticky zapůjčuje síťové parametry (IP, masku, bránu, DNS servery) připojeným zařízením z nastaveného fondu (poolu).",
     "hint": "Čtyři písmena začínající na D (Dynamic Host...).",
-    "tags": ["Protokoly", "Zkratky"]
+    "tags": [
+      "Protokoly",
+      "Zkratky"
+    ]
   },
   {
     "subject": "Počítačové sítě",
@@ -1425,7 +1458,8 @@ window.NETWORK_EXERCISES = [
     "hint": "ipconfig lomítko all.",
     "tags": [
       "CLI",
-      "Windows"]
+      "Windows"
+    ]
   },
   {
     "subject": "Počítačové sítě",
@@ -1439,7 +1473,10 @@ window.NETWORK_EXERCISES = [
     "answer": "getmac",
     "solution": "Příkaz `getmac` ve Windows rychle zjistí a zobrazí fyzické (MAC) adresy všech instalovaných síťových adaptérů v počítači.",
     "hint": "Složené ze slov get a mac.",
-    "tags": ["CLI", "Windows"]
+    "tags": [
+      "CLI",
+      "Windows"
+    ]
   },
   {
     "subject": "Počítačové sítě",
@@ -1453,7 +1490,10 @@ window.NETWORK_EXERCISES = [
     "answer": "ping",
     "solution": "Nástroj `ping` (využívající protokol ICMP) zjišťuje, zda je cílová IP adresa či doména dostupná, a měří čas odezvy (RTT – Round Trip Time) v milisekundách.",
     "hint": "Čtyři písmena, jako ping-pong.",
-    "tags": ["CLI", "Diagnostika"]
+    "tags": [
+      "CLI",
+      "Diagnostika"
+    ]
   },
   {
     "subject": "Počítačové sítě",
@@ -1493,7 +1533,10 @@ window.NETWORK_EXERCISES = [
     ],
     "answer": "Get-NetNeighbor",
     "solution": "V PowerShellu slouží cmdlet `Get-NetNeighbor` k vypsání sousedních uzlů v síti ze směrovací/sousedské tabulky (pro IPv4 i IPv6).",
-    "tags": ["PowerShell", "Windows"]
+    "tags": [
+      "PowerShell",
+      "Windows"
+    ]
   },
   {
     "subject": "Počítačové sítě",
@@ -1534,7 +1577,8 @@ window.NETWORK_EXERCISES = [
     "solution": "Hierarchie DNS má stromovou strukturu s kořenovou zónou (.) na samém vrcholu. Pod ní jsou domény 1. řádu (TLD, např. `.cz`, `.org`), dále domény 2. řádu (např. `spssol`), 3. řádu (např. `mail`) atd.",
     "tags": [
       "DNS",
-      "Hierarchie"]
+      "Hierarchie"
+    ]
   },
   {
     "subject": "Počítačové sítě",
@@ -1570,7 +1614,8 @@ window.NETWORK_EXERCISES = [
     "solution": "Autoritativní server je definitivním správcem zóny a zná oficiální záznamy dané domény. Rekurzivní resolver (poskytovaný např. ISP nebo Google 8.8.8.8) se ptá v hierarchii za klienta a výsledek si po dobu TTL pamatuje v mezipaměti.",
     "tags": [
       "DNS",
-      "Servery"]
+      "Servery"
+    ]
   },
   {
     "subject": "Počítačové sítě",
@@ -1584,7 +1629,9 @@ window.NETWORK_EXERCISES = [
     "answer": "TTL",
     "solution": "TTL (Time To Live) je časový údaj určující platnost DNS záznamu v mezipaměti (cache) předtím, než se server musí znovu dotázat autoritativního serveru.",
     "hint": "Zkratka Time To Live.",
-    "tags": ["DNS"]
+    "tags": [
+      "DNS"
+    ]
   },
   {
     "subject": "Počítačové sítě",
@@ -1620,7 +1667,10 @@ window.NETWORK_EXERCISES = [
     "answer": "AAAA",
     "solution": "Záznam typu AAAA (tzv. „Quad-A“) překládá doménové jméno na adresu novějšího protokolu IPv6.",
     "hint": "Čtyři stejná písmena A za sebou.",
-    "tags": ["DNS", "IPv6"]
+    "tags": [
+      "DNS",
+      "IPv6"
+    ]
   },
   {
     "subject": "Počítačové sítě",
@@ -1703,7 +1753,8 @@ window.NETWORK_EXERCISES = [
     "answer": "SIP (navázání, řízení a ukončení hovoru) a RTP (přenos samotných hlasových dat v reálném čase)",
     "solution": "SIP (Session Initiation Protocol) slouží jako signalizační protokol pro sestavení, správu a zavěšení hovoru. Samotný proud digitalizovaného audia pak v reálném čase přenáší protokol RTP (Real-time Transport Protocol).",
     "tags": [
-      "VoIP"]
+      "VoIP"
+    ]
   },
   {
     "subject": "Počítačové sítě",
@@ -1739,7 +1790,9 @@ window.NETWORK_EXERCISES = [
     "answer": "VoNR",
     "solution": "VoNR (Voice over New Radio) je nativní technologie hlasových služeb pro mobilní sítě 5G. Poskytuje ultra nízkou latenci a vysokou kvalitu zvuku.",
     "hint": "Začíná Vo a končí NR.",
-    "tags": ["5G"]
+    "tags": [
+      "5G"
+    ]
   },
   {
     "subject": "Počítačové sítě",
@@ -1852,7 +1905,7 @@ window.NETWORK_EXERCISES = [
     "id": "ps-zaklady-021",
     "type": "choice",
     "title": "Typické přenosové rychlosti v LAN",
-    "question": "V jakém řádu se dnes nejčastěji pohybují přenosové rychlosti v moderních lokálních sítích LAN?",
+    "question": "Jaký řád přenosových rychlostí je typický pro moderní lokální sítě LAN?",
     "choices": [
       "V řádu gigabitů za sekundu (1 Gb/s až 10 Gb/s)",
       "V řádu jednotek bitů za hodinu",
@@ -2112,7 +2165,10 @@ window.NETWORK_EXERCISES = [
     "answer": "PSTN",
     "solution": "PSTN (Public Switched Telephone Network) je celosvětová veřejná telekomunikační síť s přepojováním okruhů původně budovaná pro analogové telefonní hovory.",
     "hint": "Začíná P a končí N (Public Switched...).",
-    "tags": ["Historie", "Telefonie"]
+    "tags": [
+      "Historie",
+      "Telefonie"
+    ]
   },
   {
     "subject": "Počítačové sítě",

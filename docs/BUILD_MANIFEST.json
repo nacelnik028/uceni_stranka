@@ -6,18 +6,22 @@
     "data/exercises.js",
     "data/network_exercises.js",
     "data/literature_exercises.js",
-    "data/cislicova_technika_exercises.js"
+    "data/cislicova_technika_exercises.js",
+    "data/pocitacova_grafika_exercises.js"
   ],
-  "ui_revision": "restore_subject_modules_and_colors",
-  "ui_revision_date": "2026-09-30",
-  "notes": "Final runtime preserves all 377 exercises including the Databáze module and materialy/databaze sources. Dark theme remains the default; light theme is optional. Subject cards use stable per-subject accent colors. Code editor Tab inserts 4 spaces and Shift+Tab removes one indentation; mobile uses tab-size 4. No .git directory in the delivery archive. Validator navíc zakazuje tagy, které po normalizaci přesně odpovídají správné odpovědi, a kontroluje samostatnou řešitelnost otázek bez pořadí zdrojového materiálu. Open-ended text inputs now use explicit autoGrade metadata: ambiguous text is self-check only; automated text grading is opt-in for a single canonical answer. Validator rejects missing autoGrade on text/fill and rejects tags that directly reveal the correct answer or an unambiguous answer component.",
+  "ui_revision": "universal_interaction_question_types",
+  "ui_revision_date": "2026-10-02",
+  "notes": "Final runtime preserves all 436 exercises including the Databáze module and materialy/databaze sources. Dark theme remains the default; light theme is optional. Subject cards use stable per-subject accent colors. Code editor Tab inserts 4 spaces and Shift+Tab removes one indentation; mobile uses tab-size 4. No .git directory in the delivery archive. Validator navíc zakazuje tagy, které po normalizaci přesně odpovídají správné odpovědi, a kontroluje samostatnou řešitelnost otázek bez pořadí zdrojového materiálu. Open-ended text inputs now use explicit autoGrade metadata: ambiguous text is self-check only; automated text grading is opt-in for a single canonical answer. Validator rejects missing autoGrade on text/fill and rejects tags that directly reveal the correct answer or an unambiguous answer component. Nově jsou podporovány typy scenario, diagnostic, classification, compare a image-choice; jejich princip a datové schéma jsou popsány v docs/TYPY_OTAZEK.md. Celkem 14 existujících úloh bylo na tyto interakce převedeno napříč moduly.",
   "checks": {
-    "static_exercises": 377,
-    "unique_ids": 377,
+    "static_exercises": 436,
+    "unique_ids": 436,
     "mobile_viewports": [
       320,
+      360,
       375,
-      390
+      390,
+      414,
+      768
     ],
     "desktop_viewports": [
       768,
@@ -36,19 +40,35 @@
     "source_independent_question_rule": true,
     "auto_grade_rule": true,
     "open_input_metadata": 64,
-    "ambiguous_text_self_check": true
+    "ambiguous_text_self_check": true,
+    "exact_duplicate_questions": 0,
+    "content_duplicate_audit": true,
+    "reworked_redundant_questions": 14,
+    "new_question_types": [
+      "scenario",
+      "diagnostic",
+      "classification",
+      "compare",
+      "image-choice"
+    ],
+    "converted_questions_to_new_types": 14,
+    "content_formula_audit": true,
+    "image_references": 20,
+    "new_types_exhaustive_interactions": true
   },
   "runtime_sha256": {
-    "index.html": "55cfdcaf091a1b6b98d0387c0e9cc4edbd464aa072d920bdcb76aa3e250d0254",
-    "app.js": "874e588880de3213f8d5d3581ca8575563d24665e2c6a99c5b9b1660d892be2b",
-    "data/exercises.js": "105306b2a445a760e941c5a330d5ee23e01852839c423070b565c44e04de8e72",
-    "data/network_exercises.js": "b3843a29d51eaaca6b9fd33f65db183c1d90861e0db03da438a3cd79c7ac3f76",
-    "data/literature_exercises.js": "622dac0c68b2be6ab243882d51fcf0605f2e5e88845274f993cc7a821328d082",
-    "data/cislicova_technika_exercises.js": "a4b508ad143deacfa2060465304f9ae3181760ab89c9622be6fda932b74d8ba7"
+    "index.html": "f058238b03e06a5d00560bd4bbd1b3101b3bc5d4a3ff622be0675664adb66a91",
+    "app.js": "2d5dc33c3662e55dcf27b74833fd8d876b3157793f158601f1679d090297e07e",
+    "data/exercises.js": "dfc0b2667cef2f22c53a23fc35cf85d08ea0546b903bc1ba73e26cba021dbaba",
+    "data/network_exercises.js": "bf49f6910b8b775228ba9879944d4a3ead496b0a852902e8a91819886a0d9e1f",
+    "data/literature_exercises.js": "49fa94b6b2ad088c7af1116a13a3135b0dd9374cc41b6bb14d8d19e1956662d2",
+    "data/cislicova_technika_exercises.js": "8074e6a91ab9b5aecff18a41d6e4c4ee6ee8c5392eb2fdaa7aca70c29e9beeb8",
+    "data/pocitacova_grafika_exercises.js": "f05dcc81a8bcf942f0959a1b83052d932dd5dd1a4b738ab7e2fe3add77e265ed"
   },
   "validation": {
     "validator": "scripts/validate_questions.js",
     "answer_tag_rule": "error",
     "normalization": "Unicode NFKC, odstranění Markdown delimitérů/diakritiky, case-insensitive, tolerantní formátování; navíc detekce zkratek a přímých částí odpovědí u objektivních typů"
-  }
+  },
+  "final_audit_date": "2026-10-02"
 }

@@ -3,7 +3,7 @@
 Zdrojový materiál pro modul **Databáze**. Původní přepis byl při přípravě úloh terminologicky sjednocen, aby se používala standardní označení DDL, DQL, DML, DCL a TCL.
 
 - Informace jsou zpracovaná data.
-- Open data (big data) jsou veřejná data.
+- Open data jsou veřejná data dostupná veřejnosti.
 - Relační databáze má řádky a sloupce a jsou propojeny pomocí klíčů (primární a cizí).
 - Sloupec = atribut.
 - Vlastnosti databází: práva, ukládání, zabezpečení, správa dat, integrita dat, zálohování a obnova dat.

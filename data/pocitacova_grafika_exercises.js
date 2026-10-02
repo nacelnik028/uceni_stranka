@@ -1,10 +1,3 @@
-// ============================================================
-// ÚLOHY PRO MODUL „Počítačová grafika“
-// Zdroj: rastrová vs. vektorová grafika + favicon + přiložené infografiky
-// ============================================================
-
-window.PC_GRAPHICS_EXERCISE_SET_TITLE = 'Počítačová grafika';
-window.PC_GRAPHICS_EXERCISE_SUBJECT = 'Počítačová grafika';
 window.PC_GRAPHICS_EXERCISES = [
   {
     "subject": "Počítačová grafika",
@@ -111,24 +104,25 @@ window.PC_GRAPHICS_EXERCISES = [
     "topic": "Rastrová vs. vektorová grafika",
     "subtopic": "Použití",
     "id": "pg-vector-001",
-    "type": "choice",
-    "title": "Logo a škálování",
-    "question": "Který typ grafiky je obvykle vhodnější pro logo, které musí fungovat na vizitce i billboardu?",
+    "type": "scenario",
+    "title": "Logo pro různé velikosti",
+    "question": "Kterou variantu zvolíš pro hlavní pracovní soubor loga?",
     "choices": [
-      "Vektorová grafika",
-      "Rastrová grafika s nízkým rozlišením",
+      "Vektorovou grafiku",
+      "Rastrovou grafiku s nízkým rozlišením",
       "Animovaný GIF",
-      "Pouze fotografie"
+      "Pouze fotografii"
     ],
-    "answer": "Vektorová grafika",
-    "solution": "Vektor lze zvětšovat i zmenšovat bez ztráty kvality, proto se hodí pro logo v různých velikostech.",
-    "hint": "Logo se může zobrazovat v mnoha rozměrech.",
+    "answer": "Vektorovou grafiku",
+    "solution": "Vektorová grafika je definována matematicky a lze ji zvětšovat i zmenšovat bez zhoršení kvality, takže se hodí pro logo v různých rozměrech.",
+    "hint": "Zamysli se nad tím, co se stane s pixely při zvětšení.",
     "tags": [
       "vektor",
       "logo",
       "škálování"
     ],
-    "difficulty": 1
+    "difficulty": 1,
+    "scenario": "Klient chce stejné logo použít na vizitce, webu i velkém billboardu. Výsledná grafika musí zůstat ostrá i při výrazném zvětšení."
   },
   {
     "subject": "Počítačová grafika",
@@ -348,17 +342,17 @@ window.PC_GRAPHICS_EXERCISES = [
     "topic": "Rastrová vs. vektorová grafika",
     "subtopic": "Práce s ilustrací",
     "id": "pg-img-001",
-    "type": "choice",
-    "title": "Co ukazuje lupa",
-    "question": "Na přiložené ilustraci je vlevo část obrázku zobrazená jako barevná mřížka a vpravo hladké křivky. Která část představuje rastr?",
+    "type": "image-choice",
+    "title": "Poznej raster na ilustraci",
+    "question": "Na obrázku je vlevo část znázorněná jako mřížka barevných bodů a vpravo hladké křivky. Která část představuje rastr?",
     "choices": [
       "Levá část s barevnými čtverečky",
       "Pravá část s hladkými křivkami",
-      "Ani jedna",
+      "Ani jedna část",
       "Pouze lupa bez obrázku"
     ],
     "answer": "Levá část s barevnými čtverečky",
-    "solution": "Levá část znázorňuje rastr pomocí jednotlivých pixelů.",
+    "solution": "Levá část znázorňuje rastr pomocí jednotlivých pixelů. Pravá část představuje vektorovou grafiku založenou na křivkách.",
     "hint": "Rastr je založený na mřížce obrazových bodů.",
     "tags": [
       "obrázek",
@@ -367,7 +361,7 @@ window.PC_GRAPHICS_EXERCISES = [
     ],
     "image": "materialy/pocitacova-grafika/zdroj/media/rastrová-vektorová-grafika.png",
     "imageAlt": "Infografika porovnávající rastrovou a vektorovou grafiku",
-    "imageCaption": "Porovnání rastru a vektoru",
+    "imageCaption": "Podívej se hlavně na levou část ilustrace a její zvětšené pixely.",
     "difficulty": 1
   },
   {
@@ -402,17 +396,17 @@ window.PC_GRAPHICS_EXERCISES = [
     "subtopic": "Doporučení",
     "id": "pg-img-003",
     "type": "choice",
-    "title": "Logo bez pixelace",
-    "question": "Podle přiložené infografiky potřebuješ logo nebo ikonu pro různé velikosti. Který formát je doporučen?",
+    "title": "PDF na tisk z infografiky",
+    "question": "Podle přiložené infografiky: Který formát je v části „Vektory a dokumenty“ spojen s tiskem a presety PDF/X?",
     "choices": [
-      "SVG",
+      "PDF",
       "JPEG",
-      "GIF",
-      "BMP"
+      "PNG",
+      "GIF"
     ],
-    "answer": "SVG",
-    "solution": "Infografika doporučuje SVG pro logo nebo ikonu, protože zůstává ostré při změně velikosti.",
-    "hint": "Vektorový formát je určený pro škálovatelnou grafiku.",
+    "answer": "PDF",
+    "solution": "Infografika uvádí PDF v části vektorů a dokumentů jako formát pro tisk s presety PDF/X.",
+    "hint": "Hledej ikonku dokumentu označenou PDF.",
     "tags": [
       "obrázek",
       "logo",
@@ -589,9 +583,9 @@ window.PC_GRAPHICS_EXERCISES = [
     "topic": "Export grafiky",
     "subtopic": "Výstupní formáty",
     "id": "pg-affinity-002",
-    "type": "match",
-    "title": "Formát a účel exportu",
-    "question": "Přiřaď formát z přiložené infografiky k typickému použití.",
+    "type": "classification",
+    "title": "Formáty a jejich použití",
+    "question": "Zařaď každý formát k typickému použití podle přiložené infografiky.",
     "pairs": [
       {
         "left": "JPEG",
@@ -618,8 +612,8 @@ window.PC_GRAPHICS_EXERCISES = [
         "right": "Archivace"
       }
     ],
-    "solution": "Infografika uvádí JPEG pro fotky, PNG pro průhlednost, WebP pro web, SVG pro škálovatelný web, PDF pro tisk a TIFF pro archivaci.",
-    "hint": "Použij krátké popisky přímo u ikon formátů.",
+    "solution": "Infografika uvádí JPEG pro fotografie, PNG pro průhlednost, WebP jako úspornou variantu pro web, SVG pro škálovatelnou webovou grafiku, PDF pro tisk a TIFF pro archivaci.",
+    "hint": "Použij krátké popisky u jednotlivých ikon formátů.",
     "tags": [
       "obrázek",
       "formáty",
@@ -627,7 +621,47 @@ window.PC_GRAPHICS_EXERCISES = [
     ],
     "image": "materialy/pocitacova-grafika/zdroj/media/export-grafiky-affinity.png",
     "imageAlt": "Infografika o rastrových a vektorových exportních formátech",
-    "difficulty": 2
+    "difficulty": 2,
+    "categories": [
+      "Fotografie",
+      "Průhlednost",
+      "Úspora místa pro web",
+      "Škálovatelná grafika",
+      "Tisk",
+      "Archivace"
+    ],
+    "items": [
+      {
+        "id": "jpeg",
+        "text": "JPEG",
+        "category": "Fotografie"
+      },
+      {
+        "id": "png",
+        "text": "PNG",
+        "category": "Průhlednost"
+      },
+      {
+        "id": "webp",
+        "text": "WebP",
+        "category": "Úspora místa pro web"
+      },
+      {
+        "id": "svg",
+        "text": "SVG",
+        "category": "Škálovatelná grafika"
+      },
+      {
+        "id": "pdf",
+        "text": "PDF",
+        "category": "Tisk"
+      },
+      {
+        "id": "tiff",
+        "text": "TIFF",
+        "category": "Archivace"
+      }
+    ]
   },
   {
     "subject": "Počítačová grafika",
@@ -728,9 +762,9 @@ window.PC_GRAPHICS_EXERCISES = [
     "topic": "Export grafiky",
     "subtopic": "Web vs. tisk",
     "id": "pg-affinity-006",
-    "type": "match",
-    "title": "Web nebo tisk",
-    "question": "Přiřaď nastavení z přiložené infografiky k prostředí.",
+    "type": "compare",
+    "title": "Web versus profesionální tisk",
+    "question": "U každého nastavení rozhodni, ke kterému prostředí podle infografiky patří.",
     "pairs": [
       {
         "left": "Pixely (px)",
@@ -757,16 +791,50 @@ window.PC_GRAPHICS_EXERCISES = [
         "right": "Tisk – rozlišení v cílové velikosti"
       }
     ],
-    "solution": "Infografika odděluje webové nastavení (px, sRGB, 72–96 PPI) od tiskového (mm/cm, CMYK, 300 PPI).",
-    "hint": "Porovnej levý a pravý blok nastavení.",
+    "solution": "Webová část průvodce používá px, sRGB a 72–96 PPI. Profesionální tisk používá mm/cm, CMYK a 300 PPI v cílové velikosti.",
+    "hint": "Porovnej levý a pravý blok technického nastavení v infografice.",
     "tags": [
       "obrázek",
       "technické nastavení",
       "cílové prostředí"
     ],
     "image": "materialy/pocitacova-grafika/zdroj/media/export-grafiky-affinity.png",
-    "imageAlt": "Infografika web vs. tisk",
-    "difficulty": 2
+    "imageAlt": "Infografika s rozdělením webového a tiskového nastavení",
+    "difficulty": 2,
+    "leftLabel": "Web",
+    "rightLabel": "Profesionální tisk",
+    "criteria": [
+      {
+        "id": "units-web",
+        "text": "Jednotky: pixely (px)",
+        "answer": "left"
+      },
+      {
+        "id": "color-web",
+        "text": "Barevný prostor: sRGB",
+        "answer": "left"
+      },
+      {
+        "id": "ppi-web",
+        "text": "Rozlišení: 72–96 PPI",
+        "answer": "left"
+      },
+      {
+        "id": "units-print",
+        "text": "Jednotky: mm / cm",
+        "answer": "right"
+      },
+      {
+        "id": "color-print",
+        "text": "Barevný prostor: CMYK",
+        "answer": "right"
+      },
+      {
+        "id": "ppi-print",
+        "text": "Rozlišení: 300 PPI v cílové velikosti",
+        "answer": "right"
+      }
+    ]
   },
   {
     "subject": "Počítačová grafika",
@@ -775,7 +843,7 @@ window.PC_GRAPHICS_EXERCISES = [
     "id": "pg-export-001",
     "type": "choice",
     "title": "JPEG pro fotografii",
-    "question": "Který formát je z této šestice nejtypičtější volba pro klasickou fotografii?",
+    "question": "Který z uvedených formátů je typickou volbou pro klasickou fotografii?",
     "choices": [
       "JPEG",
       "SVG",
@@ -799,17 +867,17 @@ window.PC_GRAPHICS_EXERCISES = [
     "subtopic": "Formáty",
     "id": "pg-export-002",
     "type": "choice",
-    "title": "Průhledné pozadí",
-    "question": "Který formát z uvedených je vhodný pro grafiku s průhledným pozadím?",
+    "title": "GIF pro jednoduchou animaci",
+    "question": "Který formát z průvodce je vhodný pro krátké a jednoduché animace?",
     "choices": [
-      "PNG",
-      "JPEG",
+      "GIF",
+      "SVG",
       "TIFF",
       "PDF"
     ],
-    "answer": "PNG",
-    "solution": "PNG je vhodný pro grafiku s průhledným pozadím.",
-    "hint": "Zaměř se na podporu průhlednosti.",
+    "answer": "GIF",
+    "solution": "V přiložené infografice je GIF uveden jako vhodná volba pro krátké a jednoduché animace.",
+    "hint": "Jde o formát spojený s jednoduchým pohybem.",
     "tags": [
       "průhlednost",
       "web",
@@ -1012,46 +1080,96 @@ window.PC_GRAPHICS_EXERCISES = [
     "topic": "Export grafiky",
     "subtopic": "Technické nastavení",
     "id": "pg-tech-004",
-    "type": "choice",
-    "title": "sRGB versus CMYK",
-    "question": "Které přiřazení barevných prostorů odpovídá přiloženému průvodci?",
-    "choices": [
-      "sRGB → web, CMYK → tisk",
-      "CMYK → web, sRGB → tisk",
-      "sRGB → archivace, CMYK → animace",
-      "Oba jsou určeny jen pro fotografie"
-    ],
-    "answer": "sRGB → web, CMYK → tisk",
-    "solution": "Infografika uvádí sRGB pro digitální prostředí a CMYK pro profesionální tisk.",
-    "hint": "Porovnej blok Web a blok Tisk.",
+    "type": "diagnostic",
+    "title": "Odhal chybné barevné nastavení",
+    "question": "V označených řádcích najdi všechna chybná přiřazení barevného prostoru k prostředí.",
+    "solution": "Podle infografiky patří sRGB k digitálnímu prostředí (web) a CMYK k profesionálnímu tisku. Chybná jsou tedy přiřazení Web → CMYK a Tisk → sRGB.",
+    "hint": "Zaměř se jen na barevný prostor, ne na rozlišení nebo jednotky.",
     "tags": [
       "barvy",
       "digitální a tiskové výstupy"
     ],
-    "difficulty": 2
+    "difficulty": 2,
+    "items": [
+      {
+        "id": "web-srgb",
+        "label": "Web → sRGB",
+        "detail": "Toto přiřazení odpovídá průvodci.",
+        "correct": false
+      },
+      {
+        "id": "print-cmyk",
+        "label": "Profesionální tisk → CMYK",
+        "detail": "Toto přiřazení odpovídá průvodci.",
+        "correct": false
+      },
+      {
+        "id": "web-cmyk",
+        "label": "Web → CMYK",
+        "detail": "To neodpovídá uvedenému webovému nastavení.",
+        "correct": true
+      },
+      {
+        "id": "print-srgb",
+        "label": "Profesionální tisk → sRGB",
+        "detail": "To neodpovídá uvedenému tiskovému nastavení.",
+        "correct": true
+      }
+    ],
+    "answerIds": [
+      "web-cmyk",
+      "print-srgb"
+    ],
+    "image": "materialy/pocitacova-grafika/zdroj/media/export-grafiky-affinity.png",
+    "imageAlt": "Infografika web versus tisk"
   },
   {
     "subject": "Počítačová grafika",
     "topic": "Export grafiky",
     "subtopic": "Technické nastavení",
     "id": "pg-tech-005",
-    "type": "choice",
-    "title": "PPI pro obrazovku a tisk",
-    "question": "Které tvrzení odpovídá přiloženému nastavení rozlišení?",
-    "choices": [
-      "Web: 72–96 PPI; tisk: 300 PPI v cílové velikosti",
-      "Web: 300 PPI; tisk: 72–96 PPI",
-      "Web i tisk: vždy 16 PPI",
-      "Web i tisk: rozlišení není důležité"
-    ],
-    "answer": "Web: 72–96 PPI; tisk: 300 PPI v cílové velikosti",
-    "solution": "Infografika odděluje obrazovkové rozlišení 72–96 PPI od tiskového 300 PPI v cílové velikosti.",
-    "hint": "Rozlišení je v infografice uvedeno v obou blocích.",
+    "type": "diagnostic",
+    "title": "Odhal chybné rozlišení",
+    "question": "V označených řádcích najdi všechna chybná přiřazení rozlišení k prostředí.",
+    "solution": "Podle průvodce je 72–96 PPI uvedeno pro digitální prostředí a 300 PPI pro profesionální tisk. Chybná jsou tedy Web → 300 PPI a Tisk → 72–96 PPI.",
+    "hint": "Porovnej dva bloky nastavení: web a tisk.",
     "tags": [
       "rozlišení",
       "digitální a tiskové výstupy"
     ],
-    "difficulty": 2
+    "difficulty": 2,
+    "items": [
+      {
+        "id": "web-72",
+        "label": "Web → 72–96 PPI",
+        "detail": "Odpovídá přiloženému průvodci.",
+        "correct": false
+      },
+      {
+        "id": "print-300",
+        "label": "Profesionální tisk → 300 PPI",
+        "detail": "Odpovídá přiloženému průvodci.",
+        "correct": false
+      },
+      {
+        "id": "web-300",
+        "label": "Web → 300 PPI",
+        "detail": "V průvodci je 300 PPI uvedeno pro tisk.",
+        "correct": true
+      },
+      {
+        "id": "print-96",
+        "label": "Profesionální tisk → 72–96 PPI",
+        "detail": "V průvodci je 72–96 PPI uvedeno pro web.",
+        "correct": true
+      }
+    ],
+    "answerIds": [
+      "web-300",
+      "print-96"
+    ],
+    "image": "materialy/pocitacova-grafika/zdroj/media/export-grafiky-affinity.png",
+    "imageAlt": "Infografika s nastavením webu a tisku"
   },
   {
     "subject": "Počítačová grafika",
@@ -1287,7 +1405,7 @@ window.PC_GRAPHICS_EXERCISES = [
     "id": "pg-favicon-003",
     "type": "choice",
     "title": "Přímý vliv na SEO",
-    "question": "Jak je v podkladu popsán vztah favicony k SEO?",
+    "question": "Které tvrzení nejlépe popisuje vztah favicony k SEO?",
     "choices": [
       "Favicon přímo neurčuje pořadí ve vyhledávači, ale může nepřímo pomoci viditelnosti a prokliku",
       "Favicon je hlavní faktor pořadí výsledků",
@@ -1477,7 +1595,7 @@ window.PC_GRAPHICS_EXERCISES = [
     "type": "fill",
     "autoGrade": true,
     "title": "Široce podporovaný formát",
-    "question": "Který formát je v podkladu označen jako široce podporovaný pro favicony?",
+    "question": "Který formát je tradičně široce podporovaný pro favicony?",
     "answer": "ICO",
     "solution": "ICO je tradiční a široce podporovaný formát favicony.",
     "hint": "Tři písmena.",
@@ -1552,7 +1670,7 @@ window.PC_GRAPHICS_EXERCISES = [
     "id": "pg-favicon-013",
     "type": "multi",
     "title": "Online generátory favicon",
-    "question": "Které z následujících služeb jsou v podkladu uvedeny jako online generátory favicon?",
+    "question": "Které z následujících názvů jsou online generátory favicon?",
     "choices": [
       "favicon-generator.org",
       "favicon.io",
@@ -1567,7 +1685,7 @@ window.PC_GRAPHICS_EXERCISES = [
       "realfavicongenerator.net"
     ],
     "solution": "Podklad uvádí čtyři konkrétní online generátory favicon: favicon-generator.org, favicon.io, favicomatic.com a realfavicongenerator.net.",
-    "hint": "Vyber čtyři konkrétní generátory, ne obecnou ukázkovou doménu.",
+    "hint": "Vyber čtyři skutečné názvy uvedené v seznamu generátorů.",
     "tags": [
       "favicon",
       "generátory",
