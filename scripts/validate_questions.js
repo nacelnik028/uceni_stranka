@@ -29,6 +29,7 @@ const groups = [
   { file: 'network_exercises.js', variable: 'NETWORK_EXERCISES' },
   { file: 'literature_exercises.js', variable: 'LITERATURE_EXERCISES' },
   { file: 'cislicova_technika_exercises.js', variable: 'DIGITAL_TECHNICS_EXERCISES' },
+  { file: 'pocitacova_grafika_exercises.js', variable: 'PC_GRAPHICS_EXERCISES' },
 ];
 
 const allowedTypes = new Set(['choice', 'multi', 'match', 'order', 'text', 'code', 'fill', 'number', 'conversion']);

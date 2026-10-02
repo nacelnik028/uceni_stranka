@@ -10,8 +10,9 @@ Statická webová aplikace pro procvičování školních materiálů. GitHub Pa
 - Počítačové sítě
 - Literatura
 - Číslicová technika
+- Počítačová grafika
 
-Aktuální runtime obsahuje 377 úloh: 121 v obecném souboru `exercises.js` (30 v Programování, 56 ve Vývoji webových aplikací, 35 v Databázích), 110 ze sítí, 106 z literatury a 40 z číslicové techniky.
+Aktuální runtime obsahuje 436 úloh: 121 v obecném souboru `exercises.js` (30 v Programování, 56 ve Vývoji webových aplikací, 35 v Databázích), 110 ze sítí, 106 z literatury, 40 z číslicové techniky a 59 z počítačové grafiky.
 
 ## Struktura projektu
 
@@ -24,7 +25,8 @@ procvicovna-github/
 │   ├── exercises.js
 │   ├── network_exercises.js
 │   ├── literature_exercises.js
-│   └── cislicova_technika_exercises.js
+│   ├── cislicova_technika_exercises.js
+│   └── pocitacova_grafika_exercises.js
 │
 ├── scripts/
 │   └── validate_questions.js          # validace všech aktivních dat
@@ -36,7 +38,7 @@ procvicovna-github/
 │   │   └── zdroj/literatura.md
 │   ├── cislicova-technika/
 │   │   └── zdroj/ciselne_soustavy.md
-│   └── pocitacove-site/
+│   ├── pocitacove-site/
 │       ├── zdroj/
 │       │   ├── pocitacove-site-1-rocnik.canvas
 │       │   └── zpracovani/
@@ -56,6 +58,12 @@ procvicovna-github/
 │           ├── exercises_part3.json
 │           ├── exercises_part4.json
 │           └── exercises_part5.json
+│   └── pocitacova-grafika/
+│       └── zdroj/
+│           ├── rastrová-vektorová-grafika.md
+│           └── media/
+│               ├── export-grafiky-affinity.png
+│               └── rastrová-vektorová-grafika.png
 │
 ├── archiv/                            # pomocné/legacy kopie, NENÍ to runtime
 │   └── puvodni-koren/
@@ -81,10 +89,11 @@ Aktivní soubory jsou pouze `index.html`, `app.js`, soubory v `data/` a validát
 <script src="data/network_exercises.js"></script>
 <script src="data/literature_exercises.js"></script>
 <script src="data/cislicova_technika_exercises.js"></script>
+<script src="data/pocitacova_grafika_exercises.js"></script>
 <script src="app.js"></script>
 ```
 
-`app.js` pak spojí globální pole `EXERCISES`, `NETWORK_EXERCISES`, `LITERATURE_EXERCISES` a `DIGITAL_TECHNICS_EXERCISES` do jednoho seznamu.
+`app.js` pak spojí globální pole `EXERCISES`, `NETWORK_EXERCISES`, `LITERATURE_EXERCISES`, `DIGITAL_TECHNICS_EXERCISES` a `PC_GRAPHICS_EXERCISES` do jednoho seznamu.
 
 ### Co je v `archiv/`
 
@@ -98,7 +107,7 @@ materialy/pocitacove-site/zdroj/pocitacove-site-1-rocnik.canvas
 
 ## UI a ovládání
 
-Úvodní stránka zachovává barevné rozlišení šesti předmětů: Programování, Vývoj webových aplikací, Databáze, Počítačové sítě, Literatura a Číslicová technika. Výchozí motiv je tmavý; tlačítkem **Světlý motiv** lze přepnout světlé barvy a volba se ukládá lokálně.
+Úvodní stránka zachovává barevné rozlišení sedmi předmětů: Programování, Vývoj webových aplikací, Databáze, Počítačové sítě, Literatura, Číslicová technika a Počítačová grafika. Výchozí motiv je tmavý; tlačítkem **Světlý motiv** lze přepnout světlé barvy a volba se ukládá lokálně.
 
 Ve studiu je vyhledávání, pět filtrů a volba velikosti sady seskupena do sbalitelného panelu **Nastavení sady**. Panel je při vstupu do studia standardně zavřený, takže hlavní hlavička ponechává na očích pouze režim a průběh sady. Progress bar je `position: sticky`, aby zůstal dostupný při scrollování. Akční tlačítka pro novou sadu, řešení, generování a shrnutí jsou součástí Nastavení sady.
 

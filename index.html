@@ -27,7 +27,7 @@
       --good-bg:#eaf8f0; --good-border:#82caa4; --bad-bg:#fff0f2; --bad-border:#e8a4ae;
       --hover:#f0f4fa; --hover-border:#8ea0b9; --accent-hover:#1d4ed8; --input-focus:rgba(37,99,235,.14);
     }
-    .card[data-subject="Programování"]{--subject-color:#60a5fa}.card[data-subject="Vývoj webových aplikací"]{--subject-color:#4ade80}.card[data-subject="Databáze"]{--subject-color:#f6c85f}.card[data-subject="Počítačové sítě"]{--subject-color:#fb8aa0}.card[data-subject="Literatura"]{--subject-color:#a78bfa}.card[data-subject="Číslicová technika"]{--subject-color:#4aa8ff}
+    .card[data-subject="Programování"]{--subject-color:#60a5fa}.card[data-subject="Vývoj webových aplikací"]{--subject-color:#4ade80}.card[data-subject="Databáze"]{--subject-color:#f6c85f}.card[data-subject="Počítačové sítě"]{--subject-color:#fb8aa0}.card[data-subject="Literatura"]{--subject-color:#a78bfa}.card[data-subject="Číslicová technika"]{--subject-color:#4aa8ff}.card[data-subject="Počítačová grafika"]{--subject-color:#c084fc}
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{margin:0;background:var(--bg);color:var(--text);font:400 16px/1.6 var(--sans);min-height:100vh;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
@@ -71,6 +71,7 @@
     .exercise-head{display:flex;justify-content:space-between;gap:14px;padding:16px 20px 12px;align-items:flex-start}
     .exercise-number{color:var(--muted);font-size:13px;margin-bottom:2px}
     .exercise-body{padding:0 20px 20px}
+    .question-figure{margin:16px 0 18px;padding:10px;border:1px solid var(--line);border-radius:12px;background:var(--code)}.question-figure img{display:block;width:100%;max-width:100%;height:auto;border-radius:8px}.question-figure figcaption{margin-top:8px;color:var(--muted);font-size:12px;line-height:1.45}
     .question{font-size:16.5px;line-height:1.8;white-space:pre-wrap;max-width:68ch}
     code{font-family:var(--mono);font-size:.88em;background:var(--code);border:1px solid var(--line);border-radius:6px;padding:1px 6px;color:#cfe6ff;white-space:pre-wrap}
     pre.code-block{font:13.5px/1.6 var(--mono);background:var(--code);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:10px 0;overflow-x:auto;white-space:pre}
@@ -349,6 +350,7 @@
   <script src="data/network_exercises.js?v=2"></script>
   <script src="data/literature_exercises.js?v=4"></script>
   <script src="data/cislicova_technika_exercises.js?v=3"></script>
-  <script src="app.js?v=26"></script>
+  <script src="data/pocitacova_grafika_exercises.js?v=1"></script>
+  <script src="app.js?v=27"></script>
 </body>
 </html>

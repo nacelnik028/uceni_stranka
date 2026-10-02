@@ -12,7 +12,8 @@ procvicovna-github/
 │   ├── exercises.js
 │   ├── network_exercises.js
 │   ├── literature_exercises.js
-│   └── cislicova_technika_exercises.js
+│   ├── cislicova_technika_exercises.js
+│   └── pocitacova_grafika_exercises.js
 ├── scripts/
 │   └── validate_questions.js
 ├── materialy/
@@ -20,6 +21,11 @@ procvicovna-github/
 │   ├── literatura/zdroj/
 │   ├── cislicova-technika/zdroj/
 │   ├── vyvoj-webovych-aplikaci/zdroj/
+│   ├── pocitacova-grafika/zdroj/
+│   │   ├── rastrová-vektorová-grafika.md
+│   │   └── media/
+│   │       ├── export-grafiky-affinity.png
+│   │       └── rastrová-vektorová-grafika.png
 │   ├── databaze/
 │   │   └── zdroj/
 │   │       ├── zdb.md
@@ -39,7 +45,7 @@ procvicovna-github/
 
 ## Kde se upravují otázky
 
-Aktivní otázky jsou v `data/*.js`. Zdrojové materiály nejsou načítané přímo webem.
+Aktivní otázky jsou v `data/*.js`. Zdrojové materiály nejsou načítané přímo webem. Modul `Počítačová grafika` má vlastní runtime data v `data/pocitacova_grafika_exercises.js`; přiložené infografiky se zobrazují přímo u vybraných úloh.
 
 ## Kde se upravuje aplikace
 

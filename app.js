@@ -5,6 +5,7 @@ const state = {
     ...(Array.isArray(window.NETWORK_EXERCISES) ? window.NETWORK_EXERCISES : []),
     ...(Array.isArray(window.LITERATURE_EXERCISES) ? window.LITERATURE_EXERCISES : []),
     ...(Array.isArray(window.DIGITAL_TECHNICS_EXERCISES) ? window.DIGITAL_TECHNICS_EXERCISES : []),
+    ...(Array.isArray(window.PC_GRAPHICS_EXERCISES) ? window.PC_GRAPHICS_EXERCISES : []),
   ],
   answerVisible: false,
   view: 'home',
@@ -463,6 +464,7 @@ function renderHome() {
     'Počítačové sítě': { icon: '▦', color: '#fb8aa0' },
     'Literatura': { icon: '∑', color: '#a78bfa' },
     'Číslicová technika': { icon: '◌', color: '#4aa8ff' },
+    'Počítačová grafika': { icon: '▧', color: '#c084fc' },
   };
   const fallbackIcons = ['◈', '⌘', '✦', '▦', '∑', '◌'];
   $('subjectCards').innerHTML = subjects.length ? subjects.map((subject, i) => {
@@ -762,6 +764,10 @@ function renderExercise(e, index) {
       <div class="output" data-out="${id}">${autoGrade ? 'Napiš odpověď a zkontroluj.' : 'Odpověď se automaticky nehodnotí.'}</div>`;
   }
 
+  const media = e.image
+    ? `<figure class="question-figure"><img src="${esc(e.image)}" alt="${esc(e.imageAlt || e.title || 'Ilustrace k úloze')}" loading="lazy">${e.imageCaption ? `<figcaption>${rich(e.imageCaption)}</figcaption>` : ''}</figure>`
+    : '';
+
   const hint = e.hint
     ? `<details><summary class="hint">Nápověda</summary><div class="small" style="margin-top:7px">${rich(e.hint)}</div></details>`
     : '';
@@ -781,6 +787,7 @@ function renderExercise(e, index) {
     </div>
     <div class="exercise-body">
       <div class="question">${rich(e.question)}</div>
+      ${media}
       ${inner}
       ${hint}
       ${solutionBlock(e)}
