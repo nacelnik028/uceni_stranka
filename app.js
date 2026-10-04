@@ -502,6 +502,19 @@ function bySubject(list, subject) {
   return subject === 'all' ? list : list.filter(e => e.subject === subject);
 }
 
+function subjectIcon(subject) {
+  const paths = {
+    'Programování': '<path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-12-2 14"/>',
+    'Vývoj webových aplikací': '<rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01m-2 6-2 2 2 2m8-4 2 2-2 2"/>',
+    'Databáze': '<ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>',
+    'Počítačové sítě': '<rect x="9" y="3" width="6" height="5" rx="1"/><rect x="2" y="16" width="6" height="5" rx="1"/><rect x="16" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M5 16v-4h14v4"/>',
+    'Literatura': '<path d="M12 5c-3-2-6-2-9-1v15c3-1 6-1 9 1 3-2 6-2 9-1V4c-3-1-6-1-9 1Zm0 0v15"/>',
+    'Číslicová technika': '<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 8h2v8m4-8h2v8h-2V8ZM8 16h4M8 2v2m8-2v2M8 20v2m8-2v2M2 8h2m-2 8h2m16-8h2m-2 8h2"/>',
+    'Počítačová grafika': '<rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.5"/><path d="m3 17 5-5 4 4 4-6 5 7"/>'
+  };
+  return `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[subject] || paths['Literatura']}</svg>`;
+}
+
 function renderHome() {
   const subjects = unique(state.exercises.map(e => e.subject));
   const topics = unique(state.exercises.map(e => e.topic));
@@ -523,10 +536,10 @@ function renderHome() {
   $('subjectCards').innerHTML = subjects.length ? subjects.map((subject, i) => {
     const items = state.exercises.filter(e => e.subject === subject);
     const topicCount = unique(items.map(e => e.topic)).length;
-    const label = topicCount === 1 ? 'téma' : 'témata';
+    const label = topicCount === 1 ? 'téma' : topicCount < 5 ? 'témata' : 'témat';
     const visual = subjectVisuals[subject] || { icon: fallbackIcons[i % fallbackIcons.length], color: '#6cb6ff' };
     return `<button class="card" data-subject="${esc(subject)}" style="text-align:left;--subject-color:${visual.color}">
-      <div class="card-icon">${visual.icon}</div>
+      <div class="card-top"><div class="card-icon">${subjectIcon(subject)}</div><span class="card-arrow" aria-hidden="true">↗</span></div>
       <h3>${esc(subject)}</h3>
       <p>${esc(subjectDescription(subject))}</p>
       <div class="card-meta">${items.length} úloh · ${topicCount} ${label}</div>
@@ -667,7 +680,10 @@ function renderHeader() {
   } else {
     $('exerciseTitle').textContent = window.EXERCISE_SET_TITLE || 'Procvičování';
   }
-  $('exerciseMeta').textContent = `${filteredCount} ${filteredCount === 1 ? 'úloha' : 'úloh'}${activeTopics.length ? ' · ' + activeTopics.join(', ') : ''}`;
+  const metaContext = selectedSubject === 'all' ? 'napříč předměty'
+    : selectedTopic === 'all' ? 'všechna témata'
+    : selectedSubtopic === 'all' ? 'všechna podtémata' : selectedSubtopic;
+  $('exerciseMeta').textContent = `${filteredCount} ${filteredCount === 1 ? 'úloha k výběru' : 'úloh k výběru'} · ${metaContext}`;
   $('crumbSubject').textContent = selectedSubject === 'all' ? 'Všechny předměty' : selectedSubject;
   $('crumbTopic').textContent = selectedTopic === 'all' ? 'Všechna témata' : selectedTopic;
 
@@ -945,7 +961,7 @@ function renderExercise(e, index) {
   const tags = `<div class="tags">${difficultyTag}</div>`;
 
   const typeLabels = {choice:'Výběr', multi:'Více správných', match:'Párování', order:'Řazení', scenario:'Scénář', diagnostic:'Diagnostika', classification:'Třídění', compare:'Porovnání', 'image-choice':'Obrázek + výběr', text:'Text', code:'Kód', fill:'Doplňování', number:'Výpočet', conversion:'Převod soustavy'};
-  return `<article class="exercise" data-type="${esc(e.type)}" data-exercise-id="${id}">
+  return `<article class="exercise" data-type="${esc(e.type)}" data-subject="${esc(e.subject)}" data-exercise-id="${id}">
     <div class="exercise-head">
       <div>
         <div class="exercise-number">Úloha ${index + 1}${category.length ? ' · ' + esc(category.join(' › ')) : ''}</div>

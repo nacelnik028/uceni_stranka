@@ -1,5 +1,16 @@
 # Kontrolní zpráva projektu Procvičovna
 
+## Sjednocení vzhledu – 4. 10. 2026
+
+- Chromium: úvod, témata, knihovna a článek při šířkách 320, 375, 390, 768 a 1280 px v obou motivech, bez vodorovného přetékání.
+- Na úvodu je právě jedna zvýrazněná hlavní akce. Bez uložené sady a chyb jsou příslušná tlačítka skrytá; po vytvoření sady se hlavní akcí stane pokračování.
+- Viditelná tlačítka na úvodu mají alespoň 44 px na výšku. Běžná mobilní textová pole a výběr zobrazení používají písmo 16 px; přepínač režimu má čitelný popis i v aktivním stavu.
+- Na viewportu 390 × 844 px začíná text běžné otázky v horních 70 % obrazovky. Dlouhá zadání a otevřená nastavení mohou vyžadovat posun.
+- Kontrola screenshotů úvodu na desktopu i mobilu a mobilní otázky. Automatický test nezachytil žádný pageerror.
+- Znovu ověřeno obnovení odpovědí všech 14 typů a rozložení všech 436 otázek na pěti šířkách v obou motivech.
+
+Testováno v emulovaných velikostech Chromium; fyzický telefon a Safari nebyly součástí ověření.
+
 ## Prioritní obsahové opravy – 4. 10. 2026
 
 - Katalog má stále 436 úloh a 436 unikátních ID. Validator otázek, validator přehledů a kontroly syntaxe upravených JavaScriptů procházejí.
@@ -14,7 +25,7 @@
 
 Ověřeno v Chromium přes lokální HTTP server s cestou `/procvicovna/`, tedy i s prefixem odpovídajícím projektovému webu na GitHub Pages:
 
-- Rychlá sada obsahuje pět otázek; Pokračovat je bez uložené sady deaktivované.
+- Rychlá sada obsahuje pět otázek; Pokračovat je bez uložené sady skryté a deaktivované.
 - Výběr všech sedmi předmětů a všech jejich témat, včetně volby Všechna témata, vytváří odpovídající neprázdné sady.
 - Jedna otázka / Celá sada, Předchozí / Další a aktivní otázka mobilní kontroly.
 - Obnovení stránky a pokračování zachovávají odpovědi všech 14 typů: volby, text, kód, párování, třídění a pořadí. Ověřeno také obnovení konkrétního podtématu a ID sady.

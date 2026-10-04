@@ -34,13 +34,18 @@
   function updateHome() {
     const draft = savedDraft();
     $('continueBtn').disabled = !draft;
+    $('continueBtn').classList.toggle('hidden', !draft);
+    $('continueBtn').classList.toggle('primary', Boolean(draft));
+    $('quickPractice').classList.toggle('primary', !draft);
+    $('startPanelLabel').textContent = draft ? 'Navázat tam, kde jsi skončil/a' : 'Začni malou sadou';
     $('continueBtn').textContent = draft ? `Pokračovat v sadě · ${draft.ids.length} otázek` : 'Pokračovat v sadě';
     const failed = failedIds();
     $('quickErrors').disabled = !failed.length;
+    $('quickErrors').classList.toggle('hidden', !failed.length);
     $('quickErrors').textContent = failed.length ? `Procvičit chyby · ${failed.length}` : 'Procvičit chyby';
     $('resumeHint').textContent = draft
       ? `Rozpracovaná sada: ${draft.filters.filterSubject === 'all' ? 'všechny předměty' : draft.filters.filterSubject}. Uloženo v tomto prohlížeči.`
-      : 'Sada se průběžně ukládá v tomto prohlížeči. Chyby se objeví po kontrole odpovědí.';
+      : 'Pět náhodných otázek napříč předměty. Sada se uloží v tomto prohlížeči.';
   }
   function applyLayout(focus = false) {
     const exercises = cards();
@@ -192,7 +197,7 @@
     $('topicCards').innerHTML = topics.map(topic => {
       const pool = topic === 'all' ? items : items.filter(e => e.topic === topic);
       const details = unique(pool.map(e => e.subtopic)).slice(0, 3).join(' · ');
-      return `<button type="button" class="card" data-topic="${esc(topic)}"><h3>${esc(topic === 'all' ? 'Všechna témata' : topic)}</h3><p>${esc(details)}</p><div class="card-meta">${pool.length} úloh · začít procvičovat →</div></button>`;
+      return `<button type="button" class="card" data-subject="${esc(subject)}" data-topic="${esc(topic)}"><h3>${esc(topic === 'all' ? 'Všechna témata' : topic)}</h3><p>${esc(details)}</p><div class="card-meta">${pool.length} úloh · začít procvičovat →</div></button>`;
     }).join('');
     $('topicCards').querySelectorAll('[data-topic]').forEach(button => button.addEventListener('click', () => start(subject, button.dataset.topic)));
     updateMobileCheckBar();

@@ -59,6 +59,7 @@ Aktivní otázky jsou v `data/*.js`. Zdrojové materiály nejsou načítané př
 - `data/study_guides.js` – statický obsah 12 přehledů pro sedm předmětů; vazba na otázky používá přesné `subject` a `topic`.
 - `study-guides.js` – katalog, hledání bez diakritiky, čtení a spuštění nové sady k tématu.
 - `study-guides.css` – responzivní styly knihovny a článků pro oba motivy.
+- `appearance.css` – společné barvy, typografie, karty a mobilní vzhled; načítá se za styly modulů.
 - `scripts/validate_study_guides.js` – kontrola obsahu, zdrojů a propojení na aktivní úlohy.
 
 Přehledy se načítají běžnými skripty z `index.html`. Jsou součástí statického webu na GitHub Pages. Otevření knihovny ze studia pouze skryje studijní obrazovku, takže návrat zachová rozpracované odpovědi. Tlačítko Procvičit téma naopak vytváří novou sadu a přepíná do režimu Učení.

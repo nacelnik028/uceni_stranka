@@ -14,7 +14,7 @@ Statická webová aplikace pro procvičování školních materiálů. GitHub Pa
 
 ## Studijní přehledy
 
-Na úvodu je tlačítko **Studijní přehledy**, během režimu Učení také **Připomenout učivo**. Knihovna obsahuje 12 stručných přehledů pokrývajících všech sedm předmětů. Není úplnou učebnicí všech témat. Obsahuje výklad, příklady, časté chyby a odkaz na podklad. Lze filtrovat podle předmětu a vyhledávat i bez diakritiky.
+Na úvodu je odkaz **Nejdřív si připomenout učivo**, během režimu Učení také **Připomenout učivo**. Knihovna obsahuje 12 stručných přehledů pokrývajících všech sedm předmětů. Není úplnou učebnicí všech témat. Obsahuje výklad, příklady, časté chyby a odkaz na podklad. Lze filtrovat podle předmětu a vyhledávat i bez diakritiky.
 
 **Procvičit téma** otevře novou sadu v režimu Učení pro konkrétní předmět a téma, s vymazaným hledáním a filtry typu a obtížnosti. Velikost sady odpovídá aktuální volbě. Při pouhém otevření přehledů ze studia se odpovědi nemění; **Zpět k rozpracované sadě** obnoví původní obrazovku bez překreslení otázek.
 
@@ -35,6 +35,8 @@ Na mobilu je výchozí zobrazení **Jedna otázka**, na desktopu **Celá sada**.
 **Pokračovat v sadě** obnoví poslední rozpracovanou sadu včetně filtrů, režimu, aktuální otázky, odpovědí, rozepsaného kódu, párování, řazení a třídění. Ukládání používá `localStorage`, bez backendu nebo účtu. Platí pro tento prohlížeč; po smazání jeho dat nebo při nedostupném úložišti nelze sadu obnovit. Nová sada nahradí předchozí rozpracovanou sadu. Dokončený test se již nenabízí k pokračování.
 
 Rozhraní a ukládání spravují `study-ux.js` a `study-ux.css`. Doporučení k obsahu úloh jsou v `docs/OTAZKY_DOPORUCENI.md`.
+
+Společný vzhled je v `appearance.css`, načítaném za styly jednotlivých modulů. Obsahuje barvy obou motivů, karty s SVG ikonami, typografii, zvýraznění vybrané odpovědi a mobilní rozložení. Úvod zdůrazňuje jednu hlavní akci: rychlou sadu, nebo pokračování v rozpracované sadě. Pokračování a procvičení chyb se zobrazují, když jsou dostupné.
 
 Aktuální runtime obsahuje 436 úloh: 121 v obecném souboru `exercises.js` (30 v Programování, 56 ve Vývoji webových aplikací, 35 v Databázích), 110 ze sítí, 106 z literatury, 40 z číslicové techniky a 59 z počítačové grafiky. Z toho 16 úloh používá interakční vrstvu `scenario`, `diagnostic`, `classification`, `compare` nebo `image-choice`.
 
