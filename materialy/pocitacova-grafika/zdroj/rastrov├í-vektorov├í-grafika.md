@@ -80,4 +80,4 @@ Přiložené infografiky doplňují podklad o praktická doporučení pro export
 
 ![Export grafiky v Affinity](media/export-grafiky-affinity.png)
 
-![Rastrová vs. vektorová grafika](media/rastrová-vektorová-grafika.png)
+![Rastrová vs. vektorová grafika](media/rastrova-vektorova-grafika.png)

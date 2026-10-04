@@ -1,5 +1,48 @@
 # Kontrolní zpráva projektu Procvičovna
 
+## Prioritní obsahové opravy – 4. 10. 2026
+
+- Katalog má stále 436 úloh a 436 unikátních ID. Validator otázek, validator přehledů a kontroly syntaxe upravených JavaScriptů procházejí.
+- `node scripts/test_question_rules.js` ověřuje odmítnutí řazení podle seznamu/infografiky a povolení logického postupu.
+- Chromium: 13 upravených nebo dotčených úloh, každá se správnou i nesprávnou odpovědí; ověřeno také neutrální zaznamenání odpovědi v režimu Test a konečné hodnocení po dokončení.
+- Diagnostická zadání v režimu Test nezobrazují vysvětlení položek; rozbor je v řešení.
+- Obnovení sady po změně otázky odstraní starou odpověď i známku, ale zachová odpověď a hodnocení nezměněné otázky. Ověřena i starší uložená sada bez podpisu zadání.
+- Upravené otázky a otevřená řešení: šířky 320, 375, 390, 768 a 1280 px v obou motivech, žádné vodorovné přetékání ani pageerror.
+- Věcné opravy trestu a stříbra v Bídnících ověřeny podle románu, počty Ctností/Neřestí podle oficiálního webu Kuksu. Odkazy jsou v `docs/OTAZKY_DOPORUCENI.md` a zdrojových poznámkách.
+
+## UI/UX a mobilní procvičování – 4. 10. 2026
+
+Ověřeno v Chromium přes lokální HTTP server s cestou `/procvicovna/`, tedy i s prefixem odpovídajícím projektovému webu na GitHub Pages:
+
+- Rychlá sada obsahuje pět otázek; Pokračovat je bez uložené sady deaktivované.
+- Výběr všech sedmi předmětů a všech jejich témat, včetně volby Všechna témata, vytváří odpovídající neprázdné sady.
+- Jedna otázka / Celá sada, Předchozí / Další a aktivní otázka mobilní kontroly.
+- Obnovení stránky a pokračování zachovávají odpovědi všech 14 typů: volby, text, kód, párování, třídění a pořadí. Ověřeno také obnovení konkrétního podtématu a ID sady.
+- Chybná odpověď zpřístupní rychlou akci Procvičit chyby.
+- Dokončit test je viditelné i se zavřeným Nastavením sady a vytvoří shrnutí.
+- Všech 436 otázek vykresleno v celém seznamu na šířkách **320, 375, 390, 768 a 1280 px**, v obou motivech; kontrola přetékání jednotlivých karet i dokumentu bez nálezu. Na stejných šířkách ověřeno přepnutí na jednu viditelnou otázku.
+- Propojení přehled → procvičování → přehled → návrat do sady.
+- **0 pageerror**; zkontrolován také mobilní screenshot a zmenšená výška záhlaví.
+
+Validator otázek nyní prochází: původních devět chyb obrázku bylo opraveno přejmenováním na `rastrova-vektorova-grafika.png` a aktualizací odkazů. Kontrola přehledů a JS syntaxe také prochází.
+
+Tyto browser kontroly ověřují UI, ukládání a strukturu, nikoli věcnou správnost všech odpovědí. Python prostředí z externího CDN se v tomto testu nespouštělo; neproběhl test na fyzickém telefonu ani Safari. Obsahové nálezy a doporučení jsou v `docs/OTAZKY_DOPORUCENI.md`.
+
+## Studijní přehledy – 4. 10. 2026
+
+Pro novou statickou knihovnu bylo ověřeno:
+
+- 12 přehledů pokrývá sedm předmětů; validátor `node scripts/validate_study_guides.js` potvrdil unikátní ID, zdroje a existující témata otázek.
+- Syntaxe `app.js`, `study-guides.js`, `data/study_guides.js` a nového validátoru prošla kontrolou Node.js.
+- Chromium: katalog, výběr předmětu, hledání bez diakritiky a prázdný výsledek hledání.
+- Všech 12 tlačítek Procvičit téma vytvořilo neprázdnou sadu se správným předmětem a tématem v režimu Učení; staré hledání a filtry typu a obtížnosti se nepřenášejí.
+- Otevření přehledu a návrat do sady zachovaly ID otázek, DOM a rozepsaný kód.
+- Všech 12 článků bylo zkontrolováno na šířkách 320, 390 a 1280 px v obou motivech: 72 kontrol bez horizontálního přetékání.
+- Mobilní kontrolní lišta je při čtení skrytá; tlačítko Připomenout učivo je v režimu Test skryté.
+- Navigace domů funguje; nebyla zachycena žádná chyba `pageerror`.
+
+**Stav při přidání přehledů:** kontrola otázek hlásila devět neexistujících obrazových cest u `pg-img-001` až `pg-img-009`. Následná revize UI/UX popsaná výše je opravila. Nové přehledy tyto obrázky nepoužívají.
+
 ## Finální audit – 2. 10. 2026
 
 Po rozšíření o univerzální typy `scenario`, `diagnostic`, `classification`, `compare` a `image-choice` proběhla závěrečná kontrola dat, formulací, JavaScriptu, vykreslení, interakcí, obrázků a mobilního rozhraní.

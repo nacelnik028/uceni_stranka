@@ -54,6 +54,21 @@ Aktivní otázky jsou v `data/*.js`. Zdrojové materiály nejsou načítané př
 - `app.js` – chování aplikace
 - `scripts/validate_questions.js` – kontrola dat
 
+## Studijní přehledy
+
+- `data/study_guides.js` – statický obsah 12 přehledů pro sedm předmětů; vazba na otázky používá přesné `subject` a `topic`.
+- `study-guides.js` – katalog, hledání bez diakritiky, čtení a spuštění nové sady k tématu.
+- `study-guides.css` – responzivní styly knihovny a článků pro oba motivy.
+- `scripts/validate_study_guides.js` – kontrola obsahu, zdrojů a propojení na aktivní úlohy.
+
+Přehledy se načítají běžnými skripty z `index.html`. Jsou součástí statického webu na GitHub Pages. Otevření knihovny ze studia pouze skryje studijní obrazovku, takže návrat zachová rozpracované odpovědi. Tlačítko Procvičit téma naopak vytváří novou sadu a přepíná do režimu Učení.
+
+## UI a lokální rozpracovaná sada
+
+`study-ux.js` spravuje karty témat, rychlé akce na úvodu, přepínání Jedna otázka / Celá sada a ukládání rozpracované sady do localStorage. `study-ux.css` doplňuje oba motivy a mobilní rozložení. V režimu Jedna otázka jsou ostatní úlohy skryté v DOM, aby navigace neměnila jejich odpovědi; hodnocení i shrnutí pracují stále s celou sadou.
+
+Klíče `procvicovna-draft:v1`, `procvicovna-layout:v1` a `procvicovna-outcomes:v1` obsahují rozpracovanou sadu, preferované rozložení a poslední hodnocení jednotlivých úloh. Původní historie a statistiky používají své dosavadní klíče. Ukládání je volitelné: při nedostupném úložišti funguje procvičování dál.
+
 ## Proč je tu `archiv/`
 
 Ve vstupním ZIPu byly pracovní soubory a staré kořenové kopie smíchané s runtime. Tyto soubory jsou zachované, ale oddělené od aktivního webu, aby náhodou nefungovaly jako druhá kopie projektu.

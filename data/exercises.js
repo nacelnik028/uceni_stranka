@@ -18,7 +18,8 @@ window.EXERCISES = [
       "Python",
       "seznamy",
       "indexování"
-    ]
+    ],
+    "solution": "Indexování začíná nulou, takže seznam[0] je první prvek Karel."
   },
   {
     "subject": "Programování",
@@ -38,7 +39,8 @@ window.EXERCISES = [
       "Python",
       "seznamy",
       "záporné indexy"
-    ]
+    ],
+    "solution": "Záporný index -1 označuje poslední prvek seznamu, zde Janu."
   },
   {
     "subject": "Programování",
@@ -58,7 +60,8 @@ window.EXERCISES = [
       "Python",
       "seznamy",
       "záporné indexy"
-    ]
+    ],
+    "solution": "Index -2 označuje předposlední prvek, zde Franka."
   },
   {
     "subject": "Programování",
@@ -75,7 +78,8 @@ window.EXERCISES = [
       "Python",
       "seznamy",
       "indexování"
-    ]
+    ],
+    "solution": "Seznam má tři prvky, ale jejich indexy jsou 0, 1 a 2. Index 3 je mimo rozsah a vyvolá IndexError."
   },
   {
     "subject": "Programování",
@@ -230,7 +234,8 @@ window.EXERCISES = [
       "Python",
       "seznamy",
       "insert"
-    ]
+    ],
+    "solution": "insert(index, hodnota) vloží prvek před položku na zadaném indexu. Z [3, 5] vznikne [3, 4, 5]."
   },
   {
     "subject": "Programování",
@@ -251,7 +256,8 @@ window.EXERCISES = [
       "Python",
       "seznamy",
       "reverse"
-    ]
+    ],
+    "solution": "reverse() obrátí stávající pořadí. Neřadí podle velikosti; například z [3, 5, 2] vznikne [2, 5, 3]."
   },
   {
     "subject": "Programování",
@@ -308,7 +314,8 @@ window.EXERCISES = [
       "Python",
       "seznamy",
       "len"
-    ]
+    ],
+    "solution": "V seznamu jsou tři položky. len(studenti) vrátí 3, zatímco poslední kladný index je 2."
   },
   {
     "subject": "Programování",
@@ -388,7 +395,8 @@ window.EXERCISES = [
       "Python",
       "seznamy",
       "count"
-    ]
+    ],
+    "solution": "count(0) spočítá výskyty hodnoty 0. Nula se v [4, 0, 7, 0, 2] vyskytuje dvakrát."
   },
   {
     "subject": "Programování",
@@ -423,7 +431,8 @@ window.EXERCISES = [
       "Python",
       "seznamy",
       "len"
-    ]
+    ],
+    "solution": "len(cisla) počítá prvky, nikoli jejich hodnoty. Seznam [5, 2, 9, 1, 7] má pět prvků."
   },
   {
     "subject": "Programování",
@@ -438,7 +447,8 @@ window.EXERCISES = [
       "Python",
       "seznamy",
       "sum"
-    ]
+    ],
+    "solution": "sum(cisla) sečte všechny hodnoty: 5 + 2 + 9 + 1 + 7 = 24."
   },
   {
     "subject": "Programování",
@@ -453,7 +463,8 @@ window.EXERCISES = [
       "Python",
       "seznamy",
       "min"
-    ]
+    ],
+    "solution": "min(cisla) vrátí nejmenší hodnotu seznamu, tedy 1. Nejde o první položku, která má hodnotu 5."
   },
   {
     "subject": "Programování",
@@ -468,7 +479,8 @@ window.EXERCISES = [
       "Python",
       "seznamy",
       "max"
-    ]
+    ],
+    "solution": "max(cisla) vrátí největší hodnotu seznamu, tedy 9."
   },
   {
     "subject": "Programování",
@@ -531,7 +543,8 @@ window.EXERCISES = [
     "tags": [
       "Python",
       "seznamy"
-    ]
+    ],
+    "solution": "sort() mění původní seznam a vrací None. sorted(cisla) vytvoří nový seřazený seznam a původní pořadí ponechá."
   },
   {
     "subject": "Programování",
@@ -548,7 +561,8 @@ window.EXERCISES = [
       "Python",
       "seznamy",
       "opakování"
-    ]
+    ],
+    "solution": "Rozlišuj změny seznamu (append, insert, remove, pop, sort, reverse), zjišťování hodnot (count, len, sum, min, max) a vytvoření nové seřazené kolekce (sorted)."
   },
   {
     "subject": "Programování",
@@ -1815,18 +1829,6 @@ window.EXERCISES = [
     "type": "diagnostic",
     "title": "Odhal chybné tvrzení o relační databázi",
     "question": "Prohlédni tvrzení a označ všechna, která jsou o relační databázi chybná.",
-    "choices": [
-      "Má řádky",
-      "Má sloupce",
-      "Je propojena pomocí klíčů",
-      "Musí obsahovat pouze textová data",
-      "Nemůže mít více tabulek"
-    ],
-    "answers": [
-      "Má řádky",
-      "Má sloupce",
-      "Je propojena pomocí klíčů"
-    ],
     "solution": "Chybná jsou tvrzení, že databáze musí obsahovat pouze textová data a že nemůže mít více tabulek. Relační databáze běžně obsahuje řádky, sloupce a více tabulek propojených klíči.",
     "hint": "Hledej tvrzení, která jsou formulována příliš absolutně.",
     "tags": [
@@ -2474,17 +2476,25 @@ window.EXERCISES = [
     "topic": "Základy databází",
     "subtopic": "Import a export",
     "id": "db-030",
-    "type": "number",
-    "title": "Počet uvedených formátů",
-    "question": "Kolik různých formátů souborů lze použít pro import a export databázových dat?",
-    "answer": "5",
-    "solution": "Pro import a export databázových dat lze použít pět formátů: CSV, JSON, XML, DB a TXT.",
-    "hint": "Spočítej pět formátů: CSV, JSON, XML, DB a TXT.",
+    "type": "scenario",
+    "title": "Přenos tabulkových dat",
+    "question": "Který formát z nabídky nejlépe odpovídá tomuto požadavku?",
+    "answer": "CSV",
+    "solution": "CSV ukládá tabulková data jako řádky s oddělenými hodnotami. JSON a XML mají jinou strukturu; PNG ukládá obrazová data.",
+    "hint": "Zaměř se na způsob zápisu dat, který cílová aplikace očekává.",
     "tags": [
       "import",
       "export",
       "formáty"
-    ]
+    ],
+    "scenario": "Potřebuješ předat tabulku se jmény a známkami aplikaci, která umí načítat textové soubory s hodnotami oddělenými čárkami.",
+    "choices": [
+      "CSV",
+      "JSON",
+      "XML",
+      "PNG"
+    ],
+    "difficulty": 2
   },
   {
     "subject": "Databáze",

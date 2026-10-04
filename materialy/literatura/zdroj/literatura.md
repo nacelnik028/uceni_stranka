@@ -40,7 +40,7 @@
 Oblé tvary, baculatí andělíčci
 
 - Matyáš Braun — sochař
-  - zámek **Kuks**, **12** lidských ctností a neřestí
+  - hospitál **Kuks**, dvě skupiny alegorií: **12 Ctností a 12 Neřestí**
 - Jan Amos Komenský — Labyrint světa a ráj srdce
   - Poutník, Všudybyl, Mámil
   - jdou na hrad bohyně Fortuny
@@ -98,13 +98,15 @@ Nejznámější autor je **Victor Hugo**.
 - **Bídníci** — Les Misérables
   - Nebo: **Ubožáci**
   - **Jean Valjean**
-    - Kdysi v mládí ukradl kousek chleba. Byl odsouzen a trest si odbýval na nucených pracích v kamenolomu. Protože se pokusil několikrát utéct, trest se mu navýšil až na doživotí.
+    - Za krádež chleba byl původně odsouzen na pět let nucených prací. Kvůli opakovaným pokusům o útěk se trest prodloužil na celkem **19 let**, nikoli na doživotí. Potom byl propuštěn.
     - Valjean měl obrovskou sílu. Jednou, když povoz zavalil člověka, Valjean sám balvan nadzvedl.
-    - Valjeanovi se podařilo uprchnout, našel útočiště na malé faře. Tam přespal, ale když ráno odcházel, odnesl s sebou stříbrné svícny. Zanedlouho ho chytili, našli u něj svícny a dovedli ho k faráři. Valjeanovi farář řekl, že mu svícny daroval. Valjean pochopil, že dostal šanci žít poctivě.
+    - Po propuštění našel útočiště u biskupa. Ukradl mu **stříbrné příbory**. Když ho četníci přivedli zpět, biskup prohlásil, že stříbro daroval, a navíc mu dal **dva stříbrné svícny**. Biskupovo milosrdenství mu nabídlo šanci změnit život.
     - Stal se dokonce starostou v jednom městě. Problém nastal, když tam byl přidělen nový policejní komisař Javert — syn dozorce z kamenolomu.
     - Jednou došlo k nehodě, nějaký povoz zavalil člověka. Lidé běželi pro starostu. Valjean vůz nadzvedl, v tu chvíli Javert pochopil, kdo to je. Valjean musel utéct z města a Javert ho pronásledoval.
     - Oba se setkali až za revoluce na barikádě v Paříži. Obránci barikády zjistili, že Javert je nepřítel. Valjean se nabídl, že ho zastřelí, odvedl ho a nechal ho utéct.
     - Javert zjistil, že půlku života pronásledoval hodného člověka. Zhroutil se mu svět a utopil se — spoutal si ruce a skočil do Seiny.
+
+Opravy trestu a epizody se stříbrem vycházejí z [románu Victora Huga, kniha I, část II](https://www.gutenberg.org/cache/epub/135/pg135-images.html). Počty alegorií v Kuksu uvádí [oficiální web obce Kuks](https://www.kuks.cz/turistika/informace-pro-turisty/historicky-lazensky-areal/historicky-lazensky-areal-fotogalerie/historicky-lazensky-areal-34cs.html).
 
 ### Stendhal
 

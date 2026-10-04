@@ -196,7 +196,7 @@ window.LITERATURE_EXERCISES = [
     "id": "lit-gotika-002",
     "type": "choice",
     "title": "Vita Caroli",
-    "question": "Jaké dílo Karla IV. představuje Vita Caroli?",
+    "question": "Které dílo z nabídky je vlastním životopisem Karla IV.?",
     "choices": [
       "Vita Caroli",
       "Dekameron",
@@ -204,7 +204,7 @@ window.LITERATURE_EXERCISES = [
       "Bídníci"
     ],
     "answer": "Vita Caroli",
-    "solution": "Karel IV. je v materiálu spojen s dílem Vita Caroli.",
+    "solution": "Vita Caroli je vlastní životopis Karla IV. Ostatní nabízená díla jsou spojena s jinými autory.",
     "tags": [
       "Gotika",
       "Karel IV."
@@ -381,7 +381,7 @@ window.LITERATURE_EXERCISES = [
     "id": "lit-renesance-007",
     "type": "choice",
     "title": "Hamlet",
-    "question": "Která slavná věta z Hamleta je známá jako úvod monologu „Být či nebýt“?",
+    "question": "Která věta je úvodem Hamletova monologu o rozhodování mezi životem a smrtí?",
     "choices": [
       "Být či nebýt.",
       "Moje penízky, moje penízky.",
@@ -389,7 +389,7 @@ window.LITERATURE_EXERCISES = [
       "Píseň o Rollandovi."
     ],
     "answer": "Být či nebýt.",
-    "solution": "U Hamleta je uveden monolog „Být či nebýt.“",
+    "solution": "Hamletův monolog začíná slovy „Být či nebýt“. Hamlet v něm uvažuje o životě, smrti a nejistotě, co následuje po smrti.",
     "tags": [
       "Renesance",
       "Shakespeare",
@@ -508,10 +508,10 @@ window.LITERATURE_EXERCISES = [
     "id": "lit-baroko-004",
     "type": "number",
     "title": "Ctnosti a neřesti",
-    "question": "Kolik lidských ctností a neřestí je spojeno s Kuksem?",
+    "question": "Kolik alegorií Ctností tvoří jednu ze dvou skupin Braunova souboru v Kuksu?",
     "answer": 12,
-    "solution": "Materiál uvádí 12 lidských ctností a neřestí.",
-    "hint": "Jde o dvouciferné číslo uvedené tučně u Kuksu.",
+    "solution": "Soubor tvoří dvě skupiny: 12 Ctností a 12 Neřestí. Otázka se ptá pouze na skupinu Ctností, tedy na 12.",
+    "hint": "Počítej pouze jednu skupinu, nikoli Ctnosti a Neřesti dohromady.",
     "tags": [
       "Baroko",
       "Kuks",
@@ -1294,15 +1294,15 @@ window.LITERATURE_EXERCISES = [
     "id": "lit-rom-francie-012",
     "type": "choice",
     "title": "Valjeanův trest",
-    "question": "Proč se Valjeanovi trest navýšil až na doživotí?",
+    "question": "Proč se původní pětiletý trest Jeana Valjeana v Bídnících prodloužil na celkem 19 let?",
     "choices": [
-      "Protože se několikrát pokusil utéct",
-      "Protože odmítl být starostou",
-      "Protože ukradl Karlštejn",
-      "Protože se vzbouřil proti Richardovi I."
+      "Kvůli opakovaným pokusům o útěk",
+      "Kvůli odmítnutí zaplatit uloženou pokutu",
+      "Kvůli neprokázané totožnosti po odsouzení",
+      "Kvůli odmítnutí převzít úřad starosty"
     ],
-    "answer": "Protože se několikrát pokusil utéct",
-    "solution": "Materiál uvádí, že trest se zvyšoval kvůli jeho opakovaným pokusům o útěk.",
+    "answer": "Kvůli opakovaným pokusům o útěk",
+    "solution": "Původní trest za krádež chleba byl pět let. Pokusy o útěk vedly k dalším čtrnácti letům, celkem tedy strávil v trestu 19 let. Nešlo o doživotí.",
     "tags": [
       "Romantismus",
       "Bídníci",
@@ -1337,20 +1337,20 @@ window.LITERATURE_EXERCISES = [
     "subtopic": "Bídníci",
     "id": "lit-rom-francie-014",
     "type": "choice",
-    "title": "Stříbrné svícny",
-    "question": "Co si Valjean odnesl z malé fary?",
+    "title": "Stříbro u biskupa",
+    "question": "Co Jean Valjean ukradl biskupovi předtím, než ho četníci přivedli zpět?",
     "choices": [
-      "Stříbrné svícny",
-      "Kousek chleba",
-      "Knihu Vita Caroli",
-      "Robinův luk"
+      "Stříbrné příbory",
+      "Dva stříbrné svícny",
+      "Zlatý prsten",
+      "Knihu"
     ],
-    "answer": "Stříbrné svícny",
-    "solution": "Materiál uvádí, že si Valjean odnesl stříbrné svícny.",
+    "answer": "Stříbrné příbory",
+    "solution": "Valjean ukradl stříbrné příbory. Biskup pak před četníky řekl, že mu stříbro daroval, a navíc mu dal dva stříbrné svícny.",
     "tags": [
       "Romantismus",
       "Bídníci",
-      "fara"
+      "setkání s biskupem"
     ]
   },
   {
@@ -1360,15 +1360,15 @@ window.LITERATURE_EXERCISES = [
     "id": "lit-rom-francie-015",
     "type": "choice",
     "title": "Druhá šance",
-    "question": "Co Valjean pochopil poté, co mu farář pomohl se stříbrnými svícny?",
+    "question": "Jaký význam má biskupovo milosrdenství pro další život Jeana Valjeana?",
     "choices": [
-      "Že dostal šanci žít poctivě",
-      "Že má odejít do Sherwoodu",
-      "Že se má stát králem",
-      "Že musí najít Fortunu"
+      "Nabídne mu šanci změnit život a žít poctivě",
+      "Přiměje ho vrátit se dobrovolně k nuceným pracím",
+      "Zabrání mu jakémukoli kontaktu s ostatními lidmi",
+      "Přesvědčí ho, že se nesmí nikomu přiznat ke své minulosti"
     ],
-    "answer": "Že dostal šanci žít poctivě",
-    "solution": "Materiál uvádí, že Valjean pochopil, že dostal šanci žít poctivě.",
+    "answer": "Nabídne mu šanci změnit život a žít poctivě",
+    "solution": "Biskup ho neodsoudí, označí ukradené stříbro za dar a přidá svícny. Pro Valjeana je to zásadní podnět ke změně života.",
     "tags": [
       "Romantismus",
       "Bídníci",
@@ -2279,21 +2279,16 @@ window.LITERATURE_EXERCISES = [
     "topic": "Renesance",
     "subtopic": "Sonet",
     "id": "lit-renesance-var-003",
-    "type": "order",
-    "title": "Stavba sonetu",
-    "question": "Seřaď čtyři části sonetu od první po poslední.",
-    "order": [
-      "První čtyřverší",
-      "Druhé čtyřverší",
-      "První trojverší",
-      "Druhé trojverší"
-    ],
-    "solution": "Materiál popisuje sonet jako 4 strofy: přibližně 2×4 verše a 2×3 verše.",
+    "type": "number",
+    "title": "Doplň stavbu sonetu",
+    "question": "Sonet má být tvořen dvěma čtyřveršími a dvěma trojveršími. První tři strofy mají 4, 4 a 3 verše. Kolik veršů má mít poslední strofa?",
+    "solution": "Za dvěma čtyřveršími následují dvě trojverší. Poslední strofa proto má 3 verše; celkem je to 4 + 4 + 3 + 3 = 14.",
     "tags": [
-      "Řazení",
-      "sonet",
-      "Renesance"
-    ]
+      "Renesance",
+      "básnická stavba"
+    ],
+    "answer": 3,
+    "difficulty": 2
   },
   {
     "subject": "Literatura",
@@ -2306,12 +2301,12 @@ window.LITERATURE_EXERCISES = [
     "order": [
       "Ukradl v mládí kousek chleba",
       "Odsouzen a trest si odpykával na nucených pracích",
-      "Na faře odnesl stříbrné svícny",
+      "Po propuštění ukradl biskupovi příbory; biskup mu daroval svícny",
       "Stal se starostou v jednom městě",
       "Javert poznal, kdo ve skutečnosti je",
       "Na barikádě nechal Javerta utéct"
     ],
-    "solution": "Materiál vede Valjeanův příběh od krádeže chleba přes trest, svícny a starostování až ke střetu s Javertem.",
+    "solution": "Po krádeži chleba a trestu následuje propuštění a setkání s biskupem. Poté se Valjean stává starostou a později se znovu střetává s Javertem.",
     "tags": [
       "Řazení",
       "Bídníci",

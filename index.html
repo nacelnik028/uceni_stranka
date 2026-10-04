@@ -258,6 +258,8 @@
     }
     @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
   </style>
+  <link rel="stylesheet" href="study-guides.css?v=1">
+  <link rel="stylesheet" href="study-ux.css?v=1">
 </head>
 <body>
   <div class="wrap">
@@ -273,8 +275,9 @@
       <section id="homeView">
         <div class="hero">
           <h1>Vyber si, co chceš dnes procvičit.</h1>
-          <p>Ahojte kamarádi!!!!!!</p>
-          <div class="hero-actions"><button class="primary" id="continueBtn">Pokračovat k procvičování</button></div>
+          <p>Vyber téma, připomeň si základy a vyzkoušej, co už umíš.</p>
+          <div class="hero-actions quick-actions"><button class="primary" id="quickPractice">Rychle procvičit · 5 otázek</button><button type="button" id="continueBtn" disabled>Pokračovat v sadě</button><button type="button" id="quickErrors" disabled>Procvičit chyby</button><button type="button" id="openGuides">Studijní přehledy</button></div>
+          <p id="resumeHint" class="small">Rozpracovaná sada se ukládá v tomto prohlížeči.</p>
           <div class="stats">
             <div class="stat"><strong id="homeExercises">0</strong><span>úloh</span></div>
             <div class="stat"><strong id="homeSubjects">0</strong><span>předmětů</span></div>
@@ -288,11 +291,35 @@
         </section>
       </section>
 
+      <section id="topicsView" class="hidden" aria-labelledby="topicsHeading">
+        <div class="section-head"><div><h1 id="topicsHeading" tabindex="-1">Vyber téma</h1><p id="topicsDescription"></p></div></div>
+        <div id="topicCards" class="cards"></div>
+      </section>
+
+      <section id="guidesView" class="hidden" aria-labelledby="guidesHeading">
+        <div class="section-head guide-heading">
+          <div><h1 id="guidesHeading" tabindex="-1">Studijní přehledy</h1><p>Nejdřív si připomeň základy, potom je vyzkoušej v úlohách.</p></div>
+          <button type="button" id="returnToStudy" class="hidden">← Zpět k rozpracované sadě</button>
+        </div>
+        <div id="guideCatalog">
+          <div class="guide-filters">
+            <div><label for="guideSubject">Předmět</label><select id="guideSubject"><option value="all">Všechny předměty</option></select></div>
+            <div><label for="guideSearch">Hledat v přehledech</label><input id="guideSearch" type="search" placeholder="Například Python, SQL nebo převod…"></div>
+          </div>
+          <p id="guideCount" class="guide-count" role="status"></p>
+          <div id="guideCards" class="guide-grid"></div>
+        </div>
+        <div id="guideDetail" class="hidden">
+          <button type="button" id="backToGuides">← Všechny přehledy</button>
+          <article id="guideArticle" class="guide-article" aria-labelledby="guideTitle"></article>
+        </div>
+      </section>
+
       <section id="studyView" class="study-shell hidden">
         <div class="study-header">
           <div class="crumbs"><span>Procvičovna</span><span class="sep">›</span><strong id="crumbSubject">Předmět</strong><span class="sep">›</span><strong id="crumbTopic">Téma</strong></div>
           <div class="study-title">
-            <div><h2 id="exerciseTitle">Procvičování</h2><p id="exerciseMeta">Načítám úlohy…</p></div>
+            <div><h2 id="exerciseTitle">Procvičování</h2><p id="exerciseMeta">Načítám úlohy…</p><button type="button" id="studyGuidesButton" class="ghost">Připomenout učivo</button></div>
           </div>
           <details id="settingsShell" class="settings-shell no-print">
             <summary class="settings-summary">
@@ -326,7 +353,6 @@
               <div class="tools">
                 <button id="showAnswers">Ukázat všechna řešení</button><button id="hideAnswers">Skrýt všechna řešení</button>
                 <button type="button" id="generateTasks" class="hidden">✨ Generovat nové příklady</button>
-                <button type="button" id="finishSet" class="primary">✓ Zobrazit shrnutí sady</button>
               </div>
             </div>
           </details>
@@ -342,7 +368,9 @@
         <div class="session-progress" aria-live="polite">
           <div class="session-progress-head"><span>Průběh sady</span><strong id="sessionProgressText">0 / 0</strong></div>
           <div class="progress-track"><span id="sessionProgressFill" class="progress-fill"></span></div>
+          <div class="session-actions"><label for="questionLayout">Zobrazení <select id="questionLayout"><option value="single">Jedna otázka</option><option value="list">Celá sada</option></select></label><button type="button" id="finishSet" class="primary">✓ Zobrazit shrnutí sady</button></div>
         </div>
+        <nav id="questionPager" class="question-pager hidden" aria-label="Navigace mezi otázkami"><button type="button" id="previousQuestion">← Předchozí</button><span id="questionPosition" role="status"></span><button type="button" id="nextQuestion">Další →</button></nav>
         <div class="study-body"><div id="exercises"><div class="empty">Tady se zobrazí tvoje procvičování.</div></div></div>
       </section>
     </main>
@@ -353,11 +381,14 @@
     <button type="button" id="mobileCheckButton" class="primary">Zkontrolovat</button>
   </div>
   <div class="toast" id="toast"></div>
-  <script src="data/exercises.js?v=15"></script>
+  <script src="data/exercises.js?v=16"></script>
   <script src="data/network_exercises.js?v=2"></script>
-  <script src="data/literature_exercises.js?v=4"></script>
+  <script src="data/literature_exercises.js?v=5"></script>
   <script src="data/cislicova_technika_exercises.js?v=3"></script>
-  <script src="data/pocitacova_grafika_exercises.js?v=1"></script>
-  <script src="app.js?v=27"></script>
+  <script src="data/pocitacova_grafika_exercises.js?v=3"></script>
+  <script src="data/study_guides.js?v=1"></script>
+  <script src="app.js?v=30"></script>
+  <script src="study-ux.js?v=2"></script>
+  <script src="study-guides.js?v=2"></script>
 </body>
 </html>

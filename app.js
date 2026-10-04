@@ -314,8 +314,8 @@ function updateMobileCheckBar() {
     const label = active.querySelector('.exercise-number')?.textContent?.trim() || 'Aktivní úloha';
     context.textContent = label;
   }
-  button.textContent = 'Zkontrolovat';
-  button.setAttribute('aria-label', `Zkontrolovat ${context?.textContent || 'aktivní úlohu'}`);
+  button.textContent = active.dataset.type === 'code' ? 'Spustit kód' : state.mode === 'test' ? 'Zaznamenat' : 'Zkontrolovat';
+  button.setAttribute('aria-label', `${button.textContent}: ${context?.textContent || 'aktivní úloha'}`);
 }
 
 function setActiveExerciseFromTarget(target) {
@@ -528,18 +528,33 @@ function renderHome() {
     return `<button class="card" data-subject="${esc(subject)}" style="text-align:left;--subject-color:${visual.color}">
       <div class="card-icon">${visual.icon}</div>
       <h3>${esc(subject)}</h3>
-      <p>Procvičování podle materiálů pro tento předmět.</p>
+      <p>${esc(subjectDescription(subject))}</p>
       <div class="card-meta">${items.length} úloh · ${topicCount} ${label}</div>
     </button>`;
   }).join('') : '<div class="empty">Zatím nejsou přidané žádné úlohy.</div>';
 
   document.querySelectorAll('#subjectCards [data-subject]').forEach(card => {
-    card.addEventListener('click', () => openStudy(card.dataset.subject, 'all'));
+    card.addEventListener('click', () => window.studyUX.openTopics(card.dataset.subject));
   });
 }
 
-function openStudy(subject = 'all', topic = 'all') {
+function subjectDescription(subject) {
+  return ({
+    'Programování': 'Python: seznamy, indexování a vlastní programy.',
+    'Vývoj webových aplikací': 'Osobnosti informatiky, záhlaví webu a favicon.',
+    'Databáze': 'Tabulky, klíče, SQL příkazy a správa dat.',
+    'Počítačové sítě': 'Topologie, kabeláž, síťové modely, adresace a protokoly.',
+    'Literatura': 'Literární období, autoři, díla a jejich postavy.',
+    'Číslicová technika': 'Číselné soustavy, převody a Hornerovo schéma.',
+    'Počítačová grafika': 'Rastr a vektor, formáty, export a favicon.'
+  })[subject] || 'Vyber téma a vyzkoušej své znalosti.';
+}
+
+function openStudy(subject = 'all', topic = 'all', preserveSubtopic = false) {
+  const subtopic = preserveSubtopic ? $('filterSubtopic').value : 'all';
   state.view = 'study';
+  $('topicsView').classList.add('hidden');
+  $('guidesView').classList.add('hidden');
   $('homeView').classList.add('hidden');
   $('studyView').classList.remove('hidden');
   $('homeBtn').classList.remove('hidden');
@@ -549,18 +564,25 @@ function openStudy(subject = 'all', topic = 'all') {
     if (subTopics.length === 1) topic = subTopics[0];
   }
   $('filterSubject').value = subject;
+  $('filterTopic').value = 'all';
+  renderHeader();
   $('filterTopic').value = topic;
-  $('filterSubtopic').value = 'all';
+  $('filterSubtopic').value = subtopic;
   renderExercises();
   window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
 function openHome() {
+  window.studyUX?.save();
   state.view = 'home';
+  $('topicsView').classList.add('hidden');
+  $('guidesView').classList.add('hidden');
   $('studyView').classList.add('hidden');
   $('homeView').classList.remove('hidden');
   $('homeBtn').classList.add('hidden');
   $('resetProgress').classList.add('hidden');
+  updateMobileCheckBar();
+  window.studyUX?.updateHome();
   window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
@@ -698,6 +720,8 @@ function solutionBlock(e) {
     const ids = new Set((e.answerIds || []).map(String));
     const badItems = (e.items || []).filter(item => ids.has(String(item.id)));
     if (badItems.length) parts.push(part('Chybné položky', `<div>${badItems.map(item => `<div>• ${rich(item.label)}</div>`).join('')}</div>`));
+    const explainedItems = (e.items || []).filter(item => item.detail);
+    if (explainedItems.length) parts.push(part('Rozbor položek', `<div>${explainedItems.map(item => `<p><strong>${rich(item.label)}</strong><br>${rich(item.detail)}</p>`).join('')}</div>`));
     if (e.solution) parts.push(part('Vysvětlení', `<div>${rich(e.solution)}</div>`));
   } else if (e.type === 'classification') {
     if (e.items?.length) parts.push(part('Správné zařazení', `<div>${e.items.map(item => `<div><strong>${rich(item.text)}</strong> → ${rich(item.category)}</div>`).join('')}</div>`));
@@ -759,7 +783,7 @@ function renderExercise(e, index) {
         ${(e.items || []).map((item) => `
           <label class="diagnostic-item">
             <input type="checkbox" name="diagnostic-${id}" value="${esc(item.id)}">
-            <span><strong>${esc(item.label)}</strong><small>${rich(item.detail || '')}</small></span>
+            <span><strong>${esc(item.label)}</strong></span>
           </label>`).join('')}
       </div>
       <div class="row" style="margin-top:12px">
@@ -921,7 +945,7 @@ function renderExercise(e, index) {
   const tags = `<div class="tags">${difficultyTag}</div>`;
 
   const typeLabels = {choice:'Výběr', multi:'Více správných', match:'Párování', order:'Řazení', scenario:'Scénář', diagnostic:'Diagnostika', classification:'Třídění', compare:'Porovnání', 'image-choice':'Obrázek + výběr', text:'Text', code:'Kód', fill:'Doplňování', number:'Výpočet', conversion:'Převod soustavy'};
-  return `<article class="exercise" data-type="${esc(e.type)}">
+  return `<article class="exercise" data-type="${esc(e.type)}" data-exercise-id="${id}">
     <div class="exercise-head">
       <div>
         <div class="exercise-number">Úloha ${index + 1}${category.length ? ' · ' + esc(category.join(' › ')) : ''}</div>
@@ -1021,6 +1045,7 @@ function createSession(forceNew = false) {
   const selected = [...fresh, ...usedHistory].slice(0, requested);
 
   state.sessionIds = shuffle(selected.map(e => e.id));
+  window.studyUX?.resetPosition();
   state.sessionKey = key;
   state.results = {};
   state.codeResults = {};
@@ -1036,20 +1061,8 @@ function sessionExercises() {
 
 function shuffledChoices(e) {
   if (!Array.isArray(e.choices)) return [];
-
-  // Nikdy neupravuj zdrojové e.choices – vytvoř kopii a tu promíchej.
-  // Správná odpověď navíc nesmí zůstat na první pozici, aby otázky
-  // nebyly řešitelné pouhým výběrem první možnosti. Ostatní pořadí
-  // je stále náhodné při každém novém vykreslení úlohy.
-  const shuffled = shuffle(e.choices);
-  if (shuffled.length > 1) {
-    const answer = String(e.answer ?? '').trim();
-    if (String(shuffled[0]).trim() === answer) {
-      const swapIndex = 1 + Math.floor(Math.random() * (shuffled.length - 1));
-      [shuffled[0], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[0]];
-    }
-  }
-  return shuffled;
+  // Každá možnost včetně správné má stejnou šanci na každou pozici.
+  return shuffle(e.choices);
 }
 
 function toBaseString(value, base) {
@@ -1239,6 +1252,7 @@ function recordExerciseResult(e, result) {
   clearCurrentStats();
   updateSessionProgress();
   if (state.mode === 'learn') maybeAutoCompleteSet();
+  window.studyUX?.save();
 }
 
 function renderNeutralFeedback(out, answered = true) {
@@ -1370,6 +1384,7 @@ function completeCurrentSet() {
   saveLocalSetStats(stats);
   renderStatsPanel(stats);
   updateMobileCheckBar();
+  window.studyUX?.save();
 }
 
 function finishCurrentSet() {
@@ -1423,6 +1438,7 @@ function renderExercises() {
     updateSessionProgress();
     updateModeUI();
     updateMobileCheckBar();
+    window.studyUX?.onRender();
     return;
   }
 
@@ -1450,6 +1466,7 @@ function renderExercises() {
   updateSessionProgress();
   updateModeUI();
   updateMobileCheckBar();
+  window.studyUX?.onRender();
 }
 
 function findExercise(id) {
@@ -1848,6 +1865,7 @@ async function runCode(exercise, output) {
       updateSessionProgress();
       if (state.mode === 'learn') maybeAutoCompleteSet();
     }
+    window.studyUX?.save();
     return;
   }
 
@@ -1863,6 +1881,7 @@ async function runCode(exercise, output) {
     state.codeResults[exercise.id] = { answered: true, correct: error ? false : (expected == null ? true : ok === true), graded: expected != null };
     updateSessionProgress();
     if (state.mode === 'learn') maybeAutoCompleteSet();
+    window.studyUX?.save();
   } catch (error) {
     output.className = 'output bad';
     output.textContent = `Nepodařilo se spustit Python: ${error.message}\n\nZkontroluj připojení k internetu a zkus to znovu.`;
@@ -1890,7 +1909,7 @@ $('newSession').addEventListener('click', () => { state.results = {}; state.curr
 $('homeBtn').addEventListener('click', openHome);
 $('brandHome').addEventListener('click', openHome);
 $('brandHome').addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openHome(); } });
-$('continueBtn').addEventListener('click', () => openStudy('all', 'all'));
+$('continueBtn').addEventListener('click', () => window.studyUX?.resume());
 $('resetProgress').addEventListener('click', () => {
   document.querySelectorAll('.answer-input').forEach((field) => {
     const codeId = field.dataset.code;

@@ -359,7 +359,7 @@ window.PC_GRAPHICS_EXERCISES = [
       "pixely",
       "rastr"
     ],
-    "image": "materialy/pocitacova-grafika/zdroj/media/rastrová-vektorová-grafika.png",
+    "image": "materialy/pocitacova-grafika/zdroj/media/rastrova-vektorova-grafika.png",
     "imageAlt": "Infografika porovnávající rastrovou a vektorovou grafiku",
     "imageCaption": "Podívej se hlavně na levou část ilustrace a její zvětšené pixely.",
     "difficulty": 1
@@ -386,7 +386,7 @@ window.PC_GRAPHICS_EXERCISES = [
       "křivky",
       "vektor"
     ],
-    "image": "materialy/pocitacova-grafika/zdroj/media/rastrová-vektorová-grafika.png",
+    "image": "materialy/pocitacova-grafika/zdroj/media/rastrova-vektorova-grafika.png",
     "imageAlt": "Infografika porovnávající rastrovou a vektorovou grafiku",
     "difficulty": 2
   },
@@ -412,7 +412,7 @@ window.PC_GRAPHICS_EXERCISES = [
       "logo",
       "škálování"
     ],
-    "image": "materialy/pocitacova-grafika/zdroj/media/rastrová-vektorová-grafika.png",
+    "image": "materialy/pocitacova-grafika/zdroj/media/rastrova-vektorova-grafika.png",
     "imageAlt": "Infografika s doporučeními pro výběr grafického formátu",
     "difficulty": 1
   },
@@ -438,7 +438,7 @@ window.PC_GRAPHICS_EXERCISES = [
       "fotografie",
       "web"
     ],
-    "image": "materialy/pocitacova-grafika/zdroj/media/rastrová-vektorová-grafika.png",
+    "image": "materialy/pocitacova-grafika/zdroj/media/rastrova-vektorova-grafika.png",
     "imageAlt": "Infografika s doporučeními pro výběr grafického formátu",
     "difficulty": 1
   },
@@ -464,7 +464,7 @@ window.PC_GRAPHICS_EXERCISES = [
       "průhlednost",
       "web"
     ],
-    "image": "materialy/pocitacova-grafika/zdroj/media/rastrová-vektorová-grafika.png",
+    "image": "materialy/pocitacova-grafika/zdroj/media/rastrova-vektorova-grafika.png",
     "imageAlt": "Infografika s doporučeními pro výběr grafického formátu",
     "difficulty": 1
   },
@@ -493,7 +493,7 @@ window.PC_GRAPHICS_EXERCISES = [
       "JPEG",
       "WebP"
     ],
-    "image": "materialy/pocitacova-grafika/zdroj/media/rastrová-vektorová-grafika.png",
+    "image": "materialy/pocitacova-grafika/zdroj/media/rastrova-vektorova-grafika.png",
     "imageAlt": "Infografika o JPEG a WebP",
     "difficulty": 2
   },
@@ -522,7 +522,7 @@ window.PC_GRAPHICS_EXERCISES = [
       "PNG",
       "GIF"
     ],
-    "image": "materialy/pocitacova-grafika/zdroj/media/rastrová-vektorová-grafika.png",
+    "image": "materialy/pocitacova-grafika/zdroj/media/rastrova-vektorova-grafika.png",
     "imageAlt": "Infografika o PNG a GIF",
     "difficulty": 2
   },
@@ -548,7 +548,7 @@ window.PC_GRAPHICS_EXERCISES = [
       "SVG",
       "logo"
     ],
-    "image": "materialy/pocitacova-grafika/zdroj/media/rastrová-vektorová-grafika.png",
+    "image": "materialy/pocitacova-grafika/zdroj/media/rastrova-vektorova-grafika.png",
     "imageAlt": "Infografika o SVG",
     "difficulty": 2
   },
@@ -1252,25 +1252,44 @@ window.PC_GRAPHICS_EXERCISES = [
     "topic": "Export grafiky",
     "subtopic": "Kontrola před exportem",
     "id": "pg-check-001",
-    "type": "order",
-    "title": "Kontrola před exportem",
-    "question": "Seřaď uvedené kontrolní kroky před exportem tak, jak jsou uvedeny v přiloženém seznamu.",
-    "order": [
-      "Zkontrolovat vložení písem",
-      "Zkontrolovat tiskové značky",
-      "Zkontrolovat barevný prostor",
-      "Zkontrolovat správné rozlišení všech prvků"
-    ],
-    "solution": "Pořadí odpovídá čtyřem položkám kontrolního seznamu v infografice.",
-    "hint": "Postupuj shora dolů v kontrolním seznamu.",
+    "type": "diagnostic",
+    "title": "Odhal chyby v kontrole před exportem",
+    "question": "Které kroky kontroly před exportem jsou chybně? Označ všechny chybné postupy.",
+    "solution": "Chybná je vynechaná kontrola barevného prostoru a rozlišení. Písma, tiskové značky, barvy i rozlišení je potřeba zkontrolovat podle požadavků cílového výstupu.",
+    "hint": "Hledej postupy, které vynechávají potřebnou kontrolu.",
     "tags": [
       "kontrola",
-      "export",
-      "řazení"
+      "export"
     ],
     "image": "materialy/pocitacova-grafika/zdroj/media/export-grafiky-affinity.png",
     "imageAlt": "Kontrolní seznam před exportem grafiky",
-    "difficulty": 2
+    "difficulty": 2,
+    "items": [
+      {
+        "id": "fonts",
+        "label": "Ověřit, zda výstup obsahuje požadovaná vložená písma.",
+        "detail": "Kontrola písem pomáhá zachovat správné zobrazení textu ve výstupu."
+      },
+      {
+        "id": "marks",
+        "label": "Zkontrolovat tiskové značky podle požadavků na výstup.",
+        "detail": "Tiskové značky se kontrolují s ohledem na cílové použití."
+      },
+      {
+        "id": "color",
+        "label": "Přeskočit kontrolu barevného prostoru, protože na výsledku nezáleží.",
+        "detail": "Barevný prostor je součástí kontroly; musí odpovídat zamýšlenému výstupu."
+      },
+      {
+        "id": "resolution",
+        "label": "Před exportem neověřovat rozlišení použitých rastrových obrázků.",
+        "detail": "Rozlišení obrazových prvků je potřeba před exportem zkontrolovat."
+      }
+    ],
+    "answerIds": [
+      "color",
+      "resolution"
+    ]
   },
   {
     "subject": "Počítačová grafika",
@@ -1740,7 +1759,7 @@ window.PC_GRAPHICS_EXERCISES = [
       "shrnutí",
       "formáty"
     ],
-    "image": "materialy/pocitacova-grafika/zdroj/media/rastrová-vektorová-grafika.png",
+    "image": "materialy/pocitacova-grafika/zdroj/media/rastrova-vektorova-grafika.png",
     "imageAlt": "Infografika porovnávající rastrovou a vektorovou grafiku",
     "imageCaption": "Ilustrace používaná pro otázku; druhá ilustrace k exportu je součástí dalších úloh.",
     "difficulty": 3

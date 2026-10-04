@@ -12,7 +12,31 @@ Statická webová aplikace pro procvičování školních materiálů. GitHub Pa
 - Číslicová technika
 - Počítačová grafika
 
-Aktuální runtime obsahuje 436 úloh: 121 v obecném souboru `exercises.js` (30 v Programování, 56 ve Vývoji webových aplikací, 35 v Databázích), 110 ze sítí, 106 z literatury, 40 z číslicové techniky a 59 z počítačové grafiky. Z toho 14 existujících úloh používá novou interakční vrstvu `scenario`, `diagnostic`, `classification`, `compare` nebo `image-choice`.
+## Studijní přehledy
+
+Na úvodu je tlačítko **Studijní přehledy**, během režimu Učení také **Připomenout učivo**. Knihovna obsahuje 12 stručných přehledů pokrývajících všech sedm předmětů. Není úplnou učebnicí všech témat. Obsahuje výklad, příklady, časté chyby a odkaz na podklad. Lze filtrovat podle předmětu a vyhledávat i bez diakritiky.
+
+**Procvičit téma** otevře novou sadu v režimu Učení pro konkrétní předmět a téma, s vymazaným hledáním a filtry typu a obtížnosti. Velikost sady odpovídá aktuální volbě. Při pouhém otevření přehledů ze studia se odpovědi nemění; **Zpět k rozpracované sadě** obnoví původní obrazovku bez překreslení otázek.
+
+Obsah se upravuje v `data/study_guides.js`, rozhraní v `study-guides.js` a styly v `study-guides.css`. Soubory se načítají přímo z HTML; nevyžadují backend, build ani externí službu. Podklady Pythonu a sítí zahrnují aktivní katalog úloh; ostatní přehledy využívají dodané studijní materiály.
+
+Kontrola zdrojových cest, unikátních ID, pokrytí předmětů a vazeb na otázky:
+
+```bash
+node scripts/validate_study_guides.js
+```
+
+## Výběr témat a mobilní ovládání
+
+Kliknutí na předmět otevře karty jeho témat, včetně volby Všechna témata. Karty předmětů mají vlastní popisy. Rychlé procvičování na úvodu vytváří pět otázek ze všech předmětů. Procvičit chyby vychází z lokální historie a posledních kontrol; opravené chyby se vyřazují.
+
+Na mobilu je výchozí zobrazení **Jedna otázka**, na desktopu **Celá sada**. Volbu lze změnit u průběhu sady a ukládá se v tomto prohlížeči. Předchozí/Další mění viditelnost otázky bez překreslení, takže zůstávají odpovědi, kód i pořadí položek. Dokončit test / Zobrazit shrnutí sady jsou dostupné vedle průběhu mimo sbalené Nastavení sady.
+
+**Pokračovat v sadě** obnoví poslední rozpracovanou sadu včetně filtrů, režimu, aktuální otázky, odpovědí, rozepsaného kódu, párování, řazení a třídění. Ukládání používá `localStorage`, bez backendu nebo účtu. Platí pro tento prohlížeč; po smazání jeho dat nebo při nedostupném úložišti nelze sadu obnovit. Nová sada nahradí předchozí rozpracovanou sadu. Dokončený test se již nenabízí k pokračování.
+
+Rozhraní a ukládání spravují `study-ux.js` a `study-ux.css`. Doporučení k obsahu úloh jsou v `docs/OTAZKY_DOPORUCENI.md`.
+
+Aktuální runtime obsahuje 436 úloh: 121 v obecném souboru `exercises.js` (30 v Programování, 56 ve Vývoji webových aplikací, 35 v Databázích), 110 ze sítí, 106 z literatury, 40 z číslicové techniky a 59 z počítačové grafiky. Z toho 16 úloh používá interakční vrstvu `scenario`, `diagnostic`, `classification`, `compare` nebo `image-choice`.
 
 ## Struktura projektu
 
@@ -110,7 +134,7 @@ materialy/pocitacove-site/zdroj/pocitacove-site-1-rocnik.canvas
 
 Úvodní stránka zachovává barevné rozlišení sedmi předmětů: Programování, Vývoj webových aplikací, Databáze, Počítačové sítě, Literatura, Číslicová technika a Počítačová grafika. Výchozí motiv je tmavý; tlačítkem **Světlý motiv** lze přepnout světlé barvy a volba se ukládá lokálně.
 
-Ve studiu je vyhledávání, pět filtrů a volba velikosti sady seskupena do sbalitelného panelu **Nastavení sady**. Panel je při vstupu do studia standardně zavřený, takže hlavní hlavička ponechává na očích pouze režim a průběh sady. Progress bar je `position: sticky`, aby zůstal dostupný při scrollování. Akční tlačítka pro novou sadu, řešení, generování a shrnutí jsou součástí Nastavení sady.
+Ve studiu je vyhledávání, pět filtrů a volba velikosti sady seskupena do sbalitelného panelu **Nastavení sady**. Panel je při vstupu standardně zavřený. Průběh sady je na desktopu sticky, na mobilu zůstává běžnou součástí stránky a v zobrazení Jedna otázka se při scrollování připíná menší navigace Předchozí / Další. Nová sada, řešení a generování jsou v Nastavení sady; shrnutí a dokončení testu jsou přímo u průběhu.
 
 U kódových úloh jsou čísla řádků, zvýraznění syntaxe a klávesa **Tab** vkládající 4 mezery; **Shift+Tab** odebírá jedno odsazení. Na mobilu je tlačítko **Zkontrolovat** připnuté dole a toastové hlášky se zobrazují nad touto lištou, aby se navzájem nezakrývaly. Po dokončení sady lze vytvořit novou sadu pouze z úloh, které byly skutečně zodpovězené špatně.
 
@@ -196,6 +220,12 @@ Z kořene projektu:
 
 ```bash
 node scripts/validate_questions.js
+```
+
+Regrese pravidla pro řazení podle materiálu:
+
+```bash
+node scripts/test_question_rules.js
 ```
 
 Validator kontroluje mimo jiné:

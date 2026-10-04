@@ -53,6 +53,8 @@ for (const group of groups) {
 const ids = new Map();
 const questions = new Map();
 const sourceDependentQuestion = /(materiál|poznámk|studijní materiál|dodan[ée]m)/i;
+// Řazení se smí opírat o návaznost kroků, nikoli o pořadí položek na obrázku.
+const sourceOrderQuestion = /(?:jak|tak jak|podle poradi).{0,50}(?:uveden|zobrazen|serazen).{0,60}(?:seznam|infografi|obraz|podklad)|(?:podle|v poradi).{0,30}(?:prilozen|uveden|kontrolniho).{0,30}seznam/;
 
 function normalizeQuestion(value) {
   return String(value ?? '')
@@ -355,7 +357,7 @@ for (const e of all) {
       if (values.some(v => !v)) errors.push(`${prefix}: order nesmí obsahovat prázdnou položku`);
       if (new Set(values).size !== values.length) errors.push(`${prefix}: order obsahuje duplicitní položku`);
     }
-    if (sourceDependentQuestion.test(String(e.question ?? ''))) {
+    if (sourceDependentQuestion.test(String(e.question ?? '')) || sourceOrderQuestion.test(normalizeMetadataValue(e.question))) {
       errors.push(`${prefix}: order nesmí vyžadovat pořadí podle zdrojového materiálu`);
     }
   }
