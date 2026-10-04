@@ -138,5 +138,109 @@ window.STUDY_GUIDES = [
     ],
     mistake: 'Detailní logo s drobným textem může být jako favicon nečitelné. Zkontroluj skutečně malou velikost.',
     sourceLabel: 'Zdrojový materiál: Header a favicon', source: 'materialy/vyvoj-webovych-aplikaci/zdroj/header-a-favicon.md'
-  }
+  },
+{
+  "id": "et-proud",
+  "subject": "elektrotechnika",
+  "topic": "Elektrický proud",
+  "title": "Elektrický proud a náboj",
+  "minutes": 3,
+  "intro": "Elektrický proud je uspořádaný pohyb elektricky nabitých částic. V kovech jsou pohyblivými nositeli náboje volné elektrony.",
+  "sections": [
+    {
+      "title": "Co si zapamatovat",
+      "points": [
+        "Proud I měříme v ampérech (A), náboj Q v coulombech (C), čas t v sekundách (s).",
+        "Pro stálý proud platí I = Q / t. Úpravou dostaneme Q = I · t a t = Q / I.",
+        "1 A = 1 C / s."
+      ]
+    },
+    {
+      "title": "Řešený příklad",
+      "text": "Za 3 s projde náboj 6 C: I = 6 / 3 = 2 A."
+    }
+  ],
+  "mistake": "Náhodný pohyb částic sám o sobě nepředstavuje elektrický proud. Při výpočtu nepřevracej podíl Q / t.",
+  "sourceLabel": "Podklad: přepis dodaných poznámek k elektrotechnice",
+  "source": "materialy/elektrotechnika/zdroj/elektrotechnika.md"
+},
+{
+  "id": "et-ohm",
+  "subject": "elektrotechnika",
+  "topic": "Ohmův zákon",
+  "title": "Ohmův zákon a rezistor",
+  "minutes": 3,
+  "intro": "Elektrický odpor je vlastnost omezující průchod proudu. Rezistor je součástka s určitou hodnotou odporu.",
+  "sections": [
+    {
+      "title": "Co si zapamatovat",
+      "points": [
+        "Odpor R měříme v ohmech (Ω), napětí U ve voltech (V).",
+        "Pro ohmický rezistor platí I = U / R, R = U / I, U = R · I.",
+        "Při stálém odporu je proud přímo úměrný napětí. Při stálém napětí s větším odporem proud klesá.",
+        "Voltampérová charakteristika je graf závislosti I na U. Pro stálý odpor je přímkou procházející počátkem; v grafu I(U) má menší odpor strmější přímku."
+      ]
+    },
+    {
+      "title": "Řešený příklad",
+      "text": "Na rezistoru 6 Ω je napětí 12 V: I = 12 / 6 = 2 A."
+    }
+  ],
+  "mistake": "Odpor a rezistor nejsou totéž. Při porovnání sklonů vždy zkontroluj, která veličina je na které ose.",
+  "sourceLabel": "Podklad: přepis dodaných poznámek k elektrotechnice",
+  "source": "materialy/elektrotechnika/zdroj/elektrotechnika.md"
+},
+{
+  "id": "et-vodic",
+  "subject": "elektrotechnika",
+  "topic": "Rezistivita a odpor vodiče",
+  "title": "Rezistivita, délka a průřez",
+  "minutes": 3,
+  "intro": "Odpor konkrétního vodiče závisí na materiálu, délce, průřezu a teplotě. Při stejné teplotě používáme vztah R = ρ · l / S.",
+  "sections": [
+    {
+      "title": "Co si zapamatovat",
+      "points": [
+        "ρ je rezistivita materiálu, l délka a S průřez homogenního vodiče.",
+        "Delší vodič má při stejném průřezu a materiálu větší odpor. Větší průřez při stejné délce a materiálu odpor snižuje.",
+        "Při ρ v Ω·mm²/m dosazuj l v m a S v mm²; výsledkem je R v Ω.",
+        "Rezistivita je vlastnost materiálu při daných podmínkách, odpor patří konkrétnímu vodiči."
+      ]
+    },
+    {
+      "title": "Řešený příklad",
+      "text": "Pro l = 2 m, S = 1 mm² a ρ = 0,056 Ω·mm²/m: R = 0,056 · 2 / 1 = 0,112 Ω = 112 mΩ."
+    }
+  ],
+  "mistake": "Nedosazuj délku 2000 mm k rezistivitě v Ω·mm²/m bez převodu. V tomto vztahu použij 2 m.",
+  "sourceLabel": "Podklad: přepis dodaných poznámek k elektrotechnice",
+  "source": "materialy/elektrotechnika/zdroj/elektrotechnika.md"
+},
+{
+  "id": "et-teplota",
+  "subject": "elektrotechnika",
+  "topic": "Odpor a teplota",
+  "title": "Závislost odporu na teplotě",
+  "minutes": 3,
+  "intro": "Odpor běžných kovových vodičů s rostoucí teplotou roste. Intenzivnější kmity mřížky zvyšují rozptyl vodivostních elektronů.",
+  "sections": [
+    {
+      "title": "Co si zapamatovat",
+      "points": [
+        "V menším teplotním rozsahu přibližně platí R = R₀ · (1 + α · ΔT).",
+        "R₀ je odpor při výchozí teplotě, R nový odpor, ΔT rozdíl nové a výchozí teploty. α je teplotní součinitel odporu v K⁻¹.",
+        "Při ohřevu z 20 °C na 70 °C je ΔT = 50 K. Při ochlazení je ΔT záporné.",
+        "PTC: při růstu teploty odpor roste. NTC: při růstu teploty odpor klesá.",
+        "Závislost odporu na teplotě využíváme při měření teploty, kompenzaci a ochraně elektrických zařízení."
+      ]
+    },
+    {
+      "title": "Řešený příklad",
+      "text": "Pro vinutí s R₀ = 10 Ω při 20 °C, zahřáté na 70 °C, použij v této úloze α = 0,004 K⁻¹: R = 10 · (1 + 0,004 · 50) = 12 Ω."
+    }
+  ],
+  "mistake": "Dosazuj změnu teploty, nikoli konečnou teplotu. Ne všechny materiály mají kladný teplotní součinitel. Hodnota α = 0,004 K⁻¹ je zadané zaokrouhlení pro příklad, protože konec fotografie chybí.",
+  "sourceLabel": "Podklad: přepis dodaných poznámek k elektrotechnice",
+  "source": "materialy/elektrotechnika/zdroj/elektrotechnika.md"
+}
 ];

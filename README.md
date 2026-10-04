@@ -11,10 +11,11 @@ Statická webová aplikace pro procvičování školních materiálů. GitHub Pa
 - Literatura
 - Číslicová technika
 - Počítačová grafika
+- elektrotechnika
 
 ## Studijní přehledy
 
-Na úvodu je odkaz **Nejdřív si připomenout učivo**, během režimu Učení také **Připomenout učivo**. Knihovna obsahuje 12 stručných přehledů pokrývajících všech sedm předmětů. Není úplnou učebnicí všech témat. Obsahuje výklad, příklady, časté chyby a odkaz na podklad. Lze filtrovat podle předmětu a vyhledávat i bez diakritiky.
+Na úvodu je odkaz **Nejdřív si připomenout učivo**, během režimu Učení také **Připomenout učivo**. Knihovna obsahuje 16 stručných přehledů pokrývajících všech osm předmětů. Není úplnou učebnicí všech témat. Obsahuje výklad, příklady, časté chyby a odkaz na podklad. Lze filtrovat podle předmětu a vyhledávat i bez diakritiky.
 
 **Procvičit téma** otevře novou sadu v režimu Učení pro konkrétní předmět a téma, s vymazaným hledáním a filtry typu a obtížnosti. Velikost sady odpovídá aktuální volbě. Při pouhém otevření přehledů ze studia se odpovědi nemění; **Zpět k rozpracované sadě** obnoví původní obrazovku bez překreslení otázek.
 
@@ -38,7 +39,9 @@ Rozhraní a ukládání spravují `study-ux.js` a `study-ux.css`. Doporučení k
 
 Společný vzhled je v `appearance.css`, načítaném za styly jednotlivých modulů. Obsahuje barvy obou motivů, karty s SVG ikonami, typografii, zvýraznění vybrané odpovědi a mobilní rozložení. Úvod zdůrazňuje jednu hlavní akci: rychlou sadu, nebo pokračování v rozpracované sadě. Pokračování a procvičení chyb se zobrazují, když jsou dostupné.
 
-Aktuální runtime obsahuje 436 úloh: 121 v obecném souboru `exercises.js` (30 v Programování, 56 ve Vývoji webových aplikací, 35 v Databázích), 110 ze sítí, 106 z literatury, 40 z číslicové techniky a 59 z počítačové grafiky. Z toho 16 úloh používá interakční vrstvu `scenario`, `diagnostic`, `classification`, `compare` nebo `image-choice`.
+Aktuální runtime obsahuje 480 úloh: 121 v obecném souboru `exercises.js` (30 v Programování, 56 ve Vývoji webových aplikací, 35 v Databázích), 110 ze sítí, 106 z literatury, 40 z číslicové techniky, 59 z počítačové grafiky a 44 z elektrotechniky. Z toho 18 úloh používá interakční vrstvu `scenario`, `diagnostic`, `classification`, `compare` nebo `image-choice`.
+
+Modul **elektrotechnika** pokrývá elektrický proud, Ohmův zákon, rezistivitu a odpor vodiče a závislost odporu na teplotě. Obsahuje výběr odpovědí, přiřazování, výpočty, třídění, scénář a krátké vysvětlení s vlastní kontrolou. Přepis dodaných poznámek je v `materialy/elektrotechnika/zdroj/elektrotechnika.md`. U neúplného příkladu s měděným vinutím je pro výpočet výslovně zadáno zaokrouhlení α = 0,004 K⁻¹; tato hodnota na fotografii chybí.
 
 ## Struktura projektu
 
@@ -52,7 +55,8 @@ procvicovna-github/
 │   ├── network_exercises.js
 │   ├── literature_exercises.js
 │   ├── cislicova_technika_exercises.js
-│   └── pocitacova_grafika_exercises.js
+│   ├── pocitacova_grafika_exercises.js
+│   └── elektrotechnika_exercises.js
 │
 ├── scripts/
 │   └── validate_questions.js          # validace všech aktivních dat
@@ -117,10 +121,11 @@ Aktivní soubory jsou pouze `index.html`, `app.js`, soubory v `data/` a validát
 <script src="data/literature_exercises.js"></script>
 <script src="data/cislicova_technika_exercises.js"></script>
 <script src="data/pocitacova_grafika_exercises.js"></script>
+<script src="data/elektrotechnika_exercises.js"></script>
 <script src="app.js"></script>
 ```
 
-`app.js` pak spojí globální pole `EXERCISES`, `NETWORK_EXERCISES`, `LITERATURE_EXERCISES`, `DIGITAL_TECHNICS_EXERCISES` a `PC_GRAPHICS_EXERCISES` do jednoho seznamu.
+`app.js` pak spojí globální pole `EXERCISES`, `NETWORK_EXERCISES`, `LITERATURE_EXERCISES`, `DIGITAL_TECHNICS_EXERCISES`, `PC_GRAPHICS_EXERCISES` a `ELECTROTECHNICS_EXERCISES` do jednoho seznamu.
 
 ### Co je v `archiv/`
 

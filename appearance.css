@@ -55,6 +55,7 @@ button:disabled{box-shadow:none}
 :root[data-theme="light"] .card[data-subject="Počítačové sítě"]{--subject-color:#b74869!important}
 :root[data-theme="light"] .card[data-subject="Literatura"]{--subject-color:#7853b3!important}
 :root[data-theme="light"] .card[data-subject="Číslicová technika"]{--subject-color:#2877a5!important}
+:root[data-theme="light"] .card[data-subject="elektrotechnika"]{--subject-color:#ad6500!important}
 :root[data-theme="light"] .card[data-subject="Počítačová grafika"]{--subject-color:#9455a7!important}
 .study-shell{border:0;border-radius:0;background:transparent}
 .study-header{padding:0 0 18px;border:0;background:transparent}

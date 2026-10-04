@@ -6,6 +6,7 @@ const state = {
     ...(Array.isArray(window.LITERATURE_EXERCISES) ? window.LITERATURE_EXERCISES : []),
     ...(Array.isArray(window.DIGITAL_TECHNICS_EXERCISES) ? window.DIGITAL_TECHNICS_EXERCISES : []),
     ...(Array.isArray(window.PC_GRAPHICS_EXERCISES) ? window.PC_GRAPHICS_EXERCISES : []),
+    ...(Array.isArray(window.ELECTROTECHNICS_EXERCISES) ? window.ELECTROTECHNICS_EXERCISES : []),
   ],
   answerVisible: false,
   view: 'home',
@@ -510,6 +511,7 @@ function subjectIcon(subject) {
     'Počítačové sítě': '<rect x="9" y="3" width="6" height="5" rx="1"/><rect x="2" y="16" width="6" height="5" rx="1"/><rect x="16" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M5 16v-4h14v4"/>',
     'Literatura': '<path d="M12 5c-3-2-6-2-9-1v15c3-1 6-1 9 1 3-2 6-2 9-1V4c-3-1-6-1-9 1Zm0 0v15"/>',
     'Číslicová technika': '<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 8h2v8m4-8h2v8h-2V8ZM8 16h4M8 2v2m8-2v2M8 20v2m8-2v2M2 8h2m-2 8h2m16-8h2m-2 8h2"/>',
+    'elektrotechnika': '<path d="m13 2-9 12h7l-1 8 10-13h-7l1-7Z"/>',
     'Počítačová grafika': '<rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.5"/><path d="m3 17 5-5 4 4 4-6 5 7"/>'
   };
   return `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[subject] || paths['Literatura']}</svg>`;
@@ -530,6 +532,7 @@ function renderHome() {
     'Počítačové sítě': { icon: '▦', color: '#fb8aa0' },
     'Literatura': { icon: '∑', color: '#a78bfa' },
     'Číslicová technika': { icon: '◌', color: '#4aa8ff' },
+    'elektrotechnika': { icon: 'ϟ', color: '#f59e0b' },
     'Počítačová grafika': { icon: '▧', color: '#c084fc' },
   };
   const fallbackIcons = ['◈', '⌘', '✦', '▦', '∑', '◌'];
@@ -559,6 +562,7 @@ function subjectDescription(subject) {
     'Počítačové sítě': 'Topologie, kabeláž, síťové modely, adresace a protokoly.',
     'Literatura': 'Literární období, autoři, díla a jejich postavy.',
     'Číslicová technika': 'Číselné soustavy, převody a Hornerovo schéma.',
+    'elektrotechnika': 'Elektrický proud, Ohmův zákon, odpor vodiče a vliv teploty.',
     'Počítačová grafika': 'Rastr a vektor, formáty, export a favicon.'
   })[subject] || 'Vyber téma a vyzkoušej své znalosti.';
 }
