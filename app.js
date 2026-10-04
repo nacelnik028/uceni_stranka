@@ -699,7 +699,7 @@ function renderHeader() {
   setOptions($('filterTopic'), 'Všechna témata', topics, selectedTopic);
   setOptions($('filterSubtopic'), 'Všechna podtémata', subtopics, selectedSubtopic);
 
-  const generatedVisible = canGenerateDigitalTasks();
+  const generatedVisible = canGenerateTasks();
   $('generateTasks').classList.toggle('hidden', !generatedVisible);
   updateFilterSummary();
 }
@@ -708,9 +708,13 @@ function allCatalogExercises() {
   return [...state.exercises, ...state.generatedExercises];
 }
 
-function canGenerateDigitalTasks() {
+function canGenerateTasks() {
   const subject = $('filterSubject')?.value || 'all';
   const type = $('filterType')?.value || 'all';
+  if (subject === 'elektrotechnika') {
+    const subtopic = $('filterSubtopic')?.value || 'all';
+    return ['all', 'number'].includes(type) && ['all', 'Výpočty'].includes(subtopic);
+  }
   return subject === 'Číslicová technika' && ['all', 'conversion', 'number'].includes(type);
 }
 
@@ -931,17 +935,24 @@ function renderExercise(e, index) {
       </div>
       <div class="output" data-out="${id}">Výstup programu se objeví zde.</div>`;
   } else if (e.type === 'number' || e.type === 'fill') {
+    const calculationPanel = e.type === 'number' && e.subject === 'elektrotechnika';
     const autoGrade = shouldAutoGradeTextInput(e);
     const action = autoGrade ? 'check-short' : 'show-self-check';
     const buttonLabel = state.mode === 'test'
       ? 'Zaznamenat odpověď'
-      : (autoGrade ? 'Zkontrolovat' : 'Porovnat s řešením');
+      : (calculationPanel ? 'Zkontrolovat výpočet' : autoGrade ? 'Zkontrolovat' : 'Porovnat s řešením');
+    const answerInput = calculationPanel
+      ? `<div class="conversion-panel">
+          <label class="small" for="answer-${id}">Zapiš výsledek:</label>
+          <input id="answer-${id}" class="answer-input conversion-input" data-answer="${id}" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="Napiš číslo…" />
+        </div>`
+      : `<input class="answer-input" data-answer="${id}" placeholder="${e.type === 'number' ? 'Napiš číslo…' : 'Doplň odpověď…'}" />`;
     inner = `
-      <input class="answer-input" data-answer="${id}" placeholder="${e.type === 'number' ? 'Napiš číslo…' : 'Doplň odpověď…'}" />
+      ${answerInput}
       <div class="row" style="margin-top:10px">
         <button data-action="${action}" data-id="${id}">${buttonLabel}</button>
       </div>
-      <div class="output" data-out="${id}">${autoGrade ? 'Napiš odpověď a zkontroluj.' : 'Odpověď se automaticky nehodnotí.'}</div>`;
+      <div class="output" data-out="${id}">${calculationPanel ? 'Zapiš výsledek výpočtu.' : autoGrade ? 'Napiš odpověď a zkontroluj.' : 'Odpověď se automaticky nehodnotí.'}</div>`;
   } else {
     const autoGrade = shouldAutoGradeTextInput(e);
     inner = `
@@ -1168,17 +1179,111 @@ function generatedCtExercise() {
   return normalizeExercises([exercise])[0];
 }
 
-function generateDigitalExercises(count = 6) {
-  if (!canGenerateDigitalTasks()) {
-    toast('Generované úlohy jsou dostupné v Číslicové technice při filtru Výpočtu nebo Převodu soustavy.');
+function generatedElectrotechnicsExercise() {
+  const topics = ['Elektrický proud', 'Ohmův zákon', 'Rezistivita a odpor vodiče', 'Odpor a teplota'];
+  const selectedTopic = $('filterTopic').value || 'all';
+  const topic = selectedTopic === 'all' ? topics[randomInt(0, topics.length - 1)] : selectedTopic;
+  const level = $('filterDifficulty').value === 'all' ? 3 : Number($('filterDifficulty').value);
+  const limit = level <= 2 ? 10 : level >= 4 ? 50 : 25;
+  const a = randomInt(1, limit);
+  const b = randomInt(2, limit + 2);
+  const mode = randomInt(0, 2);
+  const fmt = value => String(Number(value.toFixed(6))).replace('.', ',');
+  let question, answer, solution, hint;
+  if (topic === 'Elektrický proud') {
+    const current = a / 10;
+    const time = b;
+    const charge = Number((current * time).toFixed(6));
+    if (mode === 0) {
+      question = `Za ${time} s projde vodičem náboj ${fmt(charge)} C. Urči stálý proud. Napiš číslo v A.`;
+      answer = current;
+      solution = `I = Q / t = ${fmt(charge)} / ${time} = ${fmt(answer)} A.`;
+      hint = 'Náboj vyděl dobou jeho průchodu.';
+    } else if (mode === 1) {
+      question = `Vodičem protéká stálý proud ${fmt(current)} A po dobu ${time} s. Jaký náboj projde vodičem? Napiš číslo v C.`;
+      answer = charge;
+      solution = `Q = I · t = ${fmt(current)} · ${time} = ${fmt(answer)} C.`;
+      hint = 'Vyjádři náboj ze vztahu I = Q / t.';
+    } else {
+      question = `Vodičem protéká stálý proud ${fmt(current)} A. Za jak dlouho projde náboj ${fmt(charge)} C? Napiš číslo v s.`;
+      answer = time;
+      solution = `t = Q / I = ${fmt(charge)} / ${fmt(current)} = ${time} s.`;
+      hint = 'Vyjádři čas ze vztahu I = Q / t.';
+    }
+  } else if (topic === 'Ohmův zákon') {
+    const current = a / 10;
+    const resistance = b * 5;
+    const voltage = Number((current * resistance).toFixed(6));
+    if (mode === 0) {
+      question = `Na rezistoru s odporem ${resistance} Ω je napětí ${fmt(voltage)} V. Urči proud. Napiš číslo v A.`;
+      answer = current;
+      solution = `I = U / R = ${fmt(voltage)} / ${resistance} = ${fmt(answer)} A.`;
+      hint = 'Použij Ohmův zákon pro proud.';
+    } else if (mode === 1) {
+      question = `Na rezistoru je napětí ${fmt(voltage)} V a protéká jím proud ${fmt(current)} A. Urči odpor. Napiš číslo v Ω.`;
+      answer = resistance;
+      solution = `R = U / I = ${fmt(voltage)} / ${fmt(current)} = ${resistance} Ω.`;
+      hint = 'Vyjádři odpor z Ohmova zákona.';
+    } else {
+      question = `Rezistorem s odporem ${resistance} Ω protéká proud ${fmt(current)} A. Urči napětí. Napiš číslo v V.`;
+      answer = voltage;
+      solution = `U = R · I = ${resistance} · ${fmt(current)} = ${fmt(answer)} V.`;
+      hint = 'Vyjádři napětí z Ohmova zákona.';
+    }
+  } else if (topic === 'Rezistivita a odpor vodiče') {
+    const rho = [0.02, 0.04, 0.056][randomInt(0, 2)];
+    const section = [1, 2, 4][randomInt(0, 2)];
+    const length = a * section;
+    const resistance = Number((rho * a).toFixed(6));
+    if (mode === 0) {
+      question = `Vodič má délku ${length} m, průřez ${section} mm² a rezistivitu ${fmt(rho)} Ω·mm²/m. Urči odpor. Napiš číslo v Ω.`;
+      answer = resistance;
+      solution = `R = ρ · l / S = ${fmt(rho)} · ${length} / ${section} = ${fmt(answer)} Ω.`;
+      hint = 'Délku dosazuj v metrech a průřez v mm².';
+    } else if (mode === 1) {
+      question = `Vodič má délku ${length} m, rezistivitu ${fmt(rho)} Ω·mm²/m a odpor ${fmt(resistance)} Ω. Urči průřez. Napiš číslo v mm².`;
+      answer = section;
+      solution = `S = ρ · l / R = ${fmt(rho)} · ${length} / ${fmt(resistance)} = ${section} mm².`;
+      hint = 'Vyjádři průřez ze vztahu R = ρ · l / S.';
+    } else {
+      question = `Vodič má průřez ${section} mm², rezistivitu ${fmt(rho)} Ω·mm²/m a odpor ${fmt(resistance)} Ω. Urči délku. Napiš číslo v m.`;
+      answer = length;
+      solution = `l = R · S / ρ = ${fmt(resistance)} · ${section} / ${fmt(rho)} = ${length} m.`;
+      hint = 'Vyjádři délku ze vztahu R = ρ · l / S.';
+    }
+  } else {
+    const initial = a * 5;
+    const delta = randomInt(1, 6) * 5 * (mode === 2 ? -1 : 1);
+    const temperature = 20 + delta;
+    const change = Number((initial * 0.004 * delta).toFixed(6));
+    const resistance = Number((initial + change).toFixed(6));
+    question = `Vodič má při 20 °C odpor ${initial} Ω a teplotní součinitel α = 0,004 K⁻¹. Jeho teplota se změní na ${temperature} °C. ${mode === 1 ? 'O kolik Ω se odpor zvýší? Napiš jen přírůstek v Ω.' : 'Urči nový odpor. Napiš číslo v Ω.'} Použij lineární přiblížení.`;
+    answer = mode === 1 ? change : resistance;
+    solution = `ΔT = ${temperature} − 20 = ${delta} K. ${mode === 1 ? `ΔR = R₀ · α · ΔT = ${initial} · 0,004 · ${delta} = ${fmt(answer)} Ω.` : `R = R₀ · (1 + α · ΔT) = ${initial} · (1 + 0,004 · (${delta})) = ${fmt(answer)} Ω.`}`;
+    hint = 'Použij rozdíl nové a výchozí teploty; při ochlazení je záporný.';
+  }
+  return normalizeExercises([{
+    subject: 'elektrotechnika', topic, subtopic: 'Výpočty',
+    id: `et-gen-${Date.now().toString(36)}-${state.generatedCounter++}`,
+    type: 'number', title: 'Generovaný výpočet', question,
+    answer: String(Number(answer.toFixed(6))), solution, hint,
+    tags: ['generováno', 'elektrické obvody'], difficulty: level, generated: true
+  }])[0];
+}
+
+function generateExercises(count = 6) {
+  if (!canGenerateTasks()) {
+    toast('Vyber výpočty v elektrotechnice nebo převody a výpočty v Číslicové technice.');
     return;
   }
-  state.generatedExercises = [];
   const existing = new Set(baseFilteredExercises().map(e => `${e.type}|${e.question}`));
+  state.generatedExercises = [];
+  const electrotechnics = $('filterSubject').value === 'elektrotechnika';
+  if (electrotechnics) $('exerciseSearch').value = '';
   for (let i = 0; i < count; i++) {
     let candidate;
     let attempts = 0;
-    do { candidate = generatedCtExercise(); attempts += 1; }
+    do { candidate = electrotechnics ? generatedElectrotechnicsExercise() : generatedCtExercise(); attempts += 1; }
     while (existing.has(`${candidate.type}|${candidate.question}`) && attempts < 20);
     existing.add(`${candidate.type}|${candidate.question}`);
     state.generatedExercises.push(candidate);
@@ -1189,6 +1294,11 @@ function generateDigitalExercises(count = 6) {
   state.codeResults = {};
   state.currentStats = null;
   createSession(true);
+  if (electrotechnics) {
+    const size = $('sessionSize').value;
+    state.sessionIds = shuffle(state.generatedExercises.map(e => e.id)).slice(0, size === 'all' ? count : Number(size));
+    saveHistory(state.sessionIds);
+  }
   renderExercises();
   toast(`Vygenerováno ${state.generatedExercises.length} nových příkladů.`);
 }
@@ -1444,7 +1554,7 @@ function updateModeUI() {
   finishSet.textContent = isTest ? '✓ Dokončit test' : '✓ Zobrazit shrnutí sady';
   $('showAnswers').classList.toggle('hidden', isTest);
   $('hideAnswers').classList.toggle('hidden', isTest);
-  $('generateTasks').classList.toggle('hidden', !canGenerateDigitalTasks());
+  $('generateTasks').classList.toggle('hidden', !canGenerateTasks());
 }
 
 function renderExercises() {
@@ -1918,7 +2028,7 @@ $('hideAnswers').addEventListener('click', () => { state.answerVisible = false; 
 $('modeLearn').addEventListener('click', () => setStudyMode('learn'));
 $('modeTest').addEventListener('click', () => setStudyMode('test'));
 $('finishSet').addEventListener('click', finishCurrentSet);
-$('generateTasks').addEventListener('click', () => generateDigitalExercises(6));
+$('generateTasks').addEventListener('click', () => generateExercises(6));
 $('filterSubject').addEventListener('change', () => { $('filterTopic').value = 'all'; $('filterSubtopic').value = 'all'; $('filterDifficulty').value = 'all'; state.generatedExercises = []; state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; renderExercises(); maybeCloseSettingsPanel(); });
 $('filterTopic').addEventListener('change', () => { $('filterSubtopic').value = 'all'; state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; renderExercises(); maybeCloseSettingsPanel(); });
 $('filterSubtopic').addEventListener('change', () => { state.sessionIds = []; state.sessionKey = ''; state.results = {}; state.currentStats = null; renderExercises(); maybeCloseSettingsPanel(); });

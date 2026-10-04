@@ -43,6 +43,8 @@ Aktuální runtime obsahuje 480 úloh: 121 v obecném souboru `exercises.js` (30
 
 Modul **elektrotechnika** pokrývá elektrický proud, Ohmův zákon, rezistivitu a odpor vodiče a závislost odporu na teplotě. Obsahuje výběr odpovědí, přiřazování, výpočty, třídění, scénář a krátké vysvětlení s vlastní kontrolou. Přepis dodaných poznámek je v `materialy/elektrotechnika/zdroj/elektrotechnika.md`. U neúplného příkladu s měděným vinutím je pro výpočet výslovně zadáno zaokrouhlení α = 0,004 K⁻¹; tato hodnota na fotografii chybí.
 
+V elektrotechnice tlačítko **Generovat nové příklady** vytváří šest výpočtů s náhodnými hodnotami podle zvoleného tématu a obtížnosti. Je dostupné pro typ Všechny typy nebo Výpočet a podtéma Všechna podtémata nebo Výpočty. Nová sada obsahuje generované příklady; velikost omezuje aktuální volba velikosti sady. Zadání zahrnují všechny potřebné hodnoty a řešení s dosazením. Kontrola generátoru: `node scripts/test_elektrotechnika_generator.js`.
+
 ## Struktura projektu
 
 ```text
