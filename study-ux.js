@@ -137,7 +137,7 @@
     restoring = true;
     try {
       state.generatedExercises = Array.isArray(draft.generated) ? draft.generated.filter(e => e.generated === true) : [];
-      for (const id of filterIds) $(id).value = draft.filters[id] || (id === 'exerciseSearch' ? '' : id === 'sessionSize' ? '10' : 'all');
+      for (const id of filterIds) $(id).value = draft.filters[id] || (id === 'exerciseSearch' ? '' : 'all');
       renderHeader();
       $('filterTopic').value = draft.filters.filterTopic;
       renderHeader();
@@ -166,7 +166,7 @@
     } finally { restoring = false; }
     save();
   }
-  function start(subject = 'all', topic = 'all', size = '10', ids = null) {
+  function start(subject = 'all', topic = 'all', size = 'all', ids = null) {
     save();
     state.generatedExercises = [];
     state.results = {};
