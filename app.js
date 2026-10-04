@@ -543,7 +543,7 @@ function renderHome() {
     const visual = subjectVisuals[subject] || { icon: fallbackIcons[i % fallbackIcons.length], color: '#6cb6ff' };
     return `<button class="card" data-subject="${esc(subject)}" style="text-align:left;--subject-color:${visual.color}">
       <div class="card-top"><div class="card-icon">${subjectIcon(subject)}</div><span class="card-arrow" aria-hidden="true">↗</span></div>
-      <h3>${esc(subject)}</h3>
+      <h3>${esc(subject === 'elektrotechnika' ? 'Elektrotechnika' : subject)}</h3>
       <p>${esc(subjectDescription(subject))}</p>
       <div class="card-meta">${items.length} úloh · ${topicCount} ${label}</div>
     </button>`;
