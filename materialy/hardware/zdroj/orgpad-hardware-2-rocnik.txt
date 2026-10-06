@@ -1,0 +1,9760 @@
+﻿Hardware 2. ročník
+Zdroj: https://orgpad.info/s/H7mSOVmlt1P?embed=true
+Textový export buněk. Bez přepisu obrázků, videí a externích příloh.
+
+# Schéma
+
+VA displej
+
+---
+
+# Firmware
+
+Řídí, jak adaptér pracuje.
+
+Zajišťuje bezpečnost.
+
+Lze ho aktualizovat – podobně jako BIOS nebo ovladače.
+
+Je to základní mozek, který říká hardwaru, co má dělat.
+
+---
+
+# Types of SSD
+
+zdroj: Tech Home
+
+---
+
+# tabulka
+
+
+
+---
+
+# Architektura USB / Adresa USB zařízení
+
+Zařízení vybavené rozhraním USB je:
+
+  rozdělovač - hub – centrální jednotka hvězdicovité struktury
+
+funkční jednotka - periferní zařízení – např. myš, klávesnice, tiskárna…
+
+Propojení je řešeno pomocí víceúrovňové hvězdicové struktury
+
+
+
+
+
+Každé USB zařízení má svoji USB adresu a podporuje jednu nebo několik koncových jednotek (nodes /end points), se kterými může počítač komunikovat.  Počítač může přes Huby komunikovat se všemi zařízeními.
+
+Každé USB zařízení má přiřazenou jedinečnou adresu, kterou mu přidělí hostitelský počítač (host) během procesu inicializace. Tento proces probíhá následovně:
+
+Implicitní adresa: když je USB zařízení poprvé připojeno, komunikuje s hostitelským počítačem pomocí implicitní adresy 0
+
+Přiřazení adresy: hostitelský počítač přečte základní informace o zařízení a poté mu přiřadí jedinečnou adresu na sběrnici
+
+Komunikace: po přiřazení adresy zařízení komunikuje s hostitelským počítačem pomocí této nové adresy; tato adresa je jedinečná pro každé zařízení připojené k danému hostitelskému počítač
+
+Rozklad adresy USB
+
+Vzor adresy:  USB\VID_1234&PID_5678\12345678
+
+USB - označuje, že se jedná o USB zařízení
+
+VID_1234 - označení výrobce (Vendor ID), každý výrobce má přidělenou specifickou hodnotu
+
+https://the-sz.com/products/usbid/
+
+https://devicehunt.com/all-usb-vendors
+
+PID_5678 - označení produktu, přiděluje výrobce
+
+12345678 - jedinečné sériové číslo zařízení, použito k dalšímu rozlišení mezi zařízeními stejného typu
+
+
+
+Každé z až 127 zařízení má svou specifickou adresu. Tuto adresu je možno zjistit:
+
+
+
+Windows
+
+Správce zařízení → USB Hub → zařízení → Vlastnosti → Podrobnosti → ID instance zařízení (Cesta instance zařízení)
+
+PowerShell
+Get-PnpDevice -PresentOnly | Where-Object { $_.InstanceId -match '^USB' } | Format-Table -Autosize
+
+
+
+
+
+
+nástroje 3. stran - např. USBDeview
+
+Linux
+
+lsusb -v; adresa se najde v části Bus a Device
+
+dmesg | grep -i usb; zobrazí logy související s USB zařízeními
+
+
+
+Temple.zip - nástroj pro výpis USB zařízení - Win
+
+---
+
+# Princip fungování mikrofonu
+
+Základní princip
+
+
+
+Když mluvíte nebo vydáte zvuk, vznikají zvukové vlny.
+
+Tyto vlny dopadnou na membránu uvnitř mikrofonu.
+
+Membrána se rozkmitá podle zvuku.
+
+Pohyb membrány se převede na elektrický signál (např. změnou napětí).
+
+Signál se pošle do počítače, kde se může nahrát, upravit nebo přenést.
+
+Typy mikrofonů
+
+
+
+Dynamický mikrofon – odolný, vhodný pro zpěv nebo mluvené slovo.
+
+Kondenzátorový mikrofon – citlivější, používá se ve studiích.
+
+Elektretový mikrofon – malý, často v mobilních telefonech nebo notebooku.
+
+Mikrofon funguje jako „ucho“ počítače – zachytí zvuk a převede ho na data, která může počítač dále zpracovat.
+
+Bez mikrofonu by nebylo možné nahrávat hlas, telefonovat nebo používat hlasové ovládání.
+
+---
+
+# Video
+
+zdroj: YouTude
+
+---
+
+# Grafická karta
+
+Grafická karta (GPU – Graphics Processing Unit) je hardwarová součást počítače, která zpracovává grafická data a převádí je na obraz zobrazovaný na monitoru.
+
+Hlavní úkol: vykreslování 2D/3D grafiky, dekódování videa, akcelerace grafických operací.
+
+Použití:
+
+Hry, střih videa, 3D modelování.
+
+Virtuální realita, vědecké výpočty (GPGPU).
+
+Přehrávání videa ve vysokém rozlišení.
+
+Typy grafických karet
+
+
+
+Integrovaná – součást procesoru, sdílí RAM, vhodná pro běžné úlohy.
+
+Dedikovaná – samostatná karta s vlastní VRAM, vysoký výkon pro hry a grafiku.
+
+Profesionální – optimalizovaná pro CAD, rendering, vědecké aplikace.
+
+Externí – připojená přes Thunderbolt/USB, zvyšuje výkon notebooků.
+
+Stavba grafické karty
+
+
+
+GPU (grafický procesor) – srdce karty, provádí paralelní výpočty.
+
+VRAM (Video RAM) – rychlá paměť pro textury, snímky (GDDR6, HBM2).
+
+Řadič paměti – propojuje GPU a VRAM.
+
+Výstupní porty – HDMI, DisplayPort, DVI.
+
+Chlazení – ventilátory, heatpipe, vodní chlazení.
+
+Napájecí konektory – PCIe 6pin/8pin.
+
+Firmware (BIOS) – základní nastavení karty.
+
+Princip fungování
+
+
+
+Příjem dat z CPU přes sběrnici PCI Express.
+
+Zpracování – GPU provádí miliony výpočtů (shadery, textury, geometrie).
+
+Uložení do VRAM – obrazová data, textury.
+
+Výstup – signál přes HDMI/DP do monitoru.
+
+Obnovování snímků – rychlé střídání statických snímků (FPS) vytváří iluzi pohybu.
+
+Umístění na základní desce
+
+
+
+Grafická karta se instaluje do rozšiřujícího slotu PCI Express x16.
+
+Slot je obvykle nejblíže procesoru.
+
+Karta je zajištěna plastovou západkou a šroubem ke skříni.
+
+U výkonných karet nutné připojit dodatečné napájení ze zdroje
+
+Výměna grafické karty – postup
+
+
+
+Vypněte PC a odpojte napájení.
+
+Sejměte bočnici skříně.
+
+Odpojte napájecí kabely z grafické karty.
+
+Odšroubujte kartu ze zadní části skříně.
+
+Stiskněte pojistku PCIe slotu a kartu opatrně vyjměte.
+
+Vložte novou kartu do slotu, dokud nezacvakne pojistka.
+
+Připojte napájecí kabely a upevněte šrouby.
+
+Zapněte PC a nainstalujte ovladače od výrobce.
+
+Doporučení pro výběr a údržbu
+
+
+
+Sledujte kompatibilitu s deskou (PCIe verze) a zdrojem (Wattáž).
+
+Zajistěte dostatečné chlazení.
+
+Pravidelně čistěte ventilátory od prachu.
+
+Aktualizujte ovladače pro optimální výkon.
+
+---
+
+# Video
+
+
+
+---
+
+# Maticové přepínače
+
+Maticové přepínače jsou speciální zařízení určená k přepínání signálů mezi více vstupy a výstupy.
+
+Umožňují propojit libovolný vstupní signál (např. video, audio, datový) s libovolným výstupem bez nutnosti fyzického přepojování kabelů.
+
+Používají se zejména v audiovizuálních systémech, řídicích systémech, zobrazovacích jednotkách a průmyslové automatizaci.
+
+Princip fungování
+
+
+
+Maticový přepínač je tvořen vnitřní přepínací maticí, která propojuje vstupy a výstupy.
+
+Vstupy: zdroje signálu (např. kamery, počítače, přehrávače).
+
+Výstupy: zobrazovací zařízení (monitory, projektory, LED panely).
+
+Řídicí logika: ovládá propojení pomocí softwaru nebo hardwarového rozhraní (RS-232, TCP/IP).
+
+Základní principy
+
+
+
+Crosspoint switching: Každý vstup může být připojen k libovolnému výstupu.
+
+Modulární konstrukce: Umožňuje rozšíření počtu vstupů/výstupů (např. 8×8, 16×16, až 64×64).
+
+Podpora více formátů: HDMI, DVI, DisplayPort, SDI, analogové video, audio.
+
+Řízení: Manuálně (tlačítka), přes software, nebo automaticky podle přednastavených scénářů.
+
+Typické vlastnosti
+
+
+
+Rychlé přepínání signálu bez výpadků.
+
+Možnost ukládání předvoleb (např. konfigurace pro různé prezentace).
+
+Integrované funkce: zpracování poplachů, ovládání PTZ kamer, synchronizace signálů.
+
+Kompatibilita s AV standardy (HDMI 2.0, HDCP, 4K, HDR).
+
+Praktické využití
+
+
+
+Školní AV systémy: Přepínání obrazu z PC učitele na projektor nebo interaktivní tabuli.
+
+Konferenční místnosti: Distribuce signálu z více notebooků na několik displejů.
+
+Bezpečnostní systémy: Přepínání obrazu z kamer na monitorovací stěně.
+
+Digitální reklama: Řízení LED panelů a informačních tabulí.
+
+Průmyslové aplikace: Přepínání řídicích signálů mezi výrobními linkami.
+
+Maticové přepínače vs. klasické přepínače
+
+Aktuální příklady zařízení
+
+
+
+Atlona AT-UHD-PRO3-44M – HDMI maticový přepínač 4×4 pro 4K video.
+
+Blustream MX22AB-8K – Přepínač pro 8K rozlišení.
+
+Bosch Allegiant LTC 8800 – Profesionální systém pro CCTV s až 256 vstupy a 64 výstupy.
+
+Shrnutí
+
+Maticové přepínače jsou nezbytné pro moderní zobrazovací systémy.
+
+Umožňují rychlé, flexibilní a spolehlivé přepínání signálů.
+
+Jsou klíčové pro AV integrace, bezpečnostní aplikace a průmyslové řízení.
+
+---
+
+# schéma
+
+
+
+---
+
+# Bezdrátové síťové karty (Wi-Fi)
+
+Popis
+
+Karty pro připojení přes rádiové vlny (Wi-Fi).
+
+Princip
+
+Přenos dat pomocí elektromagnetických vln, standardy IEEE 802.11 (Wi-Fi 4, 5, 6, 6E).
+
+Výhody
+
+Mobilita, žádné kabely.
+
+Nevýhody
+
+Náchylnost k rušení, nižší stabilita než kabel.
+
+Využití
+
+Notebooky, mobilní zařízení, IoT.
+
+---
+
+# video
+
+
+
+---
+
+# Paralelní přenos dat
+
+data (jednotlivé bity) jsou přenášena po více kanálech ("drátech") najednou
+
+tzn., že chci-li najednou přenést 1 byte (8 bitů), potřebuji k tomu 8 datových kanálů (+ napájení ad.)
+
+náročnější na implementaci, materiál i synchronizaci
+
+bývá rychlejší než seriový (dříve)
+
+---
+
+# E-Ink displeje
+
+Používají mikrokapsle s černými a bílými částicemi.
+
+Obraz se nemění bez potřeby energie, ideální pro čtečky knih.
+
+Výhody: extrémně nízká spotřeba, čitelnost na slunci.
+
+Nevýhody: pomalá odezva, nevhodné pro video.
+
+---
+
+# Bosch Allegiant LTC 8800
+
+zdroj: zde
+
+---
+
+# SUBLIMAČNÍ TISKÁRNA
+
+Sublimační tisk je metoda, která využívá zvláštní inkousty schopné při zahřátí přeměnit pevné barvivo přímo v plyn, který proniká do vláken nebo povrchové vrstvy potiskovaného materiálu.
+
+Inkoust se nestává kapalinou – přeskočí fázovou změnu.
+
+Sublimační tiskárna tedy netiskne přímo na výsledný předmět, ale nejprve tiskne obrázek na speciální přenosový papír.
+
+Teprve teplem je obraz přenesen na materiál (tričko, hrnek, deska, kov, plast aj.).
+
+Výsledek
+
+Velmi jasné barvy, vysoká životnost a potisk se neodlupuje – je součástí materiálu.
+
+Výhody
+
+
+
+Velká životnost → obraz se neloupe, neodírá, nevybledne.
+
+Vysoká kvalita a jasnost barev, fotorealistický tisk.
+
+Trvalé spojení s materiálem, není cítit na dotek.
+
+Univerzální použití – textil, keramika, kov, plast, sklo (s povrchovou úpravou).
+
+Nevýhody
+
+
+
+Funguje jen na polyester nebo předměty s polymerní vrstvou.
+
+Nelze tisknout na čistou bavlnu.
+
+Vyšší pořizovací náklady na vybavení.
+
+Využití
+
+
+
+Reklamní předměty (hrnky, klíčenky, puzzle, podložky pod myš).
+
+Sportovní a firemní textil – potisky jsou pružné a trvanlivé.
+
+Fotodárky – fotokameny, hliníkové desky, polštáře.
+
+Interiérové dekorace – panely z hliníku (ChromaLuxe).
+
+Výbava potřebná pro sublimační tisk
+
+
+
+Sublimační tiskárna (desktop nebo velkoformátová).
+
+Sublimační inkoust.
+
+Přenosový (sublimační) papír.
+
+Tepelný lis (clamshell, swing-away…).
+
+Materiály s polyesterovým povrchem.
+
+Shrnutí
+
+
+
+Sublimační tisk využívá změnu pevné látky v plyn.
+
+Je vhodný pro polyester nebo povrchy s polymerní vrstvou.
+
+Nabízí dlouhou životnost, živé barvy a vysokou kvalitu.
+
+Používá se při výrobě reklamních produktů, sportovního textilu, fotodárků.
+
+---
+
+# Napájení externího HDD
+
+Napájení přes USB
+
+
+
+typicky u 2,5" disků
+
+stačí připojit jeden kabel
+
+
+
+vhodné pro notebooky
+
+Externí napájení
+
+
+
+typicky u 3,5" disků
+
+mají vlastní adaptér
+
+
+
+výhoda: vyšší výkon a kapacita
+
+---
+
+# tiskárna
+
+
+
+---
+
+# Obrázek
+
+
+
+---
+
+# Bezpečnost síťových adaptérů
+
+Hlavní bezpečnostní rizika
+
+
+
+Útoky na firmware NIC (manipulace s packet handling).
+
+Nešifrovaný bezdrátový provoz (Wi‑Fi).
+
+Zranitelnosti protokolů a zastaralé ovladače.
+
+Moderní bezpečnostní trendy
+
+
+
+Rostoucí význam Zero Trust a zabezpečení koncových bodů.
+
+Využití AI pro detekci anomálií a ochranu proti útokům.
+
+Konfigurace a správa pro bezpečnost
+
+
+
+Automatizace konfigurací a kontrola změn pomocí NCM nástrojů
+
+
+NCM - Network Configuration Management - síťová zařízení — jako switche, routery nebo firewallové prvky — jsou neustále sledována, zda se jejich nastavení nezměnilo, a pokud ano, kdo, kdy a co přesně změnil.Jde o způsob, jak automaticky hlídat konfigurace, předcházet chybám a udržovat síť bezpečnou a stabilní.
+
+
+
+
+Vyhýbání se chybám způsobeným ruční konfigurací – velmi častý zdroj incidentů.
+
+---
+
+# Bluetooth
+
+otevřený standard pro bezdrátovou komunikaci propojující dvě nebo i více zařízení
+
+pro přenos audia, videa, souborů, pro bezpečnostní lokátory ad.
+
+---
+
+# Historický vývoj
+
+1960–1970
+
+
+
+První adaptéry vznikají s počátky ARPANETu, individuální řešení pro mainframy.
+
+5.2 1973–1980
+
+
+
+Zrod Ethernetu (Xerox PARC, 1973).
+
+První komerční Ethernet adaptéry 3Com (1981).
+
+5.3 1980–1990
+
+
+
+Zavedení standardu IEEE 802.3 (mezinárodní standard, který určuje, jak funguje technologie Ethernet – tedy nejpoužívanější způsob kabelového připojení počítačů do sítě.)
+
+Přechod z koaxiálu na twisted-pair (10BASE‑T).
+
+1990–2000
+
+
+
+NIC se přesouvají z ISA/PCI karet na základní desky, s rozvojem PC.
+
+5.5 2000–současnost
+
+
+
+Růst rychlostí: 1 GbE → 10/25/40/100/400 GbE.
+
+Objevují se SmartNICs (DPU), virtualizace a cloud.
+
+---
+
+# video
+
+
+
+---
+
+# schéma
+
+
+
+---
+
+# Dotykové displeje
+
+Dotykový displej funguje na základě detekce dotyku uživatele, což umožňuje interakci s elektronickým zařízením. 
+
+Existují různé technologie dotykových displejů, ale dvě nejběžnější jsou rezistivní a kapacitní.
+
+---
+
+# Projektory
+
+LCD
+
+DPL
+
+LCoS
+
+Laserové
+
+---
+
+# Jehličkové ad.
+
+Jehličková tiskárna funguje na poměrně jednoduchém mechanickém principu:
+
+Princip fungování
+
+V tiskové hlavě je umístěno několik kovových jehliček (typicky 9, 18 nebo 24).
+
+Tyto jehličky jsou ovládány elektromagnety a při tisku se rychle vysouvají dopředu.
+
+Jehličky udeří přes barvicí pásku na papír, čímž vytvoří malé tečky.
+
+Kombinací těchto teček vznikají písmena, čísla nebo grafika (tzv. bodová matice).
+
+Tisk probíhá řádek po řádku, hlava se pohybuje horizontálně.
+
+Výhody
+
+Nízké náklady na tisk – pásky jsou levné.
+
+Možnost tisku více kopií najednou – díky průklepovému papíru (formuláře).
+
+Odolnost – tiskárny jsou robustní, vhodné do náročného prostředí.
+
+Nízké provozní náklady – oproti inkoustovým nebo laserovým tiskárnám.
+
+Nevýhody
+
+Nízká kvalita tisku – viditelné tečky, horší grafika.
+
+Hlučnost – mechanický pohyb jehliček je slyšitelný.
+
+Pomalejší tisk – oproti moderním technologiím.
+
+Omezené použití – dnes se používají hlavně pro tisk účtenek, faktur, skladových dokladů.
+
+---
+
+# Umístění síťové karty
+
+Na běžné základní desce je integrovaná síťová karta (LAN kontrolér) umístěna v části blízko zadního panelu I/O portů – tedy tam, kde jsou konektory jako USB, audio a video výstupy.
+
+1) Fyzický konektor RJ‑45 na zadním panelu
+
+
+
+To je to jediné, co uživatel obvykle vidí zvenčí.
+
+Konektor patří k integrované síťové kartě na základní desce.
+
+2) Síťový čip (LAN kontrolér) na desce
+
+
+
+Na PCB základní desky je malý integrovaný obvod poblíž RJ‑45 konektoru. Tento čip bývá označen značkami jako:
+
+Intel I219‑V, I225‑V, I211,
+
+Realtek RTL8111/8168,
+
+Killer E2600/E3100 apod.
+
+Čip je obvykle umístěn:
+
+velmi blízko RJ‑45 konektoru,
+
+často poblíž sekce Southbridge / PCH (Platform Controller Hub).
+
+3) Transformátor/filtrace (Magnetics)
+
+
+
+U RJ‑45 konektoru bývají malé černé kvádry — součástky pro oddělení a filtrování Ethernet signálu.
+
+Někdy jsou součástí samotného portu (tzv. “MagJack”).
+
+4) Pokud není síťová karta integrovaná:
+
+
+
+V PCIe slotu
+
+Pokud základní deska nemá integrovanou LAN nebo uživatel potřebuje kvalitnější síťovou kartu (např. 10GbE), používá se rozšiřující karta do:
+
+PCIe x1 (často gigabitové karty)
+
+PCIe x4 / x8 / x16 (rychlejší 2,5G/10G/40G karty)
+
+Shrnutí
+
+
+
+Síťová karta bývá integrovaná na základní desce.
+
+Její RJ‑45 konektor je na zadním panelu.
+
+Síťový čip je na desce hned vedle tohoto konektoru.
+
+Pokud je karta přídavná, pak je v PCIe slotu.
+
+---
+
+# microSD
+
+
+
+---
+
+# Výhody externích HDD
+
+velká kapacita
+
+nízká cena za GB
+
+vhodné pro zálohy
+
+jednoduché připojení
+
+
+
+ideální pro archivaci dat (filmy, zálohy)
+
+---
+
+# Video
+
+zdroj: YouTube
+
+---
+
+# Historický vývoj sublimačního tisku
+
+Středověk
+
+
+
+první zmínky o sublimaci jako fyzikálním jevu, ne o tisku.
+
+
+
+1950–60. léta
+
+
+
+první experimenty se sublimačním tiskem na textil a první komerční využití.
+
+1957, Francie – Noel de Plasse
+
+
+
+vyvíjí metodu a zakládá firmu Sublistatic SA.
+
+zkoumal možnosti přímého přenosu barev na textil, přišel na to, že tepelnou sublimací lze přenášet disperzní barviva z papíru na látku.
+
+1970–90. léta
+
+
+
+výrazné zlepšení inkoustů, papírů a vývoj specializovaných sublimačních tiskáren.
+
+
+
+NASA’s Jet Propulsion Laboratory
+
+
+
+se podílí na vývoji počítačových sublimačních tiskáren (Wes Hoekstra, patent 1972).
+
+
+
+21. století
+
+
+
+rychlý rozvoj díky novým materiálům, vyšší kvalitě tisku a rozšíření ve výrobě reklamních předmětů.
+
+---
+
+# Inkoustové
+
+Inkoustová tiskárna pracuje na principu nanášení velmi malých kapek inkoustu přímo na papír.
+
+Princip fungování
+
+Tisková hlava obsahuje trysky (desítky až stovky).
+
+Trysky vystřikují inkoust v přesně řízených dávkách na papír.
+
+Řízení může být termální (zahřátí inkoustu vytvoří bublinu, která vystřelí kapku) nebo piezoelektrické (piezo prvek mechanicky vytlačí kapku).
+
+
+Kapky se skládají do bodů, z nichž vzniká obraz nebo text.
+
+Tisk probíhá řádek po řádku, podobně jako u jehličkové tiskárny, ale bez mechanického úderu.
+
+Výhody
+
+Vysoká kvalita tisku – ostré detaily, živé barvy.
+
+Tichý provoz – žádné mechanické údery.
+
+Možnost barevného tisku – ideální pro fotografie a grafiku.
+
+Kompaktní rozměry – vhodné pro domácnosti a kanceláře.
+
+Nevýhody
+
+Drahý inkoust – náplně jsou nákladné.
+
+Pomalejší tisk než laserové tiskárny (u velkých objemů).
+
+Citlivost na vlhkost – výtisky se mohou rozmazat.
+
+Vyšší náklady na stránku – zejména při barevném tisku.
+
+---
+
+# Nové trendy
+
+Integrace s IoT
+
+Dotykové displeje se stále více integrují se zařízeními internetu věcí (IoT).
+
+Tato integrace umožňuje lepší uživatelskou zkušenost, protože dotykové rozhraní může zobrazovat data v reálném čase a umožňovat interakci s různými chytrými zařízeními.
+
+Flexibilní a skládací displeje
+
+Flexibilní a skládací displeje jsou na vzestupu, zejména v mobilních zařízeních.
+
+Tyto displeje umožňují nové formy a designy zařízení, jako jsou skládací smartphony a tablety, které mohou být kompaktnější a přenosnější.
+
+Pokročilé haptické technologie
+
+Haptická zpětná vazba se stává sofistikovanější, což umožňuje uživatelům cítit různé textury a povrchy na dotykovém displeji.
+
+Tato technologie zlepšuje interakci a poskytuje realističtější zážitek při používání dotykových zařízení.
+
+Displeje s vysokým rozlišením a obnovovací frekvencí
+
+Displeje s vyšším rozlišením a obnovovací frekvencí poskytují ostřejší a plynulejší obraz.
+
+To je zvláště důležité pro hráče a profesionály, kteří potřebují vysokou kvalitu obrazu a rychlou odezvu.
+
+Energeticky úsporné technologie
+
+Nové technologie se zaměřují na snižování spotřeby energie dotykových displejů, což prodlužuje životnost baterie zařízení.
+
+To je klíčové pro mobilní zařízení, která jsou často používána po dlouhou dobu bez přístupu k nabíječce.
+
+Antimikrobiální povrchy
+
+Vzhledem k rostoucím obavám o hygienu se vyvíjejí dotykové displeje s antimikrobiálními povrchy, které pomáhají snižovat množství bakterií a virů na povrchu displeje.
+
+---
+
+# Výhody a nevýhody
+
+Výhody jehličkových tiskáren
+
+
+
+Rychlý tisk
+
+Velice nízké provozní náklady
+
+Spolehlivost
+
+Odolnost a dlouhá životnost
+
+Tisk více kopií najednou
+
+Nevýhody jehličkových tiskáren
+
+
+
+Pouze tisk textu
+
+Nekvalitní a pomalý barevný tisk
+
+Hlučný tisk
+
+Nutnost používat speciální papír
+
+---
+
+# Piezoelektrický tisk
+
+Trysky obsahují piezoelektrické krystaly, které mění tvar podle napětí a tím vystřelují kapku inkoustu.
+
+Používají např. Epson nebo Brother.
+
+---
+
+# video
+
+
+
+---
+
+# Monitory
+
+Klíčové parametry
+
+a) Rozlišení
+
+určuje počet pixelů, které tvoří obraz
+
+standardy:
+
+Full HD (1920×1080)
+
+QHD (2560×1440)
+
+4K UHD (3840×2160)
+
+8K UHD (7680×4320)
+
+
+vyšší rozlišení znamená ostřejší obraz, ale vyžaduje více výpočetního výkonu.
+
+b) Velikost úhlopříčky
+
+udává se v palcích (1 palec = 2,54 cm)
+
+typické velikosti:
+
+21–24 palců pro kancelářské práce
+
+27–32 palců pro profesionální grafiku a hraní her
+
+nad 32 palců pro speciální aplikace (např. design, CAD)
+
+c) Obnovovací frekvence
+
+udává počet obnovení obrazu za sekundu, měří se v Hz
+
+standardy
+
+60 Hz: běžné kancelářské využití
+
+120–144 Hz: hraní her
+
+240 Hz a více: e-sporty, rychlé scény
+
+
+d) Doba odezvy
+
+doba, kterou monitor potřebuje na změnu pixelu, např.  přepnutí z jedné barvy na druhou (ms).
+
+čím nižší, tím lepší
+
+úzce souvísí s obnovovací frekvencí
+
+e) Kontrastní poměr
+
+poměr mezi nejjasnějším a nejtmavším bodem na obrazovce
+
+f) Pozorovací úhly
+
+Určují, z jakých úhlů lze obraz sledovat bez zkreslení barev a jasu
+
+OLED a moderní LCD (IPS) nabízejí široké úhly (až 178°)
+
+g) Barevné spektrum
+
+Rozsah barev, které monitor dokáže zobrazit
+
+Standardy: sRGB, AdobeRGB, DCI-P3
+
+h) Další funkce
+
+HDMI, DisplayPort, USB-C, DVI, VGA (D-SUB)
+
+integrovaná kamera
+
+integrované reproduktory, USB hub, KVM přepínač ad.
+
+nastavitelnost, ergonomie ad.
+
+zdroj: DK TECH
+
+zdroj: Tech Home
+
+zdroj: Cyber Security
+
+---
+
+# SD - Secure Digital
+
+Fyzické rozměry -  32 × 24 × 2,1 mm, tuhé plastové pouzdro
+
+Generace a kapacity:
+SD (1.0–1.01): do 2 GB, FAT12/16
+
+SDHC (2.0): 4 – 32 GB, FAT32
+
+SDXC (3.0): 64 GB – 2 TB, exFAT
+
+SDUC (7.0): až 128 TB, exFAT
+
+
+Flash buňky:
+MLC/TLC s možností 3D-NAND u novějších modulů
+
+
+Řadič a ECC: Integrovaný řadič provádí wear leveling, ECC (např. BCH nebo LDPC), garbage collection.
+
+Rozhraní a protokoly:
+SD Bus (1-bit/4-bit paralelní sběrnice, až 25 MB/s)
+
+SPI (Serial Peripheral Interface, kompatibilní s microkontroléry)
+
+UHS-I/UHS-II/UHS-III (diferenciální linky, až 624 MB/s)
+
+
+Rychlostní třídy:
+Class 2/4/6/10 (min. 2 / 4 / 6 / 10 MB/s zápisu)
+
+UHS Speed Class U1/U3 (min. 10/30 MB/s)
+
+Video Speed Class V6–V90 (min. 6–90 MB/s, optimalizace pro kontinuální záznam videa)
+
+Application Performance Class A1/A2 (IOPS pro mobilní aplikace)
+
+
+Výhody:
+široká kompatibilita, ověřené standardy
+
+dostupnost adaptérů
+
+
+Nevýhody:
+u starších generací nižší rychlosti
+
+ fyzická velikost
+
+
+Využití:
+digitální fotoaparáty, videokamery, notebooky, čtečky
+
+---
+
+# Historický vývoj LED tiskáren
+
+1981 – Oki Electric Industry vytváří první LED tiskárnu.
+
+zdroj: wiki
+
+1986 – Komerční model OPP6220 (240 dpi, 16 ppm).
+
+zdroj: zde
+
+1989 – Model OL400 – první výrazně dostupný LED model.
+
+zdroj: zde
+
+1997 – LED tiskárny OKI dosahují rozlišení 1200 dpi, objevují se A3 modely.
+
+1998 – OKIPAGE 8c – první barevná LED tiskárna OKI.
+
+zdroj: zde
+
+2010 – Fuji Xerox uvádí technologii S‑LED (1200×2400 dpi).
+
+
+
+2023 – Fujifilm Business Innovation uvádí 2400×2400 dpi LED hlavu – první „vysoké rozlišení“ tohoto typu.
+
+---
+
+# Video
+
+
+
+---
+
+# Princip fungování LED tiskárny
+
+ZJednodušeně
+
+
+
+Počítač pošle tisková data do tiskárny.
+
+LED diody v jedné dlouhé řadě blikají v přesném pořadí a osvětlí fotodrum.
+
+Osvětlená místa mění náboj → přitahují toner.
+
+Toner se přenese na papír.
+
+Fixační jednotka toner zataví do papíru teplem a tlakem.
+
+Odborný popis
+
+
+
+LED pole vyšle krátké světelné pulzy přes celou šířku stránky → vzniká elektrostatický obraz na fotodrumu.
+
+Toner (negativně nabitý) se přichytí jen na osvětlená místa, kde LED změnily náboj.
+
+Papír má opačný náboj a toner přitahuje.
+
+Fixační jednotka toner zapeče do papíru.
+
+Technologické výhody LED tiskáren
+
+
+
+Žádné zrcátko, žádný rotující polygon → žádné mechanické opotřebení.
+
+Precizní, rovnoměrné osvětlení.
+
+Novější modely dosahují až 2400×2400 dpi díky technologiím jako S‑LED nebo moderním LED/OLED systémům.
+
+---
+
+# Možné problémy při připojení
+
+Disk se nezobrazuje
+
+
+
+chybějící ovladače
+
+vadný kabel
+
+problém s napájením
+
+Pomalý přenos
+
+
+
+staré USB (2.0)
+
+nekvalitní kabel
+
+fragmentace disku
+
+Disk není naformátovaný
+
+
+
+nutné vytvořit oddíl (např. NTFS, exFAT)
+
+---
+
+# Praktické využití 3D tisku
+
+Medicína
+
+
+
+3D modely orgánů
+
+Protézy, ortézy
+
+Průmysl
+
+
+
+Strojírenské komponenty, testovací díly
+
+Architektonické modely
+
+Pokročilé oblasti (2026 trendy)
+
+
+
+Multi‑materiálový tisk – kombinace tvrdých, měkkých a vodivých částí
+
+4D tisk – objekty mění tvar podle tepla či vlhkosti
+
+Velkoformátový tisk – tisk nábytku a stavebních dílů
+
+Domácnost a hobby
+
+
+
+Figurky, ozdoby, nářadí
+
+Náhradní díly (držáky, kryty, úchyty)
+
+Školy a vzdělávání
+
+
+
+Tisk modelů do biologie (buňky, kostra)
+
+Vytváření prototypů v robotice
+
+Modely v matematice a fyzice
+
+---
+
+# Konstrukce a součásti
+
+Tisková hlava
+
+Jehličky
+
+Barvicí páska
+
+Traktorové podávání papíru / buben – zajišťuje pohyb papíru.
+
+Řídicí elektronika – interpretuje příkazy (např. ESC/P).
+
+---
+
+# Obrázky
+
+tiskárna Seikosha EP-101
+
+zdroj: wiki
+
+Epson MX-80 (9 jehliček)
+
+---
+
+# Joystick / gamepad
+
+Joystick / Gamepad
+
+
+
+Ovládací zařízení pro hry nebo simulace.
+
+Umožňuje přesné řízení pohybu v prostoru.
+
+zdroj: datart
+
+zdroj: zde
+
+---
+
+# Obrázky
+
+zdroj: wiki
+
+zdroj: wiki
+
+zdroj: wiki
+
+zdroj: zde
+
+---
+
+# Parametry externího HDD
+
+Kapacita
+
+
+
+běžně: 500 GB – 20 TB
+
+vhodné pro velké objemy dat
+
+Rychlost otáčení (RPM)
+
+
+
+5400 ot./min → nižší výkon
+
+7200 ot./min → vyšší výkon
+
+
+
+vyšší otáčky = rychlejší přístup k datům
+
+Přístupová doba (seek time)
+
+
+
+čas, než hlava najde data
+
+udává se v milisekundách
+
+
+
+čím menší, tím lepší
+
+Cache (vyrovnávací paměť)
+
+
+
+malá rychlá paměť na disku
+
+ukládá často používaná data
+
+
+
+větší cache = vyšší výkon
+
+Přenosová rychlost
+
+
+
+kolik dat lze přenést za sekundu
+
+závisí i na USB (např. USB 3.0 vs USB-C)
+
+---
+
+# Technologie, parametry, protokoly
+
+bezdrátová technologie
+
+frekvence - 2,4 GHz v pásmu ISM (Industrial, Scientific, Medical)
+
+nelicencované pásmo (nemusí se za použití platit poplatky)
+
+v tomto pásmu se používá 79 kanálů o šířce 1 MHz
+
+1600 hopů za sekundu (skoků/přeladění) → zvýšení odolnosti proti rušení
+
+přenosová rychlost - ve v. 5 až 2Mbit/s
+
+dosah - otevřený prostor v. 4 a v.5 až 100 metrů; uvnitř cca 10 metrů
+
+BLE - Bluetooth Low Energy - technologie BT s nízkou spotřebou energie
+
+komunikace probíhá na L2 vrstvě
+
+Protokoly
+
+
+
+1. SDP - Service Discovery Protocol
+
+umožňuje Handshake mezi zařízeními, získává informace o schopnostech a službách zařízení
+
+umožní správnou komunikaci a používání zařízení
+
+2. LMP - Link Manager Protocol
+
+řídí spojení mezi zařízeními
+
+nastavuje spojení, zajišťuje bezpečnost a kontrolu spojení
+
+
+
+
+
+3. RFCOMM Radio Frequency Communication
+
+sada transportních protokolů, která je postavena na vrstvě L2CAP (Logical Link Control and Adaptation Protocol)
+
+poskytuje emulované sériové porty RS-232
+
+umožňuje zařízením komunikovat přes virtuální sériové porty, což umožňuje přenos dat mezi zařízeními, jako jsou mobilní telefony, sluchátka, tiskárny, jako by byla připojena k fyzickému sériovému portu
+
+---
+
+# Základní principy fungování SSD
+
+SSD – princip krok za krokem
+
+
+
+Řadič vyhledá data přímo v paměťových buňkách.
+
+Není nutný žádný fyzický pohyb → okamžitá odezva.
+
+TRIM zajišťuje odstraňování nepotřebných dat a dlouhodobý výkon.
+
+zdroj: itnetwork
+
+---
+
+# Paměťové karty
+
+
+
+---
+
+# microSD
+
+
+
+---
+
+# tiskárna
+
+
+
+---
+
+# Schéma
+
+
+
+---
+
+# Bluetooth profily
+
+Bluetooth profil je souhrn instrukcí, na jejíchž základě dvojice propojených zařízení komunikuje a určuje tím, k jaké činnosti se propojená zařízení použijí.
+
+Pro kadou činnost je profil jiný.
+
+Profilů je několik desítek.
+
+Příklady profilů
+
+A2DP (Advanced Audio Distribution Profile) – umožňuje přenos hudby/zvuku ve stereo kvalitě.
+
+AVRCP (Audio/Video Remote Control Profile) – přidává možnosti ovládání připojených zařízení; např. hlasitost, posun mezi skladbami apod. u sluchátek
+
+BPP (Basic Printing Profile) – slouží ke komunikaci s tiskárnou.
+
+DID (Device ID Profile) – slouží k identifikaci připojeného zařízení.
+
+HFP (Hands-Free Profile) – připojí telefon k hands-free sadě; součástí jsou i možnosti vzdáleného ovládání telefonu, např. příjem nebo položení hovoru
+
+SYNCH (Synchronisation Profile) – umožní synchronizaci zařízení - čas, data, kontakty atd.
+
+VDP (Video Distribution Profile)  – přenos streamovaného videa.
+
+---
+
+# Jak funguje RFID
+
+
+
+---
+
+# VGA
+
+VGA - Video Graphics ARRAY
+
+pouze analogové
+
+dnes již zastaralé
+
+starší monitory, dataprojektory
+
+konektory bývají často označené modrou barvou
+
+rozhraní/konektor se někdy označuje jako D-SUB
+
+15-pinový konektor
+
+---
+
+# Externí síťové karty
+
+Externí síťové karty lze zařadit spíše do počítačového příslušenství a připojují se přes externí sběrnice, mezi kterými i dnes dominuje USB.
+
+Stále především klasické USB-A, ale jasným trendem je přechod na USB-C.
+
+Popis
+
+Připojují se přes USB nebo Thunderbolt.
+
+Princip
+
+Fungují jako běžná NIC, ale mimo základní desku.
+
+Výhody
+
+Snadná instalace, vhodné pro notebooky.
+
+Nevýhody
+
+Omezená rychlost podle rozhraní (USB 3.0 doporučeno).
+
+Využití
+
+Rozšíření možností připojení, oprava nefunkčního interního adaptéru.
+
+---
+
+# Řadič/ASIC
+
+zpracovává rámce,
+
+provádí offload funkcí, filtraci a řízení toku.
+
+
+
+zdroj: zde
+
+balíčky přijme,
+
+zkontroluje, zda nejsou poškozené,
+
+pošle je dál do počítače,
+
+nebo je odešle ven do sítě.
+
+„Offload“ znamená, že řadič převezme část práce, kterou by jinak musel dělat procesor (CPU).
+
+Např.:
+
+kontrolu chyb,
+
+skládání velkých dat na menší části a naopak,
+
+rychlejší zpracování síťových operací.
+
+Díky tomu je počítač méně zatížený a síť rychlejší.
+
+Filtrace - řadič umí vybírat jen ta data, která jsou určena pro daný počítač.
+
+Nepotřebná data prostě zahodí – tím šetří výkon i síť.
+
+Řízení toku - řadič se stará o to, aby:
+
+se data neposílala příliš rychle (aby se „neucpala trubka“),
+
+ani příliš pomalu.
+
+Udržuje tak plynulý provoz podobně jako semafor na křižovatce.
+
+---
+
+# I/O zařízení
+
+počítačová myš
+
+tiskárna
+
+---
+
+# Drátové síťové karty
+
+Popis
+
+Karty určené pro připojení přes kabel (nejčastěji kroucená dvojlinka – RJ-45).
+
+Princip
+
+Přenos dat pomocí elektrických signálů po metalickém kabelu. Standardy:
+
+Ethernet IEEE 802.3 (10/100/1000 Mb/s, dnes až 10 Gb/s).
+
+Výhody
+
+Stabilní a rychlé připojení.
+
+Nízká latence.
+
+Nevýhody
+
+Omezená mobilita (nutnost kabelu).
+
+Využití
+
+Domácí a podnikové sítě, servery, datová centra.
+
+---
+
+# Video
+
+
+
+---
+
+# Barvicí páska
+
+Barvicí páska – navinutá v kazetě, neustále se posouvá, aby byl otisk kvalitní.
+
+zdroj: zde
+
+---
+
+# I/O rozhraní - interfaces
+
+I/O rozhraní, tzv. interfaces, slouží pro komunikaci počítače s periferními zařízeními nebo pro napájení
+
+Podle účelu je můžeme rozdělit na
+
+univerzální - datové
+
+grafické
+
+síťové
+
+zvukové
+
+napájecí
+
+---
+
+# Vznik, historie, název
+
+koncem 80. let a v 90. letech se objevují první pokusy o bezdrátovou komunikaci
+
+vzniká množství technologií a principů, ovšem bez jednotného standardu
+
+v r. 1988 vzniká konsorcium firem dnes s názvem Bluetooth Special Interest Group (IBM, Intel, Toshiba) - dnes několik tisíc členů - cílem - vytvořit jednotný standard
+
+specifikace Bluetooth v. 1 v roce 1999
+
+název pochází z "přezdívky" norského krále Haralda I. Gromssona "Modrozub" (Blåtand), král norský a dánský
+
+v 10. stol. sjednotitel velké části Skandinávie 
+
+
+
+logo Bluetooth
+
+logo je složeno z runových znaků pro písmena H „ᚼ“ a B „ᛒ“ (tzv. Vikinský futhork)
+
+---
+
+# Útoky na Bluetooth
+
+bluejacking
+
+bluebugging
+
+bluesnarfing
+
+bluesmacking
+
+car whispering
+
+---
+
+# microSD
+
+Fyzické rozměry - 15 × 11 × 1 mm, ultra-kompaktní design
+
+Generace a kapacity:
+stejná klasifikace jako u SD (microSD, microSDHC, microSDXC, microSDUC)
+
+
+Flash buňky:
+převážně TLC/QLC 3D-NAND, některé High-Endurance SLC/TLC
+
+
+Kompatibilita:
+ adaptér pro SD slot
+
+
+Rozhraní:
+UHS-I/UHS-II (UHS-II méně rozšířené)
+
+SPI
+
+
+Rychlostní třídy a varianty:
+stejné jako u SD
+
+plus High Endurance specializované karty pro nepřetržitý záznam (CCTV, dashcam), s vyšší odolností cyklů
+
+
+Výhody: nejmenší rozměry, kompatibilita napříč zařízeními
+
+Nevýhody: snadněji se ztrácí, náchylnější k poškození
+
+Využití:
+mobilní zařízení, akční kamery, drony
+
+embedded systémy
+
+IoT zařízení
+
+---
+
+# Wear Leveling ↔
+
+wear leveling - vyrovnávání opotřebení
+
+mechanismus používaný ve flash pamětech, včetně paměťových karet)
+
+cílem je co nejrovnoměrněji rozložit počet zápisů a mazání mezi všechny paměťové bloky
+
+prodlužuje se tím celková životnost média
+
+jednotlivý blok nejsou zatěžovány nadměrným množstvím operací aniž by ostatní zůstaly nevyužité
+
+flash buňky mají omezený počet cyklů zápisu/mazání (10 000–100 000 cyklů u SLC ; u MLC/TLC méně, kolem 3 000–10 000); po překročení tohoto počtu roste riziko ztráty dat či selhání buňky
+
+nerovnoměrné používání bloků
+
+bez wear levelingu by často aktualizované soubory  vedly k tomu, že určité bloky (resp. logické adresy) by byly přepisovány opakovaně, zatímco jiné bloky by zůstávaly prakticky nedotčené
+
+
+ 
+
+Flash Translation Layer (FTL)
+
+veškeré wear leveling metody jsou implementovány v softwarové vrstvě zvané Flash Translation Layer
+
+FTL vykonává
+
+Mapování (mapping):
+převedení logických adres (LBAs), které používají operační systém, na fyzické bloky (PAs) ve flash čipu
+
+správu bloků - evideuj volné, používané a neplatné (invalid) bloky
+
+
+Garbage collection:
+sběr a konsolidace neplatných(smazaných) dat, aby bylo možné uvolnit celé bloky k vymazání a opětovnému zápisu.
+
+
+Wear leveling:
+strategii rozložení zápisů
+
+
+Princip fungování
+
+Monitoring počtu cyklů
+každý blok ve flash paměti má v FTL čítač zaznamenávající, kolikrát byl vymazán
+
+
+Výběr vhodného bloku
+při novém zápisu FTL vybere fyzický blok s nejnižším počtem erase-cyklů (dynamický wear leveling)
+
+
+Přesun dat (static leveling)
+ občas (např. při garbage collection) FTL identifikuje bloky s nízkou frekvencí zápisů
+
+zkopíruje z nich data do nových bloků a uvolní je k použití
+
+tím se i „studené“ bloky dostanou do aktivního cyklu zápisů
+
+
+Aktualizace mapování
+po každém přesunu nebo zápisu FTL aktualizuje tabulku logické ←→ fyzické adresy
+
+Typy wear levelingu
+
+Static
+periodicky přesouvá i bloky, které nejsou často měněny (stále obsahují „starší“ data), aby se vyrovnalo jejich opotřebení s bloky často přepisovanými
+
+nejlepší vyrovnání opotřebení napříč všemi bloky
+
+vyšší režie - více přesunů dat
+
+
+Dynamic
+vyroovnává pouze aktivní zápisové oblasti
+
+přepisuje data na bloky, které mají dosud nejméně cyklů zápisu
+
+bloky, které se nepřepisují, zůstávají na místě
+
+nízká režie
+
+méně rovnoměrné rozložení zápisu než static
+
+„studené“ (not used) bloky zůstávají stále nepoužité
+
+
+Hybrid
+kombinuje oba přístupy
+
+dynamický pro běžný provoz
+
+statický pro údržbu méně používaných bloků
+
+vyvážený poměr režie vs. rovnoměrnost
+
+komplexnější implementace
+
+mírně vyšší nároky na FTL
+
+Důsledky a optimalizace
+
+Write amplification
+více fyzických operací (kopírování, mazání) než odpovídá objemu uživatelských dat
+
+snaha WAF (Write Amplification Factor) minimalizovat (1,1–1,5 je dobré)
+
+
+Režie FTL
+paměťové bloky pro FTL i logické tabulky zabírají část kapacity – u menších karet to může být znatelné
+
+
+Závislost na typu NAND
+SLC snese více cyklů, zatímco QLC méně
+
+Wear leveling je u QLC kritičtější kvůli nižší životnosti buněk
+
+
+Praktické důsledky
+
+Výběr karty podle typu flash
+pro aplikace s vysokou zápisovou zátěží (kamery, databáze) je lepší SLC/MLC nebo enterprise třída
+
+
+Formátování a celé vyčerpání karty
+jednou za čas nechat kartu „doběhnout do garbage collection“ – tzn. zaplnit ji a následně vymazat v zařízení, aby FTL mohl provést statický wear leveling
+
+
+Monitoring SMART statistik
+pokud to čtečka/zařízení podporuje, sledovat reálné počty erase-cyklů a zbývající životnost
+
+---
+
+# Bezpečnost práce s multifunkčním zařízením
+
+Rizika
+
+
+
+Elektrická – riziko úrazu při nesprávné manipulaci.
+
+Tepelná – laserové tiskárny mají horké části (fixace toneru).
+
+Chemická – tonerový prach, inkousty, čisticí prostředky.
+
+Mechanická – zachycení ruky v podavači nebo při čištění.
+
+Základní bezpečnostní pravidla
+
+
+
+Nevkládat ruce do prostoru skeneru nebo podavače během práce.
+
+Nepoužívat poškozené kabely.
+
+Pravidelně čistit zařízení podle pokynů výrobce.
+
+Manipulovat s tonerem opatrně, nevdechovat prach.
+
+Vypnout zařízení při údržbě (princip „lockout–tagout“).
+
+---
+
+# Bluestream MX22AB-8K
+
+zdroj: zde
+
+---
+
+# NFC - Near Field Communication
+
+technologie bezdrátové komunikace na krátkou vzdálenost
+
+komunikační vzdálenost je řádově centimetry
+
+pracuje na frekvenci 13,56 MHz
+
+bezkontaktní platby, řízení přístupu/autentizace,  přenos dat mezi zařízeními, apod.
+
+zařízení pro NFC mohou a nemusí mít vlastní zdroj energie (baterii)
+
+Pracovní režimy
+
+
+
+aktivní- obě komunikující zařízení generují svá vlastní  elmg. pole
+
+ pasivní- jedno zařízení (iniciátor, aktivní) generuje elmgn. pole a druhé zařízení (cíl, pasivní) na toto pole reaguje
+
+NFC zařízení
+
+
+
+NFC štítky - malá pasivní zařízení
+
+slouží k uložení dat a jejich následné čtení - řízení přístupu, kontrola zboží v obchodech 
+
+NFC čtečky/zapisovačky
+
+čtou a zapisují data na NFC štítky
+
+integrovány do smartphonů, tabletů a notebooků
+
+smartphony
+
+NFC smart cards
+
+řízení přístupu, platby a bezpečnou autentizaci
+
+NFC nositelná zařízení
+
+chytré hodinky, fitness náramky
+
+Další využití
+
+
+
+Studenti mohou vytvářet projekty založené na NFC, například interaktivní průvodce muzeem, hon na poklady nebo kampusové prohlídky.
+
+Výukové materiály (např. plakáty) mohou mít vložené NFC štítky s dalšími informacemi nebo kvízy.
+
+NFC systémy docházky mohou automatizovat sledování docházky.
+
+---
+
+# Obrázek
+
+
+
+---
+
+# Význam
+
+Multifunkční zařízení jsou dnes klíčová:
+
+
+
+šetří prostor a energii, vše je v jednom zařízení
+
+zvyšují produktivitu – rychlé kopírování, skenování do sítě, automatizace
+
+snižují náklady – menší počet strojů i servisních zásahů
+
+dokumenty lze digitalizovat (OCR, automatické ukládání do cloudu)
+
+Využití 
+
+
+
+Školy a kanceláře – tisk testů, skenování dokumentů, kopírování studijních materiálů
+
+Firmy – centrální tiskové stanice, digitalizace dokumentů
+
+Domácnosti – tisk úkolů, fotografií, skenování smluv
+
+Státní správa – archivace a digitalizace spisů
+
+---
+
+# Způsob zapojení síťové karty
+
+PCI síťové karty (starší)
+
+
+
+Připojují se do speciálního PCI slotu přímo na základní desce uvnitř počítače nebo notebooku, a tak je k jejich instalaci potřeba trochu více úsilí než v případě USB karet.
+
+Obecně však podporují mnohonásobně vyšší rychlosti, a to jak přes síťový kabel (RJ45), tak pomocí WiFi – bezdrátově.
+
+PCIe síťové karty
+
+
+
+Stejně jako PCI slouží k drátovému a méně často i bezdrátovému připojení do sítě a instalují se přímo do počítače, konkrétně do PCIe slotu na základové desce.
+
+Jejich hlavní výhodou je podstatně vyšší rychlost než u klasického PCI.
+
+USB síťové karty
+
+I v dnešní době se totiž spousta laptopů vyrábí bez vstupu pro síťový kabel.
+
+USB síťová karta je často realizována formou takzvaného hubu.
+
+Kromě vstupu pro kabel RJ45 nebo přijímače WiFi může mít například další USB vstupy, a vy tak nepřijdete o místo pro periferie.
+
+---
+
+# Grafická rozhraní
+
+slouží pro připojení zobrazovacích zařízení - monitory, dataprojektory, televizory, projekční plochy apod.
+
+---
+
+# Typy plotrů – podle konstrukce
+
+Deskové (stolní) plotry
+
+
+
+papír je pevně umístěn na ploše
+
+kreslicí hlava se pohybuje v obou osách
+
+nevýhoda: omezená velikost kreslicí plochy
+
+Stojanové plotry
+
+
+
+používají role papíru
+
+hlava se pohybuje v jedné ose, papír se posouvá druhou
+
+umí prakticky neomezenou délku výkresu
+
+---
+
+# USB Hub
+
+Nemáme li v zařízení dostatečný počet USB portů, můžeme použít tzv. USB Hub/rozbočovač.
+
+Důležité parametry
+
+Počty a typy portů
+
+Standardy (rychlosti) portů
+
+Napájení - zda by měl mít USB Hub vlastní napájení - nutné při  větším počtu portů nebo při potřebě nabíjení zařízení
+
+Další funkce - HDMI výstup, čtečka karet apod.
+
+---
+
+# Praktické využití plotrů
+
+Technické obory a architektura
+
+
+
+CAD výkresy
+
+technické výkresy strojů
+
+půdorysy, stavební plány
+
+Grafika a design
+
+
+
+plakáty, bannery, reklamní poutače
+
+velkoformátová fotografie
+
+Reklamní průmysl
+
+
+
+řezání vinylových samolepek
+
+polepy automobilů a výloh
+
+Textilní potisk
+
+
+
+výroba potisků na trička nebo textil
+
+Geografie a kartografie
+
+
+
+tisk map a geoinformačních výstupů
+
+---
+
+# VR/AR headsety
+
+VR headset
+
+zdroj: alza
+
+KATVR WALK MINI POHYBOVÁ PLATFTORMA, Pro VR Headsety
+
+zdroj: allegro
+
+Popis a princip fungování
+
+VR (virtuální realita)
+
+uzavřené displeje před očima (near-eye) s optickou soustavou pro ponoření do prostředí.
+
+AR/MR (rozšířená/mixed realita)
+
+průhledné projekční displeje (waveguides), umožňují vrstvu virtuálních objektů nad reálným prostředím.
+
+Bezpečnost
+
+
+
+Doporučeno přestávky po 20–30 minutách, zvlášť u citlivých jedinců (nevolnost).
+
+Čistota čoček a hygienické kryty, bezpečnostní pásy, nepracovat s ostrými objekty během pohybu.
+
+Konfigurace a správa
+
+
+
+Propojení s PC/Konzolí/Vlastní platformou, nastavení dioptrického prstence, rozlišení FPGA/refresh rate.
+
+SW aktualizace firmware, sledování VR zážitků (čas, obsah), pravidelné čištění.
+
+Význam a využití
+
+
+
+Umožňují simulace složitých prostředí: laboratorní výuka, IT architektura, programování, vizualizace dat.
+
+Rozvíjí prostorovou představivost, praktická znalost hardware a software.
+
+DJI Goggles 3
+
+zdroj: zde
+
+Meta Quest 3 (512 GB)
+
+zdroj: zde
+
+XREAL Air 2 Ultra AR brýle
+
+zdroj: zde
+
+---
+
+# Offsetový tisk
+
+Ofsetová tiskárna (resp. ofsetový tisk) je založená na principu nepřímého přenosu barvy z tiskové desky na papír.
+
+Princip fungování
+
+Tisková deska – obsahuje obraz (text/grafiku) rozdělený na tiskové a netiskové plochy.
+
+Princip odpuzování vody a barvy – tiskové plochy přijímají barvu, netiskové plochy vodu.
+
+Přenos barvy:
+
+Barva se nanese na tiskovou desku.
+
+Obraz se přenese z desky na gumový válec (tzv. ofset).
+
+Z gumového válce se obraz otiskne na papír.
+
+
+Nepřímý tisk – díky gumovému válci je tisk rovnoměrný i na nerovný papír.
+
+Výhody
+
+Vysoká kvalita tisku – ostré detaily, vhodné pro knihy, časopisy.
+
+Rychlost a efektivita – ideální pro velké náklady.
+
+Nízká cena při velkých sériích – čím více kusů, tím levnější jednotková cena.
+
+Možnost tisku na různé materiály – papír, karton, fólie.
+
+Nevýhody
+
+Dlouhá příprava – výroba tiskových desek je časově náročná.
+
+Nevhodné pro malé série – vysoké náklady na přípravu.
+
+Velké rozměry a složitost stroje – vyžaduje prostor a obsluhu.
+
+Pouze statický obsah – nelze snadno měnit text/grafiku během tisku.
+
+---
+
+# 3D tiskárny
+
+3D tiskárna je zařízení, které dokáže vytvářet skutečné trojrozměrné objekty z digitálního modelu.
+
+Nepracuje jako běžná inkoustová tiskárna – místo inkoustu používá materiál, který pokládá vrstvu po vrstvě, dokud nevznikne hotový objekt.
+
+Tento princip se nazývá aditivní výroba (výroba přidáváním).
+
+
+
+Nakreslíme model hrníčku v počítači → uložíme → tiskárna nanáší materiál po tenkých vrstvách → hrníček fyzicky vznikne.
+
+zdroj: heureka
+
+zdroj: heureka
+
+Aktuálně:
+
+
+
+Klesající cena tiskáren (dnes pár tisíc Kč)
+
+Snadná dostupnost modelů zdarma (např. Thingiverse)
+
+Široké využití od školství po průmysl
+
+Rychlá tvorba prototypů šetří čas i peníze
+
+3D tiskárna tiskne objekty vrstvu po vrstvě, ne jen obrázky.
+
+Potřebuješ 3D model, slicer a materiál.
+
+Používá se v medicíně, školách, průmyslu i domácnostech.
+
+Je to technologie budoucnosti, která se rychle vyvíjí a stává se běžnou součástí škol.
+
+---
+
+# HDD - magnetické pevné disky
+
+HDD - Hard Disk Drive
+
+
+
+pro ukládání využívají princip magetického záznamu - data jsou uložena ve formě tzv. magnetických domén
+
+vysoká kapacita
+
+nízké náklady na pořízení i provoz
+
+dlouhá doba udržitelnosti záznamu na disku (desítky let)
+
+Využití:
+
+Datová centra a archivy - díky velké kapacitě a trvanlivosti uložených dat
+
+Servery - záložní média nebo pro data s delší dobou přístupu
+
+NAS (Network Attached Storage)
+
+Výhody
+
+
+
+vysoká kapacita za nízkou cenu
+
+dlouhá životnost (5+ let při běžném použití)
+
+dlouhá doba uložení dat - retenční doba
+
+dobrá dostupnost
+
+ 
+
+Nevýhody
+
+
+
+mechanické opotřebení a riziko selhání
+
+nižší rychlost oproti SSD
+
+vyšší spotřeba energie a hlučnost
+
+---
+
+# BIOS, UEFI ↔
+
+BIOS
+
+Basic Input/Output System
+
+základní firmware, který je uložen na základní desce počítače
+
+ hlavní funkcí je inicializace a testování hardwarových komponent při spuštění počítače a následné předání řízení operačnímu systému
+
+poskytuje základní I/O funkce, které operační systém využívá k přístupu k hardwaru - např. klávesnice, monitor, sériové porty apod.
+
+uložen v ROM/EPROM/EEPROM paměťovém čipu nebo flash paměti
+
+parametry nastavované pomocí SETUPu pro BIOS jsou uloženy v CMOS paměti
+
+
+
+Hlavní funkce BIOS
+
+Power-On Self Test (POST)
+- po zapnutí počítače BIOS provádí sérii diagnostických testů, aby ověřil, že všechny základní hardwarové komponenty (např. RAM, procesor, grafická karta) fungují správně
+- v případě závady na tuto upozorní (výpis na monitoru, zvukový signál)
+
+
+
+Inicializace hardwaru
+- BIOS inicializuje a provádí základní konfiguraci HW - např. pevné disky, optické mechaniky, grafická karta a další periferní zařízení
+
+
+
+Základní nastavení systému/počítače
+- umožňuje uživateli přístup k základnímu nastavení systému
+- umožní konfigurovat různé parametry - např. pořadí bootování, nastavení procesoru, paměti a dalších
+
+
+
+Spuštění Bootstrap Loaderu (zaváděč operačního systému)
+- BIOS načte a spustí Bootstrap Loader, který následně načte operační systém z pevného disku nebo jiného bootovacího zařízení a předá řízení operačnímu systému
+
+UEFI
+
+Unified Extensible Firmware Interface
+
+moderní náhrada BIOSu
+
+
+rychlejší bootování/spuštění systému díky efektivnějšímu inicializačnímu procesu a lepší správě hardwarových komponent
+
+
+
+podpora velkých disků
+
+- BIOS - disky do max. velikosti 2,2 TB (používá  MBR - Master Boot Record)
+- UEFI - disky s kapacitou až 9,4 zettabajtů (používá GPT - GUID Partition Table)
+
+
+
+grafické uživatelské rozhraní (GUI)
+
+
+
+Secure Boot - při spuštění systému se načítají pouze důvěryhodné a autorizované komponenty, což pomáhá zabránit spuštění malwaru a rootkitů
+
+
+
+Pre-boot prostředí
+- malý operační systém, který běží před načtením hlavního operačního systému
+- může zahrnovat nástroje pro diagnostiku, opravy a konfiguraci systému
+
+
+
+modulární design
+- rozdělen do modulů
+- umožňuje snadnější aktualizace a rozšíření funkcí
+- výrobci mohou přidávat nové funkce bez nutnosti kompletního přepracování celého firmwaru
+
+
+
+podpora 32bitového i 64bitového režimu
+
+---
+
+# Montáž a demontáž síťové karty
+
+Demontáž síťové karty PCIe
+
+zdroj: zde
+
+Montáž síťové karty PCIe
+
+zdroj tamtéž
+
+Demontáž síťové karty z riseru (adaptéru) rozšiřující karty
+
+Montáž síťové karty do riseru rozšiřující karty
+
+Vyjmutí karty OCP ze síťového adaptéru OCP (síťová karta urená pro servery)
+
+Montáž karty OCP
+
+---
+
+# Pufry / vyrovnávací paměť
+
+ukládají odchozí a příchozí rámce a firmware
+
+
+malé oblasti paměti v adaptéru, kde se data na chvíli uloží
+
+
+
+
+
+
+zdroj: zde
+
+K čemu slouží?
+
+
+
+Když data přijdou moc rychle → pufr je podrží.
+
+Když je potřeba data poslat v určitém pořadí → adaptér si je přichystá v pufru.
+
+Fungují jako čekárna, aby se síť „nezadusila“, když je provoz příliš rychlý.
+
+---
+
+# Synology DS1621+
+
+Cena cca 24.000,-
+
+---
+
+# Výhody externího SSD
+
+velmi vysoká rychlost
+
+žádné pohyblivé části
+
+odolnost proti otřesům
+
+tichý provoz
+
+nízká spotřeba
+
+ideální pro práci s velkými soubory
+
+---
+
+# Význam a využití
+
+Gaming
+
+Technologie jako DirectStorage umožňují grafické kartě načítat data přímo z NVMe disku bez zatěžování procesoru (rychlejší načítání map).
+
+Produktivita
+
+Střih 4K/8K videa, práce s obrovskými databázemi a kompilace kódu.
+
+Servery a AI
+
+Nízká latence je klíčová pro trénování modelů umělé inteligence a cloudové služby.
+
+---
+
+# Využití inkoustových tiskáren
+
+Domácí a kancelářský tisk
+
+Dokumenty, grafika, fotografie.
+
+ 
+
+Profesionální a průmyslové využití
+
+Velkoformátový tisk.
+
+Kódování výrobků (CIJ technologie).
+
+ 
+
+Speciální aplikace (moderní výzkum)
+
+Tisk DNA mikro polí, elektronických obvodů nebo 3D struktur.
+
+Význam inkoustových tiskáren
+
+
+
+Zajistily levný a dostupný barevný tisk, čímž nahradily hlučné jehličkové tiskárny.
+
+Umožnily kvalitní tisk fotografií i v domácích podmínkách.
+
+Jejich technologie se využívá i mimo klasický tisk – průmysl, věda, medicína.
+
+---
+
+# Základní principy fungování HDD
+
+HDD – princip krok za krokem
+
+
+
+Požadavek na data.
+
+Raménko přemístí hlavu nad správný cylindr.
+
+Plotna se otočí na správný sektor.
+
+Proběhne čtení nebo zápis magnetického signálu.
+
+
+
+Výkon ovlivňuje:
+
+otáčky ploten,
+
+přístupová doba,
+
+cache paměť.
+
+---
+
+# Typy pásek
+
+
+
+---
+
+# Historický vývoj ofsetového tisku
+
+1875
+
+Robert Barclay (Anglie) vyvíjí první ofsetový stroj pro tisk na plech.
+
+1904
+
+Ira Washington Rubel (USA) zavádí ofsetový tisk na papír – zásadní průlom.
+
+Současně v Evropě pracuje Kašpar Hermann, vytváří prototyp ofsetového stroje (1904).
+
+Od poloviny 20. století
+
+rychlý rozvoj díky fototechnice a později počítačovým technologiím (CTP – computer-to-plate).
+
+1960s
+
+rozvoj web offsetu (tisk z rolí papíru), umožňuje vysoké rychlosti pro noviny a časopisy.
+
+zdroj: wiki
+
+---
+
+# Laserové tiskárny
+
+Laserová tiskárna je zařízení, které pomocí laserového paprsku, elektrostatického náboje a tonerového prášku vytváří velmi ostrý a kvalitní tisk na papír.
+
+Funguje podobně jako kopírka – využívá totiž elektrostatiku a světlocitlivý válec, na který se „vykreslí“ obraz pomocí laseru.
+
+zdroj: Home Tech
+
+---
+
+# Grafická karta ↔
+
+GPU – Graphics Processing Unit
+
+HW komponenta zodpovědná za zpracování a vykreslování obrazu
+
+slouží k převodu digitálních dat na obraz a jeho zobrazení na monitoru nebo jiném zobrazovacím zařízení
+
+Integrované
+součástí procesoru (CPU) a sdílejí paměť s operačním systémem
+
+určené pro standardní použití, kancelářské aplikace
+
+
+Dedikované - externí
+samostatné karty s vlastním GPU a VRAM
+
+určené pro náročnější aplikace, jako jsou hry, CAD software nebo renderování (tvorba reálného obrazu na základě počítačového modelu)
+
+
+jednou z nejvýkonnějších komponent
+
+umožňuje provádět paralelní výpočty →
+
+hraní her
+
+rendering - tvorba reálného obrazu na základě počítačového modelu
+
+vědecké výpočty
+
+strojové učení, umělá inteligence
+
+"těžba" kryptoměn
+
+
+vysokých výkonů je dosahováno díky
+
+optimalizované pipeline - sada/řetězec operací (instrukcí) prováděných seriově, výstup jedné operace je vstupem další operace
+
+paralelní architektuře
+
+vysokorychlostním pamětem
+
+Hlavní součásti grafické karty
+
+
+
+GPU (Graphics Processing Unit)
+
+jádro grafické karty, které provádí výpočetní operace související s grafickými daty
+
+Paměť (VRAM - Video RAM)
+
+slouží k ukládání grafických dat, která GPU zpracovává
+
+vyhrazena pouze pro grafickou kartu
+
+Chladicí systém
+
+zajišťuje odvádění tepla produkovaného GPU
+
+Napájecí část
+
+reguluje a dodává energii nutnou k provozu karty
+
+Rozhraní
+
+pro připojení k základní desce (např. PCIe)
+
+pro připojení externích zobrazovacích jednotek (monitory apod.)
+
+Parametry grafických karet
+
+Počet CUDA jader/stream procesorů
+CUDA (Compute Unified Device Architecture) jádra (u NVIDIE) nebo stream procesory (u AMD - FireStream) jsou základní výpočetní jednotky GPU
+
+vyšší počet znamená více paralelních operací a vyšší výkon
+
+
+Velikost VRAM
+
+Frekvence GPU
+
+Paměťová sběrnice
+
+Propustnost paměti
+
+kombinace šířky sběrnice a rychlosti paměťových čipů
+
+ovlivňuje celkový výkon karty.
+
+Spotřeba energie
+
+nutno zohlednit ve vztahu ke zdroji a napájení a chlazení
+
+TDP (Thermal Design Power)
+
+maximální tepelný výkon, který musí chladicí systém odvést
+
+---
+
+# Bezpečnost Bluetooth
+
+Pravidla pro bezpečné používání BT
+
+Nastavení viditelnosti
+- zařízení by defaultně nemělo být viditelné pro ostatní zařízení
+- povolte viditelnost pouze tehdy, až se potřebujete připojit k důvěryhodnému zařízení
+
+Omezení sdílení citlivých informací
+- nesdílejte přes BT citlivé informace, např. hesla, kontakty apod.
+
+Opatrnost při párování
+- pozor při párování na veřejnosti apod.
+
+Vypínání Bluetooth
+- pokud BT nepoužíváte, vypněte ho
+
+5. Smazání nepoužívaných spojení- smažte nepoužívaná BT spojení (spárovaná zařízení)
+
+6. Aktualizace operačního systému- samozřejmě na všech zařízeních
+
+7. Monitorujte podezřelou činnost
+
+8. Kontrolujte spotřebu mobilních dat
+
+---
+
+# Bezpečnost práce a provozu
+
+Rizika
+
+
+
+Tepelné: fixační jednotka se zahřívá na vysoké teploty.
+
+Chemické: kontakt s tonerem (jemný prach).
+
+Elektrické: napájení tiskárny, vysokonapěťové části uvnitř.
+
+Bezpečnostní doporučení
+
+
+
+Nezasahovat do stroje během tisku.
+
+Manipulovat s tonerem opatrně, nevhazovat do odpadu mimo sběrné dny elektroniky.
+
+Udržovat větrané prostředí (jemný prach z toneru).
+
+Nevystavovat LED hlavu neodbornému čištění (precizní optický prvek).
+
+---
+
+# Modulární konstrukce
+
+Charakteristika
+
+Modulární přepínače umožňují libovolnou kombinaci vstupů a výstupů.
+
+Vstupní a výstupní karty jsou vyměnitelné, což zajišťuje flexibilitu při rozšiřování systému.
+
+Použití
+
+Velké AV systémy (konference, CCTV, broadcast).
+
+Podpora různých typů signálů (HDMI, SDI, optika).
+
+Příklad
+
+Bosch Allegiant LTC 8800 – až 256 kamerových vstupů, 64 monitorových výstupů, modulární rozšíření.
+
+---
+
+# Bezpečnost WiFi
+
+Další bezpečnostní prvky
+
+
+
+MAC filtr – povolení jen vybraných zařízení.
+
+Skrytí SSID – síť není viditelná pro běžné uživatele.
+
+Silné heslo – kombinace písmen, čísel a znaků.
+
+---
+
+# Historický vývoj a kontext
+
+Předchůdci NVMe:
+
+IDE/PATA
+
+Staré široké kabely, velmi pomalé.
+
+SATA (Serial ATA)
+
+Standard, který dominoval po desetiletí.
+
+Používá protokol AHCI (Advanced Host Controller Interface).
+
+Problémem AHCI je, že byl navržen pro HDD s vysokou latencí (čekání, než se dotočí plotna).
+
+Vznik NVMe (2011)
+
+
+
+Konsorcium firem (Intel, Samsung, Dell atd.) vyvinulo NVMe, aby úložiště mohlo komunikovat přímo přes sběrnici PCI Express (PCIe), což dramaticky snižuje latenci a zvyšuje propustnost.
+
+---
+
+# Bluetooth adaptéry
+
+Popis
+
+Karty nebo moduly pro krátký dosah (do 10 m).
+
+Princip
+
+Bezdrátová komunikace na frekvenci 2,4 GHz, standard Bluetooth 5.x.
+
+Výhody
+
+Nízká spotřeba energie.
+
+Nevýhody
+
+Nízká rychlost (max. cca 2 Mb/s).
+
+Využití
+
+Připojení periferií (myš, klávesnice, sluchátka).
+
+---
+
+# Webová kamera
+
+Webová kamera (Webcam)
+
+
+
+Slouží k pořizování obrazového záznamu.
+
+Používá se při videohovorech, rozpoznávání obličeje apod.
+
+zdroj: asus
+
+zdroj: zde
+
+---
+
+# Jehličková tiskárna
+
+Mechanická (impact) tiskárna, která tiskne pomocí kovových jehliček, jež přes barvicí pásku narážejí do papíru a vytvářejí znaky či jednoduchou grafiku.
+
+Funguje podobně jako psací stroj, ale místo celých znaků využívá matice bodů, tedy je schopná tisknout i jednoduché obrázky.
+
+Jehličkové tiskárny se používají dodnes zejména tam, kde je potřeba:
+
+více kopií najednou (průklep / multipart forms)
+
+levný provoz
+
+spolehlivý tisk v náročném prostředí (prach, teplo, vlhko)
+
+kontinuální tisk na nekonečný papír
+
+zdroj: zde
+
+zdroj: zde
+
+---
+
+# Bezpečnost a životnost
+
+Šifrování
+
+Většina moderních NVMe disků podporuje hardwarové šifrování (AES-256), které nezpomaluje výkon.
+
+Životnost (TBW)
+
+Udává se v "Total Bytes Written" (celkový počet zapsaných terabajtů).
+
+NVMe disky mají sofistikované řadiče, které rozkládají zápis rovnoměrně (Wear Leveling).
+
+Teplota
+
+NVMe disky při vysokém výkonu generují značné teplo.
+
+Při přehřátí dochází k "Thermal Throttlingu" (snížení výkonu), proto jsou často vybaveny chladiči.
+
+---
+
+# Snímač čárového kódu
+
+Snímač čárového kódu (Barcode Scanner)
+
+
+
+Čte čárové kódy a převádí je na číselná data.
+
+Používá se v obchodech, skladech, knihovnách.
+
+zdroj: zde
+
+zdroj: zde
+
+---
+
+# CF - Compact Flash
+
+Fyzické rozměry - 43 × 36 × 3,3 mm (CF I), 5 mm (CF II).
+
+Verze a rozhraní:
+CF I/II: PATA (IDE) sběrnice, až 167 MB/s
+
+CFast 1.0: Serial ATA (SATA) rozhraní, až 600 MB/s
+
+CFast 2.0: PCIe Gen2 x1, až 1 GB/s
+
+CFexpress: NVMe přes PCIe Gen3/4 (viz 3.5)
+
+
+Flash buňky:
+MLC/TLC s 2D i 3D NAND
+
+
+Řadič:
+pokročilý NVMe controller u CFexpress, starší PATA/SATA řadič s ECC
+
+
+Kapacity:
+starší CF do 128 GB
+
+CFast/CFexpress až několik TB
+
+
+Výhody:
+vysoká odolnost
+
+širší sběrnice, nízká latence
+
+
+Nevýhody:
+
+větší rozměry
+
+vyšší cena
+
+menší podpora v běžných zařízeních
+
+Využití:
+
+profesionální a střední třída digitálních fotoaparátů
+
+průmyslové systémy
+
+---
+
+# Tiskárny
+
+jehličkové
+
+inkoustové
+
+laserové
+
+sublimační
+
+offsetový tisk
+
+plotry
+
+---
+
+# Bezdrátová rozhraní
+
+speciální vstupní a výstupní zařízení
+
+principy jejich připojení
+
+Dosah: až 100 metrů v otevřeném prostoru, méně v interiéru kvůli překážkám.
+
+Frekvence: 2.4 GHz a 5 GHz (novější standardy i 6 GHz).
+
+Použití: bezdrátový internet, připojení zařízení v domácnosti, kancelářích apod.
+
+Dosah: až 100 metrů (Bluetooth 5.0 a vyšší), běžně kolem 10–30 m.
+
+Frekvence: 2.4 GHz.
+
+Použití: sluchátka, reproduktory, chytré hodinky, přenos souborů, IoT zařízení.
+
+Dosah:
+LF (Low Frequency, 125–134 kHz): několik centimetrů.
+
+HF (High Frequency, 13.56 MHz): až 1 metr.
+
+UHF (Ultra High Frequency, 860–960 MHz): až 12 metrů.
+
+
+Použití: sledování zboží, přístupové systémy, identifikace objektů.
+
+Dosah:
+Standardní NFC: do 10 cm.
+
+NFC 15 (novinka 2025): až 2 cm, zlepšená rychlost a použitelnost.
+
+
+Frekvence: 13.56 MHz.
+
+Použití: bezkontaktní platby, přístupové systémy, sdílení dat mezi zařízeními.
+
+zdroje: zde
+
+zde
+
+---
+
+# Typy 3D tiskáren a technologie
+
+FDM (Fused Deposition Modeling) – nejběžnější
+
+
+
+Tiskárna taví plastový filament (např. PLA) a ukládá jej po vrstvách.
+
+Cenově dostupné a vhodné.
+
+
+
+zdroj: materialpro3d
+
+SLA / Resin tisk
+
+
+
+Používá tekutou pryskyřici a UV světlo, které ji vytvrzuje.
+
+Vysoká přesnost, využití v šperkařství a modelech.
+
+
+
+zdroj: sharplayers
+
+SLS (Selective Laser Sintering)
+
+
+
+Laser spéká práškový materiál (plast/kov).
+
+Profesionální využití v průmyslu.
+
+
+
+zdroj: admasys
+
+---
+
+# LED tiskárny
+
+LED tiskárna je velmi podobná laserové tiskárně, ale místo laserového paprsku používá řadu LED diod k vytvoření obrazu na fotocitlivém válci.
+
+Princip fungování
+
+Fotocitlivý válec se elektrostaticky nabije.
+
+LED diody (umístěné v řadě) osvítí válec a tím vytvoří obraz – každá dioda odpovídá jednomu bodu.
+
+Toner se přichytí na osvětlená místa.
+
+Papír se přitiskne k válci, toner se přenese na papír.
+
+Fixace – papír projde přes vyhřívané válce, které toner roztaví a připevní.
+
+Výhody
+
+Žádné pohyblivé optické části – vyšší spolehlivost než laser.
+
+Kompaktnější konstrukce – LED tiskárny bývají menší.
+
+Rovnoměrné osvětlení – dobrá kvalita tisku.
+
+Rychlý tisk – podobně jako laserové tiskárny.
+
+Nevýhody
+
+Vyšší cena než běžné laserové tiskárny.
+
+Menší rozšíření – omezený výběr modelů a náhradních dílů.
+
+Kvalita fotografií stále horší než u inkoustových tiskáren.
+
+Omezená dostupnost servisů.
+
+---
+
+# Kapacitní dotykový displej
+
+Složení
+
+Obsahuje vrstvu, která ukládá elektrický náboj.
+
+Tato vrstva je obvykle vyrobena z materiálu jako je oxid indičitý a cínový (ITO).
+
+Princip
+
+Když se dotknete displeje, část náboje se přenese na váš prst, což způsobí pokles kapacity v místě dotyku.
+
+Senzory umístěné v rozích displeje detekují změnu kapacity a určují přesnou polohu dotyku.
+
+Kapacitní displeje jsou běžnější v moderních zařízeních, protože umožňují vícebodový dotyk (multi-touch) a mají lepší průhlednost a odolnost.
+
+zdroj: zde
+
+zdroj: zde
+
+---
+
+# Optické síťové kabely
+
+Popis
+
+Karty pro připojení přes optické vlákno.
+
+Princip
+
+Přenos dat pomocí světelných signálů, velmi vysoké rychlosti (10 Gb/s a více).
+
+Výhody
+
+Extrémní rychlost, velká vzdálenost, odolnost proti rušení.
+
+Nevýhody
+
+Vyšší cena, složitější instalace.
+
+Využití
+
+Datová centra, páteřní sítě.
+
+---
+
+# Organizace dat v SSD
+
+Data jsou strukturována:
+
+
+
+buňky (cells)
+
+stránky (pages) – jednotky čtení/zápisu
+
+bloky (blocks) – jednotky mazání
+
+---
+
+# Jak zjistím informace o disku ↔
+
+Windows
+
+
+
+1. Průzkumník souborů → Vlastnosti disku → karta Hardware
+
+
+
+
+
+2. PowerShell
+Get-WmiObject -Query "SELECT * FROM Win32_DiskDrive" |
+Select-Object Model, Size
+
+Linux
+
+
+
+BASH
+
+lsblk -o NAME,MODEL,SIZE,TYPE,MOUNTPOINT
+
+nebo
+
+cat /sys/block/sda/device/model
+
+cat /sys/block/sda/device/vendor
+
+---
+
+# Jehličkové ad.
+
+
+
+---
+
+# Bezpečnost
+
+Bezpečnostní doporučení
+
+
+
+Inkousty mohou obsahovat chemické látky, proto se nesmí vdechovat aerosol ani přicházet do kontaktu s očima.
+
+Obecná zásada, odpovídá chemickému charakteru tekutin používaných v cartridge.
+
+Tiskárnu je nutné umístit na stabilní povrch a neblokovat větrací otvory (zamezí se přehřátí tiskové hlavy – zvláště u termálních systémů).
+
+Údržba pro bezpečný provoz
+
+
+
+Pravidelně čistit tiskovou hlavu, aby nedocházelo k zasychání inkoustu.
+
+Před opravami tiskárnu odpojit od elektřiny.(Obecně platné elektrotechnické pravidlo.)
+
+---
+
+# Video
+
+
+
+---
+
+# Význam a využití interních disků
+
+Interní disky jsou klíčové:
+
+
+
+umožňují spuštění OS,
+
+ukládají aplikace a pracovní soubory,
+
+ovlivňují rychlost celého systému (zejména SSD/NVMe).
+
+---
+
+# Zařízení pro zadávání dat
+
+zdroj: DK Tech
+
+Zařízení pro zadávání dat (vstupní zařízení) jsou součástí počítačového systému, která umožňují uživateli nebo jinému systému vkládat data do počítače.
+
+Tato data mohou být ve formě textu, obrazu, zvuku nebo jiných signálů.
+
+klávesnice
+
+myš
+
+dotyková obrazovka
+
+skener
+
+webová kamera
+
+mikrofon
+
+snímač čárového kódu
+
+joystick / gamepad
+
+grafický tablet
+
+---
+
+# Projekční plochy
+
+Popis a princip fungování
+
+
+
+Jakákoli plocha (stěna, podlaha, strop) může sloužit jako projekční plocha při použití interaktivního projektoru – technologie sleduje pohyb a umožňuje interakci dotykem či pohybem těla.
+
+Konfigurace a správa
+
+
+
+Interaktivní projektor senzoricky detekuje pohyb a reaguje vizuálními efekty, bez potřeby speciálních dotykových povrchů.
+
+Kalibrace systémů, aktualizace SW a přizpůsobení pro různé rozměry ploch.
+
+Význam a využití
+
+
+
+Výuka na základních i středních školách – ideální pro senzomotorické aktivity, projekty fyziky, přírodních věd nebo tělocviku.
+
+Skvělé pro integrované, aktivní učení včetně specifických potřeb žáků s postižením.
+
+---
+
+# Počítačová myš
+
+Typy myší dle technologie
+
+kuličkové
+
+optické
+
+laserové
+
+bluetrack
+
+Typy myší dle připojení
+
+drátové - USB, PS/2+ nepotřebují napájení- kabel
+
+bezdrátové - Bluetooth, infračervené+ nezavazí kabel, mobilita- napájení
+
+kuličková drátová myš
+
+
+
+zdroj: zde
+
+optická drátová myš
+
+
+
+zdroj: zde
+
+laserová bezdrátová myš
+
+
+
+
+
+zdroj: zde
+
+bluetrack
+
+
+
+zdroj: alza
+
+trackball
+
+
+
+zdroj: alza
+
+---
+
+# Jak funguje Bluetooth
+
+
+
+---
+
+# Význam a přínosy 3D tisku
+
+Pro průmysl
+
+
+
+3D tisk se používá pro:
+
+rychlou výrobu prototypů
+
+náhradní díly
+
+výrobu kovových i plastových komponent
+
+Pro vzdělávání
+
+
+
+3D tisk:
+
+podporuje kreativitu, prostorovou představivost a technické myšlení
+
+umožňuje studentům převést teorii do praxe
+
+zvyšuje motivaci díky okamžitým výsledkům
+
+V roce 2025 byl zaveden 3D tisk ve více než 60 % škol (USA) jako součást STEM výuky.
+
+---
+
+# Dotyková obrazovka
+
+Dotyková obrazovka (Touchscreen)
+
+
+
+Kombinuje vstupní i výstupní funkce.
+
+Umožňuje ovládání pomocí dotyku prstu nebo stylusu.
+
+Používá se u tabletů, notebooků, mobilních telefonů.
+
+zdroj: zde
+
+zdroj: zde
+
+zdroj: zde
+
+---
+
+# PCIe síťové karty
+
+TP-Link Archer TX3000E
+
+zdroj: alza
+
+AXAGON PCEE-G25, 2.5 Gigabit Ethernet PCIe network card
+
+zdroj: alza
+
+Synology E10G30-F2
+
+zdroj: alza
+
+ASUS XG-C100F
+
+zdroj: alza
+
+Intel Ethernet Server Adapter I210-T1
+
+zdroj: alza
+
+zdroj: pctuning
+
+zdroj: zde
+
+---
+
+# Historický vývoj
+
+1953 – Siemens uvedl první zařízení využívající princip kapkové aplikace tekutiny.
+
+70. léta – myšlenka inkoustové tiskárny vzniká u Ichira Enda (Canon) a Jona Vaughter (HP).
+
+1970s–1980s – Epson vyvíjí první piezoelektrické tiskárny; Canon a HP rozvíjejí termální Bubble Jet.
+
+90. léta – ceny inkoustových tiskáren klesají, technologie se masově rozšiřuje díky modelům jako HP DeskJet.
+
+Současnost – inkoustové technologie dosahují vysokého rozlišení a používají se i mimo tisk (např. 3D tisk, PCB, biotechnologie).
+
+---
+
+# Obrázky
+
+zdroj: alza
+
+zdroj: alza
+
+zdroj: alza
+
+---
+
+# Bezpečnost a rizika při práci s laserovou tiskárnou
+
+Horké části
+
+zažehlovací jednotka může mít teplotu přes 180–200 °C; hrozí popálení při neodborné manipulaci.
+
+Tonerový prášek
+
+je velmi jemný, dráždí dýchací cesty; při vysypání nevysávat běžným vysavačem (statická elektřina může poškodit zařízení).(podpora z obecného principu práce s tonerem – viz tonerové kazety)
+
+Elektrické části
+
+vysoké napětí v nabíjecí části tiskárny.
+
+---
+
+# Videomapping
+
+Videomapping
+
+zdroj: zde
+
+Popis a princip fungování
+
+
+
+Speciální přístup k projekci – obraz je promítán na nepravidelné nebo prostorové objekty, přičemž software mapuje obsah na povrch objektu.
+
+Tím vzniká iluzi interaktivního prostředí.
+
+Kombinace projektoru s mapovacím softwarem (např. MapMap) umožňuje přizpůsobit snímek zakřiveným nebo členitým plochám.
+
+Bezpečnost
+
+
+
+Upevnění projektoru a kabelů zabezpečit proti pádu.
+
+Zohlednit ohřev při dlouhodobé projekci a dbát na kompatibilitu se svými prostory.
+
+Konfigurace a správa
+
+
+
+Výběr výkonu projektoru dle velikosti povrchu a světelných podmínek.
+
+Mapování geometrie objektu, výběr projekčního úhlu, zaostření obrazu a aplikace SW na přizpůsobení rozložení pixelů uvnitř objektu.
+
+Význam a využití
+
+
+
+Přináší do výuky vizuální a umělecký rozměr – promítání na modely, výuky dějepisu (historické rekonstrukce), fyziky (struktury molekul), architektury atd..
+
+Zvyšu­je zapojení studentů díky imerzivním vizualizacím, podporuje kreativitu a hlubší porozumění.
+
+zdroj: zde
+
+---
+
+# Video
+
+zdroj: YouTube
+
+---
+
+# Seznam materiálů pro sublimaci
+
+Textilní materiály
+
+
+
+100% polyester (nejlepší výsledky)
+
+Polyesterové směsi (min. 65 % polyesteru) – barvy jsou méně syté
+
+Polyester + spandex – vhodné pro elastické oblečení (sport, plavky)
+
+Tvrdé materiály s polymerovým (polyesterovým) povlakem
+
+
+
+Keramika s polymerovým povlakem – hrnky, talíře, dlaždice
+
+Kovy s polymerovým povlakem – hliníkové panely, cedule, foto panely
+
+Sklo s polymerovým povlakem – podtácky, dekorace, skleněné panely
+
+Dřevo s polymerovým povlakem – fotoplakety, dekorační předměty
+
+Další polyesterem povlakované předměty (sublimační „blanks“)
+
+
+
+Kryty na mobil
+
+Podložky pod myš (polyesterový povrch)
+
+Klíčenky s polyesterovým povrchem
+
+Puzzly s polyesterovým povlakem
+
+---
+
+# Srovnání SSD vs HDD
+
+
+
+---
+
+# Mikrofon
+
+Mikrofon
+
+
+
+Zachycuje zvuk a převádí ho na digitální signál.
+
+Používá se při komunikaci, nahrávání, hlasovém ovládání.
+
+zdroj: datart
+
+zdroj: zde
+
+---
+
+# Nevýhody externího SSD
+
+vyšší cena za GB
+
+omezený počet zápisů (životnost buněk)
+
+menší kapacita než HDD
+
+---
+
+# PCI Express
+
+
+
+---
+
+# Hlavní komponenty
+
+Řadič/ASIC
+
+PHY / transceiver
+
+Porty a konektory
+
+MAC adresa
+
+Pufry a paměť
+
+Rozhraní k počítači
+
+---
+
+# LTO
+
+
+
+---
+
+# LCoS
+
+Liquid Crystal on Silicon
+
+LCoS projektory využívají tekuté krystaly nanesené na reflexním křemíkovém substrátu
+
+pro vytvoření výsledného obrazu používají panely s tekutými krystaly
+
+krystaly ovšem světlo nepropouštějí, ale odrážejí jej - reflektují
+
+tekuté krystaly tedy fungují jako mikroskopická zrcátka
+
+používají se hlavně v high-end segmentu
+
+digitální kina, domácí high-end kina
+
+profesionální vizualizace
+
+profesionální simulátory - letecké, vojenské, automobily
+
+velké prostory
+
+Jak to funguje
+
+1. Zdroj světla
+
+nejčastěji vysokotlaké výbojky (UHP), LED nebo laserové zdroje
+
+2. Oddělení barev
+
+pomocí dichroických zrcadel nebo hranolů se bílé světlo rozkládá na tři základní barvy (RGB)
+
+3. Modulace světla pomocí LCoS panelů
+
+každá barva je nasměrována na svůj vlastní LCoS panel
+
+na každý LCoS panel je přiveden signál projekci pro příslušnou barevnou složku z video zdroje
+
+panely obsahují tekuté krystaly, které fungují jako světelné ventily – blokují nebo odrážejí světlo, čímž formují obraz
+
+4. Skládání obrazu
+
+tři barevné složky odražené od LCoS panelů jsou zkombinovány přes optický hranol do jednoho obrazu
+
+5. Projekce na plátno
+
+výsledný obraz je promítán pomocí čoček
+
+Porovnání s LCD a DLP
+
+
+
+narozdíl od LCD technologie nejsou pixely LCoS projektorů průhledné, ale reflektují světlo
+
+narozdíl od DLP projektorů nepoužívají rotující barevné kotouče, což eliminuje "duhový efekt"
+
+Výhody
+
+Vysoké rozlišení
+LCoS technologie běžně podporuje Full HD (1920 × 1080), WUXGA (1920 × 1200) a dokonce i nativní 4K rozlišení (4096 × 2160)
+
+
+Vynikající kvalita obrazu
+kombinuje výhody LCD (přesné barvy) a DLP (hladký obraz bez mřížky pixelů)
+
+krystalová "zrcátka" jsou menší než "mechanická" u DLP projektorů
+
+velmi jemné zobrazení bez viditelného efektu "screen door" (mřížkový efekt pixelů)
+
+
+Vysoký kontrast
+projektory nabízejí lepší černou a hlubší kontrast než LCD projektory
+
+dynamický kontrast často přesahuje 100 000:1
+
+
+Žádný duhový efekt
+narozdíl od jednočipových DLP projektorů LCoS nevyužívá rotující barevný kotouč
+
+
+Hladké přechody obrazu
+díky vysoké hustotě pixelů poskytuje obraz s jemnými přechody a realistickými detaily
+
+Nevýhody
+
+Vyšší cena
+
+Nižší jas
+v porovnání s DLP projektory mají LCoS projektory obvykle nižší světelný výkon
+
+potřebují dobře zatemněnou místnost pro nejlepší obrazový výkon
+
+
+Větší rozměry a hmotnost
+
+Vyšší nároky na chlazení
+LCoS panely se zahřívají více než LCD panely, což vyžaduje efektivní chlazení
+
+---
+
+# Rozhraní a formáty interních disků
+
+SATA
+
+
+
+Standardní rozhraní pro HDD i SSD.
+
+Rychlosti okolo 600 MB/s (limit SATA III).
+
+Používá se pro 2,5" SSD i 3,5" HDD.
+
+zdroj: zde
+
+zdroj: zde
+
+zdroj: zde
+
+NVMe / PCIe
+
+
+
+Nejmodernější a nejrychlejší způsob připojení SSD.
+
+Disk se zasouvá do slotu M.2.
+
+Využívá přímo PCIe linky, čímž obchází limity SATA.
+
+zdroj: zde
+
+Starší rozhraní (PATA/IDE)
+
+
+
+Dnes již zastaralé (40–80žilový kabel, pomalé).
+
+zdroj: zde
+
+---
+
+# Typy externích HDD
+
+Podle velikosti
+
+
+
+2,5" (notebookové)
+menší, napájené přes USB
+
+
+3,5" (desktopové)
+větší, vlastní napájení
+
+Podle použití
+
+
+
+zálohovací disky
+
+multimediální disky
+
+profesionální archivní disky
+
+---
+
+# Rozhraní k počítači
+
+PCIe, M.2, USB
+
+Rozhraní k počítači (PCIe, USB, M.2)
+
+
+
+Cesty, kudy proudí data z adaptéru do počítače a zpět.
+
+PCIe – velmi rychlá, používají ji výkonné síťové karty.
+
+USB – univerzální, pro externí adaptéry.
+
+M.2 – moderní malý konektor (např. pro Wi‑Fi v noteboocích).
+
+Čím rychlejší rozhraní, tím více dat adaptér zvládne přenést.
+
+---
+
+# myš
+
+
+
+---
+
+# Výhody a nevýhody kapacitních dotykových displejů
+
+Výhody kapacitních displejů
+
+Vícedotyková podpora: Umožňují vícebodový dotyk (multi-touch), což znamená, že můžete používat více prstů najednou pro různé gesta, jako je přiblížení nebo otočení.
+
+Vysoká citlivost: Reagují rychle a přesně na dotyk, což zajišťuje plynulou a intuitivní interakci.
+
+Odolnost: Jsou odolnější vůči poškrábání a opotřebení, protože povrch je obvykle vyroben z tvrzeného skla.
+
+Průhlednost: Nabízejí lepší průhlednost a jasnost obrazu ve srovnání s rezistivními displeji, což zlepšuje vizuální zážitek.
+
+Nevýhody kapacitních displejů
+
+Citlivost na vlhkost: Mohou mít problémy s přesností při použití ve vlhkém prostředí nebo pokud máte mokré prsty.
+
+Nemožnost použití s rukavicemi: Většina kapacitních displejů nereaguje na dotyk rukavicemi, což může být nevýhodné v chladném počasí.
+
+Vyšší cena: Jsou obvykle dražší na výrobu než rezistivní displeje, což může zvýšit celkovou cenu zařízení.
+
+Interference: Mohou být citlivé na elektrické rušení, což může ovlivnit jejich výkon.
+
+---
+
+# Displeje
+
+Displeje jsou důležitým výstupním zařízením počítače.
+
+Umožňují vizuální komunikaci mezi uživatelem a systémem – zobrazují text, grafiku, video i interaktivní prvky.
+
+V dnešní době se používá několik typů displejových technologií, které se liší principem fungování, kvalitou obrazu, spotřebou energie i cenou.
+
+Základní typy displejů
+
+
+
+LCD (Liquid Crystal Display)
+
+LED (Light Emitting Diode)
+
+OLED (Organic LED)
+
+E-Ink (elektronický inkoust)
+
+Plazmové displeje
+
+CRT (katodová trubice – historické)
+
+Praktické příklady využití
+
+
+
+zdroj: zde
+
+---
+
+# NFC
+
+zdroj: Classical Rajon
+
+---
+
+# Princip fungování
+
+Inkoustová tiskárna funguje jako „ultrajemný sprej“.
+
+Tisková hlava má stovky až tisíce malilinkých otvorů (trysek) a ty vystřikují drobné kapičky inkoustu na papír přesně na ta místa, kde je potřeba vytvořit text nebo obrázek.
+
+Když se hlava pohybuje tam a zpět nad papírem, skládají se tyto body do výsledného obrazu.
+
+Podrobný technický popis
+
+
+
+Tisková hlava obsahuje mikrotrysky o velikosti i několika mikrometrů.
+
+Řídicí elektronika dostane z počítače rasterizovaná data (PCL / PostScript).
+
+Trysky vystřikují inkoust v podobě kapiček o typickém objemu 35 pikolitrů.
+
+Rychlost vystřiku se může pohybovat 50–100 km/h při vzdálenosti hlavy od papíru cca 1 mm.
+
+Každá kapička je přesně řízena tak, aby vytvořila správný bod obrazu.
+
+zdroj: wiki
+
+---
+
+# Konstrukce externího HDD
+
+Externí HDD obsahuje několik klíčových částí:
+
+
+
+Plotny (plattery)
+
+
+
+kovové kotouče, na kterých jsou data
+
+potažené magnetickou vrstvou
+
+
+
+Čtecí/zapisovací hlavy
+
+zapisují a čtou data
+
+pohybují se nad plotnou ve vzdálenosti několika nanometrů
+
+Aktuátor (rameno)
+
+
+
+posouvá hlavy na správné místo
+
+pracuje velmi přesně a rychle
+
+
+
+Vřeteno + motor
+
+
+
+roztočí plotny (např. 5400 nebo 7200 ot./min)
+
+
+
+Řadič (elektronika)
+
+
+
+řídí komunikaci disku s počítačem
+
+převádí data na srozumitelný formát
+
+
+
+Tyto části jsou uzavřeny v ochranném pouzdře (case), které chrání disk před prachem a poškozením
+
+---
+
+# Organizace dat na disku
+
+Data na plotně jsou uspořádána takto:
+
+
+
+stopy (tracks) – soustředné kružnice
+
+sektory (sectors) – části stopy
+
+cylindry – stejné stopy na všech plotnách
+
+
+
+Tento systém umožňuje rychle najít konkrétní data.
+
+---
+
+# Schéma
+
+
+
+---
+
+# LED
+
+specifický typ LCD monitoru
+
+pro podsvícení panelu využívají diody vyzařující světlo - LED - Light Emitting Diodes (např. )
+
+lepší energetická účinnost
+
+lepší řízení jasu a kontrastu, vyšší kontrast
+
+hlubší černá a vyšší dynamický rozsah barev
+
+delší životnost
+
+tenčí design
+
+široké pozorovací úhly
+
+vyšší cena
+
+možnost vzniku "halo" efektu (světlý obrys kolem světlých objektů na tmavém pozadí)
+
+Typy LED podsvícení
+
+1. Edge-lit LED (osvětlení po okrajích)
+
+LED diody jsou umístěny podél okrajů obrazovky
+
+světlo je rozptýleno pomocí difuzního panelu, aby bylo rovnoměrné
+
+Výhody
+
+velmi tenký design
+
+nižší spotřeba energie
+
+Nevýhody
+
+méně přesné řízení jasu a kontrastu (např. v tmavých scénách může být nerovnoměrné podsvícení).
+
+2. Direct-lit LED (rovnoměrné osvětlení)
+
+LED diody jsou rozmístěny přímo za panelem
+
+Výhody
+
+Rovnoměrnější podsvícení
+
+Vyšší jas
+
+Nevýhody:
+
+silnější konstrukce než u Edge-lit
+
+3. Full-array LED (zónové řízení podsvícení)
+
+LED diody jsou rovnoměrně rozmístěny za celou plochou obrazovky a umožňují lokální stmívání (local dimming)
+
+Výhody
+
+lepší kontrastní poměr (část obrazovky může být tmavá, zatímco jiná jasná)
+
+dokonalé zobrazení tmavých scén
+
+Nevýhody
+
+vyšší cena
+
+---
+
+# Tiskárny
+
+zdroj: Tech Home
+
+---
+
+# video
+
+
+
+---
+
+# Historický vývoj multifunkčních zařízení
+
+Počátky (předchůdci MFP)
+
+
+
+Dříve existovaly samostatné stroje – psací stroje, kopírky, faxy.
+
+Kopírky byly původně analogové – kopírovaly jen jeden dokument bez digitální paměti.
+
+20. století – klíčové objevy
+
+
+
+1938 – Chester Carlson vyvíjí elektrofotografii (xerografii) → základ kopírek a později MFP.
+
+Digitální revoluce (80.–90. léta)
+
+
+
+Rozšíření počítačů a laserových tiskáren → spojení kopírky a tiskárny.
+
+Začínají se objevovat první „all‑in‑one“ zařízení.
+
+Po roce 2000 – moderní MFP
+
+
+
+Přechod od analogových ke zcela digitálním kopírkám.
+
+Rozšíření síťových MFP s Wi‑Fi, mobilním tiskem, cloudovým skenováním.
+
+Současnost
+
+
+
+Firmy využívají MFP jako centrální dokumentová řešení, často propojená s cloudem.
+
+Trh MFP roste a v roce 2025 měl hodnotu 20,58 mld. USD, s růstem do roku 2030.
+
+---
+
+# Popis funkce
+
+Typické multifunkční zařízení obsahuje:
+
+
+
+Tiskárnu – inkoustová nebo laserová technologie
+
+Skener – převádí papír do digitální podoby
+
+Kopírku – propojení skeneru a tiskárny
+
+Fax – u některých modelů stále dostupný
+
+Moderní MFP mohou mít také:
+
+
+
+čtečky paměťových karet
+
+síťové funkce (LAN, Wi‑Fi)
+
+dokumentové podavače (ADF)
+
+digitální úpravy (OCR, redukce šumu, komprese)
+
+---
+
+# Nevýhody externích HDD
+
+pomalejší než SSD
+
+mechanické části (může se poškodit)
+
+citlivost na otřesy
+
+hlučnost
+
+
+
+hlavy a plotny se musí fyzicky pohybovat → zdržen
+
+---
+
+# Význam a využití síťových adaptérů
+
+Síťové adaptéry jsou klíčovým prvkem pro:
+
+přístup k internetu a LAN,
+
+komunikaci zařízení (PC, servery, IoT),
+
+virtualizaci a cloud computing (vNIC),
+
+datová centra (rychlosti 25–400 GbE),
+
+mobilní zařízení (Wi‑Fi NIC).
+
+NIC je tedy nezbytným předpokladem pro moderní digitální infrastrukturu.
+
+---
+
+# Konstrukce externího SSD
+
+Hlavní komponenty
+
+
+
+1) Řadič (controller)
+
+
+
+„mozek“ disku
+
+řídí čtení a zápis dat
+
+provádí opravy chyb a správu paměti
+
+ 
+
+
+
+zdroj: zde
+
+2) NAND flash paměť
+
+
+
+hlavní úložiště dat
+
+tvořena buňkami ukládajícími 0 a 1 (elektrický náboj)
+
+
+
+zdroj: zde
+
+Cache (DRAM nebo SLC cache)
+
+
+
+rychlá vyrovnávací paměť
+
+urychluje práci s daty
+
+ukládá často používané informace
+
+
+
+zdroj: zde
+
+4) Rozhraní (interface)
+
+
+
+umožňuje komunikaci s počítačem
+
+např. USB, SATA nebo NVMe
+
+---
+
+# How do GPUs Work
+
+
+
+---
+
+# Sublimační
+
+tisková hlava zahřeje speciální pásky s barvou -> odpaří se barva, která se přenese na médium (např. papír nebo textil, plast...)
+
+poté barva opět zchladne a ztvrdne a změní skupenství na pevné
+
+tisková hlava umožňuje průběžně měnit teplotu a tím ovlivňuje množství odpařené barvy a její odstín
+
+Výhody
+
+výborný barevný rozsah
+
+levný tisk v poměru cena/výkon (kvalita)
+
+tisk a potisk různých materiálů
+
+Nevýhody
+
+drahá pro běžný tisk
+
+---
+
+# DLP ↔
+
+Digital Light Processing
+
+založeny na technologii DMD - Digital Micromirror Device
+
+ 
+
+Princip fungování DLP projektoru
+
+
+
+1. Zdroj světla
+
+vysokotlaké výbojky nebo LED/laserová technologie
+
+intenzivní bílé světlo
+
+2. Rozdělení světla
+
+světlo prochází barevným kotoučem (u jednočipových projektorů) nebo sadou optických filtrů (3 čipové projektory)
+
+kotouč rotuje vysokou rychlostí a rozdělí světlo na 3 barevné složky RGB
+
+3. Odraz světla na DLP čipu
+
+světlo (jedotlivé RGB složky) dopadá na DMD čip
+
+DLP číp je tvořen více než 2 miliony mikroskopických zrcátek (rozměr zhruba 16  μm)
+
+každé z těchto zrcátek se může naklánět a odrážet tak dopadající světlo - podle toho, jak je zrcátko natočeno buď světlo odrazí směrem k projekční čočce (objektivu) nebo jiným směrem
+
+naklánění jednotlivých zrcátek je řízeno procesorem, který naklání zrcátka podle vstupního videosignálu
+
+k naklánění zrcátek dochází v řádu několika tisíců za sekundu
+
+intenzita odraženého světla (jas) je řízena dobou natočení zrcátka k odražení světla směrem k projekční čočce
+
+4. Projekce obrazu
+
+odražené světlo od zrcátek (výsledný obraz) je promítnut na plátno přes projekční čočku na projekční plochu
+
+Výhody
+
+Vysoký kontrast:
+díky mikrozrcátkům mají DLP projektory vynikající reprodukci černé a bílé barvy
+
+
+Hladký obraz
+absence mřížky pixelů vytváří ostrý a čistý obraz
+
+
+Spolehlivost
+DMD čipy jsou odolné vůči opotřebení a jejich životnost je velmi dlouhá
+
+
+Kompaktnost
+DLP projektory jsou často menší a lehčí než LCD projektory
+
+
+Vhodné pro 3D projekci
+technologie podporuje rychlou změnu obrazu, což je ideální pro 3D zobrazení
+
+Nevýhody
+
+Efekt duhového spektra (Rainbow Effect)
+u jedočipových DLP projektorů může být viditelné krátkodobé rozdělení barev na červenou, zelenou a modrou při pohybu obrazu.
+
+
+Nižší přesnost barev
+ve srovnání s LCD projektory mohou mít DLP projektory o něco méně přesnou reprodukci barev, což může být patrné u některých odstínů
+
+
+Vyšší hlučnost
+rychle rotující barevný kotouč může způsobovat mírný hluk
+
+
+Údržba
+stejně jako u jiných projektorů je potřeba výměna lampy a čištění optiky
+
+Typy DLP projektorů
+
+Jednočipové DLP projektory
+používají jediný DMD čip v kombinaci s barevným kotoučem
+
+cenově dostupnější varianta, ideální pro domácí a kancelářské použití
+
+efekt duhového spektra je zde výraznější
+
+
+Tříčipové DLP projektory
+každá základní barva (RGB) má svůj vlastní DMD čip
+
+nabízí vynikající kvalitu obrazu bez efektu duhového spektra
+
+používají se v kinech, profesionálních projekcích a náročných aplikacích
+
+výrazně dražší než jednočipové modely
+
+---
+
+# Bezpečnost
+
+Nejčastější rizika
+
+
+
+Vysoké teploty (180–220 °C): riziko popálení při manipulaci s lisem.
+
+Horké materiály po potisku – nutné nechat vychladnout.
+
+Pary barviv – běžně bezpečné, ale doporučuje se větrané prostředí.
+
+Elektrická bezpečnost – lis i tiskárna jsou výkonná elektrická zařízení → kontrola kabelů a stabilní napájení.
+
+Pravidla bezpečné práce
+
+
+
+Nepřibližovat ruce k ohřátým částem lisu.
+
+Pracovat na stabilním, tepelně odolném povrchu.
+
+Zajistit dostatečné větrání.
+
+Nepřehýbat nebo nemanipulovat s kabelem lisu během provozu.
+
+Používat ochranné rukavice při vyjímání horkých předmětů.
+
+---
+
+# NAND paměti
+
+většina SSD je založena na NAND pamětech
+
+
+
+NAND Flash Memory
+
+
+
+ nevolatilní (trvalá) polovodičová paměť
+
+založena na principu ukládání elektrického náboje do paměťových buněk
+
+zapojení hradel a buňková struktura připomínají logiku typu NAND
+
+typicky jde o tranzistor s dvěma hradly
+
+
+
+řídicí hradlo (control gate)
+
+plovoucím hradlo (floating gate)
+
+plovoucí hradlo dokáže udržovat elektrický náboj po dlouhou dobu i bez napájení (nevolatilní charakter)
+
+množství náboje (resp. úroveň napětí) na plovoucím hradle odpovídá zapsané hodnotě – jedná se obvykle o několik úrovní, což umožňuje ukládat více bitů do jedné buňky
+
+Čtení dat
+
+
+
+probíhá měřením proudu protékajícího buňkou při aplikaci určitých úrovní napětí na řídicí hradlo
+
+podle toho, kolik proudu proteče, se detekuje stav buňky (nabitá / nenabitá, případně konkrétní úroveň napětí)
+
+Zápis dat
+
+
+
+provádí se aplikací vyšších napěťových pulzů na řídicí hradlo, čímž se na plovoucí hradlo dostane náboj tunelováním (tzv. Fowler-Nordheim tunelování, náboj se do buňky vlastně protlačí) 
+
+
+
+Mazání dat
+
+
+
+probíhá hromadně na celé bloky buněk
+
+kdy se náboj z plovoucích hradel odebírá, aby byly opět připraveny k zápisu
+
+Struktura NAND paměti
+
+
+
+1. Buňka (cell)
+
+
+
+základní stavební prvek, který uchovává náboj
+
+podle počtu bitů na buňku rozeznáváme:
+
+SLC (Single-Level Cell) – 1 bit na buňku (dvě úrovně napětí)
+
+MLC (Multi-Level Cell) – 2 bity na buňku (čtyři úrovně napětí)
+
+TLC (Triple-Level Cell) – 3 bity na buňku (osm úrovní napětí)
+
+QLC (Quad-Level Cell) – 4 bity na buňku (šestnáct úrovní napětí)
+
+každá další úroveň napětí s sebou nese komplikovanější detekci stavu (čtení) a citlivost na chyby.
+
+2. Stránka (page)
+
+
+
+skupina buněk, která se čte a programuje (zapisuje) jako celek
+
+velikost stránky se pohybuje například od 4 kB do 16 kB (plus oblast pro opravu chyb – tzv. „spare area“)
+
+
+
+3. Blok (block)
+
+
+
+skládá se z desítek až stovek stránek
+
+mazání se provádí po blocích (například 128 až 256 stránek v bloku)
+
+pokud je nutné přepsat pouze část dat, je nezbytné blok překopírovat do vyrovnávací paměti, aktualizovat data a znovu zapsat blok
+
+4. Plane
+
+
+
+více bloků tvoří tzv. plane (logickou sekci paměti)
+
+více „planes“ pak tvoří celý NAND čip
+
+moderní technologie umožňují paralelní operace nad různými planes, čímž se zvyšuje výkon
+
+
+
+5. 3D NAND (vertikální struktura)
+
+
+
+tradičně se NAND buňky tvořily v jedné rovině (tzv. planar NAND)
+
+s rostoucí hustotou ukládání dat však docházelo k problémům s interferencemi mezi buňkami a k poklesu životnosti
+
+3D NAND staví buňky ve vrstvách nad sebou (desítky až stovky vrstev)
+
+to umožňuje vyšší kapacitu, zlepšení výkonu a životnosti, neboť buňky mohou být rozměrově o něco větší a méně náchylné k rušení
+
+Životnost a spolehlivost
+
+
+
+1. P/E cykly
+
+
+
+každá buňka má určitou životnost, která vyjádřená počtem Program/Erase cyklů (tedy kolikrát lze buňku přepsat, než se stane nestabilní)
+
+Po jejich vyčerpání roste chybovost (bit errors).
+
+
+
+Typicky:
+
+
+
+SLC: ~50 000–100 000 cyklů (nejodolnější)
+
+MLC: ~3 000–10 000
+
+TLC: ~1 000–3 000
+
+QLC: ~100–1 000 (nejcitlivější)
+
+
+
+Čím více bitů na buňku, tím nižší životnost.
+
+2. Teplota
+
+
+
+Vysoká teplota:
+
+zrychluje opotřebení buněk
+
+zhoršuje retenci dat (únik náboje)
+
+Nízká teplota:
+
+může zhoršit zápis (vyšší napětí potřebné pro programování)
+
+Ideální je cca 20–40 °C. Nad ~70 °C už výrazně trpí životnost.
+
+3. Napěťové a elektrické vlivy
+
+
+
+Kolísání napájení (brownout, přepětí)
+
+Náhlé výpadky při zápisu → poškození dat nebo wear leveling metadata
+
+
+
+Kvalitní SSD mají:
+
+
+
+ochranu proti výpadku (power-loss protection)
+
+interní ECC a kontrolní mechanismy
+
+4. Wear leveling (rovnoměrné opotřebení)
+
+
+
+Řadič rozděluje zápisy, aby se všechny bloky opotřebovávaly rovnoměrně.
+
+Typy:
+
+
+
+Static wear leveling – přesouvá i málo používaná data
+
+Dynamic wear leveling – řeší jen aktivně zapisovaná data
+
+
+
+Špatný algoritmus = rychlé opotřebení části paměti.
+
+5. ECC a řízení chyb
+
+
+
+NAND má přirozenou chybovost → používají se ECC (Error Correcting Codes):
+
+BCH, LDPC apod.
+
+
+
+
+S rostoucím opotřebením:
+
+
+
+potřeba silnější ECC
+
+roste latence i spotřeba
+
+
+
+Kvalita řadiče je zásadní pro spolehlivost.
+
+6. Typ NAND technologie (2D vs 3D NAND)
+
+
+
+3D NAND:
+
+
+
+větší buňky → lepší výdrž
+
+menší rušení mezi buňkami
+
+
+
+2D (planární) NAND:
+
+
+
+menší buňky → vyšší opotřebení
+
+
+
+Moderní SSD (3D TLC/QLC) jsou často odolnější než starší 2D MLC.
+
+7. Retence dat (uchování bez napájení)
+
+
+
+Data se ukládají jako náboj → postupně uniká.
+
+Po opotřebení:
+
+retence klesá z let na měsíce/týdny
+
+
+
+
+Faktory:
+
+
+
+teplota (hlavní vliv)
+
+počet P/E cyklů
+
+typ buněk (SLC nejlepší)
+
+8. Write Amplification (WA)
+
+
+
+Interní procesy (garbage collection, přepis bloků) zvyšují počet zapisovaných dat.
+
+
+
+Příklad:
+
+
+
+zapíšeš 1 GB → fyzicky se zapíše třeba 3 GB  → víc opotřebení
+
+9. Overprovisioning
+
+
+
+Rezervní kapacita (neviditelná uživateli)
+
+
+
+Výhoda:
+
+
+
+méně přepisů stejných bloků
+
+lepší životnost i výkon
+
+10. Způsob použití (workload)
+
+
+
+Velmi zásadní faktor:
+
+
+
+Sekvenční zápisy → méně škodí
+
+Náhodné malé zápisy (4k) → nejhorší
+
+Časté mazání/logování/databáze → rychlá degradace
+
+11. Kvalita výrobce a firmware
+
+
+
+Lepší výrobci:
+
+
+
+přesnější řízení napětí
+
+lepší ECC
+
+robustní firmware
+
+Levné NAND (např. no-name USB disky):
+
+často nemají kvalitní wear leveling
+
+rychle selžou
+
+12. Rušení mezi buňkami (cell-to-cell interference)
+
+
+
+U hustých NAND (TLC, QLC):
+
+sousední buňky se ovlivňují
+
+
+vede k:
+
+chybám při čtení
+
+nutnosti častého přepisování (refresh)
+
+Shrnutí 
+
+
+
+Největší vliv mají:
+
+
+
+Počet přepisovacích cyklů
+
+Teplota
+
+Typ NAND (SLC → QLC)
+
+Wear leveling + řadič
+
+Write amplification
+
+Retence dat
+
+Praktická doporučení
+
+
+
+Nepřehřívat SSD (chlazení v PC)
+
+Neplnit disk na 100 % (ponechat místo pro wear leveling)
+
+Vyhýbat se extrémně častým zápisům (např. logy bez rotace)
+
+Používat kvalitní značky SSD
+
+Pravidelně zálohovat (NAND není „věčná“)
+
+---
+
+# Význam a výhody plotrů
+
+Velkoformátový tisk (technické výkresy, plakáty, architektonické plány)
+
+Vysoká přesnost a kvalita čar (CAD, AEC, GIS)
+
+Široká kompatibilita materiálů – papír, vinyl, textil, fólie, reflexní materiály
+
+---
+
+# Jak zjistím max. LBA adresu
+
+Výpočtem
+
+
+
+kde:
+
+TotalDiskSize - celková kapacita disku v bytech
+
+SektorSize - velikost sektoru v bytech (fyzická velikost sektoru)
+
+---
+
+# SSD - Solid State Drive
+
+SSD je datové úložiště založené na paměťových čipech (flash paměti)
+
+flash paměť -  paměť, která ukládá data do paměťových buněk tvořených tranzistory schopnými udržet elektrický náboj
+
+ke čtení a zápisu dat se využívá řízeného nabíjení a vybíjení těchto buněk 
+
+rychlejší přístup k datům, lepší energetická efektivita a vyšší odolnost vůči fyzickým nárazům oproti HDD
+
+zdroj: Tech Home
+
+zdroj: Zestro Gaming
+
+zdroj: Tech Home
+
+zdroj: Cyber Security For Computer AI Hub
+
+---
+
+# video
+
+
+
+---
+
+# Display port
+
+digitální grafické rozhraní
+
+umožňuje i přenos audio a jiných dat 
+
+používá paketový přenos dat (podobně jako Ethernet, USB, PCI Express) → umožňuje přenos vysokého rozlišení s vyššími bitovými hloubkami a obnovovací frekvencí
+
+připraveno pro budoucí aplikace včetně HDR (High Dynamic Range) obsahu
+
+umožňuje připojení více monitorů, případně použití DP hubu
+
+používá se i mini DP, zejména u Apple - Thunderbold
+
+počet pinů 20
+
+---
+
+# Cross Switching
+
+Definice
+
+Crosspoint (křížový bod) je místo v matici, kde se vstupní a výstupní linie protínají.
+
+Každý bod obsahuje spínač, který se může uzavřít a propojit konkrétní vstup s konkrétním výstupem.
+
+Princip
+
+V maticovém přepínači s M vstupy a N výstupy je M × N křížových bodů.
+
+Přepínač je non-blocking, což znamená, že současné propojení jednoho vstupu na výstup neblokuje ostatní propojení.
+
+Používá se v AV systémech, telekomunikacích a zobrazovacích jednotkách.
+
+Výhody
+
+Flexibilní směrování signálů.
+
+Rychlé přepínání bez výpadků.
+
+Technické detaily
+
+Moderní crosspoint přepínače pro video mají přepínací čas <10 ns a vysokou izolaci mezi kanály (>80 dB při 5 MHz).
+
+---
+
+# NAS
+
+NAS - Network Attached Storage
+
+zařízení připojené do sítě, které poskytuje sdílený souborový systém
+
+protokoly
+
+SMB/CIFS (Windows)
+
+NFS (Linux/UNIX)
+
+ FTP, HTTP.
+
+
+snadná instalace a správa
+
+vhodné pro sdílení souborů v rámci kanceláří a pracovních skupin
+
+škálovatelnost závisí na modelu
+
+zálohování, archivace, sdílení dokumentů, multimédia
+
+výrobci:
+
+Synology
+
+QNAP
+
+NetApp
+
+---
+
+# SAN
+
+SAN - Storage Area Network
+
+vysoce výkonná síť pro blokové úložiště
+
+typicky propojená pomocí Fibre Channel nebo iSCSI
+
+protokoly:
+
+Fibre Channel
+
+iSCSI (internet Small Computer System interface)
+
+blokový přístup k datům
+
+vysoká propustnost, nízká latence.
+
+databáze, virtualizaci a kritické aplikace
+
+datová centra, servery s vysokými nároky na IOPS (Input/Output Operations per Second)
+
+výrobci:
+
+Dell 
+
+HPE 
+
+IBM
+
+NetApp
+
+---
+
+# DVI
+
+DVI - Digital Visual Interface
+
+digitální rozhraní
+
+neumožňuje přenos audio signálu
+
+konektory bývají označené bílou barvou
+
+
+
+Verze :
+
+DVI - A - pouze analogový signál - pro kompatibulitu se staršími monitory
+
+DVI - I - umožňuje přenos digitálního i analogového signálu
+
+DVI - D - pouze digitální signál
+
+---
+
+# Síťové karty
+
+Síťová karta (NIC – Network Interface Card) je hardwarová komponenta, která umožňuje počítači připojit se k počítačové síti (LAN, internet).
+
+Funguje jako rozhraní mezi počítačem a komunikačním médiem (kabel, Wi-Fi).
+
+Bez síťové karty by počítač nemohl komunikovat s jinými zařízeními ani přistupovat k internetu.
+
+Princip fungování
+
+
+
+Síťová karta pracuje na spojové vrstvě OSI modelu.
+
+Převádí digitální data na elektrické (u kabelu) nebo rádiové signály (u Wi-Fi) a naopak.
+
+Obsahuje
+
+MAC adresu – jedinečný 48bitový identifikátor.
+
+Komunikační procesor – zajišťuje řízení přístupu k médiu.
+
+Firmware – implementuje protokoly (Ethernet, Wi-Fi).
+
+Typické rozhraní: RJ-45 (Ethernet), anténa pro Wi-Fi, případně USB pro externí karty.
+
+Historie a vývoj
+
+
+
+1970–1980: první síťové karty pro Ethernet (10 Mb/s), technologie CSMA/CD.
+
+1990: rozšíření 100 Mb/s (Fast Ethernet).
+
+2000+: Gigabit Ethernet (1 Gb/s), Wi-Fi (IEEE 802.11).
+
+Současnost
+
+10 Gb/s Ethernet, Wi-Fi 6/6E, Bluetooth 5.2, optické karty pro datová centra.
+
+Trend: integrace NIC do základní desky, externí USB adaptéry pro mobilní zařízení.
+
+Typy síťových karet
+
+
+
+Drátové (Ethernet) – stabilní, vysoká rychlost.
+
+Bezdrátové (Wi-Fi) – mobilita, náchylnost k rušení.
+
+Bluetooth – krátký dosah, připojení periferií.
+
+Optické – vysokorychlostní přenos na velké vzdálenosti.
+
+Externí USB adaptéry – snadná instalace.
+
+Konfigurace a správa
+
+Základní nastavení
+
+IP adresa, maska podsítě, brána.
+
+Ve Windows: Ovládací panely → Síťová připojení.
+
+Příkazy
+
+ipconfig (Windows), ifconfig (Linux).
+
+netsh pro pokročilou konfiguraci.
+
+Správa priorit – nastavení metriky pro preferované připojení.
+
+Aktualizace ovladačů – klíčové pro stabilitu.
+
+Bezpečnost
+
+Hrozby
+
+Neoprávněný přístup přes síť.
+
+Zranitelnosti ovladačů.
+
+Ochrana
+
+Brána firewall (Windows Defender Firewall).
+
+Šifrování Wi-Fi (WPA3).
+
+Správné nastavení veřejné vs. privátní sítě.
+
+Význam a využití
+
+
+
+Domácí sítě – připojení PC, notebooků, IoT.
+
+Podnikové sítě – servery, pracovní stanice.
+
+Datová centra – vysokorychlostní NIC pro servery.
+
+Mobilní zařízení – Wi-Fi a Bluetooth adaptéry. Moderní síťové karty podporují rychlosti až 10 Gb/s a technologie jako Wi-Fi 6.
+
+Porovnání typů síťových karet
+
+---
+
+# +/-
+
+Výhody
+
+Kompaktní rozměry a přenositelnost, 
+velikosti od plnoformátových (CF) po microSD
+
+snadné přenášení a využití u široké škály zařízení (fotoaparáty, kamery, mobilní telefony, drony apod.).
+
+nízká hmotnost – ideální pro mobilní zařízení a embedded systémy
+
+
+Široká škála kapacit
+
+Snadná výměna a kompatibilita
+standardizovaná rozhraní (SD, microSD, CFexpress, XQD aj.) →  interoperabilita mezi výrobci
+
+Hot-swap – možnost vyjmout a vložit kartu za běhu zařízení bez vypínání
+
+
+Nízká spotřeba energie
+
+Vysoká odolnost vůči otřesům
+pevné součástky bez pohyblivých částí zvyšují odolnost vůči nárazům a vibracím
+
+
+Různé rychlostní třídy
+Class, UHS, V-Class, A-Class → pomáhají uživatelům zvolit kartu s minimální zaručenou rychlostí pro konkrétní aplikace (nahrávání videa, burst módy, běh aplikací)
+
+
+Cenová dostupnost
+
+ 
+
+Nevýhody
+
+Omezený počet zapisovacích cyklů
+flash buňky mají životnost řádově desetitisíců až statisíců cyklů zápisu, po vyčerpání dochází k nárůstu chybovosti bloků
+
+vyžaduje se wear leveling (vyrovnávání opotřebení), které ale zkracuje reálnou kapacitu a výkon
+
+
+Zranitelnost proti fyzickému poškození
+jemné konektory a plastové tělo mohou prasknout nebo se zdeformovat
+
+snadné ztracení malé karty
+
+
+Různorodé rychlosti v praxi
+teoretické maximální rychlosti (např. UHS-II / UHS-III) nemusí být dosaženy ve starších zařízeních nebo při používání levnějších karet.
+
+u levných karet může docházet k výrazným propadům rychlosti při delším sekvenčním zápisu
+
+
+Rozdíly v kompatibilitě
+novější formáty (CFexpress, XQD) nemusí být zpětně kompatibilní se staršími čtečkami a zařízením
+
+některá zařízení podporují jen specifické kapacity nebo rychlostní třídy
+
+
+Nutnost formátování a údržby
+pravidelné formátování ve správném souborovém systému (FAT32, exFAT apod.) je nutné pro dlouhodobou spolehlivost
+
+při nesprávném odpojení (vytahování “za běhu”) hrozí poškození souborového systému
+
+
+Bezpečnostní rizika
+snadné zkopírování dat (fyzicky i malwarem)
+
+nízká ochrana dat při odcizení nebo ztrátě karty
+
+relativně snadná obnovitelnost smazaných dat
+
+---
+
+# Konstrukce HDD
+
+Pevný disk obsahuje několik klíčových komponent:
+
+a) Plotny (Diskové plotny, Platters)
+
+
+
+kruhové disky ze skla nebo hliníku pokryté tenkou feromagnetickou vrstvou
+
+data jsou na plotnách uložena ve formě magnetických domén.
+
+pevné disky mají typicky více ploten, které jsou navzájem oddělené a rotují kolem společné osy - vřetena
+
+b) Vřeteno (Spindle)
+
+
+
+drží plotny (jsou na něj nasazeny a připevněny) a zajišťuje jejich rotaci
+
+rychlost otáček vřetene ovlivňuje výkon disku a běžně se pohybuje mezi 5 400 až 15 000 otáčkami za minutu (RPM – rounds per minute, někdy též revolutions per minute)
+
+vyšší rychlost otáčení znamená rychlejší přístup k datům, ale také vyšší spotřebu energie a zahřívání
+
+c) Čtecí a zapisovací hlavy (Read/Write Heads)
+
+
+
+každá plotna má dvě magnetické hlavy (jednu pro každou stranu) pro zápis a čtení dat
+
+hlavy se vznášejí nad povrchem ploten (díky vzduchovému polštáři),  mění orientaci magnetických částic při zápisu a čtou jejich stav při čtení
+
+jsou uchyceny na raménku (Actuator Arm)
+
+d) Aktuátor a raménko (Actuator - Actuator Arm)
+
+
+
+aktuátor je ovládán přesným servomechanismem raménkem s hlavami
+
+umožňuje precizní polohování hlav nad požadovaným místem na plotně
+
+e) Řadič disku (Disk Controller)
+
+
+
+elektronický obvod, který řídí komunikaci mezi HDD a ostatními komponentami základní deskou (CPU, BUS ad.) počítače.
+
+převádí logické adresy dat na fyzické pozice na plotnách
+
+obsahuje cache (mezipaměť) pro optimalizaci výkonu
+
+f) Kryt disku
+
+
+
+HDD je hermeticky uzavřený v kovovém obalu, aby se zabránilo vniknutí prachu a jiných nečistot.
+
+u serverových a enterprise disků bývá navíc naplněn heliem, což snižuje odpor ploten a umožňuje vyšší kapacitu a nižší spotřebu energie
+
+---
+
+# Výhody a nevýhody rezistivního dotykového displeje
+
+Výhody rezistivních displejů
+
+Citlivost na různé objekty: Fungují s prsty, stylusy, rukavicemi nebo jakýmkoli jiným předmětem, což je výhodné v různých prostředích.
+
+Nižší cena: Obvykle jsou levnější na výrobu než kapacitní displeje, což může snížit celkovou cenu zařízení.
+
+Odolnost vůči vlhkosti: Jsou méně citlivé na vlhkost a mohou fungovat i v mokrých podmínkách.
+
+Přesnost: Nabízejí vysokou přesnost při dotyku, což je užitečné pro aplikace, které vyžadují jemné ovládání.
+
+Nevýhody rezistivních displejů
+
+Nižší průhlednost: Mají horší průhlednost a jasnost obrazu ve srovnání s kapacitními displeji, což může ovlivnit vizuální zážitek.
+
+Jednodotykové ovládání: Nepodporují vícebodový dotyk (multi-touch), což omezuje možnosti gest a interakce.
+
+Méně odolné: Jsou náchylnější k poškrábání a opotřebení, protože povrch je obvykle vyroben z plastu.
+
+Méně citlivé: Reagují pomaleji na dotyk ve srovnání s kapacitními displeji, což může ovlivnit plynulost interakce.
+
+---
+
+# Atlona AT-UHD-PRO3-44M
+
+zdroj: zde
+
+---
+
+# Skener
+
+Skener (Scanner)
+
+
+
+Převádí tištěné dokumenty nebo obrázky do digitální podoby.
+
+Typy: plochý skener, ruční skener, 3D skener.
+
+zdroj: zde
+
+ruční skener
+
+
+
+zdroj: zde
+
+3D skener
+
+
+
+zdroj: zde
+
+---
+
+# NVMe SSD (M.2 NVMe) – nejrychlejší moderní interní disk
+
+NVMe je technologie navržená přímo pro SSD, která komunikuje prostřednictvím  PCIe rozhraní, a díky tomu poskytuje extrémní rychlosti.
+
+
+
+Vlastnosti
+
+
+
+Přenosové rychlosti až 4 GB/s a více (dle generace PCIe).
+
+Minimální latence.
+
+Perfektní pro náročné úlohy (servery, hraní her, práce s videem).
+
+zdroj: zde
+
+M.2 SIZES
+
+
+
+zdroj: Zestro Gaming
+
+---
+
+# Princip fungování počítačové myši
+
+Základní princip
+
+
+
+Snímač pohybu (většinou optický nebo laserový) sleduje, jak se myš pohybuje po podložce.
+
+Tento pohyb se převede na digitální signál.
+
+Signál se pošle do počítače přes USB kabel nebo bezdrátově (např. přes Bluetooth).
+
+Počítač podle toho posune kurzor na obrazovce.
+
+Co je uvnitř myši?
+
+
+
+LED dioda nebo laser – osvětluje povrch pod myší.
+
+Snímač (kamera) – zachycuje rychlé obrázky povrchu (až tisíce za sekundu).
+
+Procesor – vyhodnocuje směr a rychlost pohybu.
+
+Tlačítka a kolečko – umožňují klikání a rolování.
+
+---
+
+# Plotry
+
+plotter, česky se dříve používal i název souřadnicový zapisovač
+
+původně určen pro CAD aplikace (kresba výkresů), dnes jsou schopny zpracovávat vektorovou i rastrovou grafiku, vyřezávání z materiálů -folií apod.
+
+Typy plotrů:
+
+a. Dle umístění a pohybu papíru (resp. materiálu, na který se kreslí či se zpracovává)a) deskové, stolové
+
+
+
+b) stojanové
+
+2. Dle použité technologie:
+
+a) perové/výkresové - kreslení výkresů, plánů, map apod.
+
+b) tužkové - používají místo pera speciální tužky (fixy, zvýrazňovače)  - plány, mapy apod.
+
+c) inkoustové/výtvarné - princip tisku je stejný jako u inkoustových tiskáren - obrazy, plákáty velkrozoměrové obrázky, mapy apod.
+
+d) vyřezávací - obodbné jako perové, místo pera je použit vyřezávací nůž; vyřezávání (písmen, obrazců) se nejčastěji provádí do 2-vrstvé samolepicí folie; slouží zejména k vyřezávaní znaků pro reklamy apod.
+
+---
+
+# Interní pevné disky
+
+Interní pevné disky jsou zařízení určená pro dlouhodobé ukládání dat uvnitř počítače.
+
+Slouží k uchovávání:
+
+operačního systému,
+
+programů a aplikací,
+
+uživatelských dat (dokumenty, fotografie, videa, hry),
+
+systémových a pracovních souborů.
+
+Bez interního disku by se počítač nemohl spustit, protože by neměl, odkud načíst operační systém.
+
+Základní typy interních disků:
+
+HDD
+
+SSD
+
+NVMe SSD
+
+Shrnutí
+
+
+
+HDD → velká kapacita, levný, pomalý, mechanický.
+
+SSD → rychlý, tichý, odolný, dražší.
+
+NVMe → extrémně rychlý, nejnovější technologie.
+
+zdroj: Tech Home
+
+---
+
+# Anatomie HDD
+
+zdroj: wiki
+
+
+
+zdroj: Tech Home
+
+Krokový motor pohánějící plotny disku
+
+zdroj: wiki
+
+Vystavovací mechanismus moderního disku
+
+zdroj: wiki
+
+Hlava disku
+
+zdroj: wiki
+
+zdroj: zde
+
+---
+
+# USB type B
+
+nejčastěj se používá u tiskáren a skenerů, dále u fotoaparátů apod.
+
+zakončení kabelů - standard, mini, micro
+
+---
+
+# Příklady použití
+
+Rezistivní displeje
+
+Rezistivní displeje se často používají v aplikacích, kde je důležitá odolnost vůči různým podmínkám a možnost ovládání různými nástroji.
+
+Typické příklady zahrnují:
+
+Průmyslové prostředí: Ovládací panely strojů, kde mohou být použity rukavice nebo stylusy.
+
+Lékařské přístroje: Zařízení, která vyžadují přesné ovládání a mohou být používána v různých podmínkách.
+
+Automaty a kiosky: Bankomaty, prodejní automaty a informační kiosky, kde je důležitá odolnost a možnost ovládání různými předměty.
+
+Automobilový průmysl: Displeje v automobilech, kde mohou být použity rukavice.
+
+Kapacitní displeje
+
+Kapacitní displeje jsou běžnější v zařízeních, kde je důležitá vysoká citlivost, vícebodový dotyk a kvalitní vizuální zážitek.
+
+Typické příklady zahrnují:
+
+Smartphony a tablety: Většina moderních mobilních zařízení využívá kapacitní displeje pro jejich citlivost a podporu vícebodového dotyku.
+
+Notebooky a ultrabooky: Dotykové displeje na přenosných počítačích pro snadné ovládání a gesta.
+
+Interaktivní tabule: Používané ve školách a konferenčních místnostech pro prezentace a interaktivní výuku.
+
+Spotřební elektronika: Chytré hodinky, fitness trackery a další nositelná zařízení.
+
+---
+
+# Plotry
+
+Velkoformátové grafické výstupní zařízení, které slouží k vytváření velmi přesných technických výkresů, plánů, map nebo grafiky – často v rozměrech, které běžná tiskárna nezvládne (např. formáty A0, A1…).
+
+Na rozdíl od běžné tiskárny pracují mnohé plotry tak, že pohybují kreslicí hlavou (perem, nožem, inkoustovou hlavou) podle přesné vektorové dráhy.
+
+Tiskárna → „stříká“ inkoust na papír po pixelech.
+
+Plotr → „kreslí“ linky přesně podle matematicky definovaných čar (vektorů).
+
+Výhoda → extrémně přesné čáry, velké rozměry, možnost práce s různými médii (papír, vinyl, fólie…).
+
+plotter, česky se dříve používal i název souřadnicový zapisovač
+
+původně určen pro CAD aplikace (kresba výkresů), dnes jsou schopny zpracovávat vektorovou i rastrovou grafiku, vyřezávání z materiálů -folií apod.
+
+zdroj: heureka
+
+zdroj: heureka
+
+---
+
+# Car whispering
+
+útok na BT systémy v automobilech (rádia, infotainment, palubní počítač)
+
+využívá zranitelností v BT protokolu
+
+umožňuje např. odposlouchávat komunikaci ve vozidle apod.
+
+---
+
+# Video
+
+
+
+---
+
+# Zařízení pro ukládání dat
+
+Zdroj: Wizzard Black
+
+zdroj: Cyber Security
+
+---
+
+# video
+
+
+
+---
+
+# PHY / tranceiver
+
+převádí digitální signál na elektrický, optický nebo rádiový, podle typu adaptéru.
+
+
+
+zdroj: zde
+
+
+
+PHY je část, která překládá digitální data počítače na signál, který se dá poslat po kabelu nebo vzduchem.
+
+příklad: „Pošli 101010…“, - PHY to převede na elektrické signály (Ethernet), světlo (optika) nebo rádio (Wi‑Fi).
+
+A opačně – přijme signál z kabelu/antény a převede ho na data, kterým rozumí adaptér.
+
+---
+
+# Multifunkční zařízení
+
+Multifunkční zařízení (MFP – Multi‑Function Printer / Peripheral) je jeden stroj, který dokáže tisknout, skenovat, kopírovat a někdy i faxovat.
+
+Ušetří místo, energii a zjednodušuje práci v kanceláři i doma.
+
+Používá se v domácnostech, firmách i velkých kancelářích, protože všechny tyto funkce jsou „pod jednou střechou“.
+
+zdroj: TS Bohemia
+
+zdroj: zde
+
+Shrnutí
+
+
+
+MFP = tiskárna + skener + kopírka + fax v jednom zařízení.
+
+Umí digitálně zpracovat dokumenty a pracovat v síti.
+
+Jsou důležité pro moderní kanceláře díky úspoře místa a efektivitě.
+
+Vznikly spojením kopírek, tiskáren a digitálních technologií.
+
+Dnes jsou standardem – od domácností po velké firmy.
+
+zdroj: wiki
+
+zdroj: wiki
+
+zdroj: zde
+
+---
+
+# Obrázky
+
+PT80 terminal - 102667933 - CHM
+
+nejstarší typ inkoustové tiskárny Siemens
+
+zdroj: CHM
+
+Canon BJ-80 nejstarší typ inkoustové tiskárny Canon
+
+zdroj: Druckerchannel
+
+HP ThinkJet (HP2225) nejstarší inkoustová tiskárna HP
+
+zdroj: Druckerchannel
+
+Epson model SQ-2000, nejstarší inkoustová tiskárna Epson
+
+zdroj: Epson
+
+nejstarší inkoustová tiskárna řady HP DeskJet
+
+zdroj: HP
+
+Canon Pixma
+
+zdroj: zde
+
+---
+
+# video
+
+
+
+---
+
+# Výhody LED tiskáren
+
+Žádné pohyblivé optické části → vysoká spolehlivost
+
+Rovnoměrné osvětlení → čistý a konzistentní tisk
+
+Nižší spotřeba energie (u pokročilých systémů až o 57 % méně)
+
+Kompaktní konstrukce – menší tiskárny, méně poruch
+
+Rychlý a tichý tisk, vhodné do kanceláří
+
+---
+
+# Druhy NVMe disků podle sběrnice
+
+Výkon disku je přímo závislý na verzi PCIe, kterou využívá:
+
+
+
+
+
+Pro využití plné rychlosti musí disk i základní deska (chipset/CPU) podporovat stejnou nebo vyšší generaci PCIe.
+
+---
+
+# Video
+
+
+
+---
+
+# USB síťové karty
+
+Epson ELPAP10
+
+zdroj: alza
+
+TP-Link Archer TBE400UH
+
+zdroj: alza
+
+AXAGON ADE-25R, 2.5 Gigabit Ethernet USB-A network card
+
+zdroj: alza
+
+---
+
+# DAS
+
+DAS (Direct Attached Storage)
+
+úložiště připojené přímo k serveru nebo pracovní stanici (např. přes SAS, SATA)
+
+nízká cena, jednoduchost
+
+vyšší výkon pro jedno zařízení
+
+omezená možnost sdílení dat
+
+nevhodné pro centralizovaný a síťový přístup
+
+lokální zálohy, servery s nízkými nároky na škálovatelnost
+
+---
+
+# Význam a výhody ofsetového tisku
+
+Ofset je dodnes nejpoužívanější profesionální tisková technika díky:
+
+vysoké kvalitě – ostré detaily, přesné barvy
+
+efektivitě ve velkých nákladech – čím víc kusů, tím levnější kus
+
+univerzálnosti – tisk na různé materiály: papír, lepenka, kov, látka, dřevo
+
+dlouhé životnosti tiskových desek (nepřímý kontakt díky gumovému potahu)
+
+---
+
+# HDD – Hard Disk Drive (mechanický pevný disk)
+
+HDD ukládá data magneticky na rotující plotny, nad nimiž se pohybují čtecí a zapisovací hlavy.
+
+Plní funkci „dlouhodobé paměti“ počítače.
+
+
+
+Princip fungování (zjednodušeně)
+
+
+
+Plotny se točí rychlostí 5400–15000 ot./min.
+
+Data se zapisují jako změny magnetické orientace na povrchu ploten.
+
+Hlavy se nedotýkají povrchu, ale „vznášejí se“ těsně nad ním.
+
+Výhody
+
+
+
+Velké kapacity (1–20 TB a více).
+
+Nízká cena za GB.
+
+
+
+Nevýhody
+
+
+
+Mechanické části → náchylnost k poruše.
+
+Nižší rychlost (typicky 80–160 MB/s).
+
+Vyšší hlučnost.
+
+---
+
+# Princip fungování dotykové obrazovky
+
+Základní princip
+
+
+
+Když se dotknete obrazovky, zařízení zjistí přesné místo dotyku.
+
+Tento bod se převede na souřadnice (např. X a Y).
+
+Počítač nebo mobilní zařízení podle těchto souřadnic vykoná příkaz – např. otevře aplikaci, posune stránku nebo napíše písmeno.
+
+Typy dotykových technologií
+
+
+
+1. Kapacitní (nejčastější)
+
+Funguje na principu změny elektrického pole.
+
+Prst (vodivý) změní pole → zařízení pozná, kde se dotýkáte.
+
+Používá se u mobilů, tabletů, notebooků.
+
+2. Rezistivní
+
+
+
+Skládá se ze dvou vrstev, které se při dotyku stlačí k sobě.
+
+Funguje i s tužkou nebo rukavicí.
+
+Používá se u průmyslových zařízení.
+
+3. Infračervená / optická
+
+
+
+Používá paprsky světla nebo kamery, které sledují dotek.
+
+Vhodné pro velké obrazovky (např. interaktivní tabule).
+
+---
+
+# Princip fungování
+
+Hlavní rozdíl mezi NVMe a starším SATA/AHCI spočívá v paralelismu:
+
+
+
+AHCI (SATA)
+
+Má pouze 1 frontu příkazů, která pojme 32 instrukcí.
+
+Je to jako jedna pokladna v supermarketu.
+
+NVMe
+
+Podporuje až 65 535 front, přičemž každá fronta pojme až 65 535 příkazů.
+
+To umožňuje procesoru zpracovávat obrovské množství požadavků na data současně.
+
+Fyzické rozhraní
+
+
+
+NVMe disky nejčastěji využívají slot M.2, ale existují i ve formě PCIe karet nebo serverového formátu U.2.
+
+Důležité je, že využívají linky PCIe (aktuálně verze 4.0 a 5.0), které vedou přímo k procesoru.
+
+zdroj: zde
+
+zdroj: tamtéž
+
+zdroj: tamtéž
+
+zdroj: Goodram
+
+zdroj: acemagic
+
+zdroj: HPmarket
+
+zdroj: storedbits
+
+---
+
+# LED displeje
+
+Jsou vylepšené LCD displeje, kde podsvícení zajišťují LED diody.
+
+Existují varianty: Edge LED (diody po okrajích) a Full Array LED (diody za celou plochou).
+
+Výhody: vyšší jas, tenčí design, nižší spotřeba.
+
+Nevýhody: stále závislé na podsvícení, horší černá barva než OLED.
+
+---
+
+# Rozhraní externích SSD
+
+SATA
+
+
+
+max cca 600 MB/s
+
+levnější řešení
+
+USB / Thunderbolt
+
+
+
+externí připojení
+
+ 
+
+Rychlosti:
+
+
+
+USB 3.2 Gen1: ~500 MB/s
+
+USB 3.2 Gen2: ~1000 MB/s
+
+USB 3.2 Gen2x2: ~2000 MB/s
+
+Thunderbolt: až 3000+ MB/s
+
+---
+
+# Současný trh plotrů
+
+Aktuálně jsou populární zejména modely značek Canon, HP, Epson, Brother, například:
+
+Canon imagePROGRAF TM‑350
+
+HP DesignJet T230
+
+Epson SureColor SC‑T3100
+
+Tyto modely potvrzují trend: vyšší přesnost, široká kompatibilita médií a nižší provozní náklady.
+
+Canon imagePROGRAF TM‑350
+
+zdroj: heureka
+
+HP DesignJet T230
+
+zdroj: itdecin
+
+Epson SureColor SC‑T3100
+
+zdroj: heureka
+
+---
+
+# USB podrobněji/USB A/USB C/Alternativní režim ↔
+
+USB - Universal Serial Bus - Univerzální seriová sběrnice
+
+kromě přenosu dat umožňuje i napájení zařízení  - USB Power Delivery (USB PD) + PPS (Programmable Power Supply)
+
+topologie zapojení je hvězdicová - centrálním bodem je hostitelské zařízení (PC)
+
+možno připojit až 127 zařízení
+
+při zapojení více zařízení je nutno použít USB Hub včetně napájení
+
+každé zařízení má jedinečnou adresu a komunikace je řízena hostitelským zařízením
+
+podpora Plug&Play - možnost připojení bez restartu zařízení
+
+široká podpora zařízení
+
+dnes vysoké rychlosti přenosu
+
+USB typ A
+
+Maximální datový tok
+
+USB 2.0:  480 Mbps 
+
+USB 3.0 a 3.1 Gen 1: 5 Gbps 
+
+USB 3.1 Gen 2: 10 Gbps
+
+
+
+
+
+Schéma pinů:
+
+Vcc - napájení
+
+Data- (D-) - vysílání/příjem dat
+
+Data+ (D+) - příjem/vysílání dat
+
+Ground - uzemnění
+
+
+
+Ve verzi 3.0 standardu došlo ke změně konfigurace přidáním dalších pinů na zadní stranu konektoru. Přidání dvou z nich pro přenos dat, SSTX- a SSTX + a dalších dvou pro příjem dat, SSRX- a SSRX + rozšířuje množství dat přenášených za hodinový cyklus. Toto umožňuje desetkrát zvýšit šířku pásma ve srovnání s druhou generací standardu.
+
+USB typ C
+
+Maximální datový tok
+
+USB 3.1 Gen 1: 5 Gbps
+
+USB 3.1 Gen 2: 10 Gbps
+
+USB 3.2 Gen 2x2: 20 Gbps
+
+USB 4: 40 Gbps
+
+
+
+Schema pinů:
+
+GND -  uzemnění
+
+VBUS - napájení
+
+RX, TX - příjem a vysílání dat
+
+D+- - příjem a vysílání dat ve verzi USB 2.0 - zpětná kompatibilita
+
+CC1, CC2(B5) - konfigurace komunikačního kanálu, lze je použít pro distribuci energie - potom jsou označeny jako VCONN; používají se také v alternativním režimu
+
+SBU1, SBU2 - signální cesty malé rychlosti v alternativním režimu
+
+Alternativní režim USB C
+
+Alternativní režim (Alt Mode) v USB-C je technologie, která umožňuje přenos jiných protokolů než USB přes USB-C konektor
+
+umožňuje využití USB-C portu pro různé typy připojení, jako je DisplayPort, HDMI, Thunderbolt a další
+
+nutná podpora na straně vysílajícího zařízení
+
+v tomto režimu:
+- piny RX a TX jsou použity pro přenos video signálu
+- piny D+ a D- jsou použity pro přenos dat 
+- vhodné např. pro připojení headsetu VR apod.
+
+---
+
+# CF
+
+
+
+---
+
+# Adaptéry pro připojení k počítačové síti
+
+Síťový adaptér – také NIC (Network Interface Card) – je hardware, který umožňuje zařízení komunikovat v počítačové síti.
+
+Zajišťuje převod dat mezi počítačem a fyzickým nebo bezdrátovým přenosovým médiem, obsluhuje síťové protokoly, spravuje adresaci a zabezpečení přenosu.
+
+Moderní NIC může být integrovaný, rozšiřující karta, USB adaptér nebo virtuální NIC ve virtualizovaném prostředí.
+
+Moderní NIC může být integrovaný, rozšiřující karta, USB adaptér nebo virtuální NIC ve virtualizovaném prostředí.
+
+Síťový adaptér je ve skutečnosti „malý počítač“ specializovaný na síťovou komunikaci.
+
+Skládá se z několika částí.
+
+---
+
+# Konfigurace a správa
+
+Co lze běžně nastavovat
+
+
+
+Typ papíru: nekonečný (traktor), jednotlivé listy.
+
+Řízení kvality tisku: NLQ (Near Letter Quality), Draft (rychlý tisk).
+
+Kódování znaků: např. ESC/P, IBM codepage.
+
+Nastavení podávání: zarovnání papíru, výška řádku.
+
+Správa tiskárny
+
+
+
+Výměna barvicí pásky – velmi jednoduchá, nízká cena.
+
+Čištění mechaniky – odstranění prachu z traktorových kol a koleček.
+
+Kontrola jehliček – opotřebené/zalepené jehličky zhoršují kvalitu.
+
+Firmware/ovladače – tradičně jednoduché, stále dostupné.
+
+Jehličkové tiskárny jsou velmi snadné na servis i údržbu.
+
+---
+
+# tiskárna
+
+
+
+---
+
+# DELL PowerVault MD 1400
+
+Cena cca 50.000 - 100.000 Kč dle konfigurace
+
+---
+
+# Termální inkoustový tisk (Bubble Jet)
+
+V trysce je topné tělísko → rychlým zahřátím se vytvoří bublina, která vytlačí kapku inkoustu.
+
+Technologie využívaná hlavně HP a Canon.
+
+---
+
+# Obrázky
+
+starší grafická karta Trident VGAa 9000
+
+Zdroj: zde
+
+akcelerátor Voodoo 1
+
+Zdroj: tamtéž
+
+Grafická karta GTX
+
+grafická karta RTX
+
+konektory HDMI, DVI-D a VGA přímo na grafické kartě
+
+zdroj: Tech Home
+
+---
+
+# Význam a využití
+
+Laserové tiskárny jsou důležité kvůli:
+
+
+
+rychlému tisku velkého množství stránek,
+
+nízké ceně za stránku,
+
+vysoké kvalitě textu,
+
+spolehlivosti.
+
+kanceláře
+
+školy
+
+domácnosti
+
+tisk dokumentů, faktur, textů, grafiky
+
+Laserová tiskárna využívá
+
+
+
+laser k vykreslení obrazu
+
+elektrostatiku k přichycení toneru
+
+teplo k jeho zažehlení do papíru
+
+Je rychlá, přesná a vhodná pro velkoobjemový tisk.
+
+---
+
+# Video
+
+
+
+---
+
+# MAC adresa
+
+unikátní identifikátor na 2. vrstvě OSI.
+
+Media Access Control
+
+12 hexadecimálních čísel např. 00:1A:2B:3C:4D:5E
+
+Každý síťový adaptér má svou jedinečnou MAC adresu, která slouží k tomu, aby:
+
+síť věděla, kam má doručit data,
+
+adaptér poznal, která data jsou určena pro něj.
+
+MAC adresa = unikátní identita v síti (nemění se).
+
+---
+
+# Bluesmacking
+
+útok typu DoS
+
+využívá zranitelností v protokolu BT velkým množstvím požadavků na spojení
+
+---
+
+# Princip fungování
+
+Zjednodušeně
+
+
+
+Skenování – Světlo nasvítí dokument, senzor jej převede na digitální obraz.
+
+Zpracování – Zařízení obraz uloží do paměti a podle potřeby upraví.
+
+Tisk – Inkoust nebo toner se přenese na papír (inkoust: tryska; laser: toner + fixace).
+
+Kopírování – Provede sken → okamžitý tisk.
+
+Fax – Sken → digitální přenos → tisk u příjemce.
+
+Technický popis
+
+
+
+Laserová MFP využívají xerografický proces (elektrofotografii) → stejná technologie jako kopírky.
+
+Inkoustové MFP pracují s mikrotryskami, které vystřikují kapky inkoustu na papír.
+
+Digitální část zařízení zajišťuje načtení obrazu, kompresi, OCR a následný tisk či odeslání.
+
+---
+
+# Secure Boot
+
+je ověřovací mechanismus, který umožňuje zajistit, že software spouštěný při startu počítače je důvěryhodný
+
+brání aktivaci škodlivého kódu ještě před zavedením OS
+
+pracuje na principu hashe kódu (otisk) a elektronického podpisu který dokládá důvěryhodnost kódu, který zavaděč hodlá spustit
+
+pokud není důvěryhodnost kódu ověřena, je zabráněno jeho spuštění (aktivaci)
+
+zabezpečen celý řetězec spouštění počítače včetně samotného operačního systému, který navíc znemožní přístup k funkcím, které by mohly zabezpečení obejít
+
+většina stolních počítačů na platformě  x86 obsahuje z výroby veřejný klíč (Public Key) firmy Microsoft
+
+Microsoft tedy funguje jako certifikační autorita pro Secure boot a tyto počítače automaticky důvěřují kódu, který obsahuje elektronický podpis Microsoftu
+
+veřejný klíč pro ověřování je uložen v UEFI nebo v TPM čipu
+
+
+
+Jak Secure Boot funguje
+
+Kontrola podpisů
+- při zapnutí počítače Secure Boot kontroluje digitální podpisy všech spouštěcích komponent (např. ovladače, operační systém)
+- pokud podpisy nejsou důvěryhodné nebo chybí, systém se nespustí
+
+Správa klíčů
+- Secure Boot používá sadu kryptografických klíčů k ověření podpisů
+- tyto klíče jsou uloženy v UEFI firmwaru nebo v TPM čipu a mohou být spravovány uživatelem nebo výrobcem zařízení
+
+Režimy Secure Boot
+Standardní režim - používá výchozí klíče od výrobce.
+
+Uživatelský režim - umožňuje uživateli přidávat nebo odebírat vlastní klíče
+
+
+Výhody Secure Boot
+
+Ochrana před rootkity a bootkity
+-  tyto typy malwaru se snaží infikovat systém ještě před načtením operačního systému
+
+Zajištění integrity systému
+- zabraňuje spuštění neautorizovaného SW (ovladačů apod.), což zvyšuje celkovou bezpečnost systému
+
+---
+
+# Audio rozhraní
+
+Audio Jack
+
+nejčastěji se používá  zvukové rozhraní zvané Audio Jack
+
+oficiální název je TRS - Tip Ring Sleeve
+
+analogové
+
+Varianty:
+
+ Micro Jack - průměr 2,5 mm - kapesní přehrávače, diktafony, mobily
+
+Mini Jack - průměr 3,5 mm - PC, NB, Hi-Fi, sluchátka, mikrofony, reproduktory
+
+Jack - průměr 6,3 mm - profesionální zvuková zařízení, zesilovače, reprobedny ad.
+
+
+
+Standardy:
+
+určují se podle počtu kroužků na konektoru
+
+TS - s jedním mezikroužkem  - pouze mono, profesionální technika
+
+TRS - 2 mezikroužky - stereo, reproduktory, sluchátka
+
+TRRS - 3 mezikroužky - stereo zvuk + mikrofon, sluchátka, smartphones
+
+TRRS - nestandardní, nekompatibulní, může přenášet i video
+
+
+
+
+
+
+
+Konektory a zdířky jsou často barevně rozlišeny
+
+
+
+
+
+světle zelená - přední nebo zadní reproduktory, sluchátka
+
+modrá - vstup ze zařízení - např. zesilovač
+
+růžová, červená - mikrofon
+
+oranžová - centrální nebo basový reproduktor
+
+černá - zadní reproduktory
+
+šedá - boční reproduktory
+
+
+
+S/PDIF-Out
+
+Sony/Phillips Digital Interface
+
+digitální rozhraní
+
+k přímému připojení digitálních audio zařízení pomocí optického kabelu
+
+
+
+
+
+
+
+
+
+
+
+
+
+Audio signály je možné přenášet také pomocí HDMI a Display Port rozhraní
+
+---
+
+# I1394 Fireware
+
+dříve oblíbené rozhraní
+
+vyšší přenosová rychlost než USB (2.0)
+
+pro připojení digitálních kamer, disků apod.
+
+používá se 4-pinový, 6-pinový konektor a 9-pinový konektor
+
+může poskytovat i napájení
+
+
+
+
+
+Fireware - zakončení kabelů
+
+
+
+
+
+
+
+
+
+Přehled konektorů na straně zařízení
+
+---
+
+# Využití
+
+1. LE Audio
+
+LE - Low Energy
+
+audio poslech ve vysoké kvalitě
+
+2. PAwR
+
+
+
+Periodic Advertising with Response
+
+vysílání krátkých zpráv na zařízení - např. elektronické štítky v obchodech apod.
+data max. 31 bytů
+
+3. Direction Finding
+
+tzv. indoor navigace
+
+pozice zařízení se určuje pomocí bluetooth majáků
+
+přesnost až na centimetry
+
+použití dvou funkcí, tzv. angle of arrival (AoA) a angle of departure (AoD), které monitorují úhel příchozího a odchozího signálu lokalizace zařízení nebo např. konkrétního regálu v obchodě nebo ve skladě
+
+4. Direction Finding  tzv. indoor navigace
+
+pozice zařízení se určuje pomocí bluetooth majáků
+
+přesnost až na centimetry
+
+použití dvou funkcí, tzv. angle of arrival (AoA) a angle of departure (AoD), které monitorují úhel příchozího a odchozího signálu
+
+lokalizace zařízení nebo např. konkrétního regálu v obchodě nebo ve skladě
+
+
+
+Bluetooth Mesh Network- síťová komunikace různých typů zařízení - IoT- v průmyslových objektech apod. např. řízení osvětlení
+
+Bluetooth High Speed- připojení smart zařízení - telefony, hodinky- lékařské přístroje včetně dávkování léků apod.
+
+Bluetoooth Long Range- IoT, Smart Home, Smart City- průmyslové, výrobní, skladovací prostory 
+
+Bluetooth Extended Advertising- zvýšení kapacity přenášených dat na 254 bytů
+
+---
+
+# WiFi
+
+WiFi (Wireless Fidelity) je technologie, která umožňuje bezdrátové připojení zařízení k síti pomocí rádiových vln.
+
+Umožňuje přístup k internetu bez nutnosti kabelového spojení.
+
+Jak WiFi funguje?
+
+
+
+Základní princip
+
+WiFi využívá rádiové vlny k přenosu dat mezi zařízeními (např. notebook, telefon) a routerem.
+
+Router je připojen k internetu pomocí kabelu (např. optika, DSL).
+
+Data se přenášejí ve formě elektromagnetických signálů na frekvencích:
+
+2,4 GHz – delší dosah, více rušení.
+
+5 GHz – vyšší rychlost, kratší dosah.
+
+Připojení zařízení
+
+
+
+Zařízení se připojí k SSID (název sítě).
+
+Ověří se pomocí hesla (WPA2/WPA3).
+
+Router přidělí zařízení IP adresu (pomocí DHCP).
+
+Zařízení může komunikovat s ostatními v síti nebo s internetem.
+
+Komponenty WiFi sítě
+
+Standardy WiFi (IEEE 802.11)
+
+Zabezpečení WiFi
+
+
+
+WEP – zastaralé, slabé.
+
+WPA/WPA2 – běžné, bezpečné.
+
+WPA3 – moderní, silné šifrování.
+
+Doporučuje se používat silné heslo a skrytí SSID.
+
+Praktická aktivita pro studenty
+
+
+
+Najděte dostupné WiFi sítě ve škole.
+
+Zjistěte jejich SSID, typ zabezpečení a sílu signálu.
+
+Proč některé sítě mají slabší signál?
+
+zdroj: zde
+
+zdroj2: zde
+
+---
+
+# OLED displeje
+
+Každý pixel je samostatná organická dioda, která svítí sama.
+
+Nepotřebují podsvícení, což umožňuje tenký design.
+
+Výhody: perfektní černá, vysoký kontrast, živé barvy, flexibilita.
+
+Nevýhody: vyšší cena, riziko „vypálení“ obrazu (burn-in), kratší životnost modré barvy.
+
+---
+
+# USB type A
+
+univerzální, ve více velikostech, zejména u starších zařízení
+
+zakončení kabelů - standard, mini, micro
+
+---
+
+# SSD – Solid State Drive (disk bez pohyblivých částí)
+
+SSD používá flash paměti, nemá mechanické součástky a je výrazně rychlejší i odolnější.
+
+
+
+Princip fungování
+
+
+
+Ukládání dat do NAND flash buněk, které si pamatují informaci i po odpojení od napájení.
+
+Řadič disku využívá algoritmy pro rovnoměrné opotřebení buněk.
+
+Přístup k datům nevyžaduje žádné mechanické přesuny hlav → okamžitá odezva.
+
+Výhody
+
+
+
+Velmi rychlé načítání systému a programů.
+
+Tichý provoz a nízká spotřeba.
+
+Odolnost proti otřesům.
+
+
+
+Nevýhody
+
+
+
+Vyšší cena za kapacitu.
+
+Omezený počet zápisů (dnes však obvykle neomezuje běžné uživatele).
+
+zdroj: zde
+
+zdroj: itnetwork
+
+
+
+zdroj: zde
+
+zdroj: zde
+
+---
+
+# HPE Alletra Storage 6000
+
+Cena cca 11.000 € a výše dle konfigurace
+
+---
+
+# video
+
+
+
+---
+
+# Umístění síťových adaptérů v počítači
+
+Integrované adaptéry
+
+
+
+Součást základní desky, připojeny přes chipset nebo SoC.
+
+Nejčastější v moderních PC, noteboocích, desktopech.
+
+Rozšiřující karty
+
+
+
+Vkládají se do slotu PCIe (x1, x4, x8, x16).
+
+Používané když je potřeba: vyšší rychlost (10–100GbE), více portů nebo speciální funkce (SmartNIC).
+
+Externí adaptéry
+
+
+
+USB NIC – ideální pro notebooky, malé kanceláře, nouzové připojení.
+
+Thunderbolt NIC – vysokorychlostní externí řešení.
+
+Virtuální adaptéry (vNIC)
+
+
+
+Používají se u VM a kontejnerů.
+
+Realizovány softwarově hypervizorem.
+
+---
+
+# BIOS
+
+Basic Input Output System
+
+od roku 1975 → nese s sebou všechny důsledky od tohoto roku kvůli zpětné kompatibilitě
+
+nastavení BIOSu se provádí utilitou SETUP
+
+je omezen pouze na architekturu Intel x86 (16 .. 64 bit)
+
+uložen v paměťovém čipu ROM nebo ve flashové paměti
+
+
+
+
+
+Co se děje po zapnutí PC
+
+HW po zapnutí počítače není v žádném definovaném stavu
+
+CPU se inicializuje, nastartuje se a začne provádět instrukce od konkrétní adresy - je "natvrdo" zakódovaná v CPU včetně režimu, v jakém CPU běží
+
+CPU incializuje grafickou kartu, klávesnici, myš, zjistí zda a jaké jsou k dispozici disky
+
+řízení přebírá BIOS
+
+BIOS zjistí dle nastavení (pomocí SETUP) jak a odkud má bootovat a začne startovat operační systém
+
+---
+
+# Obrázky
+
+zdroj: prusa3d.com
+
+zdroj: 3dmanufaktura.cz
+
+zdroj: 3dmanufaktura.cz
+
+zdroj: rpishop.cz
+
+---
+
+# Bezpečnost práce u ofsetových strojů
+
+Nejčastější rizika
+
+
+
+Mechanická: pohybující se válce, riziko skřípnutí.
+
+Chemická: kontakt s inkousty, čistidly a vlhčícími roztoky.
+
+Hluk: velké stroje jsou hlučné.
+
+Tepelné: některé součásti se zahřívají.
+
+Bezpečnostní pravidla
+
+
+
+Nikdy nezasahovat mezi válce během provozu.
+
+Používat OOPP (rukavice, ochranné brýle).
+
+Zajistit ventilaci – kvůli výparům chemikálií.
+
+Ukládat inkousty a chemikálie dle předpisů.
+
+Při čištění vypnout stroj (lockout–tagout postup).
+
+---
+
+# Úvod
+
+paměťová karta - Memory Card
+
+kompaktní, přenosné polovodičové zařízení využívající flash paměť k nevolatilnímu ukládání dat
+
+neobsahují žádné pohyblivé mechanické části, což zvyšuje jejich odolnost vůči nárazům, vibracím a teplotním výkyvům
+
+použití
+
+digitální fotoaparátech
+
+mobilních telefony, tablety
+
+drony, kamery
+
+vestavěné (embedded) systémy, IoT
+
+
+Základní vlastnosti
+
+Modularita a velikost
+standardizované formáty (SD, microSD, CompactFlash aj.) umožňují snadnou výměnu mezi zařízeními
+
+
+Flash technologie
+
+Řadič (controller):
+obsahují integrovaný mikročip
+
+spravuje přístup k paměťovým blokům, provádí korekci chyb (ECC), wear leveling
+
+mapuje logické adresy souborového systému na fyzické buňky
+
+
+Vysoká životnost:
+desítky až stovky tisíc cyklů zápisu/mazání
+
+životnost prodlužují algoritmy pro vyrovnávání opotřebení
+
+
+Vysoká spolehlivost 
+
+Energetická úspornost
+
+---
+
+# USB type C
+
+dnes nejpoužívanější, postupně by měl nahradit všechny ostatní
+
+---
+
+# Inkoustové tiskárny
+
+zdroj: zde
+
+Vytváří text a grafiku pomocí mikrokapiček inkoustu vystřikovaných z tiskové hlavy na papír.
+
+Patří mezi nejrozšířenější tiskárny pro domácnosti i kanceláře díky nízké ceně, dobré kvalitě tisku a možnosti barevného tisku.
+
+Základní technologie tisku:
+
+
+
+CMYK (azurová, purpurová, žlutá, černá)
+
+tisk pomocí tisíců mikroskopických trysek
+
+vysoké rozlišení (tisíce bodů na palec)
+
+---
+
+# Nevýhody LED tiskáren
+
+Menší rozšíření než laser → méně modelů na trhu
+
+Vyšší cena barevných modelů u některých výrobců
+
+Kvalita barev závisí na konkrétním LED systému (starší modely ≠ nejvyšší kvalita)
+
+---
+
+# myš
+
+
+
+---
+
+# Interaktivní tabule
+
+Interaktivní tabule
+
+zdroj: zde
+
+Interaktivní tabule (interactive whiteboards)
+
+
+
+Popis a princip fungování
+
+Velké dotykové panely propojené s počítačem a projektorem či s vlastním systémem.
+
+Umožňují psát – stylusem nebo dotykem – přes obraz, ovládat aplikace, ukládat a sdílet poznámky.
+
+Technologie
+
+
+
+infračervené/optické snímání dotyku,
+
+kapacitní nebo ultrasnímače často v kombinaci s vlastním OS (např. Android).
+
+Bezpečnost
+
+Dodržovat doporučený odstup od projektoru, zabránit oslnění očí.
+
+Udržovat čisticí prostředky bez agresivních chemikálií, vypínat při nečinnosti pro snížení rizika přehřátí.
+
+Konfigurace a správa
+
+Připojení
+
+HDMI/USB, bezdrátové zrcadlení (Miracast, AirPlay), integrované cloudové služby (např. Google Drive, OneDrive).
+
+Správa
+
+centrální SW jako Epson iProjection umožňuje vzdálené ovládání napájení, sdílení obsahu a správu až desítek zařízení.
+
+Význam a využití
+
+
+
+Podporují aktivní a kolaborativní výuku – více studentů může pracovat současně, anotovat a ukládat výstupy.
+
+Vhodné pro výuku IT, grafiky, výuka s příklady a vizualizacemi.
+
+Interaktivní dotykový monitor Avtek Touchscreen 8 Connect 75
+
+zdroj: zde
+
+
+
+zdroj: zde
+
+zdroj: zde
+
+zdroj: zde
+
+---
+
+# Základní princip fungování 3D tisku
+
+Proces tisku má obvykle tři kroky:
+
+návrh
+
+příprava pro tisk
+
+tisk
+
+Návrh (modelování)
+
+
+
+Objekt se nejprve vytvoří v CAD programu (např. Tinkercad, Blender).
+
+Slicing (příprava pro tisk)
+
+
+
+Model se převede pomocí tzv. sliceru (např. Cura) na mnoho tenkých vrstev a instrukcí, které tiskárna vykonává.
+
+Tisk
+
+
+
+Tiskárna zpracuje instrukce a nanáší materiál vrstvu po vrstvě, až vznikne finální objekt.
+
+zdroj: svethardware
+
+zdroj: svethardware
+
+zdroj: stavebniklub
+
+---
+
+# Historický vývoj laserové tiskárny
+
+zdroj: zde
+
+
+
+1971 – Gary Starkweather (Xerox PARC) vyvinul první funkční laserovou tiskárnu modifikací kopírky.
+
+zdroj: zde
+
+1976 – IBM 3800: první komerční laserová tiskárna určená pro datová centra.
+
+zdroj: wiki
+
+1977 – Xerox 9700 uvedena na trh.
+
+zdroj: zde
+
+1984 – HP LaserJet: první široce rozšířený model pro domácnosti a kanceláře, který výrazně popularizoval laserový tisk.
+
+Laserové tiskárny se postupně od původních velkých a drahých zařízení postupně zmenšily, zlevnily a zpřesnily.
+
+
+
+zdroj: TS Bohemia
+
+zdroj: Alza
+
+---
+
+# Základní princip fungování
+
+Perové (mechanické) plotry
+
+
+
+kreslí pomocí pera či tužky, které se pohybuje po papíře ve dvou osách
+
+vhodné pro technické výkresy
+
+papír může být na desce (deskové plotry) nebo na stojanu, kde se posouvá rolovací mechanismem
+
+zdroj: wiki
+
+zdroj: wiki
+
+Inkoustové plotry
+
+
+
+používají inkoustové trysky, podobně jako běžné tiskárny
+
+vhodné pro barevnou grafiku, plakáty, reklamní materiály
+
+využívají také „bubble-jet“ technologii, kde teplo vytváří bubliny vytlačující inkoust
+
+zdroj: wiki
+
+zdroj: tsbohemia
+
+Řezací plotry
+
+
+
+místo pera mají ostří, které řeže materiál (vinyl, fólie, samolepky)
+
+využití zejména v reklamním průmyslu nebo při výrobě polepů
+
+zdroj: nedbaltrading
+
+zdroj: reklamnitechnologie
+
+Kombinované (tisk + řez)
+
+
+
+umí tisknout i řezat v jednom zařízení
+
+časté v oblasti výroby reklamních polepů
+
+zdroj: melgo
+
+CNC plotr
+
+zdroj: gms
+
+---
+
+# Úkol
+
+Zjistěte MAC adresu Vašeho zařízení.
+
+---
+
+# laserová tiskárna
+
+
+
+---
+
+# TRIM
+
+TRIM je speciální příkaz, kterým operační systém (Windows, Linux, macOS) informuje SSD disk, která data už byla smazána a nejsou nadále potřeba.
+
+Díky tomu může SSD tyto datové bloky předem vyčistit a připravit pro další zápis.
+
+TRIM - zjednodušeně:
+
+
+
+Když smažeme soubor, systém pouze řekne: „Toto místo je volné“.
+
+SSD ale samo neví, že je místo skutečně volné.
+
+Funkce TRIM řekne SSD: "Tyto buňky už nepotřebujeme, můžeš je vymazat.“
+
+Díky TRIM:
+
+
+
+SSD zůstává rychlé,
+
+nezpomaluje se časem,
+
+méně se opotřebovává.
+
+
+
+Bez TRIM by SSD muselo mazat data až ve chvíli zápisu, což by jej výrazně zpomalovalo.
+
+Proč je TRIM u SSD důležitý
+
+
+
+SSD funguje jinak než klasický HDD
+
+
+
+HDD (pevný disk)
+
+
+
+Dokáže rovnou přepisovat stará data novými.
+
+ 
+
+SSD
+
+
+
+Nemůže přepisovat data přímo.
+
+Před zápisem musí být paměť nejprve smazána.
+
+Mazání probíhá po velkých blocích (ne po jednotlivých souborech).
+
+Bez TRIM:
+
+
+
+SSD neví, co je skutečně smazané.
+
+Musí při zápisu:
+
+číst celý blok,
+
+mazat ho,
+
+znovu zapisovat data.
+
+
+Výsledkem je pomalejší zápis a vyšší opotřebení.
+
+S TRIM:
+
+SSD čistí zbytečná data dopředu, ideálně v době nečinnosti
+
+Princip fungování TRIM – krok za krokem
+
+
+
+Uživatel smaže soubor.
+
+Operační systém označí místo jako volné.
+
+Operační systém odešle TRIM příkaz disku.
+
+Řadič SSD:
+
+označí dané buňky jako „neplatné“,
+
+při nečinnosti je fyzicky vymaže.
+
+
+SSD je připravené na rychlý zápis nových dat.
+
+
+
+Tento proces probíhá automaticky a neviditelně pro uživatele.
+
+Výhody TRIM
+
+
+
+stabilní rychlost SSD i po letech
+
+rychlejší zápis dat
+
+menší opotřebení paměťových buněk
+
+není potřeba defragmentace
+
+efektivnější práce řadiče disku
+
+Nevýhoda TRIM!
+
+
+
+Smazaná data jsou díky TRIM rychle fyzicky odstraněna.
+
+Obnova smazaných souborů z SSD je velmi obtížná až nemožná!
+
+
+
+Proto je zálohování dat naprosto zásadní!
+
+---
+
+# video
+
+
+
+---
+
+# Obrázky
+
+zdroj: zde
+
+zdroj: Brother
+
+zdroj: zde
+
+zdroj: zde
+
+zdroj: zde
+
+zdroj: zde
+
+---
+
+# video
+
+
+
+---
+
+# Konfigurace a správa síťových adaptérů
+
+Konfigurace v OS
+
+
+
+Nastavení IP adresy, masky, brány.
+
+Konfigurace rychlosti, duplexu, VLAN.
+
+Ovladače (drivers) a jejich aktualizace.
+
+Hardwarové funkce (offload)
+
+
+
+Checksum offload (TCP, UDP, IPv4/6)
+
+Když se posílají data, musí se zkontrolovat, jestli nejsou poškozená.
+
+Normálně by to dělal procesor, ale díky checksum offload to převezme síťová karta.
+
+Síťová karta automaticky počítá kontrolní součty (checksumy) a procesor se tím nemusí zabývat → uvolní se jeho výkon pro jiné úlohy.
+
+LSO/LSOv2 ( (Large Send Offload) – odesílání velkých rámců
+
+Počítač často posílá velké množství dat, ale síť je umí posílat jen v malých částech (rámcích).
+
+Bez offloadu by procesor musel tato velká data rozřezat na malé kousky.
+
+Procesor předá velký balík dat síťové kartě
+
+Síťová karta ho sama rozřeže na malé části a odešle.
+
+Procesor se tím nezatěžuje → síť je rychlejší.
+
+RSS (Receive Side Scaling) – rozložení síťového provozu na více jader CPU
+
+Bez této funkce by veškerý síťový provoz muselo zpracovávat jen jedno jádro procesoru, což by ho přetížilo.
+
+RSS umí síťové požadavky rozložit na více jader.
+
+Síťová karta rozdělí příchozí data na několik „proudů“.
+
+Každý proud zpracuje jiné jádro CPU.
+
+Počítač tak zvládne mnohem více síťových dat najednou.
+
+
+
+Automatizace správy
+
+
+
+
+ATC (Automated Traffic Control/Automated Configuration) na Windows Server 2025 umožňuje:
+
+automatizované nasazení konfigurace,
+
+opravu konfiguračního driftu (odchýlení se o správného nastavení)
+
+průběžný dohled.
+
+---
+
+# Video
+
+
+
+---
+
+# eSATA
+
+eSATA - External SATA
+
+SATA - Serial Advanced Technology Attachment
+
+pro připojení externích datových zařízení (SSD, HDD, optické disky)
+
+přenosová rychlost 300 - 600 MB/s
+
+neumožňuje napájení zařízení, zařízení musí mít vlastní napájení
+
+---
+
+# Porty a konektory
+
+RJ‑45 pro Ethernet,
+
+optické porty (LC/SC),
+
+antény u Wi‑Fi.
+
+---
+
+# Schéma
+
+
+
+---
+
+# Typy inkoustového tisku
+
+termální
+
+piezoelektrické
+
+voskové (solid ink)
+
+---
+
+# Speciální zobrazovací zařízení
+
+interaktivní tabule
+
+interaktivní projektory
+
+VR headsety
+
+projekční plocha
+
+videomapping
+
+---
+
+# Princip fungování HDD ↔
+
+Zápis dat
+
+
+
+1. Počítač odešle požadavek na zápis dat
+
+data, která mají být uložena, jsou odeslána z operační paměti (RAM) do řadiče pevného disku
+
+2. Řadič pevného disku zpracuje data
+
+data jsou rozdělena do menších bloků odpovídajících velikosti sektorů /clusterů (typicky 512 bajtů nebo 4 kB)
+
+řadič rozhodne, kde budou data uložena, a přepočítá logickou adresu na fyzickou (LBA – Logical Block Addressing)
+
+3. Raménko s hlavou se přesune nad správnou stopu
+
+aktuátor přesune příslušnou čtecí/zapisovací hlavu nad správný cylindr 
+
+po dosažení správné stopy čeká hlava, než se sektor/cluster dostane pod ní (otáčky ploten synchronizované s datovým tokem)
+
+4. Zapisovací hlava provede zápis
+
+magnetická hlava vytvoří silné magnetické pole požadované orientace (severní nebo jižní pól), které způsobí změnu orientace magnetických domén na povrchu plotny
+
+orientace odpovídá binárním hodnotám 0 a 1, které tvoří uložená data
+
+moderní HDD využívají perpendicular magnetic recording (PMR), kde se magnetické domény ukládají svisle, čímž se zvyšuje hustota záznamu
+
+5. Potvrzení a kontrola zápisu
+
+po zapsání dat se provádí kontrolní čtení, aby bylo ověřeno, že záznam odpovídá zapisovaným datům
+
+HDD může využít opravu chyb pomocí ECC (Error Correction Code), pokud jsou zjištěny drobné chyby
+
+Čtení dat
+
+
+
+1. Počítač odešle požadavek na čtení dat
+
+požadovaná data jsou určena logickou adresou
+
+2. Řadič pevného disku přepočítá logickou adresu na fyzickou
+
+najde příslušný cylindr, stopu a sektor, kde jsou data uložena
+
+3. Raménko s hlavou se přesune nad správnou stopu
+
+aktuátor přesune čtecí hlavu nad cílovou stopu
+
+čtecí hlava musí počkat, až se sektor dostane pod ně (otáčení ploten)
+
+4. Magnetická hlava načte data
+
+hlava detekuje změny magnetického pole a převádí je na elektrické impulsy
+
+tato data jsou následně dekódována (0 a 1) a odeslána do řadiče disku
+
+
+
+5. Zpracování a odeslání dat do systému
+
+řadič pevného disku může využít ECC (Error Correction Code) k opravě drobných chyb
+
+data jsou odeslána zpět do počítače prostřednictvím rozhraní (SATA, SAS, NVMe)
+
+---
+
+# Princip fungování ofsetového tisku
+
+Zjednodušeně
+
+
+
+Na tiskovou desku se vytvoří obraz (text, grafika).
+
+Deska se navlhčí – neobrazové části drží vodu.
+
+Nanese se inkoust – drží jen na místech s obrazem.
+
+Obraz se přenese na gumový potah.
+
+Gumový potah obraz přenese na papír nebo jiný materiál.
+
+Výsledek: velmi ostrý, čistý a jednotný tisk, vhodný pro velké série.
+
+Odborný popis
+
+
+
+Ofsetová deska je planografická (plošná, na stejné výškové úrovni) – obrazové a neobrazové plochy jsou ve stejné rovině.
+
+Obrazové plochy jsou oleofilní (přitahují inkoust).
+
+Neobrazové plochy jsou hydrofilní (přitahují vodu, inkoust odmítají).
+
+Tři základní válce ofsetového stroje:
+
+
+
+deskový válec (plate cylinder)
+
+gumový válec (blanket cylinder)
+
+tlačný válec (impression cylinder)
+
+Používají se inkoustové a vlhčící válce, které přesně dávkují inkoust a vlhčení tak, aby byl tisk stabilní a vyvážený.
+
+zdroj: wiki
+
+zdroj: zde
+
+zdroj: zde
+
+schéma ofsetové tiskárny Heidelberg
+
+zdroj: zde
+
+---
+
+# USB a napájení/Power Delivery
+
+Pomocí USB rozhraní je možné také distribuovat energii - napájet připojená zařízení
+
+USB A
+
+ve verzi 2.0 podporuje napětí 5 V, proud 0,5 A → výkon 2,5 W
+
+ve verzi 3.0 podporuje napětí 5 V, proud 0,9 A → výkon 4,5 W
+
+ve verzi 3.2 je možno dodat výkon až 15 W
+
+
+
+USB C
+
+dle použité specifikace lze dodat proud až 5 A při napětí až 20 V, čemuž odpovídá výkon 100 W
+
+novější specifikace USB Power Delivery 3.1 podporuje napětí až 48 V, čemuž odpovídá výkon 240 W
+
+USB Power Delivery - PD
+
+
+
+standard pro rychlé nabíjení
+
+umožňuje přenos vyššího výkonu přes USB C rozhraní
+
+přenos až 100 W (20 V, 5 A)
+
+novější verze USB PD 3.1 až 240 W (48 V, 5 A)
+
+obousměrné napájení: zařízení mohou nejen přijímat, ale i poskytovat napájení; například notebook může nabíjet telefon nebo externí disk;
+- mobilní telefon může napájet jiné zařízení
+
+dynamické přizpůsobení: umožňuje dynamické přizpůsobení napětí a proudu podle potřeb zařízení, což zvyšuje efektivitu a bezpečnost nabíjení
+
+univerzální: jeden kabel může přenášet data, video a napájení, což zjednodušuje připojení a snižuje počet potřebných kabelů
+
+rychlé nabíjení
+
+---
+
+# Přehled konektorů
+
+Přehled USB konektorů na straně zařízení/PC
+
+zdroj: Tech Home
+
+zdroj: Laptop ports
+
+zdroj: Cybersecurity
+
+
+
+
+
+
+
+
+
+
+
+
+
+zdroj: Tech Home
+
+---
+
+# Princip činnosti
+
+Počítač chce poslat nějaká data (např. otevření stránky). Adaptér tato data připraví – rozdělí je na malé balíčky nazývané rámce.
+
+
+Adaptér data převede na signál. Podle toho, jaký adaptér to je:
+
+u Ethernetu → na elektrický signál,
+
+u optiky → na světelný signál,
+
+u Wi‑Fi → na rádiový signál.
+
+Je to jako když text přeložíš do Morseovy abecedy, aby se dal poslat dál.
+
+
+
+Data putují sítí. Adaptér pošle signál do kabelu nebo vzduchem. Data putují k dalším zařízením (switch, router…) až k cíli.
+
+
+
+ 
+
+Příjem dat z internetu nebo sítě
+
+Když naopak data přijdou:
+
+adaptér přijme signál,
+
+převede ho zpět na digitální rámce,
+
+zkontroluje, zda nejsou poškozené,
+
+a předá je operačnímu systému.
+
+
+
+Adaptér rozhoduje, která data jsou jeho.
+
+Pomocí své MAC adresy pozná, která data mají přistát v tomto počítači — podobně jako pošťák podle čísla domu.
+
+
+
+Hlídá rychlost a kvalitu přenosu.
+
+Aby se síť „neucpala“, adaptér řídí tok dat:
+
+když je dat moc → zpomalí,
+
+když je provoz klidný → zrychlí.
+
+Některé věci dělá sám (offload), aby odlehčil procesoru.
+
+Síťový adaptér převádí data z počítače na signál pro síť a opačně, kontroluje jejich správnost a zajišťuje, aby do počítače dorazila jen ta správná.
+
+---
+
+# LCD ↔
+
+Liquid Crystal Display
+
+vytvářejí výsledný obraz na základě optických vlastností tekutých krystalů
+
+
+
+Princip fungování LCD projektoru
+
+LCD projektory využívají světelný zdroj, který prochází přes soustavu polarizátorů, LCD panelů a čoček. Proces lze rozdělit do následujících kroků:
+
+1. Zdroj světla
+
+většinou se používají vysokotlaké výbojky (např. UHP lampy) nebo LED/laserová technologie.
+
+světlo generované zdrojem je velmi jasné a bílé
+
+2. Rozdělení světla
+
+bílé světlo je rozděleno pomocí dichroických  (dvoubarevných) zrcadel nebo hranolů na tři základní barvy: červenou, zelenou a modrou (RGB)
+
+3. Průchod přes LCD panely
+
+každá barva prochází samostatným LCD panelem
+
+panely obsahují tisíce mikroskopických pixelů, které mohou blokovat nebo propouštět světlo podle potřeby
+
+jednotlivé pixely/krystaly jsou řízeny vstupním videosignálem
+
+kombinace pixelů vytváří obraz pro každou barvu
+
+4. Rekombinace barev
+
+tři barevné obrazy (červený, zelený, modrý) jsou znovu sloučeny do jednoho obrazu pomocí hranolu
+
+5. Projekce obrazu
+
+výsledný obraz je promítnut na plátno přes optickou čočku na projekční plochu
+
+Výhody
+
+Vysoká kvalita obrazu
+ostré detaily a přesné barvy díky oddělenému zpracování RGB
+
+
+Efektivní využití světla
+vyšší jas při stejném výkonu lampy než jiné technologie
+
+
+Široká škála rozlišení
+podpora od základních rozlišení po vysoké 4K UHD standardy
+
+
+Dobrá cena/výkon:
+obvykle levnější než jiné technologie s podobným výkonem
+
+Nevýhody
+
+Méně hluboká černá
+kvůli nižšímu kontrastnímu poměru mohou být tmavé scény méně výrazné
+
+
+Možný efekt "screen door"
+u starších či levnějších modelů nebo u nižšího rozlišení může být patrná mřížka pixelů
+
+
+Údržba
+LCD panely a optické části jsou citlivé na prach, což vyžaduje pravidelné čištění a údržbu
+
+
+Kratší životnost lampy
+2 000–6 000 hodin provozu do výměny
+
+Klíčové vlastnosti LCD projektorů
+
+Rozlišení
+
+LCD projektory obvykle nabízejí širokou škálu rozlišení od základního SVGA (800 × 600 pixelů) po 4K Ultra HD (3840 × 2160 pixelů)
+
+Jas
+
+udává se v ANSI lumenech
+
+typický rozsah je od 2 000 do 10 000 lumenů
+
+Kontrastní poměr
+
+nižší kontrastní poměr ve srovnání s DLP projektory (obvykle 500:1 až 3000:1)
+
+nižší kontrast může způsobit méně hluboké černé barvy, což je patrné hlavně při slabém okolním osvětlení
+
+Barevná reprodukce
+
+vynikající přesnost a bohatost barev díky oddělenému zpracování RGB signálů
+
+---
+
+# Magnetické pásky
+
+Historie a vývoj
+
+poprvé představeny ve 40. letech 20. století pro záznam zvuku
+
+postupem času se technologie rozšířila i do oblasti počítačových dat
+
+v 50. letech začala společnost IBM používat magnetické pásky k zálohování velkých sálových počítačů
+
+v průběhu let rostla kapacita magnetických pásek z několika megabajtů až na terabajty či dokonce desítky terabajtů na jedné pásce
+
+Princip fungování
+
+Záznam dat
+data se ukládají pomocí změn magnetizace na tenké vrstvě feromagnetického materiálu naneseného na pružném pásku
+
+
+Čtení dat
+čtecí hlava snímá změny magnetického pole a převádí je zpět na elektrické impulzy
+
+
+Sekvenční přístup
+pásky umožňují pouze sekvenční (postupné) čtení a zápis dat
+
+mnohem pomalejší než náhodný přístup (HDD, SSD)
+
+vysoká kapacita
+
+
+Připojení k systémům
+
+SCSI, SAS (Serial Attached SCSI), Fibre Channel, Ethernet
+
+
+Využití v praxi
+
+Zálohování a archivace
+dlouhodobé uložení dat
+
+velmi výhodné pro velkoobjemová data, kde není nutný rychlý přístup
+
+
+Datová centra
+v některých velkých datových centrech se pásky stále využívají jako “cold storage” – úložiště dat, ke kterým se přistupuje jen zřídka
+
+
+Mediální průmysl
+v minulosti se magnetické pásky používaly na záznam hudby, videa i filmů
+
+dnes je digitální záznam stále častěji ukládán primárně na pevné disky či SSD, ale archivní kopie na páskách jsou oblíbené pro svou dlouhou životnost
+
+
+ 
+
+Výhody
+
+Cena za GB dat 
+z hlediska ceny za uloženou kapacitu patří k nejlevnějším řešením
+
+
+Spolehlivost a životnost záloh
+správně uložené pásky mohou v archivním režimu vydržet i několik desítek let
+
+
+Energetická úspornost
+
+pokud se k uloženým datům často nepřistupuje, není třeba neustálé napájení či chlazení, jako je tomu u diskových řešení
+
+ 
+
+Nevýhody
+
+Nizká rychlost, vysoká latence
+
+Opotřebení mechaniky a pásků
+mechanická zařízení pro čtení/zápis se mohou časem opotřebovat, pásky samotné rovněž vyžadují šetrné zacházení (teplota, vlhkost, prach)
+
+
+Potřeba dodatečných zařízení
+u větších archivů je nutno použít dodatečná zařízení jako např. autoloadery, páskové knihovny apod. včetně SW
+
+---
+
+# DLT - Digital Linear Tape ↔
+
+magnetický páskový formát vyvinutý původně společností Digital Equipment Corporation (DEC), později rozvinutý společnost Quantum
+
+určeno pro střední i větší firmy
+
+na trhu od 90. let 20. století
+
+později vylepšená verze Super DLT (SDLT), která rozšířila kapacitu i výkon
+
+Lineární záznam (Linear Recording)
+data se ukládají do rovnoběžných stop (tracks), které probíhají podél délky pásky.
+
+převíjí lineárně pod pevnou sadou čtecích/zapisovacích hlav
+
+
+Serpentinový způsob zápisu (Serpentine Recording)
+při jednom průchodu pásky od začátku ke konci (tzv. pass) se zapíše určitý počet stop
+
+po dosažení konce se mechanika přepne na další sadu stop, které se zapíší na zpětném průchodu
+
+tímto “cik-cak” neboli “serpentinovým” způsobem je možné využít větší počet stop na stejné délce pásky
+
+
+
+
+
+
+u některých modelů je součástí návrhu i „read-while-write“, kdy mechanika při zápisu zároveň kontroluje integritu záznamu.
+
+SDLT (Super DLT)
+
+využívá vylepšený způsob servo řízení a přesnější technologie zápisu, např. Laser Guided Magnetic Recording (LGMR)
+
+servo vrstva s navigačními informacemi umístěna na opačné straně pásky, než je hlavní magnetická vrstva → díky tomu lze na magnetickou stranu umístit více datových stop, což zvyšuje efektivitu využití pásky
+
+
+vysoká odolnost mechanik vůči opotřebení oproti některým helikálním formátům
+
+používá ECC (Error Correction Code) a obvykle má zabudovanou hardwarovou kompresi (typicky LZ varianty)
+
+Mechaniky mohou podporovat i tzv. read-while-write (zápis a kontrola na jeden průchod), což zlepšuje integritu dat.
+
+ 
+
+Výhody
+
+vysoká spolehlivost
+
+vyšší kapacita a rychlost
+
+vhodné pro podnikové zálohy – podporováno většinou zálohovacích systémů
+
+škálovatelnost – dostupnost knihoven (library) s mnoha sloty
+
+ 
+
+Nevýhody
+
+dnes již zastaralé – LTO nabízí větší kapacitu a vyšší rychlost
+
+vyšší náklady na pásky i mechaniky (ve srovnání s běžnými disky, pokud jde o menší objemy dat)
+
+Generace DLT a jejich kapacity
+
+
+
+Poznámka: Rychlost a kapacita se může lišit podle konkrétního modelu a použitých médií. Také platí, že “komprimovaná” kapacita (2:1) je pouze orientační, v praxi závisí na druhu dat.
+
+Páskové kazety a fyzické provedení
+
+Kazeta DLT
+Typicky robustní plastová kazeta s jednou cívkou.
+
+Druhá cívka je přímo v mechanice.
+
+Páska se při zasunutí kazety navine na cívku mechaniky – vzniká tak uzavřený oběh.
+
+Kazety se označují např. DLTtape IV, SDLT I, SDLT II atd. Každý typ má určité fyzické a magnetické vlastnosti (materiál pásku, tloušťku, délku).
+
+
+Magnetická vrstva
+DLT kazety obvykle využívají kovové partikulární vrstvy (metal particle) nebo metal evaporated (u SDLT). To umožňuje hustší zápis než starší oxidové pásky.
+
+Pásky musí být chráněny před extrémními podmínkami (nadměrná vlhkost, teplo, prach), aby nedošlo ke znečištění hlavy a poškození magnetické vrstvy.
+
+
+Konstrukce mechaniky
+Mechanika obsahuje kapstan, řídicí elektroniku, čtecí/zapisovací hlavy, servomechanismus pro vedení pásky a cívku pro navíjení pásky.
+
+Typická je vyšší spolehlivost a robustnost (méně pohyblivých částí oproti helikálním systémům).
+
+---
+
+# Práce disku
+
+Po zapnutí disku probíhá:
+
+
+
+kontrola (self-test)
+
+roztočení ploten (až tisíce otáček/min)
+
+kalibrace hlav
+
+načtení systémových dat z disku
+
+---
+
+# Princip fungování webové kamery
+
+Základní princip
+
+
+
+Světlo z okolí dopadne na čočku kamery.
+
+Čočka světlo zaostří na snímač (např. CMOS nebo CCD).
+
+Snímač převede světlo na elektrický signál.
+
+Signál se převede na digitální obraz (série pixelů).
+
+Obraz se zobrazí na monitoru nebo se přenáší přes internet.
+
+Co je uvnitř webkamery?
+
+
+
+Čočka – zaostřuje obraz.
+
+Snímač – zachycuje světlo a převádí ho na data.
+
+Procesor – zpracovává obraz.
+
+Mikrofon – často součástí, zachycuje zvuk.
+
+USB nebo bezdrátové připojení – propojuje kameru s počítačem.
+
+Webová kamera funguje podobně jako malý digitální fotoaparát, ale je navržená pro živý přenos obrazu.
+
+Umožňuje komunikaci tváří v tvář přes internet.
+
+---
+
+# NVMe Disky (Non-Volatile Memory Express)
+
+NVMe není typ paměti, ale komunikační protokol.
+
+Byl navržen speciálně pro flash paměti (NAND), aby odstranil úzké hrdlo, které vytvářely starší technologie navržené původně pro pomalé otáčející se pevné disky (HDD).
+
+---
+
+# OLED
+
+OLED  - Organic Light Emitting Diode
+
+k vytvoření světla ("podsvícení") využívají organických materiálů
+
+eliminuje se potřeba podsvícení
+
+tenčí konstrukce
+
+vynikající zobrazovací vlastnosti
+
+Princip fungování
+
+1. Struktura OLED pixelu
+
+OLED displeje se skládají z vrstev organických materiálů vložených mezi dvě elektrody
+
+Katoda a anoda - elektrody, které přivádějí elektrický proud
+
+Emisní vrstva - obsahuje organické sloučeniny, které emitují světlo při excitaci elektrickým proudem
+
+Subpixely RGB  - každý pixel obsahuje subpixely (červený, zelený, modrý - RGB), které kombinací vytvářejí širokou škálu barev
+
+2. Vlastní vyzařování světla
+
+Narozdíl od LCD technologie, kde kapalné krystaly pouze modulují světlo z podsvícení, OLED pixely samy emitují světlo
+
+3. Princip RGB OLED
+
+Každý subpixel (R, G, B) vytváří vlastní světlo. Intenzita každého subpixelu se řídí napětím, což umožňuje vytvářet různé barvy.
+
+Výhody
+
+Pravá černá
+pixely, které nemají být osvětleny, se zcela vypnou, což vytváří dokonalou černou
+
+
+Nižší spotřeba energie při tmavých scénách
+vypnuté pixely nespotřebovávají energii
+
+
+Dokonalý kontrast
+nekonečný kontrastní poměr díky schopnosti zcela vypnout jednotlivé pixely
+
+
+Široké barevné spektrum
+podporuja standardů jako AdobeRGB, DCI-P3 a Rec. 2020
+
+schopnost zobrazit více barev než běžné LCD zajišťuje realistické zobrazení
+
+
+Široké pozorovací úhly
+díky vlastnímu vyzařování světla nedochází ke zkreslení barev nebo jasu při pohledu z úhlu (až 178°)
+
+
+Rychlá odezva
+odezva v řádu mikrosekund, což eliminuje rozmazání obrazu u rychlých scén
+
+
+Tenký a flexibilní design
+nepotřebují podsvícení ani další vrstvy, což umožňuje extrémně tenké, lehké  a ohebné (flexibilní) konstrukce
+
+Nevýhody
+
+Vypalování pixelů (Burn-in)
+při dlouhodobém zobrazování statických prvků (např. loga) může dojít k vypálení obrazu
+
+moderní technologie, jako je pixel shift, tento problém částečně zmírňují
+
+
+Vyšší cena
+výroba OLED panelů je složitější a dražší než u LCD (LED)
+
+
+Nižší maximální jas
+ve srovnání s některými LCD monitory (např. LED s podsvícením) mají OLED panely nižší jas
+
+
+Životnost organických materiálů
+modré OLED pixely mají kratší životnost než ostatní barvy, což může vést k postupné degradaci barev
+
+---
+
+# RS-232 interface
+
+
+
+---
+
+# Typy NAND paměti
+
+
+
+---
+
+# Externí SSD (Solid State Drive)
+
+Nemá žádné pohyblivé části
+
+Data ukládá do paměťových flash čipů (NAND)
+
+
+
+Sandisk Extreme Portable 8TB SSD, USB-C
+
+zdroj: TS Bohemia
+
+zdroj: IT Network
+
+---
+
+# Využití dnes
+
+bankomaty (účtenky)
+
+pokladny (účtenky) – i když zde konkuruje termotisk
+
+logistika (etikety, data‑logy)
+
+průmysl (odolnost vůči prostředí)
+
+státní správa a účetnictví (vícedílné formuláře)
+
+---
+
+# Princip fungování
+
+Disk se roztočí (např. 7200 ot./min)
+
+Rameno se posune nad správné místo
+
+Hlava čte nebo zapisuje data magneticky
+
+
+
+Nevýhoda: musí čekat na pohyb = pomalejší
+
+HDD = gramofon
+
+
+
+data jsou jako „písničky na desce“
+
+musí se fyzicky roztočit a najít správné místo
+
+Proces ukládání dat
+
+
+
+Plotny se začnou otáčet
+
+Hlava se přesune nad správné místo
+
+Dojde k zápisu dat pomocí magnetického pole
+
+
+
+Data jsou uložena jako magneticky orientované oblasti (0 a 1)
+
+Proces čtení dat
+
+
+
+Plotny se otáčejí
+
+Hlava detekuje magnetické změny
+
+Elektronika převede signál na data
+
+
+
+Čtení probíhá díky elektromagnetické indukci
+
+---
+
+# Řízení
+
+Metody ovládání
+
+Lokální: tlačítka na panelu.
+
+Dálkové: IR ovladač.
+
+Softwarové: přes PC (RS-232, TCP/IP).
+
+Integrované systémy: Control4, AMX, Crestron.
+
+Pokročilé funkce
+
+Ukládání předvoleb.
+
+Automatické sekvence.
+
+Ovládání přes mobilní aplikace.
+
+---
+
+# Laserové
+
+Laserová tiskárna využívá elektrostatický princip a tonerový prášek k vytvoření obrazu na papíře.
+
+Princip fungování
+
+Fotocitlivý válec se elektrostaticky nabije.
+
+Laserový paprsek „nakreslí“ obraz na válec – tam, kde dopadne, se náboj změní.
+
+Toner (jemný prášek) se přichytí na místa s upraveným nábojem.
+
+Papír se přitiskne k válci, toner se na něj přenese.
+
+Fixace – papír projde přes vyhřívané válce, které toner roztaví a trvale připevní.
+
+Výhody
+
+Rychlý tisk – vhodné pro velké objemy.
+
+Nízké náklady na stránku – hlavně u černobílého tisku.
+
+Vysoká kvalita textu – ostré písmo, profesionální vzhled.
+
+Odolnost výtisků – nerozmazávají se, odolné proti vlhkosti.
+
+Nevýhody
+
+Vyšší pořizovací cena tiskárny.
+
+Drahé tonery – i když vydrží dlouho.
+
+Horší kvalita fotografií než inkoustové tiskárny.
+
+Větší rozměry – méně vhodné pro malé prostory.
+
+---
+
+# Podpora více formátů
+
+Přepínače podporují různé video/audio formáty: HDMI, DisplayPort, VGA, SDI, analogové video, stereo audio.
+
+Moderní zařízení zvládají 4K/8K rozlišení, HDR, HDCP 2.2.
+
+Praktické příklady
+
+Blustream MX22AB-8K – HDMI přepínač pro 8K.
+
+Atlona AT-UHD-PRO3-44M – HDMI/HDBaseT přepínač pro 4K.
+
+---
+
+# Připojení externího HDD
+
+Základní princip připojení
+
+
+
+Externí HDD se připojuje k počítači přes externí rozhraní (port).
+
+Po připojení je automaticky rozpoznán operačním systémem (tzv. Plug & Play).
+
+Po připojení:
+
+
+
+OS rozpozná zařízení
+
+nainstaluje ovladače (většinou automaticky)
+
+disk se zobrazí v systému (např. „Tento počítač“)
+
+---
+
+# Obrázky
+
+zdroj: alza
+
+zdroj: alza
+
+zdroj: datart
+
+---
+
+# video
+
+zdroj: YouTube
+
+zdroj: YouTube
+
+---
+
+# CF
+
+
+
+---
+
+# Typy paměťových karet
+
+zdroj: Hacker339
+
+---
+
+# Externí HDD
+
+Externí HDD (Hard Disk Drive)
+
+
+
+Mechanické zařízení s rotujícími magnetickými plotnami
+
+Uvnitř se pohybuje rameno s čtecí/zapisovací hlavou
+
+Data se ukládají pomocí magnetizace povrchu
+
+Výhody
+
+
+
+velká kapacita (TB)
+
+nízká cena za GB
+
+ 
+
+Nevýhody
+
+
+
+pomalejší
+
+náchylný k poškození (pohyblivé části)
+
+Externí HDD (Hard Disk Drive) je mechanické datové úložiště.
+
+obsahuje stejné komponenty jako interní disk
+
+je umístěno v ochranném pouzdře
+
+připojuje se k počítači přes USB
+
+
+
+Slouží hlavně jako externí (sekundární) úložiště pro data nebo zálohy.
+
+---
+
+# DDS - Digital Data Storage ↔
+
+formát, který vychází z technologie DAT (Digital Audio Tape)
+
+představen koncem 80. let 20. století - Hewlett-Packard, Sony a Seagate
+
+šířka pásky 4mm
+
+dvě cívky
+
+využívá helikální neboli šikmý záznam
+
+zapisovací/čtecí hlava je nakloněna a otáčí se proti pohybující se pásce (podobný princip jako u videokazet VHS) → data se tedy zapisují v diagonálních stopách přes pásku
+
+obvykle se využívají dvě hlavy pro zápis/čtení (tzv. A/B hlava) - jedna hlava vytváří šikmou stopu v jednom směru, druhá v opačném → tím se docílí kontinuálního toku dat – zatímco se pásek pohybuje plynule vpřed, otočný buben v rychlé rotaci zapisuje/čte šikmé stopy
+
+pásky a mechaniky obsahují metody pro korekci chyb (ECC)
+
+některé mechaniky (zvláště u vyšších generací) využívají režim „read-after-write“, kdy se po zapsání stopa kontroluje přímo v témže průchodu, což zvyšuje spolehlivost záznamu
+
+většina DDS mechanik podporuje hardwarovou kompresi.
+
+komprese se obvykle řídí na úrovni firmware mechaniky, některé zálohovací aplikace ji ale mohou vypnout či nahradit vlastní softwarovou kompresí
+
+dnes se již nepoužívá, resp. dožívá
+
+ 
+
+Výhody
+
+kompaktní velikost - 4mm kazety zabírají málo místa
+
+menší a lehčí kazety znamenají i nižší nároky na skladování
+
+ve své době byly DDS mechaniky levnější než robustnější řešení (např. DLT)
+
+ 
+
+Nevýhody
+
+nižší kapacita a rychlost
+
+náchylnost k opotřebení - úzká páska a helikální záznam mohou vést k rychlejšímu mechanickému opotřebení (zejména u starších či intenzivně používaných pásek)
+
+omezená životnost a podpora - v současnosti je DDS/DAT technologie na ústupu, snižuje se počet výrobců i dostupnost nových zařízení
+
+Generace a kapacity
+
+GeneraceTechnické označeníNominální kapacita (nativní)Komprimovaná kapacita (typická)Rychlost
+
+DDS-1DAT (90 m páska)1,3–2 GB~~2–4 GB~~0,6–1 MB/s
+
+DDS-2DAT (120 m páska)4 GB~~8 GB~~1,2 MB/s
+
+DDS-3DAT (125 m páska)12 GB~~24 GB~~1,5–2 MB/s
+
+DDS-4DAT (150 m páska)20 GB~~40 GB~~3 MB/s
+
+DAT72-36 GB~~72 GB~~3,5 MB/s
+
+DAT160-80 GB~~160 GB~~6,9 MB/s
+
+DAT320-160 GB~~320 GB~~12 MB/s
+
+Poznámka: „komprimovaná“ kapacita je teoretická – reálně se liší v závislosti na typu
+
+Mechanická konstrukce pásky DDS
+
+4mm DAT kazety
+Kompaktní kazeta, uvnitř které je pásek (typicky z PET fólie potažené magnetickou vrstvou).
+
+Kazeta obsahuje drobný otvor pro snímání přítomnosti pásku a bezpečnostní západku zabraňující nechtěnému odvinutí.
+
+
+Pásek
+Šířka pásku činí 3,81 mm (4 mm zaokrouhleně).
+
+Magnetická vrstva používá částice oxidu železa nebo kobaltu (v pozdějších verzích) pro vyšší hustotu záznamu.
+
+
+Vodicí prvky
+Páska se v mechanice navíjí přes rotující buben s hlavami.
+
+Samotný pásek je relativně úzký, tudíž je náchylnější k mechanickému poškození při nesprávné manipulaci nebo opotřebení.
+
+---
+
+# Organizace dat na HDD
+
+data se na HDD disky zapisují do jednotlivých sektorů/clusterů
+
+dříve se pro adresování jednotlivých sektorů používala adresace ve tvaru CHS - Cylinder/Head/Sector
+
+pro určení adresy zápisu/čtení se tedy použilo číselné označení cylindru, hlavy a sektoru
+
+
+dnes se využívá (platí i pro SSD) adresace LBA - Logical Block Addressing
+
+pro převod LBA na CHS se použije:
+
+LBA=(Cylindr×Počet hlav×Počet sektorů)+(Hlava×Počet sektorů)+(Sektor−1)
+
+Příklad:
+
+Pokud disk má 100 cylindrů, 4 hlavy, 16 sektorů na stopu
+
+LBA 0 odpovídá Cylindr 0, Hlava 0, Sektor 1.
+
+LBA 1 odpovídá Cylindr 0, Hlava 0, Sektor 2.
+
+LBA 16 odpovídá Cylindr 0, Hlava 1, Sektor 1.
+
+---
+
+# Obrázky
+
+zdroj: zde
+
+zdroj: zde
+
+zdroj: zde
+
+zdroj: zde
+
+zdroj:  zde
+
+zdroj: zde
+
+zdroj: Tech Home
+
+---
+
+# Jak chránit dotykové disleje
+
+Používejte ochranné sklo nebo fólii
+
+Ochranné sklo nebo fólie poskytují dodatečnou vrstvu ochrany proti poškrábání a prasknutí.
+
+Investujte do kvalitního obalu
+
+Kvalitní obal může výrazně snížit riziko poškození displeje při pádu.
+
+Vyvarujte se pokládání telefonu obrazovkou dolů
+
+Pokládání telefonu obrazovkou dolů zvyšuje riziko poškrábání.
+
+Dávejte pozor na ostré předměty
+
+Vyhněte se kontaktu displeje s ostrými předměty, jako jsou klíče nebo mince, které mohou způsobit škrábance.
+
+Pravidelně čistěte obrazovku
+
+Pravidelné čištění displeje jemným hadříkem pomáhá odstranit nečistoty a mastnotu, které mohou ovlivnit citlivost dotyku.
+
+Vyhněte se extrémním teplotám
+
+Extrémní teploty mohou poškodit dotykový displej. Snažte se nevystavovat zařízení přímému slunečnímu záření nebo mrazu.
+
+Aktualizujte software
+
+Pravidelné aktualizace softwaru mohou zlepšit výkon dotykového displeje a opravit případné chyby.
+
+---
+
+# Srovnání
+
+Srovnání jednotlivých typů projektorů
+
+---
+
+# Nejběžnější typy připojení
+
+USB (nejčastější)
+
+
+
+standardní způsob připojení
+
+používá se u většiny externích HDD
+
+ 
+
+Typy USB:
+
+
+
+USB 2.0 – pomalejší (~480 Mb/s)
+
+USB 3.0 / 3.1 / 3.2 – rychlejší (až několik Gb/s)
+
+USB-C – moderní oboustranný konektor
+
+
+
+Výhody:
+
+
+
+univerzální
+
+jednoduché použití
+
+napájí zařízení (u 2,5" disků)
+
+Thunderbolt
+
+
+
+velmi rychlé rozhraní
+
+používá se u profesionálních zařízení
+
+
+
+Výhody:
+
+
+
+vysoká rychlost přenosu
+
+vhodné pro video a velké soubory
+
+eSATA (starší)
+
+
+
+externí verze SATA
+
+dnes už málo používané
+
+
+
+Nevýhoda:
+
+
+
+nutnost externího napájení
+
+Bezdrátové připojení (Wi-Fi)
+
+
+
+některé disky mají Wi-Fi
+
+fungují jako síťové úložiště
+
+
+
+Výhody:
+
+
+
+není potřeba kabel
+
+
+
+Nevýhody:
+
+
+
+pomalejší
+
+---
+
+# Princip fungování
+
+Tisková hlava se pohybuje vodorovně po papíru.
+
+V hlavě je sada kovových jehliček (2, 7, 9, 18, 24…), které jsou ovládány elektromagnety.
+
+Jehličky narážejí přes inkoustovou pásku do papíru → vzniká otisk bodu.
+
+Z těchto bodů se skládají znaky i jednoduchá grafika.
+
+Papír se posouvá pomocí traktorového mechanismu nebo bubnu.
+
+Zjednodušeně
+
+
+
+Jehličková tiskárna je jako automatický psací stroj.
+
+Místo celých písmen má malinké jehličky, které na papír bouchají přes pásku a tím vytvářejí tečky.
+
+Z těch teček složí písmeno.
+
+Počet jehliček udává kvalitu a rychlost
+
+
+
+Podle počtu jehliček seřazených v matici na tiskové hlavě (čili podle jejich “hustoty”) se určuje kvalita tisku.
+
+Vyrábí se v počtu 2, 7, 9, 18 a 24 jehliček, výjimečně se objevuje i 27 jehliček.
+
+Čím víc jehliček na tiskové hlavě, tím kvalitněji a rychleji tiskárna tiskne.
+
+Nejrychlejší modely zvládnou normostranu A4 za 2,5 vteřiny, ty nejpomalejší zhruba za 5 sekund.
+
+Kvalita se odvíjí také od kvality pásky a synchronizace pohybu tiskové hlavy, pásky a posunu papíru.
+
+Postupem času dochází k mírnému rozostření tisku, kvůli opotřebení mechanických částí tiskárny.
+
+zdroj: zde
+
+zdroj: zde
+
+---
+
+# Historický vývoj
+
+60.–70. léta: počátky
+
+
+
+1964 – první jehličkové zařízení od firmy Seikosha sloužilo jako časomíra na OH v Tokiu.
+
+1968 – začíná výroba modelu EP‑101, zakládá firmu Epson.
+
+1970–1974 – modely LA30 a LA36 od DEC – první úspěšné komerční tiskárny
+
+80. léta: rozmach
+
+
+
+1978 – tisková hlava Epson s 9 jehličkami, Epson MX‑80, až 100 000 kusů měsíčně.
+
+Objevují se 24jehličkové tiskárny, vyšší DPI a barevný tisk (přes více barevných pásek).
+
+90. léta: ústup
+
+
+
+Inkoustové a laserové tiskárny dosahují vyšší kvality a nižší hlučnosti → masový pokles použití.
+
+Jehličkové tiskárny zůstávají v podnicích, bankomatech, logistice.
+
+---
+
+# LPT interface
+
+LPT - Line Printer Terminal
+
+---
+
+# LCD displeje
+
+Využívají tekuté krystaly, které mění orientaci při působení elektrického pole.
+
+Světlo prochází přes polarizační filtry a barevné filtry RGB.
+
+Potřebují podsvícení (např. LED diodami).
+
+Výhody: nízká spotřeba, dobré rozlišení, široké použití.
+
+Nevýhody: horší kontrast, omezené pozorovací úhly.
+
+---
+
+# Typy síťových adaptérů
+
+Podle média
+
+
+
+Ethernet NIC – metalický kabel (RJ‑45)10 Mb/s → 1 Gb/s → 10/25/40/100 Gb/s a více.Vysoká stabilita, nízká latence.
+
+Wi‑Fi NIC – bezdrátové připojení - Standardy 802.11ac, 802.11ax (Wi‑Fi 6/6E).Vysoká mobilita, náchylnost k rušení.
+
+Optické NIC - Pro datacentra a páteřní sítě, nejvyšší výkon a dosah.
+
+SmartNIC / Offload NIC
+
+
+
+Integrují CPU/SoC a akceleraci.
+
+Offload: šifrování, virtualizace, paketová filtrace, RDMA.
+
+---
+
+# SSD vs. HDD
+
+zdroj: HD TECH
+
+zdroj: Tech Home
+
+---
+
+# How Network Interface Cards Work
+
+zdroj: You Tube
+
+zdroj: You Tube
+
+---
+
+# Přehled
+
+Přehled jednotlivých rozlišení projektorů
+
+---
+
+# Seriový přenos dat
+
+data jsou přenášena postupně po jednotlivých bitech za sebou přes jeden komunikační kanál nebo sběrnici
+
+každý bit je odeslán a přijat postupně, jeden za druhým
+
+jednoduchý na implementaci
+
+vyžaduje méně vodičů než paralelní přenos
+
+jednodušší synchronizace zařízení pro přenos
+
+přenos na delší vzdálenost
+
+odolnější proti přeslechům a rušení
+
+vysoké přenosové rychlosti (dnes)
+
+Typy seriového přenosu
+
+Asynchronní
+- data jsou přenášena bez časového rámce
+- přijímač a vysílač nejsou časově synchronizovány
+- každý přenášený znak (data) je ohraničený start a stop bity - označují začátek a konec přenášeného znaku
+- příklad USB 2.0, RS-232
+
+
+
+Synchronní
+- data jsou přenášena v pevných časových intervalech
+- intervaly jsou synchronizovány hodinovým signálem
+- vyšší přenosové rychlosti
+- lepší využití přenosového kanálu
+- příklad USB 3.0 a vyšší, PCI Express
+
+---
+
+# UEFI
+
+Unified Extensible Firmware Interface
+
+první specifikace v r. 2000
+
+uložen ve flash paměťovém čipu
+
+důvody zavedení:
+- podpora Secure boot (viz dále)
+- bootování z NVMe zařízení
+- využití TPM 2.0 čipu a jeho funkcí
+- využití schopností nových procesorů a ukončení zpětné kompatibility se starými procesory - Intel 2020+
+- podpora GPT , která umožňuje zavést z pevných disků větších než 2 TiB (limit původního MBR)
+
+
+
+
+
+kompletní popis a specifikace na https://uefi.org/
+
+---
+
+# Schéma
+
+
+
+---
+
+# Princip fungování snímače čárového kódu
+
+Základní princip
+
+
+
+Snímač vyšle světelný paprsek (např. laser nebo LED).
+
+Světlo se odrazí od čárového kódu – bílé části odrážejí více, černé méně.
+
+Senzor zachytí odražené světlo a vytvoří obraz čárového kódu.
+
+Procesor v zařízení přečte vzor čar a mezer a převede ho na čísla nebo text.
+
+Data se pošlou do počítače nebo pokladního systému.
+
+Typy snímačů
+
+
+
+Laserový – používá laserový paprsek, velmi přesný.
+
+CCD (optický) – snímá obraz pomocí světelného senzoru.
+
+2D imager – umí číst i QR kódy a jiné 2D kódy.
+
+Snímač čárového kódu funguje jako „oko“ počítače, které umí rozpoznat vzor čar a převést ho na užitečná data – například kód výrobku, cenu nebo identifikační číslo.
+
+---
+
+# Schéma
+
+
+
+---
+
+# schéma
+
+
+
+---
+
+# Princip fungování skeneru
+
+Základní princip
+
+
+
+Dokument se vloží na skleněnou plochu skeneru.
+
+Světelný zdroj (např. LED nebo zářivka) osvítí dokument.
+
+Snímač (CCD nebo CIS) zachytí odražené světlo a vytvoří obraz.
+
+Obraz se převede na digitální data a uloží do počítače.
+
+Skener funguje podobně jako fotoaparát, ale místo focení převádí dokumenty do počítače.
+
+Je velmi užitečný pro digitalizaci textů, obrázků nebo formulářů.
+
+---
+
+# Rezistivní dotykový displej
+
+Složení
+
+Skládá se ze dvou tenkých vrstev, které jsou odděleny malými mezerami.
+
+Tyto vrstvy jsou pokryty vodivým materiálem.
+
+Princip
+
+Když se dotknete displeje, vrstvy se stlačí a spojí se v místě dotyku.
+
+To způsobí změnu elektrického odporu, kterou zařízení detekuje a určí polohu dotyku.
+
+zdroj: zde
+
+zdroj: zde
+
+---
+
+# Příklady
+
+I-TEC USB 3.0 Metal Gigabit Ethernet
+
+zdroj: alza
+
+AKASA 2.5 Gigabit PCIe Network Card
+
+zdroj: alze
+
+TP-Link Archer T3U Plus
+
+zdroj: alza
+
+---
+
+# LCD - Liquid Crystal Display ↔
+
+Pro vytváření obrazu využívají kapalné krystaly, resp. jejich schopnosti měnit rovinu polarizovaného světla.
+
+Světlo prochází několika vrstvami a vytváří obraz.
+
+Klíčové komponenty
+
+1. Podsvícení (Backlight)
+
+zdroj světla
+
+u klasických LCD panelů se používá  CCFL – studená katodová fluorescenční lampa (Cold Catode Fluorescent Lamp)
+
+poskytuje homogenní osvětlení obrazovky, protože samotné kapalné krystaly nejsou světelně aktivní
+
+2. Polarizační filtry:
+
+dva filtry umístěné před a za vrstvou kapalných krystalů
+
+první filtr polarizuje světlo z podsvícení
+
+druhý určuje, kolik světla projde na základě stavu krystalů (ovlivněn elektrickým polem)
+
+3. Vrstva kapalných krystalů
+
+kapalné krystaly se otáčejí podle aplikovaného elektrického napětí pro jednotlivé pixely, tím mění polarizační rovinu a určují tak intenzitu světla dopadajícího na pixel
+
+4. Barevné filtry (RGB)
+
+každý pixel je rozdělen na tři subpixely: červený, zelený a modrý
+
+kombinací těchto subpixelů vznikají různé barvy
+
+5. Maticová technologie
+
+aktivní matice (TFT - Thin Film Transistor)
+
+každý pixel má svůj vlastní tranzistor(y)
+
+tyto tranistory řídí napětí a tím intenzitu elektrického pole, které ovládá příslušný krystal a tím i intenzitu světla dopadajícího na pixel
+
+zajišťuje i stabilitu a stálost obrazu (obraz nebliká)
+
+umožňuje rychlou změnu obrazu
+
+Výhody
+
+nízká spotřeba energie
+
+kompaktní design, tenké, lehké
+
+nízké emise záření
+
+Nevýhody
+
+nižší kontrast ve srovnání s OLED monitory
+
+u TN panelů omezený pozorovací úhel
+
+Typy panelů u LCD monitorů
+
+LCD monitory se liší podle technologie použitých panelů, což ovlivňuje jejich vlastnosti.
+
+1. TN (Twisted Nematic)
+
+Princip - kapalné krystaly se při napětí otáčejí, aby propustily nebo blokovaly světlo
+
+Výhody
+
+nízká cena
+
+vysoká obnovovací frekvence a nízká doba odezvy
+
+Nevýhody
+
+špatné pozorovací úhly
+
+horší barevná přesnost
+
+2. IPS (In-Plane Switching)
+
+Princip - kapalné krystaly se otáčejí paralelně s povrchem obrazovky
+
+Výhody
+
+široké pozorovací úhly (až 178°).
+
+věrné barvy, vhodné pro grafiku a design.
+
+Nevýhody
+
+vyšší cena než TN
+
+mírně delší doba odezvy než TN
+
+3. VA (Vertical Alignment)
+
+Princip - kapalné krystaly jsou ve výchozím stavu svislé (kolmé k povrchu obrazovky) a vlivem elektrického pole se "naklápějí"
+
+Výhody
+
+Vysoký kontrastní poměr → lepší černá než u IPS nebo u TN
+
+Nevýhody:
+
+horší pozorovací úhly než IPS
+
+střední doba odezvy
+
+---
+
+# Využití LED tiskáren
+
+LED tiskárny se používají zejména tam, kde je potřeba spolehlivý, tichý a rychlý tisk:
+
+
+
+firemní kanceláře (tichý provoz, rychlost)
+
+školy a instituce (robustnost, méně poruch)
+
+grafické a reklamní agentury – zejména moderní modely s vysokým DPI
+
+výroba potisků – speciální modely OKI s bílým tonerem (CMYW) pro textilní transfer
+
+---
+
+# Externí pevné a přenosné disky
+
+Externí (přenosný) disk je datové úložiště, které se připojuje k počítači zvenčí (nejčastěji přes USB).
+
+Používá se pro ukládání, přenos a zálohování dat.
+
+Patří mezi tzv. sekundární paměti – data si uchovávají i po vypnutí počítače.
+
+Externí HDD (mechanický disk)
+
+Externí SSD (polovodičový disk)
+
+---
+
+# Laserové
+
+laserové projektory používají ke generování světla místo výbojek laserové diody
+
+RGB laserové projektory používají pro generování světla 3 lasery, každý pro jednu barevnou složku
+
+hybridní projektory (levnější varianta) používají tzv. modrý laser, který excituje fosforový filtr k vytvoření bílého světla; z tohoto světla jsou potom pomocí optických prvků oděleny RGB složky
+
+projektovaný obraz je potom vytvářen pomocí LCD, DLP nebo LCoS technologie
+
+využití obdobné jako u LCoS projektorů
+
+Výhody
+
+
+
+Dlouhá životnost světelného zdroje
+typická životnost 20 000 – 30 000 hodin, což je 4–6× více než u tradičních lampových projektorů
+
+
+Vyšší jas a konzistence obrazu
+lasery poskytují vysoký jas (až 50 000 lumenů) a nevyžadují čas na zahřátí
+
+narozdíl od lampy se jas nesnižuje tak rychle
+
+
+Lepší barevné podání
+RGB laserové projektory poskytují širší barevný gamut (DCI-P3, Rec. 2020), což zlepšuje realističnost obrazu
+
+Okamžitý start a vypnutí
+nevyžadují zahřívání ani chlazení, což urychluje provoz
+
+
+Nižší náklady na údržbu
+nepotřebují výměnu lampy ani filtrů, čímž se snižují provozní náklady
+
+
+Ekologičtější provoz
+nižší spotřeba energie než u lampových projektorů
+
+neobsahují nebezpečné materiály jako rtuť
+
+Nevýhody
+
+
+
+Vyšší pořizovací cena
+
+Možnost speckle efektu
+uněkterých modelů může být viditelný "speckle noise", což jsou interferenční vzory způsobené koherencí laserového světla
+
+---
+
+# 3D tisk
+
+3D tiskárna vytváří fyzické objekty postupným nanášením materiálu vrstvu po vrstvě podle digitálního modelu.
+
+Princip fungování
+
+Digitální model – objekt se navrhne v CAD programu a uloží ve formátu (např. STL).
+
+Slicing – software rozdělí model na tenké vrstvy.
+
+Tisk:
+
+FDM (nejběžnější): Plastová struna (filament) se zahřeje a tryska nanáší roztavený materiál vrstvu po vrstvě.
+
+Další technologie: SLA (pryskyřice vytvrzovaná UV světlem), SLS (prášek spékán laserem).
+
+
+Postprocessing – odstranění podpěr, případné broušení nebo vytvrzení.
+
+Výhody
+
+Možnost výroby složitých tvarů – které by byly obtížné klasickými metodami.
+
+Personalizace – tisk na míru (prototypy, náhradní díly).
+
+Nízké náklady na prototypy – ideální pro vývoj.
+
+Rychlá výroba malých sérií.
+
+Nevýhody
+
+Pomalejší tisk – zejména u velkých objektů.
+
+Omezené materiály – hlavně plasty, speciální pryskyřice.
+
+Nižší pevnost než u tradičně vyráběných dílů.
+
+Vyšší cena u profesionálních strojů.
+
+---
+
+# Přenos dat přes USB
+
+pro kódování dat se používá metoda NRZI (Non-Return-to-Zero Inverted)
+
+každý bit je reprezentován změnou nebo nezměnou stavu 
+
+logická 0 - neměním stav
+
+logická 1 - měním stav 
+
+
+
+
+
+
+příklad dle obrázku
+nezměna-změna-změna-nezměna-nezměna-nezměna-změna-změna-nezměna-změna-nezměna-nezměna
+
+
+
+
+snadná detekce chyb, odolnost proti rušení
+
+zabezpečení a spolehlivost je řešena pomocí CRC (Cyclic Redundancy Check)
+
+
+
+Při přenosu dat pomocí USB se používá synchronní i asynchronní přenos dat
+
+Asynchronní přenos
+
+má pevnou strukturu
+
+řídící zpráva určená pro konfigurování poprvé připojeného zařízení
+
+zpráva s větším objemem dat segmentovaná do více částí - např. pro tiskárnu
+
+zpráva s přerušením - krátká zpráva, kterou vysílá zařízení o svém stavu - např. změna polohy myši
+
+Synchronní přenos
+
+datový tok - stream
+
+pro rychlé přenosy dat - zápis na disk apod.
+
+---
+
+# Porty
+
+zdroj: TechHome
+
+zdroj: Tech Home
+
+---
+
+# Útoky na WiFi sítě
+
+1. Brute-force útok na heslo
+
+
+
+Útočník zkouší různé kombinace hesel, dokud neuspěje.
+
+Ochrana: silné heslo, omezení pokusů.
+
+
+
+2. Deauth útok (Deauthentication Attack)
+
+Útočník odpojí zařízení od sítě pomocí falešných paketů.
+
+Ochrana: WPA3, monitorování sítě.
+
+3. Evil Twin (falešný AP)
+
+
+
+Útočník vytvoří síť se stejným názvem jako legitimní.
+
+Uživatel se připojí → útočník odposlouchává data.
+
+Ochrana: ověřování certifikátů, VPN.
+
+
+
+4. Packet sniffing (odposlech paketů)
+
+Útočník zachytává nešifrovaný provoz.
+
+Ochrana: šifrování (WPA2/WPA3), VPN.
+
+5. Man-in-the-Middle (MitM)
+
+
+
+Útočník se vloží mezi komunikující zařízení.
+
+Může měnit nebo odposlouchávat data.
+
+Ochrana: HTTPS, VPN, šifrování.
+
+Jak chránit WiFi síť
+
+---
+
+# Princip fungování
+
+Laserový tisk probíhá v několika přesně řízených krocích:
+
+
+
+1. Příprava a zpracování obrazu
+
+
+
+Tiskárna převezme data z počítače a uloží si je do své paměti, kde vytvoří kompletní stránku (text, grafika).
+
+
+
+2. Nabíjení fotoválce
+
+
+
+Povrch světlocitlivého válce (fotoválce) je rovnoměrně nabit elektrostatickým nábojem.
+
+3. Expozice (působení laseru)
+
+
+
+Laserový paprsek „vykreslí“ na válci obraz stránky tím, že na osvětlených místech změní elektrický odpor válce – tyto oblasti ztratí náboj.
+
+
+
+4. Nanesení toneru
+
+
+
+Tonerový prášek se přichytí jen na místa, kde byl náboj odstraněn laserem.
+
+5. Přenos na papír
+
+
+
+Papír je nabit opačným nábojem, takže na něj toner z válce „přeskočí“.
+
+
+
+6. Zažehlení (fixace)
+
+
+
+V papíru se toner roztaví při teplotě kolem 180–200 °C a trvale se připevní do vláken papíru.
+
+---
+
+# USB Hub
+
+
+
+---
+
+# video
+
+
+
+---
+
+# Drivery / ovladače
+
+Ovladače v operačním systému:
+
+umožňují systému komunikovat s adaptérem,
+
+rozhodují o funkcích, které bude adaptér používat (např. offload),
+
+mohou výrazně ovlivnit rychlost a stabilitu.
+
+Bez driveru adaptér „nerozumí“ počítači.
+
+---
+
+# HDMI
+
+HDMI - High Definition Multimedia Interface
+
+nekomprimovaný přenos video i audio signálu
+
+vysokorychlostní výkon a kvalita v jednom kabelu
+
+v současnosti nejlepší způsob pro připojení HD zařízení
+
+počet pinů 19
+
+Verze konektorů:
+
+Standard
+
+Mini HDMI
+
+Micro HDMI
+
+---
+
+# Multifunkční zařízení
+
+Multifunkční zařízení (MFD) kombinuje více funkcí do jednoho stroje – typicky tisk, skenování, kopírování a někdy i fax.
+
+Princip fungování
+
+Tisková část: Funguje stejně jako technologie, kterou zařízení používá (nejčastěji inkoustová nebo laserová).
+
+Skenování: Pomocí optického snímače (CIS nebo CCD) přečte obraz dokumentu a převede ho do digitální podoby.
+
+Kopírování: Kombinuje skenování a tisk – dokument se naskenuje a ihned vytiskne.
+
+Fax (pokud je): Naskenovaný dokument se odešle přes telefonní linku.
+
+Všechny tyto funkce jsou řízeny jedním ovládacím panelem a sdílejí hardware (např. podavač papíru, výstupní zásobník).
+
+Výhody
+
+Úspora místa – jedno zařízení místo několika.
+
+Nižší pořizovací náklady než kupovat tiskárnu, skener a kopírku zvlášť.
+
+Pohodlí – vše ovládáte z jednoho místa.
+
+Síťové funkce – často možnost připojení přes Wi-Fi, tisk z mobilu.
+
+Nevýhody
+
+Porucha = výpadek všech funkcí – když se rozbije tisk, nejde ani kopírovat.
+
+Nižší specializovaná kvalita – skener nebo tisk nemusí být tak kvalitní jako samostatné zařízení.
+
+Vyšší spotřeba při provozu více funkcí.
+
+Omezená rychlost – u levnějších modelů pomalejší skenování i tisk.
+
+---
+
+# USB - Universal Serial Bus
+
+univerzální sériová sběrnice
+
+kromě přenosu dat může sloužit i pro napájení a nabíjení zařízení
+
+Používané standardy
+
+USB 2.0 - přenosová rychlost až 480 Mbit/s
+
+USB 3.0 - přenosová rychlost až 5 Gbit/s - konektory mají zpravidla modrou barvu
+
+USB 3.1 - přenosová rychlost až 10 Gbit/s - konektory mají zpravidla žlutou barvu
+
+USB 3.2 - přenosová rychlost až 20 Gbit/s 
+
+USB 4 -  přenosová rychlost až 40 Gbit/s
+
+zdroj: Tech Home
+
+---
+
+# Jehličkové tiskárny
+
+zdroj: zde
+
+---
+
+# Projektory (interaktivní projekční řešení)
+
+Interaktivní projektory
+
+zdroj: zde
+
+Popis a princip fungování
+
+
+
+Projektory pro interaktivní tabule (např. Epson BrightLink) využívají 3LCD laser nebo LED.
+
+Promítají obraz na stěnu nebo tabuli s možností interakce dotykem nebo perem.
+
+Bezpečnost
+
+
+
+Nepřímé světlo – neotáčet fuše přímo do očí.
+
+Laserová či LED technologie: dbát na minimalizaci oslnění, správně chladit systém.
+
+Konfigurace a správa
+
+Připojení
+
+HDMI, VGA i bezdrátově (Wi-Fi, Miracast).
+
+Správa
+
+přes síťový SW (Epson Network Projection) – sledování stavu lampy, dálkové vypnutí, aktualizace.
+
+Význam a využití
+
+
+
+Flexibilní alternativy k interaktivním panelům – promítají dále i na větší plochy.
+
+Vhodné pro přednášky, vizualizace, skupinové aktivity.
+
+zdroj: zde
+
+Projektor Vivitek DW771USTi
+
+zdroj: zde
+
+Interaktivní přenosný projektor JC VISION JC-IP1000A
+
+zdroj: zde
+
+Interaktivní projektor Epson EB-695Wi
+
+zdroj: zde
+
+---
+
+# video
+
+
+
+---
+
+# Kontinuální inkoustový tisk (CIJ)
+
+Vytváří nepřetržitý proud kapek.
+
+Některé kapky dopadají na papír, jiné se vracejí do sběrného systému.
+
+Používá se hlavně v průmyslovém značení, ne v běžných domácích tiskárnách.
+
+---
+
+# video
+
+
+
+---
+
+# Bluebugging
+
+Bluebugging využívá zranitelností a chyb v implementaci BT protokolu
+
+umožňuje získat přístup k zařízení, instalovat malware (backdoor)
+
+umožňuje např. odposlouchávat hovory, číst a odesílat zprávy, přístup k datům v zařízení ad.
+
+často se využívá jako příprava k Bluesnarfingu
+
+---
+
+# tiskárna
+
+
+
+---
+
+# Zobrazovací jednotky
+
+monitory
+
+projektory
+
+displeje
+
+---
+
+# Bluesnarfing
+
+typ útoku, kdy útočník získá neoprávněný přístup k datům v napadeném zařízení
+
+využívá zranitelností v implementaci protokolu OBEX
+
+OBEX - Object Exchange
+
+používá se k přenosu dat mezi spárovanými zařízeními
+
+každé zařízení/aplikace má svou implementaci OBEX
+
+v případě nalezení zranitelného zařízení (např. pomocí nástroje Bluediving) útočník může získat přístup k datům v zařízení (kontakty, e-maily, fotografie, soubory, kalendáře apod.)
+
+při útoku na mobilní telefon (tablet) je možné získat IMEI zařízení a umožnit tak přesměrování hovorů a zpráv bez vědomí uživatele
+
+---
+
+# Hlavní části laserové tiskárny
+
+Laserová jednotka
+
+
+
+Vytváří přesný světelný paprsek, který kreslí obraz na fotoválec.
+
+
+
+zdroj: PC Tuning
+
+zdroj: zde
+
+Fotoválec (OPC válec)
+
+
+
+Citlivý na světlo, mění náboj tam, kde dopadne laser.
+
+
+
+Tonerová kazeta
+
+
+
+Obsahuje jemný prášek – směs plastu, barviva a kovu.
+
+Přenosový mechanismus
+
+
+
+Přenáší toner z válce na papír pomocí elektrostatických sil.
+
+
+
+Zažehlovací jednotka (fuser)
+
+
+
+Dva válce – jeden hřející (okolo 200 °C), druhý přítlačný. Zajišťují trvalý tisk.
+
+---
+
+# Offsetový tisk
+
+Ofsetový tisk je moderní tisková technika, kdy se obraz nepřenáší přímo z tiskové desky na papír, ale nejprve na gumový válec (gumový potah) a teprve z něj na výsledný materiál.
+
+Tomu říkáme „offset“ – nepřímý přenos.
+
+Tisk funguje na fyzikálním principu odpuzování vody a mastnoty (inkoustu): místa s obrazem přitahují inkoust, neobrazové plochy přitahují vodu, a tím inkoust odpuzují.
+
+Shrnutí
+
+
+
+Ofset = nepřímý tisk z desky přes gumový potah na materiál.
+
+Funguje díky odpuzování vody a mastnoty.
+
+Je vhodný pro velké série díky kvalitě a nízkým nákladům na kus.
+
+Stále nejrozšířenější metoda profesionálního tisku.
+
+Používaný v knihách, časopisech, obalech i reklamních materiálech.
+
+---
+
+# Využití ofsetového tisku v praxi
+
+Ofset se používá téměř všude, kde je potřeba velkoobjemový, přesný a kvalitní tisk.
+
+
+
+Tiskoviny
+
+
+
+knihy, učebnice, časopisy, noviny
+
+plakáty, letáky, katalogy
+
+ 
+
+Reklamní materiály
+
+
+
+brožury, firemní tiskoviny, vizitky
+
+Obalový průmysl
+
+
+
+potisk krabic, obalů, kartonových výseků
+
+ 
+
+Speciální použití
+
+
+
+potisk na kov, plast, textil s vhodnou povrchovou úpravou
+
+---
+
+# Tisková hlava
+
+Tisková hlava – nejdražší část, obsahuje jehličky.
+
+Ovládána elektromagnety.
+
+zdroj: zde
+
+zdroj tamtéž
+
+---
+
+# Klávesnice
+
+Typy klávesnic dle technologií
+
+
+
+1. mechanické,  pružinové - jasná zpětná vazba, možnost měnit jednotlivá tlačítka, spínače membránové - jedna membrána pro celou klávesnici, vodě a prachuodolná pěnové - místo pružinky je pro návrat tlačítka zpět použita pěna
+
+2. magnetické - využívají permanentního magnetu a změny magnetického pole - Hallův efekt nejkvalitnější a nejspolehlivější, velice drahé
+
+3. senzorické - tvořena dvěma kontakty těsně vedle sebe, přiložením prstu se vytvoří vodivé spojení
+
+4. kapacitní - využívá změn kapacity mezi pevnou elektrodou a pružnou membránou
+
+5. optické - stisk klávesy přeruší světelný paprsek uvnitř klávesnice
+
+6. projekční - zpravidla projektována laserem na plochu a snímá se přerušení laserového paprsku
+
+zdroj: You Tube
+
+Mechanická klávesnice
+
+
+
+zdroj: datart
+
+Magnetická klávesnice
+
+
+
+zdroj: zde
+
+senzorická klávesnice
+
+
+
+zdroj: zde
+
+kapacitní klávesnice
+
+
+
+zdroj: zde
+
+projekční klávesnice
+
+
+
+zdroj: zde
+
+optická klávesnice
+
+
+
+zdroj: zde
+
+zdroj: Cyber Security
+
+---
+
+# Jak zjistím velikost sektoru? ↔
+
+Windows
+
+PowerShell
+
+
+Get-PhysicalDisk | 
+Select-Object DeviceId, MediaType, LogicalSectorSize, PhysicalSectorSize
+
+Linux
+
+BASH
+
+cat /sys/block/sda/queue/hw_sector_size # Fyzická velikost sektoru
+
+cat /sys/block/sda/queue/logical_block_size # Logická velikost sektoru
+
+případně
+
+sudo fdisk -l /dev/sda
+
+---
+
+# video
+
+
+
+---
+
+# Princip fungování joysticku / gamepadu
+
+
+
+---
+
+# Bluejacking
+
+"útok", kdy jsou na napadené zařízení zasílány nevyžádané zprávy
+
+útočník "tajně" spáruje své zařízení se zařízením oběti
+
+útočník nemá žádný přístup k datům v napadeném zařízení
+
+možný způsob zasílání phishingových zpráv
+
+---
+
+# Video
+
+
+
+---
+
+# LBA - Logical Block Addressing
+
+moderní způsob adresování dat na pevných discích (HDD) a SSD
+
+užíá se místo staršího způsobu CHS (Cylinder-Head-Sector), který adresoval data podle fyzického umístění na disku
+
+LBA používá jednotnou číselnou adresaci bloků dat
+
+každý blok (sektor) na disku má přiřazené unikátní číslo (LBA adresa) → usnadňuje přístup k datům a zjednodušuje řízení práce s diskem
+
+ 
+
+Logická a fyzická velikost sektoru
+
+Fyzická velikost sektoru (Physical Sector Size) – skutečná velikost sektoru, jak je organizován na úložném médiu
+
+Logická velikost sektoru (Logical Sector Size) – velikost sektoru, jak ji vidí operační systém
+
+
+
+Možné kombinace logických a fyzických sektorů
+
+
+Logická velikost sektoruFyzická velikost sektoruTyp disku
+
+512B512BStaré HDD, staré SSD
+
+512B4KHDD s 512e (512-byte emulation)
+
+4K4KModerní SSD, HDD s 4Kn (native 4K)
+
+
+512e (512-byte emulation) – disk se chová jako 512B disk, ale uvnitř pracuje s 4K sektory
+
+ 4Kn (native 4K) – disk používá nativně 4K sektory bez emulace
+
+---
+
+# LED tiskárny
+
+LED tiskárna je zařízení velmi podobné laserové tiskárně, ale namísto laseru používá LED diody v řadě k vytvoření obrazu na fotosenzitivním válci.
+
+
+
+LED tiskárna má méně pohyblivých částí, proto:
+
+je spolehlivější a méně poruchová,
+
+často rychlejší,
+
+obvykle tišší,
+
+kompaktnější než laserová tiskárna.
+
+zdroj: alza
+
+zdroj: alza
+
+Shrnutí
+
+
+
+LED tiskárna funguje téměř stejně jako laserová, ale místo laseru používá LED diody.
+
+Má méně mechanických částí, což znamená vyšší spolehlivost, tišší provoz a rychlejší tisk.
+
+Historicky ji první vyvinula firma OKI, dnes se používají i moderní technologie jako S‑LED a OLED D2 Exposure.
+
+LED tiskárny jsou vhodné do škol, kanceláří, firem a pro kvalitní profesionální tisk.
+
+---
+
+# Praktické využití v běžném životě
+
+HDD
+
+
+
+Archivace videí a fotografií.
+
+Zálohování dat ve velkém množství.
+
+NAS servery – velká kapacita za nízkou cenu.
+
+SSD
+
+
+
+Rychlé pracovní stanice, kancelářské PC.
+
+Herní počítače (kratší načítání her).
+
+Notebooky – nízká spotřeba a odolnost.
+
+NVMe
+
+
+
+Profesionální editace videa (4K/8K).
+
+Servery a virtualizace.
+
+Náročné aplikace s vysokým počtem I/O operací.
+
+Jak vybrat interní disk?
+
+
+
+Pro běžné používání: SATA SSD (nejlepší poměr výkon/cena).
+
+Pro herní PC a náročné aplikace: NVMe SSD.
+
+Pro archivaci a velké objemy: HDD.
+
+Jak se starat o disk?
+
+
+
+Nevystavovat otřesům (u HDD).
+
+Pravidelně zálohovat.
+
+Udržovat dostatečnou volnou kapacitu (hlavně u SSD).
+
+Nepoužívat defragmentaci na SSD.
+
+---
+
+# NAS, SAN, DAS ...
+
+vysokokapacitní síťová zařízení pro ukládání dat - networked storage devices
+
+slouží k centralizovanému, spolehlivému a efektivnímu ukládání velkého množství dat, která jsou dostupná více uživatelům nebo systémům v síti
+
+typicky se používají v datových centrech, podnikových IT infrastrukturách a prostředích s vysokými nároky na dostupnost a výkon
+
+ 
+
+Klíčové parametry při výběru vysokokapacitního síťového úložiště
+
+Kapacita a škálovatelnost
+
+Výkon (IOPS, propustnost)
+
+Dostupnost a redundance (RAID, replikace, snapshoty)
+
+Bezpečnost (šifrování, přístupová práva)
+
+Správa a monitoring
+
+Podpora virtualizace a integrace do IT infrastruktury
+
+---
+
+# Jehličky
+
+Jehličky – průměr cca 0,2–0,3 mm, maticové uspořádání.
+
+zdroj: zde
+
+zdroj: zde
+
+---
+
+# Jak funguje externí SSD (princip)
+
+Princip ukládání dat
+
+
+
+data se ukládají do paměťových buněk (tranzistorů)
+
+buňka obsahuje nebo neobsahuje elektrony
+
+
+
+náboj = 1
+
+bez náboje = 0
+
+Čtení dat
+
+
+
+řadič změří napětí v buňce
+
+podle hodnoty pozná 0 nebo 1
+
+Zápis dat
+
+
+
+pomocí elektrického napětí se „vloží“ elektrony do buňky
+
+Mazání dat
+
+
+
+buňky se mažou po blocích (ne jednotlivě)
+
+rozdíl oproti HDD: žádný pohyb → okamžitý přístup
+
+---
+
+# Video
+
+
+
+---
+
+# Princip fungování sublimační tiskárny
+
+Zjednodušeně:
+
+
+
+Na počítači se vytvoří obrázek.
+
+Sublimační tiskárna ho vytiskne na speciální papír pomocí speciálního inkoustu.
+
+Papír se položí na předmět (např. tričko).
+
+Ten je vložen do tepného lisu – vysoká teplota způsobí, že barvivo se mění v plyn.
+
+Plyn pronikne do vláken polyesteru nebo polymerové vrstvy.
+
+Po vychladnutí je obrázek trvanlivě „uvnitř“ materiálu.
+
+Technický popis
+
+
+
+Proces využívá sublimační barviva, která se při teplotách cca 180–220 °C mění na plynnou formu a difundují do povrchu polymerních materiálů.
+
+Molekulární vazba způsobí trvalé spojení barviva s povrchem.
+
+
+
+Podmínky:
+
+vysoká teplota,
+
+přítlak (lis),
+
+polyesterová vlákna nebo polymerní povrch.
+
+---
+
+# Grafický tablet
+
+Grafický tablet
+
+
+
+Umožňuje kreslení a psaní rukou.
+
+Používá se v grafickém designu, CAD aplikacích.
+
+zdroj: datart
+
+zdroj: zde
+
+---
+
+# RFID
+
+RFID  - Radio Frequency Identification
+
+bezdrátová /bezkontaktní výměna informací mezi RFID transpordérem (tagem) a RFID čtečkou/zapisovačkou
+
+RFID tag 
+- integrovaný obvod (čip)
+- anténa + cívka
+- některé tagy mohou obsahovat i baterii
+
+tagy se nejčastěji používají jako přívěsky nebo etikety
+
+někdy se používají v kombinaci s čárovým kódem
+
+možno uložit až 8 kB dat
+
+Jak to funguje
+
+RFID Tag se přiblíží k RFID čtečce
+
+ čtečka vysílá elmgn. záření (vlnění, signál)
+
+v anténě Tagu toto záření indukuje el. proud, pomocí kterého je vyčtena (zapsána) potřebná informace z integrovaného obvodu a vyslána přes anténu
+
+čtečka tato data zachytí a dále zpracuje
+
+Výhody
+
+data z RFID tagů lze číst bez přímé viditelnosti
+
+zapsaná data lze snadno měnit
+
+vysoká spolehlivost i za extrémních podmínek
+
+velmi rychlé čtení přinášející výraznou úsporu času
+
+Využití
+
+správa zásob
+
+sledování majetku
+
+sledování osob
+
+řízení přístupu do vyhrazených prostor
+
+prevence padělání (například ve farmaceutickém průmyslu)
+
+Používané frekvence
+
+125 nebo 134 kHz
+
+na velmi krátké vzdálenosti
+
+
+13,56 MHz
+
+nejběžnější
+
+
+860-950 MHz
+
+na velké vzdálenosti
+
+v Evropě zatím není schválena
+
+---
+
+# Jak funguje Wi-Fi
+

@@ -31,6 +31,8 @@ const groups = [
   { file: 'cislicova_technika_exercises.js', variable: 'DIGITAL_TECHNICS_EXERCISES' },
   { file: 'pocitacova_grafika_exercises.js', variable: 'PC_GRAPHICS_EXERCISES' },
   { file: 'elektrotechnika_exercises.js', variable: 'ELECTROTECHNICS_EXERCISES' },
+  { file: 'kyberneticka_bezpecnost_exercises.js', variable: 'CYBERSECURITY_EXERCISES' },
+  { file: 'hardware_exercises.js', variable: 'HARDWARE_EXERCISES' },
 ];
 
 const allowedTypes = new Set(['choice', 'multi', 'match', 'order', 'scenario', 'diagnostic', 'classification', 'compare', 'image-choice', 'text', 'code', 'fill', 'number', 'conversion']);

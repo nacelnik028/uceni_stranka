@@ -1,5 +1,23 @@
 # Kontrolní zpráva projektu Procvičovna
 
+## Hardware – 6. 10. 2026
+
+- Přidáno 150 úloh v 15 tématech: 94 výběrových, 20 scénářů, 7 s více odpověďmi, 9 přiřazovacích, 13 otevřených vysvětlení, 5 výpočtů a 2 řazení navazujících kroků.
+- Celý katalog obsahuje 740 úloh a 740 unikátních ID. Knihovna má 20 přehledů pro 10 předmětů; dvě nová opakování jsou pro SSD a USB.
+- Prošly oba datové validátory, `scripts/test_question_rules.js`, kontroly syntaxe upravených JavaScriptů a `git diff --check`.
+- Headless Microsoft Edge: karta Hardware, 15 tematických karet a celá sada 150 úloh. Přes skutečné ovládací prvky bylo u všech 137 automaticky hodnocených úloh ověřeno přijetí správné a odmítnutí chybné odpovědi. U všech 13 otevřených otázek ověřeno zobrazení vzorového řešení.
+- Ověřeny dva přehledy a otevření článku USB. Scénář v režimu Test má neutrální okamžitou odezvu a skrývá řešení. Mobilní viewport 390 × 844 px bez vodorovného přetékání a bez `pageerror`.
+- Podklad: text 963 obsahových podstránek OrgPadu Hardware 2. ročník. Obrázky, videa a externí přílohy nebyly přepisovány; výběr otázek a zpřesnění podkladu dokumentuje `materialy/hardware/zdroj/README.md`.
+
+## Kybernetická bezpečnost – 6. 10. 2026
+
+- Nový modul: 110 úloh v 11 tématech (68 výběrových, 18 scénářů, 8 s více odpověďmi, 4 přiřazovací a 12 otevřených vysvětlení).
+- Aktivní katalog nyní obsahuje 590 úloh s 590 unikátními ID; knihovna 18 přehledů pro 9 předmětů.
+- Prošly `node scripts/validate_questions.js`, `node scripts/validate_study_guides.js`, `node scripts/test_question_rules.js`, kontroly syntaxe a `git diff --check`.
+- Headless Microsoft Edge: otevření karty nového modulu, všech 11 témat a celé sady 110 úloh. U všech 98 automaticky hodnocených úloh ověřena správná odpověď přes skutečné ovládací prvky; u všech 12 otevřených úloh zobrazení řešení bez automatické známky.
+- Režim Test u scénáře nezobrazuje okamžitou známku ani řešení. Na mobilním viewportu 390 × 844 px bez vodorovného přetékání; žádné `pageerror`.
+- Podklad je textový export OrgPadu; obrázky, videa a externí přílohy nebyly přepisovány. Otázky pokrývají hlavní učivo, nikoli každou jednotlivou buňku.
+
 ## Sjednocení vzhledu – 4. 10. 2026
 
 - Chromium: úvod, témata, knihovna a článek při šířkách 320, 375, 390, 768 a 1280 px v obou motivech, bez vodorovného přetékání.

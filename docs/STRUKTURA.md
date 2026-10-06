@@ -48,6 +48,10 @@ procvicovna-github/
 
 Aktivní otázky jsou v `data/*.js`. Zdrojové materiály nejsou načítané přímo webem. Modul `Počítačová grafika` má vlastní runtime data v `data/pocitacova_grafika_exercises.js`; přiložené infografiky se zobrazují přímo u vybraných úloh.
 
+Modul `Kybernetická bezpečnost` načítá `data/kyberneticka_bezpecnost_exercises.js` do pole `CYBERSECURITY_EXERCISES`, které aplikace připojí ke společnému katalogu. Obsahuje 110 úloh v 11 tématech. Zdroj a textový export OrgPadu jsou v `materialy/kyberneticka-bezpecnost/zdroj/`; dvě stručná opakování jsou v `data/study_guides.js`. Oba datové validátory zahrnují nový modul.
+
+Modul `Hardware` používá `data/hardware_exercises.js` a pole `HARDWARE_EXERCISES`. Obsahuje 150 úloh v 15 tématech; zdrojový text a redakční zpřesnění jsou v `materialy/hardware/zdroj/`. Knihovna zahrnuje dvě navazující opakování SSD a USB. Modul je zahrnut v obou validátorech a v runtime načítání z `index.html`.
+
 ## Kde se upravuje aplikace
 
 - `index.html` – struktura stránky a CSS

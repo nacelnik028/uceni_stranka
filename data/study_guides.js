@@ -244,3 +244,73 @@ window.STUDY_GUIDES = [
   "source": "materialy/elektrotechnika/zdroj/elektrotechnika.md"
 }
 ];
+
+window.STUDY_GUIDES.push(
+  {
+    id: 'kybez-pristup', subject: 'Kybernetická bezpečnost', topic: 'Identity a řízení přístupu',
+    title: 'Identita, role a nejmenší potřebná práva', minutes: 3,
+    intro: 'Autentizace ověřuje identitu, autorizace určuje povolené činnosti. Účet má mít jen práva potřebná pro svou úlohu.',
+    sections: [
+      { title: 'Tři navazující principy', points: [
+        'PoLP omezuje oprávnění na nezbytné minimum, případně jen na dobu konkrétního úkolu.',
+        'RBAC přiděluje práva rolím. Uživatel je získává členstvím v roli; při změně pracovní pozice se nepotřebné role odebírají.',
+        'Zero Trust nepovažuje zařízení za důvěryhodné jen proto, že je ve vnitřní síti. Přístup musí být ověřen a omezen.',
+      ] },
+      { title: 'Příklad', text: 'Účetní smí měnit faktury, ale nemá spravovat doménu. Správce používá běžný účet pro e-mail a privilegovaný účet jen pro správu. Audit umožňuje zjistit, kdo svá práva použil.' },
+    ],
+    mistake: 'Oprávnění se nemají při každé změně práce pouze přidávat. Hromadění starých přístupů zvyšuje dopad napadení účtu.',
+    source: 'materialy/kyberneticka-bezpecnost/zdroj/orgpad-KYBEZ-2-rocnik.txt', sourceLabel: 'Podklad: OrgPad KYBEZ 2. ročník – textový export',
+  },
+  {
+    id: 'kybez-linux-prava', subject: 'Kybernetická bezpečnost', topic: 'Linux: soubory a oprávnění',
+    title: 'Čtení unixových oprávnění', minutes: 3,
+    intro: 'Základní unixový model rozlišuje vlastníka, skupinu a ostatní. Každá třída má u běžného souboru práva čtení, zápisu a spuštění.',
+    sections: [
+      { title: 'Symboly a čísla', points: [
+        'r = čtení = 4, w = zápis = 2, x = spuštění = 1. Číslice je součtem povolených práv.',
+        'rwxr-xr-- odpovídá 754: vlastník má 7, skupina 5, ostatní 4.',
+        'chmod mění práva, chown vlastníka a skupinu. ls -l zobrazí aktuální stav.',
+      ] },
+      { title: 'Příklad', code: 'chmod 600 hesla.txt\nchmod u+x skript.sh', text: '600 umožní vlastníkovi číst a zapisovat a nepřidělí základní práva skupině ani ostatním. Druhý příkaz přidá vlastníkovi skriptu právo spuštění.' },
+      { title: 'Zvýšená oprávnění', text: 'sudo zvyšuje práva pro povolené operace. Jeho pravidla upravuj nástrojem visudo s kontrolou syntaxe. Nepotřebné SUID programy mohou zvyšovat riziko eskalace práv.' },
+    ],
+    mistake: '777 je plošné povolení čtení, zápisu a spuštění, nikoli univerzální oprava přístupu. Práva adresářů mají jiný kontext než práva běžných souborů.',
+    source: 'materialy/kyberneticka-bezpecnost/zdroj/orgpad-KYBEZ-2-rocnik.txt', sourceLabel: 'Podklad: OrgPad KYBEZ 2. ročník – textový export',
+  }
+);
+
+window.STUDY_GUIDES.push(
+  {
+    id: 'hw-ssd', subject: 'Hardware', topic: 'SSD a NAND flash',
+    title: 'SSD: flash, TRIM a opotřebení', minutes: 3,
+    intro: 'SSD ukládá data do nevolatilní flash paměti. Nemá pohyblivé hlavy ani plotny; řadič spravuje umístění dat, zápisy a opravy chyb.',
+    sections: [
+      { title: 'Jak je paměť organizovaná', points: [
+        'NAND se programuje po stránkách a maže po větších blocích. Platná data se mohou při údržbě přesouvat.',
+        'SLC ukládá 1 bit do buňky, dvoubitové MLC 2, TLC 3 a QLC 4. Vlastnosti celého SSD ovlivňuje i řadič a provedení paměti.',
+        'FTL mapuje logické adresy z počítače na fyzická místa ve flash. Wear leveling rozkládá zápisy a mazání, aby se neopotřebovávala jen část bloků.',
+      ] },
+      { title: 'TRIM a obnova dat', text: 'Systém pomocí TRIM informuje disk o logických blocích, které už nepotřebuje. Řadič je může uvolnit při údržbě. To může ztížit obnovu smazaných souborů, ale není to záruka okamžitého bezpečného vymazání.' },
+      { title: 'Příklad', text: 'Aplikace přepíše malý soubor, ale řadič může při úklidu přesouvat i další platná data. Interně tedy může zapsat více bajtů než hostitel; tomu se říká write amplification.' },
+    ],
+    mistake: 'SSD není samo o sobě záloha. Údržba paměti, ECC a odolnost proti otřesům nechrání před každou ztrátou dat.',
+    source: 'materialy/hardware/zdroj/orgpad-hardware-2-rocnik.txt', sourceLabel: 'Podklad: OrgPad Hardware 2. ročník – textový export',
+  },
+  {
+    id: 'hw-usb', subject: 'Hardware', topic: 'USB a datová rozhraní',
+    title: 'USB-C: konektor, přenos a napájení', minutes: 3,
+    intro: 'USB-C popisuje konektor. Jeho tvar neříká vše o rychlosti, podporovaném obrazu ani nabíjecím výkonu.',
+    sections: [
+      { title: 'Co porovnávat', points: [
+        'Skutečný přenos závisí na portu hostitele, kabelu, připojeném zařízení a případném hubu.',
+        'Video přes USB-C vyžaduje podporovaný režim, například DisplayPort Alt Mode, a vhodný kabel.',
+        'USB Power Delivery vyjednává napájení podle možností zdroje, kabelu a spotřebiče. Vyšší podporovaný výkon zdroje neznamená, že ho zařízení vždy odebírá.',
+        'Zařízení na jednom hubu mohou sdílet propustnost jeho spojení s hostitelem a omezený napájecí rozpočet.',
+      ] },
+      { title: 'Výpočet výkonu', text: 'P = U × I. Při 20 V a 3 A je výkon 60 W.' },
+      { title: 'Bity a bajty', text: 'Při 8 bitech na bajt odpovídá 480 Mb/s teoreticky 60 MB/s. Jde o převod bez režie; skutečná rychlost souborů bývá nižší.' },
+    ],
+    mistake: 'Stejný konektor nezaručuje stejné funkce. Kabel určený hlavně pro nabíjení nemusí podporovat požadovaný rychlý přenos nebo obraz.',
+    source: 'materialy/hardware/zdroj/orgpad-hardware-2-rocnik.txt', sourceLabel: 'Podklad: OrgPad Hardware 2. ročník – textový export',
+  }
+);
