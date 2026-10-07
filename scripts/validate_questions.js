@@ -33,6 +33,7 @@ const groups = [
   { file: 'elektrotechnika_exercises.js', variable: 'ELECTROTECHNICS_EXERCISES' },
   { file: 'kyberneticka_bezpecnost_exercises.js', variable: 'CYBERSECURITY_EXERCISES' },
   { file: 'hardware_exercises.js', variable: 'HARDWARE_EXERCISES' },
+  { file: 'operacni_systemy_exercises.js', variable: 'OPERATING_SYSTEMS_EXERCISES' },
 ];
 
 const allowedTypes = new Set(['choice', 'multi', 'match', 'order', 'scenario', 'diagnostic', 'classification', 'compare', 'image-choice', 'text', 'code', 'fill', 'number', 'conversion']);

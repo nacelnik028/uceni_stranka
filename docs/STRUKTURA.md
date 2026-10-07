@@ -52,6 +52,8 @@ Modul `Kybernetická bezpečnost` načítá `data/kyberneticka_bezpecnost_exerci
 
 Modul `Hardware` používá `data/hardware_exercises.js` a pole `HARDWARE_EXERCISES`. Obsahuje 150 úloh v 15 tématech; zdrojový text a redakční zpřesnění jsou v `materialy/hardware/zdroj/`. Knihovna zahrnuje dvě navazující opakování SSD a USB. Modul je zahrnut v obou validátorech a v runtime načítání z `index.html`.
 
+Modul `Operační systémy` používá `data/operacni_systemy_exercises.js` a pole `OPERATING_SYSTEMS_EXERCISES`: 100 úloh v 10 tématech a dva přehledy. Podklad je v `materialy/operacni-systemy/zdroj/`. Modul načítá `index.html` a kontrolují ho oba datové validátory.
+
 ## Kde se upravuje aplikace
 
 - `index.html` – struktura stránky a CSS

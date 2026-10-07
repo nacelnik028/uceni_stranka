@@ -14,10 +14,11 @@ Statická webová aplikace pro procvičování školních materiálů. GitHub Pa
 - elektrotechnika
 - Kybernetická bezpečnost
 - Hardware
+- Operační systémy
 
 ## Studijní přehledy
 
-Na úvodu je odkaz **Nejdřív si připomenout učivo**, během režimu Učení také **Připomenout učivo**. Knihovna obsahuje 20 stručných přehledů pokrývajících všech deset předmětů. Není úplnou učebnicí všech témat. Obsahuje výklad, příklady, časté chyby a odkaz na podklad. Lze filtrovat podle předmětu a vyhledávat i bez diakritiky.
+Na úvodu je odkaz **Nejdřív si připomenout učivo**, během režimu Učení také **Připomenout učivo**. Knihovna obsahuje 22 stručných přehledů pokrývajících všech jedenáct předmětů. Není úplnou učebnicí všech témat. Obsahuje výklad, příklady, časté chyby a odkaz na podklad. Lze filtrovat podle předmětu a vyhledávat i bez diakritiky.
 
 **Procvičit téma** otevře novou sadu v režimu Učení pro konkrétní předmět a téma, s vymazaným hledáním a filtry typu a obtížnosti. Velikost sady odpovídá aktuální volbě. Při pouhém otevření přehledů ze studia se odpovědi nemění; **Zpět k rozpracované sadě** obnoví původní obrazovku bez překreslení otázek.
 
@@ -128,14 +129,17 @@ Aktivní soubory jsou pouze `index.html`, `app.js`, soubory v `data/` a validát
 <script src="data/elektrotechnika_exercises.js"></script>
 <script src="data/kyberneticka_bezpecnost_exercises.js"></script>
 <script src="data/hardware_exercises.js"></script>
+<script src="data/operacni_systemy_exercises.js"></script>
 <script src="app.js"></script>
 ```
 
-`app.js` pak spojí globální pole `EXERCISES`, `NETWORK_EXERCISES`, `LITERATURE_EXERCISES`, `DIGITAL_TECHNICS_EXERCISES`, `PC_GRAPHICS_EXERCISES`, `ELECTROTECHNICS_EXERCISES`, `CYBERSECURITY_EXERCISES` a `HARDWARE_EXERCISES` do jednoho seznamu.
+`app.js` pak spojí globální pole `EXERCISES`, `NETWORK_EXERCISES`, `LITERATURE_EXERCISES`, `DIGITAL_TECHNICS_EXERCISES`, `PC_GRAPHICS_EXERCISES`, `ELECTROTECHNICS_EXERCISES`, `CYBERSECURITY_EXERCISES`, `HARDWARE_EXERCISES` a `OPERATING_SYSTEMS_EXERCISES` do jednoho seznamu.
 
 Modul **Kybernetická bezpečnost** obsahuje 110 otázek v 11 tématech z OrgPadu KYBEZ 2. ročník: výběr, praktické scénáře, více odpovědí, přiřazování a otevřená vysvětlení s vlastní kontrolou. Každá otázka má řešení a obtížnost. Zdrojový export a vymezení pokrytí jsou v `materialy/kyberneticka-bezpecnost/zdroj/`.
 
 Modul **Hardware** obsahuje 150 otázek v 15 tématech z OrgPadu Hardware 2. ročník. Vedle výběru, scénářů, více odpovědí, přiřazování a otevřených vysvětlení zahrnuje výpočty a řazení navazujících kroků. Podklad a obsahová zpřesnění jsou v `materialy/hardware/zdroj/`, dvě stručná opakování v knihovně učiva.
+
+Modul **Operační systémy** obsahuje 100 otázek v 10 tématech z OrgPadu OSY 2. ročník: souborové systémy, ACL, EFS, kvóty, VSS a práce s PowerShellem. Zdroj a zpřesnění jsou v `materialy/operacni-systemy/zdroj/`; knihovna doplňuje dva přehledy k NTFS ACL a pipeline.
 
 ### Co je v `archiv/`
 

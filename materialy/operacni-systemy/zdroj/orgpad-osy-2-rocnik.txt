@@ -1,0 +1,2333 @@
+﻿OSY - 2. ročník - 26/27
+Zdroj: https://orgpad.info/s/hXrxCHhCtTA?embed=true
+Textový export buněk bez přepisu obrázků a externích příloh.
+
+# Iterace - procházení záznamů
+Příklad
+$data = Import-Csv users.csv -Delimiter ';'
+foreach ($user in $data)
+{
+    $user.Username
+}
+
+---
+
+# exFAT↔
+exFAT - Extended File Allocation Table
+
+vyvinutý společností Microsoft v roce 2006
+
+odstraňuje některé nedostatky
+
+určen zejména pro flash paměti a výměnná média
+
+nabízí podporu velkých souborů a disků při zachování jednoduchosti a kompatibility, která byla typická pro FAT32
+
+standard pro paměťové karty o kapacitě větší než 32 GB, např. SDXC a SDUC
+
+ideální pro přenosná úložiště, která musí být kompatibilní s více systémy, např. záznamová zařízení kamerových systémů apod.
+
+
+
+Použití:
+
+kamery, dronové systémy
+
+přenosná zařízeních pro ukládání velkých multimediálních souborů
+
+infotainment systémy v automobilech
+
+
+
+Hlavní vlastnosti exFAT
+
+podpora velkých souborů
+
+maximální velikost souboru: 16 exabajtů (teoreticky)
+
+běžná implementace omezuje na 128 PB
+
+
+podpora velkých disků
+
+maximální velikost disku: 128 PB
+
+maximální počet souborů v jednom adresáři není teoreticky omezen
+
+
+proměnlivá velikost clusteru
+
+podpora flexibilní velikosti clusterů (1 KB až 32 MB), což umožňuje optimalizaci pro různá zařízení a potřeby
+
+
+kompatibilita
+
+exFAT je široce podporován operačními systémy, jako jsou Windows (od Windows XP SP2 s aktualizací), macOS, Linux (s ovladači), Android ad.
+
+
+nízké režijní náklady
+
+jednoduchý design a absence pokročilých funkcí (např. žurnálování)
+
+rychlý, vhodným pro zařízení s omezeným výkonem
+
+optimalizace pro flash paměti
+
+
+
+
+
+
+
+
+
+Nevýhody exFAT
+
+nízká bezpečnost
+
+nepodporuje funkce zabezpečení na úrovni souborového systému (např. ACL, šifrování)
+
+nevhodný pro systémové disky nebo sdílené prostředí s více uživateli. Odolnost proti chybám
+
+
+nizká spolehlivost
+
+neobsahuje vestavěné mechanismy, jako je např. žurnálování, což zvyšuje riziko ztráty dat při nečekaném výpadku napájení
+
+
+licenční omezení
+
+exFAT je patentovaný systém od Microsoftu, což může omezovat jeho implementaci v některých operačních systémech (např. Linux jej podporuje pouze s dodatečnými moduly nebo open-source implementacemi)
+
+
+nepodporuje kompresi dat
+
+nevhodný pro aplikace vyžadující pokročilé zabezpečení nebo robustní správu dat, což jej činí méně vhodným pro systémové disky a servery
+
+---
+
+# Dokumentace k PS
+https://learn.microsoft.com/cs-cz/powershell/scripting/overview?view=powershell-7.5
+
+
+
+https://learn.microsoft.com/en-us/powershell/module/
+
+---
+
+# NTFS
+NTFS ACE jsou nejbohatší z hlediska typů i flagů. NTFS rozlišuje:
+
+D(iscretionary)ACL – seznam ACE, který řídí přístup (Allow/Deny)
+
+S(ystem)ACL – seznam ACE, který řídí audit (logování úspěchu/neúspěchu)
+
+
+Každá ACE v NTFS obsahuje:
+
+SID (Security Identifier)
+
+jednoznačný identifikátor subjektu (uživatel, skupina, skupina typu „Everyone“, „Authenticated Users“, atd.)
+
+Typ ACE
+
+ACCESS_ALLOWED – povoluje
+
+ACCESS_DENIED – zakazuje
+
+SYSTEM_AUDIT – audit (SACL, loguje Success/Failure pro vybrané operace)
+
+Access mask (práva) – bitová maska
+
+Full Control
+
+Modify
+
+Read & Execute
+
+Read
+
+Write
+
+v detailním nastavení: READ_DATA, WRITE_DATA, DELETE, READ_PERMISSIONS, CHANGE_PERMISSIONS, TAKE_OWNERSHIP atd.
+
+ACE flags – chování a dědičnost:
+
+Dědičnost pro DACL:
+
+OI (Object Inherit) – dědí se na soubory
+
+CI (Container Inherit) – dědí se na podadresáře
+
+IO (Inherit Only) – ACE platí jen na děděných objektech, ne na daném
+
+NP (No Propagate Inherit) – dědí se jen o jednu úroveň níže
+
+
+Dědičnost pro SACL – podobně, ale pro audit
+
+Inherited flag (I) – říká, že tato ACE byla zděděna (nevznikla explicitně na objektu).
+
+Příklad (dle icacls výpisu):
+BUILTIN\Users:(OI)(CI)(RX)
+BUILTIN\Admins:(F)
+BUILTIN\Users:(OI)(CI)(RX) → pro skupinu Users: dědit na soubory i adresáře, práva Read & Execute.
+
+Admins:(F) → Admini mají Full control, bez specifických dědících flagů
+
+---
+
+# Windows
+CLI pro Windows jmenuje příkazový řádek - Command Prompt
+
+Spustí se zadáním příkazu cmd.exe
+
+
+Pokročilejším CLI je PowerShell
+
+---
+
+# Objektová filozofie PS
+v PS cmdlet(příkaz) vrací objekty
+
+objekt
+
+má vlastnosti (Properties)
+
+má metody (Methods)
+
+ad...
+
+
+Příklad:
+
+Výpis procesu jako objektu:
+$p = Get-Process
+$p[0]
+Zobrazení struktury objektu:
+
+Get-Process | Get-Member
+
+---
+
+# Síťové
+Network File System
+
+určeny pro ukládání data na vzdálenných serverech
+
+optimalizovány pro přístup prostřednictvím sítě
+
+často využívají hierarchickou strukturu, jejich hlavním rysem je zaměření na síťový přístup, přístup více uživatelů najednou apod.
+
+sdílení souborů mezi více uživateli a zařízeními přes síť, centrální správa dat
+
+závislost na síťovém připojení, problémy s výkonem při vysokém zatížení sítě nebo při nízké rychlosti připojení
+
+Network File System (NFS), Server Message Block (SMB), CIFS (Common Internet File System)
+
+---
+
+# 
+
+
+---
+
+# Příkazový řádek
+Command Prompt
+
+Spustí se zadáním příkazu cmd.exe
+
+
+
+Kompletní seznam příkazů pro Příkazový řádek
+
+https://learn.microsoft.com/cs-cz/windows-server/administration/windows-commands/windows-commands
+
+---
+
+# FAT ↔
+File Allocation Table
+
+ vyvinutý společností Microsoft
+
+hierarchická struktura
+
+dnes se používá se zejména v přenosných médiích, jako jsou USB flash disky a SD karty, protože je široce kompatibilní s mnoha operačními systémy
+
+několik verzí FAT: FAT12, FAT16, FAT32 a exFAT, přičemž každá má svá specifika 
+
+
+
+Výhody
+
+Široká kompatibilita -  podporován většinou operačních systémů (Windows, macOS, Linux, Android atd.)
+
+Jednoduchost -  snadná implementace a nízké nároky na hardware
+
+Nevýhody
+
+Nízká bezpečnost - chybí zabezpečení na úrovni souborů a složek (např. oprávnění)
+
+Fragmentace - tendence se fragmentovat, což snižuje výkon
+
+Omezení velikosti - nepodporuje větší soubory, dle typu
+
+
+Boot sector
+
+na začátku disku (zařízení)
+
+může zde být umístěn kód, který umožňuje zavést operační systém při bootování - boot loader
+
+je umístěn na začátku každého oddílu a obsahuje klíčové informace o struktuře a konfiguraci systému souborů na disku
+
+velikost boot sektoru u souborového systému FAT je obvykle 512 bajtů
+
+Těchto 512 bytů obsahuje:
+
+Skokový příkaz: kód pro inicializaci zaváděcí sekvence
+
+OEM identifikace: identifikace výrobce nebo systému
+
+Velikost sektoru pro ukládání dat: obvykle 512 bajtů (tento údaj je klíčový pro správné čtení sektorů na médiu).
+
+Počet sektorů na cluster: určuje velikost clusteru.
+
+Počet FAT tabulek: obvykle 2, což umožňuje vytvoření záložní kopie FAT tabulky.
+
+Velikost FAT tabulky: počet sektorů potřebných pro jednu FAT tabulku.
+
+Počet adresářových položek: omezuje počet souborů a složek, které mohou být v kořenovém adresáři (u FAT12 a FAT16)
+
+Typ systému souborů: identifikace verze FAT (např. FAT16, FAT32...)
+
+Volitelný zaváděcí kód: používá se při zavádění operačního systému, pokud je oddíl bootovací
+
+
+
+
+File Allocation Table
+
+Tabulka přidělení souborů
+
+uchovává informace o obsazení clusterů - kterým souborem je obsazen
+
+uchovává tedy informaci o tom, kde, na které části, ve kterém clusteru (clusterech) je soubor uložen
+
+každý cluster má v tabulce svůj záznam, který určuje, zda je cluster volný, obsazený, nebo zda je součástí určitého souboru
+
+udržuje zřetězený seznam clusterů, což znamená, že záznam jednoho clusteru může ukazovat na následující cluster daného souboru souboru
+
+pro zvýšení spolehlivosti existují obvykle dvě kopie FAT tabulky
+
+---
+
+# moderní Linux, BSD, ZFS - NFSv4 ACL
+NFSv4 ACL má pokročilejší systém dědičnosti, podobný NTFS
+
+používají se Flagy (značky) určující dědičnost
+
+FILE_INHERIT (FI) – položka se dědí na nové soubory
+
+DIRECTORY_INHERIT (DI) – položka se dědí na nové adresáře
+
+INHERIT_ONLY (IO) – položka se nepoužije pro aktuální objekt, jen se předává dál
+
+NO_PROPAGATE_INHERIT (NP) – dědičnost končí v následující úrovni - nepřenáší se dál
+
+
+Příklad:
+
+Adresář /data má ACE
+
+student@domain:rwax (FILE_INHERIT, DIRECTORY_INHERIT)
+
+nově vytvořený soubor i podadresář získají ACL, které obsahuje oprávnění pro uživatele student
+
+nový podadresář navíc zdědí stejné dědičné příznaky, takže dědičnost pokračuje
+
+---
+
+# ABAC – Attribute-Based Access Control
+přístup řízen kombinací atributů
+
+nejflexibilnější model, používaný hlavně v cloudu, API, moderních aplikacích
+
+Princip
+
+Přístup je řízen politikami, které vyhodnocují atributy:
+
+Uživatel – věk, oddělení, certifikace, MFA, lokalita, role…
+
+Objekt – klasifikace, typ, vlastník…
+
+Akce – read, write, delete…
+
+Kontext – čas, IP adresa, rizikové skóre, typ zařízení, geolokace…
+
+Politika (policy) má tvar:
+Allow if user.department == "IT" AND request.time < 18:00 AND file.classification = "internal"
+Vlastnosti
+
+vysoká bezpečnost, Zero Trust
+
+extrémně flexibilní, programovatelné
+
+umožňuje dynamické podmínky (čas, místo, typ zařízení)
+
+složitější na testování a údržbu
+
+Příklady
+
+AWS IAM policy
+
+OAuth2 / Open Policy Agent
+
+S3 bucket policies
+
+Zero Trust security systémy (kontrola kontextu)
+
+---
+
+# Klíče uživatele
+k šifrování FEK se použije veřejný klíč uživatele
+
+k dešifrování FEK se použije soukromý klíč uživatele
+
+oba dva klíče jsou uloženy v úložišti certifikátů Windows v Osobní → Certifikáty
+
+
+
+
+
+
+
+veřejný klíč je uložen také v systémovém registru
+
+
+HKEY_CURRENT_USER\Software\Microsoft\SystemCertificates\EFS
+
+
+
+privátní klíč je uložen také v systémovém registru 
+
+
+HKEY_CURRENT_USER\Software\Microsoft\SystemCertificates\My
+
+
+je zde ale šifrovaný, není je možné běžně číst
+
+
+dále jsou privátní klíče ukládány na disk do speciální složky
+
+
+C:\Users\%USERNAME%\AppData\Roaming\Microsoft\Crypto\RSA
+
+
+klíče jsou zde zašifrované a chráněné systémem.
+
+každý uživatel má vlastní složku s šifrovanými klíči.
+
+k těmto souborům se běžný uživatel nedostane přímo, protože jsou chráněné Data Protection API (DPAPI)
+
+doporučuje se oba kíče vyexportovat a zálohovat pro případ potřeby
+
+---
+
+# Linux - UNIX - POSIX ACL
+Typy ACL
+
+Access ACL
+aktuální přístupová práva (platí pro daný soubor/adresář)
+
+dále se nedědí
+
+
+Default ACL
+šablona dědičných práv, uložená na adresáři
+
+dědí se, pokud jde o nový adresář
+
+při vytvoření nového souboru v adresáři se jeho Access ACL inicializuje z Default ACL rodiče
+
+
+Chování
+
+pokud adresář má Default ACL, pak každý nový:
+
+soubor dostane jako Access ACL kopii Default ACL rodiče
+
+adresář dostane:
+
+Access ACL z Default ACL rodiče
+
+a vlastní Default ACL – opět zkopírovanou z rodiče
+
+---
+
+# Boot sector
+je umístěn na začátku každého oddílu (partition)
+
+obsahuje klíčové informace o struktuře a konfiguraci systému souborů na disku
+
+velikost je zpravidla 512 B
+
+
+v těchto 512 B je zahrnuto:
+
+Skokový příkaz: kód pro inicializaci zaváděcí sekvence.
+
+OEM identifikace: identifikace výrobce nebo systému.
+
+Velikost sektoru: obvykle 512 bajtů 
+
+Počet sektorů na cluster: určuje velikost clusteru.
+
+Počet FAT tabulek: obvykle 2, což umožňuje vytvoření záložní kopie FAT tabulky.
+
+Velikost FAT tabulky: počet sektorů potřebných pro jednu FAT tabulku.
+
+Počet adresářových položek: omezuje počet souborů a složek, které mohou být v kořenovém adresáři (u FAT12 a FAT16).
+
+Typ systému souborů: identifikace verze FAT (např. FAT16 nebo FAT32).
+
+Volitelný zaváděcí kód: používá se při zavádění operačního systému, pokud je oddíl bootovací - bootloader
+
+---
+
+# 
+
+
+---
+
+# Klíčové pojmy
+ACE - Access Control Entry
+jednotlivý záznam v ACL
+
+určuje konkrétní oprávnění pro uživatele nebo skupinu
+
+Každý ACE obsahuje
+
+Subjekt: Uživatel, skupina, nebo speciální entita (např. všichni uživatelé)
+
+Akce: Povolení (Allow) nebo zamítnutí (Deny)
+
+Oprávnění: Druhy akcí, které jsou povoleny nebo zakázány (např. čtení, zápis, mazání).
+
+
+
+Explicitní a implicitní ACL
+Explicitní: ACL, která byla přímo nastavena správcem nebo oprávněným uživatelem či procesem
+
+Implicitní (default): výchozí ACL, která se aplikuje na nově vytvořené soubory a složky, zpravidla na základě dědění
+
+
+Maska:
+
+v některých systémech definuje maximální úroveň oprávnění, které mohou být aplikovány na skupiny nebo jiné subjekty
+
+---
+
+# File ACL
+používá se pro řízení přístupu k souborům a složkám v operačních systémech (např. NTFS v Windows nebo ext4 v Linuxu)
+
+metoda správy přístupu k souborům a složkám v souborových systémech
+
+umožňuje přesné nastavení přístupových práv pro jednotlivé uživatele nebo skupiny
+
+poskytuje větší flexibilitu než tradiční modely řízení přístupu (např. pouze uživatel / skupina / jiní)
+
+Základní principy File ACL
+
+Hierarchická kontrola přístupu
+každý soubor nebo složka může mít připojen seznam pravidel (ACL), který definuje, jaké akce (čtení, zápis, spouštění) jsou povoleny konkrétním uživatelům nebo skupinám
+
+objekty níže v hierarchii mohou dědit pravidla od nadřízeného objektu
+
+
+Detailní přístupová práva
+narozdíl od jednoduchých oprávnění (např. chmod v Linuxu), ACL umožňuje definovat oprávnění specifická pro více uživatelů a skupin najednou
+
+tato oprávnění jsou mnohem detailnější a pdrobnější
+
+
+Flexibilní správa přístupu
+můžeme přiřadit různá oprávnění jednotlivým uživatelům, skupinám nebo výchozímu nastavení pro nově vytvořené objekty
+
+---
+
+# Pipeline
+pipeline (|) slouží k předávání objektů v rámci jednotlivých částí cmdletu
+
+výstup (výsledek) jedné části cmdletu slouží jako vstup další části cmdletu
+
+Příklad:
+
+výpis procesů se zatížením CPU větším jak 100 s 
+Get-Process | Where-Object CPU -gt 100 | Sort-Object CPU -Descending
+Get-Process → vrátí běžící procesy jako kolekci objektů 
+
+Where-Object → filtruje procesy podle vlastnosti CPU
+
+Sort-Object → setřídí výstup
+
+Pipeline je:
+
+čitelná
+
+efektivní
+
+základ automatizace
+
+---
+
+# NTFS ↔
+NTFS New Technology File System
+
+souborový systém vyvinutý společností Microsoft a představený v roce 1993 s Windows NT 3.1
+
+hlavní souborový systém pro všechny moderní verze Windows
+
+
+
+Klíčové vlastnosti NTFS
+
+
+
+Velikost souborů a disků
+- maximální velikost souboru teoreticky až 16 exabajtů (EB)
+- běžně omezena na 256 TB (praktická omezení souvisí s hardwarem a operačním systémem)
+- maximální velikost diskového oddílu až 16 exabajtů.
+
+Podpora žurnálování
+- NTFS obsahuje Master File Table (MFT), která uchovává informace o souborech, adresářích a struktuře systému
+- využívá žurnálování k minimalizaci rizika ztráty dat při výpadku napájení nebo systému
+- žurnál zapisuje změny, než jsou provedeny, což umožňuje jejich obnovení v případě selhání
+- používá žurnálování metadat
+
+Zabezpečení dat
+- NTFS podporuje Access Control Lists (ACL) - oprávnění na úrovni souborů a složek (čtení, zápis, spouštění atd.)
+- šifrování souborů (EFS – Encrypting File System) - umožňuje šifrovat data na úrovni souborového systému
+- podpora integrované funkce BitLocker (pro úplné šifrování disku)
+
+Komprese dat
+- podpora integrované podporu komprese souborů a složek
+- komprimované soubory jsou stále dostupné, i když je výkon částečně ovlivněn procesem dekomprese
+
+Podpora velkých disků
+- NTFS je optimalizován pro práci s velmi velkými disky a je schopen efektivně spravovat tisíce souborů i na rozsáhlých diskových polích
+
+Podpora dlouhých názvů souborů
+- názvy souborů až o délce 255 znaků, s podporou Unicode
+
+Quota Management - Správa diskových kvót
+- umožňuje nastavit omezení velikosti úložného prostoru pro jednotlivé uživatele
+
+Podpora symbolických odkazů a pevných odkazů
+- symbolické odkazy (symlinks) - odkazy na jiné soubory nebo adresáře
+- pevné odkazy - soubory, které sdílejí stejná data na disku.
+
+Podpora stínových kopií (Volume Shadow Copy)
+- umožňuje vytvářet zálohy nebo kopie souborů i během jejich používání
+
+Podpora redundance a obnovy
+- NTFS kontroluje konzistenci souborového systému a obsahuje mechanismy pro detekci a opravu chyb (např. pomocí MFT)
+
+
+Nevýhody NTFS
+
+
+
+Kompatibilita
+NTFS je plně podporován pouze Windows a některými verzemi Linuxu (s dodatečnými ovladači)
+
+na macOS lze běžně NTFS disky pouze číst (zápis vyžaduje speciální software)
+
+
+Režijní náklady
+NTFS má vyšší režii než jednodušší souborové systémy (např. FAT32 nebo exFAT)
+
+může negativně ovlivnit výkon na zařízeních se slabším HW
+
+
+Fragmentace
+i když NTFS obsahuje mechanismy ke snížení fragmentace, stále může dojít k fragmentaci souborů, což může snížit výkon
+
+
+
+
+
+
+
+Použití NTFS
+
+
+
+Systémové disky
+standardní souborový systém pro interní pevné disky v operačních systémech Windows.
+
+
+Datová úložiště
+využíván na serverech a v datových centrech díky pokročilým funkcím, jako je zabezpečení, správa dat a redundance
+
+
+Velké objemy dat
+ideální pro práci s velmi velkými soubory a disky (např. virtuální disky, videoarchivy)
+
+---
+
+# ACL - Access Control List
+je mechanismus pro řízení přístupu k prostředkům v počítačových systémech a sítích
+
+definuje pravidla, která určují, kdo nebo co má přístup ke konkrétním prostředkům, jako jsou soubory, složky, zařízení, nebo síťové služby, a jaký druh přístupu je povolen (např. čtení, zápis, provádění)
+
+ACL je tvořen seznamem záznamů o přístupu (Access Control Entry - ACE), kde každý záznam popisuje přístupová práva pro konkrétního uživatele, skupinu nebo entitu
+
+---
+
+# Network ACL
+používá se v síťových prostředích, zejména na routerech a firewallech
+
+kontroluje a omezuje provoz na základě pravidel - rules
+
+Pravidla zahrnují
+
+IP adresy (zdrojová a cílová)
+
+Protokoly (např. TCP, UDP)
+
+Porty (např. 80 pro HTTP, 443 pro HTTPS)
+
+Akce (povolit, zamítnout)
+
+---
+
+# Souborové systémy
+souborový systém - File System (FS)
+
+softwarová / logická struktura
+
+umožňuje OS ukládat, organizovat a spravovat data na úložných zařízeních
+
+zajišťuje, že OS ví, kde se na disku nacházejí soubory a složky a jakým způsobem má k nim přistupovat
+
+
+
+Hlavní funkce
+
+Organizace dat
+-   FS rozděluje úložný prostor na jednotky pro ukládání dat a tyto jednotky dále organizuje - např. do složek
+
+Správa alokace úložného prostoru
+- FS rozhoduje o tom, kde přesně na disku se budou jednotlivá dat (soubory) ukládat - alokuje prostor pro data
+- tato alokace zajišťuje efektivní využití úložného prostoru a rychlý přístup k datům
+
+Kontrola a ochrana dat
+- FS obsahuje funkce na ochranu integrity dat (např. detekci a opravu chyb, řešení HW závad na úložišti)
+- některé FS jsou schopny řešit i stavy při výpadcích systému
+- zabezpečení přístupu k souborům a příp. šifrování dat (např. Bitlocker)
+
+Přístupová práva
+- u některých FS  lze určit přístupová práva k souborům (ACL - Access Control List)
+- nastavení práv uživatelé k souborům (číst, zapisovat, žádný přístup apod.)
+
+Správa volného místa
+- FS sleduje volný prostor na datovém úložišti a podle toho efektivně přiděluje místo souborům
+
+---
+
+# Jak se ACE vyhodnocují
+vyhodnocování se liší podle OS/FS, ale obecný princip
+
+Systém vytvoří security token uživatele - uživatel + všechny jeho skupiny
+
+Podívá se na ACL objektu (seznam ACE) a v definovaném pořadí prochází ACE:
+
+POSIX ACL: nemá Deny; hledá nejvhodnější user: ACE, případně group: a aplikuje masku
+
+NFSv4/NTFS:
+
+vyhodnocuje se v pořadí ACE
+
+pokud narazí na Deny, který se týká uživatele/skupiny a práva, může přístup ihned zablokovat - Deny "přebíjí" všechno
+
+pokud najde Allow, který pokryje všechna požadovaná práva a není přebit dřívějším Deny, přístup povolí
+
+
+
+
+U NTFS a NFSv4 je tedy pořadí ACE v seznamu kritické:
+
+typicky: nejdřív „specifické Deny“, pak Allow pro konkrétní subjekty, nakonec Allow pro obecné identity („Users“, „Everyone“)
+
+---
+
+# EFS ↔
+Encrypting File System - EFS
+
+technologie šifrování souborů a složek integrovaná do souborového systému NTFS v operačních systémech Windows
+
+není dostupné ve Windows 11 Home, pouze ve vyšších edicích
+
+umožňuje uživatelům bezpečně šifrovat data, aby byla chráněna před neoprávněným přístupem, a to i v případě fyzického přístupu k disku
+
+umožňuje šifrovat jednotlivé soubory nebo celé složky
+
+využívá symetrickou i asymetrickou kryptografii
+
+každý soubor je šifrován jedinečným File Encryption Key - FEK
+
+tento klíč je následně zašifrován veřejným klíčem uživatele, který soubor šifroval
+
+přístup k souboru lze získat pouze s odpovídajícím soukromým klíčem
+
+
+
+Výhody
+
+Transparentní šifrování
+šifrování a dešifrování probíhá automaticky při přístupu k souboru
+
+
+Podpora obnovy
+možnost definovat Recovery Agenta pro obnovu souborů v případě ztráty klíčů
+
+
+Bezpečnost
+šifrování probíhá na úrovni NTFS, což znamená, že je odolné proti přístupu neautorizovaných uživatelů (i při přístupu z jiného operačního systému nebo fyzické krádeži disku)
+
+
+Nevýhody a omezení
+
+vázanost na konkrétní uživatelský účet
+pokud uživatel ztratí svůj certifikát nebo privátní klíč, soubory nelze obnovit bez Recovery Agenta.
+
+
+nekompatibilita s jinými souborovými systémy
+EFS funguje pouze na NTFS, nelze jej použít na FAT32 nebo exFAT
+
+
+šifrování metadat není zajištěno
+jména souborů a jejich atributy nejsou šifrovány, což může poskytnout útočníkovi určité informace o obsahu disku
+
+
+závislost na Windows
+EFS není nativně podporován jinými operačními systémy
+
+
+
+Klíčové komponenty EFS
+
+
+
+File Encryption Key (FEK)
+jedinečný symetrický klíč generovaný pro každý soubor
+
+používá algoritmus AES (Advanced Encryption Standard) s délkou klíče 128, 192 nebo 256 bitů
+
+
+Veřejný a soukromý klíč uživatele
+FEK je šifrován veřejným klíčem uživatele a uložen ve formě EFS Data Decryption Field (DDF)
+
+
+Recovery Agent 
+administrátor nebo určený uživatel s možností obnovy šifrovaných souborů v případě ztráty přístupového klíče
+
+
+Data Recovery Field (DRF)
+šifrován veřejným klíčem Recovery Agenta
+
+obdoba DDF, ale slouží pro obnovu dat pomocí Recovery Agenta
+
+
+
+
+
+
+
+Proces šifrování souboru
+
+Uživatel označí soubor ke šifrování → NTFS zkontroluje, zda má uživatel oprávnění k šifrování
+
+Generování FEK → NTFS vytvoří nový FEK
+
+Šifrování obsahu souboru → FEK je použit k zašifrování souboru pomocí AES
+
+Šifrování FEK → FEK je zašifrován veřejným klíčem uživatele a uložen v NTFS metadatech souboru a to v hlavičce souboru jako rozšířený atribut (DDF).
+
+Zápis do NTFS → soubor je uložen na disk ve šifrované podobě.
+
+Proces dešifrování souboru
+
+Uživatel se přihlásí → Windows načte soukromý klíč uživatele
+
+NTFS přečte DDF → zašifrovaný FEK je dešifrován pomocí soukromého klíče uživatele
+
+Obnova FEK → použití dešifrovaného FEK k dešifrování obsahu souboru
+
+Soubor je zpřístupněn → uživatel může soubor číst nebo upravovat
+
+---
+
+# Založené na databázi
+data se ukládají a spravují pomocí databázového softwaru
+
+soubory a složky jsou být reprezentovány jako záznamy v databázi →  efektivní a rychlé vyhledávání a manipulaci s daty
+
+použití ve velkých datových centrech nebo archivech, kde je třeba provádět komplexní dotazy nad daty (např. systémy digitální správy dokumentů)
+
+rychlé vyhledávání a manipulace s daty, pokročilé možnosti organizace, vhodné pro práci s velkým množstvím záznamů
+
+vysoké nároky na hardware a softwarovou podporu, nevhodné pro běžná úložiště nebo jednoduché použití
+
+Microsoft SQL Server Filestream, Oracle DBFS, IBM Db2
+
+---
+
+# Komprese dat
+NTFS podporuje tzv. transparentní kompresi
+
+pokud je na soubor nebo složku aplikována komprese, uživatelé a aplikace s daty nadále pracují běžným způsobem
+
+operační systém při čtení nebo zápisu tato data průběžně (de)komprimuje, aniž by uživatel něco musel dělat ručně
+
+lze zapnout pro jednotlivé soubory či složky
+
+pokud se zapne na složku, nově vytvořené soubory uvnitř složky budou automaticky ukládány v komprimované podobě
+
+nelze ji používat pro šifrované soubory pomocí vestavěné EFS (Encrypting File System)
+
+pokud se uživatel pokusí zapnout šifrování na již komprimovaný soubor (nebo naopak), systém dovolí pouze jednu z těchto dvou funkcí
+
+využívá se algoritmus LZNT1 - varianta LZ (Lempel–Ziv) komprese
+
+optimalizovaný pro rychlou (de)kompresi při malém datovém objemu, s ohledem na to, že systém dekompresi provádí velmi často
+
+vhodny spíše pro textová či dobře opakující se data (například soubory se zdrojovým kódem, dokumenty apod.)
+
+u již zkomprimovaných formátů (např. ZIP, RAR, MP4, JPEG) má minimální nebo nulový přínos
+
+vhodné pro soubory, kde se očekává určitá úspora místa (např. logy)
+
+---
+
+# Format-List
+výpis ve formátu seznamu „property: value“ pod sebou
+
+vhodné pro detailní výpisy
+
+např. Get-Process | Format-List *
+
+výběr konkrétních vlastností:
+
+Get-NetIPConfiguration | Format-List InterfaceAlias, IPv4Address
+
+---
+
+# Zpracování CSV souboru
+CSV (Comma Separated Values) je textový soubor, který:
+
+slouží k ukládání a přenášení dat 
+
+jednotlivé záznamy jsou ukládána po řádcích
+
+pro oddělování hodnot používá oddělovač polí (čárka, středník, pipe apod.)
+
+první řádek obvykle obsahuje hlavičku  pro označení/pojmenování polí (není povinná)
+
+
+Příklad:
+Username;Password;Role
+novak;Heslo123;Student
+svoboda;Test456;Admin
+
+---
+
+# 
+
+
+---
+
+# Žurnálování - Journalling ↔
+proces, který zajišťuje vyšší odolnost proti chybám a bezpečnost dat při práci s disky
+
+změny (operace) prováděné v souborovém systému se zaznamenávají do speciálního souboru nazývaného žurnál (journal) ještě před jejich provedením a po jejich provedení se ze žurnálu smažou
+
+v případě výpadku systému během prováděné operace je systém schopen provést opravy pomocí záznamů v žurnálu
+
+
+
+Jak žurnálování funguje?
+
+Záznam operace do žurnálu
+
+když má být v souborovém systému provedena nějaká změna (např. vytvoření, úprava nebo smazání souboru), je tato operace nejdříve zapsána do žurnálu jako plánovaná akce
+
+
+Potvrzení změny
+
+po úspěšném zapsání změny do žurnálu je operace fyzicky provedena na disku
+
+
+Odstranění záznamu
+
+po dokončení operace (a jejím úspěšném zapsání na disk) je příslušný záznam ze žurnálu odstraněn nebo označen jako dokončený
+
+
+Po restartu systém zkontroluje obsah žurnálu, najde nedokončené operace a buď je dokončí, nebo vrátí zpět. Tím se minimalizuje ztráta dat a čas potřebný pro obnovení.
+
+
+Typy žurnálování
+
+
+
+Full Journaling (úplné žurnálování)
+
+zaznamenává nejen metadata (informace o souborech), ale také samotná data
+
+poskytuje maximální ochranu, protože změny jsou kompletně zálohovány v žurnálu před zápisem na disk
+
+nevýhoda - vyšší režijní náklady
+
+
+Metadata Journaling (žurnálování metadat)
+
+zaznamenává pouze metadata, nikoli obsah samotných souborů
+
+rychlejší než úplné žurnálování, ale v případě chyby může dojít ke ztrátě nebo poškození obsahu souboru.
+
+
+
+Výhody žurnálování
+
+
+
+Odolnost proti chybám
+pokud dojde k výpadku napájení nebo jinému selhání během zápisu dat, žurnál umožňuje obnovit souborový systém do konzistentního stavu
+
+
+Rychlá obnova
+při spuštění operačního systému po chybě není nutné skenovat celý disk, aby se našly chyby
+
+místo toho se zpracují pouze záznamy v žurnálu
+
+
+Zabezpečení integrity metadat
+zajistí, že struktura souborového systému zůstane konzistentní, i když dojde k přerušení během operací (např. smazání, přesun nebo změna atributů)
+
+
+
+
+Nevýhody žurnálování
+
+
+
+Vyšší režijní náklady
+záznam operací do žurnálu vyžaduje více času a systémových prostředků
+
+může zpomalit výkon zejména při velkém množství zápisů
+
+
+Větší nároky na úložiště
+pro žurnálování je vyhrazen určitý prostor na disku, což může mírně snížit dostupnou kapacitu
+
+
+
+Žurnálování je podporovnáno např.
+
+
+
+NTFS (Windows)
+používá žurnálování metadat
+
+
+ext3 a ext4 (Linux)
+Linuxové souborové systémy s různými úrovněmi žurnálování (pouze metadata nebo úplné žurnálování)
+
+
+HFS+ a APFS (macOS)
+HFS+ podporuje žurnálování metadat
+
+APFS (modernější souborový systém) implementuje pokročilé žurnálování s vysokou spolehlivostí
+
+
+XFS, JFS, ReFS:
+
+další souborové systémy s podporou žurnálování pro Linux a Windows
+
+---
+
+# RBAC – Role-Based Access Control
+uživatel má role (jednu nebo více) a role mají práva
+
+používá se v enterprise systémech, databázích, cloudových službách, firemních aplikacích apod.
+
+Princip
+
+uživatel má přiřazenu jednu nebo více rolí
+
+role jsou přidělena permissions (oprávnění)
+
+přístup k objektu se odvozuje z rolí, nikoliv přímo z osoby (uživatele)
+
+Vlastnosti
+
+škálovatelné – stačí spravovat role, ne jednotlivce
+
+vhodné pro velké organizace: Admin, Učitel, Student, Auditor, Helpdesk…
+
+snadné audity a compliance
+
+Typy RBAC
+
+Core RBAC – základní model role → práva.
+
+Hierarchical RBAC – role mohou dědit (např. Admin > User).
+
+Constrained RBAC – separation of duties, např. jedna role nesmí mít dvě konfliktní pravomoci (audit vs. účetnictví).
+
+Příklady
+
+MS Azure, AWS IAM, Google Cloud IAM
+
+Oracle DB, PostgreSQL, MS SQL
+
+Firemní systémy (ERP, CRM)
+
+---
+
+# Windows Server
+pokud jsou nainstalované příslušné role
+
+ModulUrčení
+
+ActiveDirectory (RSAT)správa AD, uživatelů, skupin, OU
+
+DNSClient / DNSServerspráva DNS
+
+DhcpServerspráva DHCP serveru
+
+Hyper-Vspráva virtuálních strojů
+
+PrintManagementtiskové služby
+
+FSRMFile Server Resource Manager
+
+FailoverClustersclusterové operace
+
+ADDSDeploymentnasazení Active Directory
+
+---
+
+# Windows Terminál
+aplikace, která má sloužit jako centrální místo pro přístup k příkazovým řádkům a shellům
+
+umožní spustit na různých záložkách např. Command Prompt, Powershell, SSH ad.
+
+Pomocí funkce WSL - Windows Subsystem for Linux můžeme nainstalovat a používat Shell pro Linux (např. Ubuntu)
+
+podpora barevných schémat a lepší vykreslování písem
+
+---
+
+# Device ACL
+používá pro řízení přístupu k zařízením, např. tiskárnám
+
+záznamy v ACL obsahují:
+
+účty (uživatele, systémové)
+
+ID skupiny (administrators, zaci apod.)
+
+práva (např. pouze tisk, správ tiskových front apod.)
+
+---
+
+# Windows - NTFS ACL
+každá položka v ACL -  ACE (Access Control Entry) může mít kombinaci příznaků - Flags
+
+OI (Object Inherit) - dědí se na soubory v tomto adresáři
+
+CI (Container Inherit)  - dědí se na podadresáře
+
+IO (Inherit Only) - platí jen pro děděné objekty, ne pro aktuální složku
+
+NP (No Propagate Inherit) - dědí se jen o jednu úroveň níž, dále již ne
+
+I (Inherited) - zznačuje, že ACE byla zděděna z rodiče
+
+
+Jak to funguje
+
+při vytvoření nového souboru/adresáře → systém zkopíruje všechny dědičné ACE rodiče, které odpovídají typu objektu (soubor/adresář).
+
+tyto položky se označí jako Inherited
+
+pokud se vypne dědičnost (Disable inheritance), systém nabídne:
+
+zachovat/zkopírovat zděděná práva jako explicitní (zůstanou nastavená)
+
+odstraní je úplně
+
+---
+
+# Format-Table
+výstup do tabulky se sloupci
+
+vhodný pro přehledy.
+Get-Service | Format-Table Name, Status, StartType
+Užitečné parametry:
+
+-AutoSize (lepší šířky sloupců, ale může být pomalejší)
+
+-Wrap (zalomí dlouhé hodnoty)
+
+-HideTableHeaders
+
+-GroupBy <Property>
+
+---
+
+# CMDLET
+cmdlet - příkaz (statement) v PS
+
+sloveso + podstatné jmén
+
+př. Get-Help
+
+podstatné jméno - v jednotném čísle
+
+nerozlišují se malá a velká písmena
+
+---
+
+# Fixup Array - USA
+Fixup array (v NTFS také označovaný jako Update Sequence Array - USA) je speciální mechanismus pro detekci a případnou opravu poškození metadatových struktur (zejména záznamů v MFT).
+
+Jak to funguje
+
+
+
+Rozdělení záznamu na sektory
+- záznam v MFT (ale i jiné NTFS metadatové struktury) je rozdělen do sektorů (typicky 512 nebo 4096 bajtů podle disku). Každý sektor má na konci (v posledních dvou bajtech) signaturu.
+
+Nahrazení koncových bajtů každého sektoru při zápisu MFT záznamu
+- v hlavičce (header) MFT záznamu je malá tabulka fixup array, do které se zapíšou  tzv. fixup values – původní poslední 2 Byty z každého sektoru
+- poslední  2 Byty každého sektoru v záznamu jsou přepsány jednotnou (stejnou) hodnotou, označovanou jako fixup pattern (update sequence number)
+
+Kontrola při čtení
+- při čtení záznamu z disku se porovnají poslední 2 Byty jednotlivých sektorů s očekávaným fixup patternem
+- pokud "sedí", systém hodnoty v posledních 2 Bytech zpětně nahradí původními 2 Byty uloženými ve fixup array
+- pokud se fixup pattern neshoduje, NTFS pozná, že došlo k poškození daného sektoru (například kvůli chybě při zápisu, vadnému sektoru, atd.)
+
+Díky tomuto mechanismu dokáže NTFS odhalit (a v některých případech i částečně opravit) poškození důležitých metadat. Pokud se signatura v koncových bajtech sektoru neshoduje s hodnotou ve fixup array, je jasné, že se data poškodila a NTFS vyhodnotí záznam jako nekonzistentní.
+
+V NTFS se fixup pattern (někdy též „update sequence number“ či USN) ukládá do fixup array (USA) následovně:
+
+Každý záznam (např. MFT záznam) má v hlavičce vyhrazené místo pro tzv. update sequence array.
+
+První 2 bajty v této fixup array představují právě fixup pattern (tj. číslo, které nahrazuje poslední 2 bajty každého sektoru v záznamu).
+
+Následující dvojice bajtů v poli (po onom fixup patternu) jsou původní 2 bajty z konce jednotlivých sektorů, které se při zápisu nahradily oním fixup patternem.
+
+Fixup pattern je obvykle nějaké 16bitové číslo (Update Sequence Number). NTFS ho generuje (či modifikuje) při každé změně záznamu, aby byla kontrola integrity účinná.
+
+Díky tomu, že se fixup pattern mění (nebo je unikátní) pro každý zápis, lze snadno zjistit, že poslední 2 bajty sektoru nesouhlasí s tím, co očekáváme (což by signalizovalo záměnu dat či poškozený sektor).
+
+---
+
+# 
+
+
+---
+
+# Žurnálové/Žurnálovací
+Journaling File System
+
+ukládají záznamy o změnách v souborech (tzv. žurnál), které se mají provést,  ještě před tím, než k nim reálně dojde →  obnovení souborového systému po neočekávaném výpadku, protože systém ví, které operace byly přerušeny
+
+vyšší stabilita a rychlejší obnovení po pádu systému, snížení rizika ztráty nebo poškození dat
+
+vyšší spotřeba systémových zdrojů při zapisování dat do žurnálu, vyšší nároky na výkon a kapacitu disku
+
+NTFS (Windows), EXT3 a EXT4 (Linuxu), HFS+ (ve starších verzích macOS)
+
+---
+
+# ISE
+Integrated Scripting Environment
+
+editoru skriptů (psaní .ps1, .psm1, .psd1)
+
+interaktivní konzole (prompt, příkazy, výstup)
+
+ladicí prostředí (breakpointy, krokování, proměnné)
+
+pomocné panely (Command Add-on, modulové a příkazové nápovědy)
+
+v současné době již není Microsoftem podporován a rozvíjen - nahrazen Visual Studio Code
+
+---
+
+# 
+
+
+---
+
+# 
+
+
+---
+
+# Hierarchické
+organizují soubory a složky (adresáře) do hierarchické/stromové struktury; složky → podsložky → soubory
+
+nejvyšší bod struktury (kořen stromu) se nazývá zpravidla Root (kořenová složka)
+
+FAT, NTFS ad.
+
+---
+
+# ACE - Access Control Entry
+ACE = jedna položka v Access Control Listu (ACL), která obsahuje/uvádí:
+
+Subjekt – na koho se to vztahuje (uživatel, skupina, speciální identita typu „Everyone“, „Owner“…)
+
+Typ – co ta položka dělá
+
+Allow – přístup povoluje
+
+Deny – přístup zakazuje
+
+Audit – u některých systémů (NTFS, NFSv4) určuje logování přístupu
+
+
+Práva – jaké operace jsou povoleny/zakázány (read, write, execute, delete, change permissions, atd.)
+
+Flagy – doplňkové příznaky, např. dědičnost (inheritance), „platí jen pro děděné objekty“, atd.
+
+
+ACL je tedy seznam ACE  příslušných k danému objektu (souboru, složce)
+
+systém při rozhodování o přístupu prochází jednotlivé ACE podle pravidel daného FS/OS
+
+ACE a dědičnost
+
+ACE může být:
+
+nedědičná – platí jen na aktuální objekt
+
+dědičná – předává se na nové soubory/podadresáře:
+
+POSIX: pomocí default: ACE na adresáři
+
+NFSv4: flagy FILE_INHERIT, DIRECTORY_INHERIT, INHERIT_ONLY, NO_PROPAGATE_INHERIT,
+
+NTFS: OI, CI, IO, NP
+
+---
+
+# CMD vs PS - příklad
+CMD: tasklist
+
+PS: Get-Process
+
+CMD: poskytuje jednorázově text
+
+PowerShell: poskytuje objekt pro další zpracování 
+
+např. Get-Process -Name spoolsv | Select-Object *
+
+---
+
+# Verzovací
+Versioning File System
+
+ukládají více verzí téhož souboru, což umožňuje návrat k předchozím verzím nebo sledování změn provedených v souborech
+
+zpravidla mají hierarchickou strukturu
+
+vhodné pro správu dokumentace nebo zdrojového kódu.
+
+vyžadují více úložného prostoru pro uchovávání všech verzí, vyšší náročnost na správu
+
+Git
+
+verzovací mechanismy mohou součástí jiných souborových systémů např. Btrfs nebo ZFS.
+
+---
+
+# NFSv4
+ACE mají Allow/Deny, příznak/flag dědičnosti, rozšířenou sadu práv
+
+Jedna ACE se skládá z:
+
+Typ ACE
+
+ALLOW – povoluje vyjmenovaná práva
+
+DENY – zakazuje vyjmenovaná práva
+
+(případně typy pro audit, v praxi méně používané)
+
+Subjekt (kdo)
+
+konkrétní uživatel/skupina (např. user@domain)
+
+speciální identity: OWNER@, GROUP@, EVERYONE@
+
+Práva (permissions) – bitová maska, např.:
+
+READ_DATA / LIST_DIRECTORY
+
+WRITE_DATA / ADD_FILE
+
+APPEND_DATA
+
+EXECUTE
+
+DELETE
+
+READ_ATTR, WRITE_ATTR
+
+READ_ACL, WRITE_ACL, WRITE_OWNER
+
+aj.
+
+Flagy (ACE flags) – určují dědičnost a chování:
+
+FILE_INHERIT (FI) – ACE se dědí na nové soubory
+
+DIRECTORY_INHERIT (DI) – ACE se dědí na nové adresáře
+
+INHERIT_ONLY (IO) – platí jen pro potomky, ne pro aktuální objekt
+
+NO_PROPAGATE_INHERIT (NP) – dědičnost jen o jednu úroveň níž
+
+Příklad
+A::dvorak@spssol.cz:READ_DATA/WRITE_DATA/:FILE_INHERIT/DIRECTORY_INHERITTohle říká: ALLOW pro dvorak čtení i zápis,  pravidlo se dědí na soubory i adresáře
+
+---
+
+# Objektové
+Object File System
+
+data jsou organizována ve formě objektů, které mohou zahrnovat jak samotný obsah, tak i metadata a atributy
+
+tyto objekty (soubory) nejsou organizovány hierarchicky do složek a podsložek
+
+zpravidla nemají pevnou strukturu a jsou více abstraktní na abstraktnější
+
+použití u velkých objemů dat s metadaty, např v datových centrech, cloudových úložištích 
+
+snadná škálovatelnost, možnost přidávat metadata k objektům, efektivní správa rozsáhlých datových souborů.
+
+nízká kompatibilita s běžnými operačními systémy a aplikacemi, omezené použití pro běžné uživatele
+
+např. Amazon S3, CEPH, Open Stack Swift, Google Cloud Storage
+
+---
+
+# Cloudové moduly
+Azure
+
+Az - nový sjednocený modul s více jak 100 podmoduly
+Install-Module -Name Az
+
+Microsoft 365
+
+ExchangeOnlineManagement
+
+MSOnline
+
+AzureAD / AzureADPreview
+
+Teams
+
+AWS
+
+AWS.Tools.* – jednotlivé moduly AWS služeb
+
+AWSPowerShell – starší all-in-one
+
+Google Cloud
+
+gcloud CLI - nejedná se o nativní PowerShell modul, ale o rozhraní ovladatelné přes PSCustomObject + REST
+
+---
+
+# 
+
+
+---
+
+# Access Control Models
+model řízení přístupu
+
+určuje kdo může a jakým způsobem přistupovat k jakým objektům (souborům, službám, datům)
+
+liší se způsobem, kdo je vlastníkem politiky, kdo uděluje práva, jak jemná jsou pravidla
+
+zda se uplatňují role, etikety, nebo pravidla
+
+---
+
+# PowerShell
+pokročilý textový shell (interpreter) se skriptovacím jazykem
+
+obahuje mnohem více funkcí a možností než Command Prompt
+
+je založen na platfromě .NET Framework - umí vše, co je v této platformě
+
+pomocí tzv. cmdlets (Commandlets) lze spravovat spoustu aplikací a systémů (např. Exchange Server, SQL Server apod.)
+
+může pracovat se souborovým systémem, s registry, úložišti certifikátů apod.
+
+
+
+Spuštění:
+
+příkazem Powershell.exe
+
+
+
+
+spustit aplikaci Windows Powershell ISE (Integrated Script Evironment)
+- obsahuje integrované protstředí - editor včetně nápovědy k příkazům a Cmdletům
+
+---
+
+# 
+
+
+---
+
+# FAT tabulka ↔
+tabulka FAT (File Allocation Table) je klíčovou součástí souborových systémů FAT 
+
+ spravuje uložená data a přiděluje jednotlivé části diskového prostoru souborům
+
+sleduje, kde jsou data souborů na disku uložena, a spravuje logiku přidělování datových bloků
+
+disk je rozdělen na malé bloky clustery, kde každý cluster může obsahovat data jednoho souboru (celý nebo jeho část)
+
+je v podstatě seznam položek/řádků, přičemž každá položka reprezentuje jeden cluster
+
+
+
+Hlavní verze FAT systémů
+
+FAT12: Používá 12 bitů pro adresování clusterů, což umožňuje adresovat až 4096 clusterů (212)
+
+FAT16: Používá 16 bitů pro adresování, což umožňuje adresovat až 65 536 clusterů
+
+FAT32: Používá 32 bitů pro adresování, což umožňuje adresovat přes 4 miliardy clusterů
+
+exFAT:  Používá 64 bitů pro adresování, což umožňuje adresovat přes 18 trilionů clusterů  
+
+
+Struktura FAT tabulky
+
+FAT tabulka obsahuje záznamy, kdy každý jeden záznam odpovídá jednomu clusteru
+
+v řádku FAT tabulky je uloženo mj. 
+
+adresa (číslo) clusteru
+
+stav clusteru
+
+0x0000: cluster je volný.
+
+0x0001 - 0x...: adresa (číslo) clusteru, kde data pokračují
+
+0xFFF7: cluster je poškozený (bad sector)
+
+0xFFF8 až 0xFFFF: indikuje konec souboru (EOF - End of File)
+
+
+
+
+Jak funguje přístup k datům - čtení dat
+
+
+
+přístup k datům je založen na procesu sledování řetězců clusterů, které obsahují části souboru
+
+Proces přístupu k datům v systému FAT
+
+
+
+Vyhledání metadat souboru:
+při přístupu k souboru operační systém nejprve vyhledá metadata souboru (název, velikost, atributy a počáteční cluster) ve struktuře adresáře
+
+adresářová struktura obsahuje informace o tom, kde začíná řetězec clusterů pro daný soubor.
+
+
+Získání počátečního clusteru:
+metadata souboru obsahují adresu počátečního clusteru souboru
+
+systém načte data z daného clusteru
+
+
+Sledování tabulky FAT
+pokud položka pro daný cluster obsahuje číslo dalšího clusteru, systém přechází v tabulce na tento cluster a pokračuje tímto způsobem dále; systém zároveň načítá data z daných clusterů, viz bod 4.
+
+pokud položka obsahuje speciální hodnotu (např. 0xFFFF), značí to konec souboru (EOF), což znamená, že další data se už nenačítají
+
+
+Načítání dat z jednotlivých clusterů
+systém postupně načítá data z clusterů podle pokynů v tabulce FAT, dokud nenarazí na indikátor EOF.
+
+data z jednotlivých clusterů se při načítání spojí do jednoho souboru
+
+---
+
+# Souborové systémy Windows
+
+
+---
+
+# FAT 32 ↔
+Hlavní charakteristiky FAT32
+
+32bitová tabulka přidělení souborů:
+
+FAT32 používá 32 bitů k adresování clusterů (z toho 28 bitů je skutečně využito k adresování, ostatní bity jsou rezervovány pro specifické účely).
+
+umožňuje adresovat až 268 435 456 clusterů
+
+
+Maximální velikost disku:
+
+teoreticky může podporovat disky až do 16 TB (s maximálními hodnotami clusterů a velikostí sektorů)
+
+v praxi je běžný limit velikosti disku 2 TB kvůli omezením nástrojů a operačních systémů (např. při použití 512b sektorů)
+
+
+Maximální velikost souboru:
+
+4 GB (přesně 4 GB minus 1 bajt).
+
+toto omezení je jedním z hlavních důvodů, proč je FAT32 méně vhodný pro moderní potřeby, jako je ukládání velkých videí nebo záloh
+
+
+Velikost clusteru
+
+mění se podle velikosti disku
+
+pro disky do 8 GB je běžná velikost clusteru 4 KB (8 sektorů)
+
+pro větší je proměnlivá dle velikosti disku 
+
+
+Větší clustery snižují správu tabulky FAT, ale vedou k plýtvání prostorem (interní fragmentace)
+
+
+Struktura
+
+
+stejná jako u FAT 16 či FAT 12 s výjimkou Root Directory
+
+Root Directory je uložen jako běžný adresář v datové oblasti a není tudíž omezen na velikosti → může obsahovat neomezený počet položek
+
+
+Výhody
+
+Široká kompatibilita
+FAT32 je podporován prakticky všemi operačními systémy (Windows, macOS, Linux) a zařízeními (smartphony, herní konzole, fotoaparáty)
+
+ideální pro přenosné úložiště, jako jsou USB flash disky a SD karty  -  televize, kamery a herní konzol často podporují pouze FAT32
+
+
+Efektivnější správa místa (oproti FAT16)
+díky použití menších clusterů než FAT16 je ukládání dat efektivnější, zejména u malých souborů
+
+
+Flexibilita struktury adresářů
+Kořenový adresář již není pevně umístěn a omezený velikostí
+
+FAT32 podporuje složité struktury složek a velký počet souborů
+
+
+ 
+
+Nevýhody 
+
+Omezení velikosti souboru:
+
+nepodporuje soubory větší než 4 GB
+
+
+Omezení velikosti oddílu:
+
+FAT32 nemůže podporovat oddíly větší než 8 TB (při 32KB clusterech)
+
+Windows Disk Management omezuje např. vytvoření nového FAT32 oddílu na maximálně 32 GB
+
+
+Bezpečnost a spolehlivost
+neobsahuje mechanismus pro žurnálování, což znamená, že není schopen obnovit soubory po náhlém výpadku nebo chybě systému
+
+nepodporuje oprávnění a šifrování
+
+
+Fragmentace souborů:
+
+náchylný k fragmentaci, kdy se soubory ukládají do nesouvislých clusterů →  zpomaluje přístup k datům
+
+---
+
+# Přístup k hodnotám - vlastnostem objektu
+Příklad:
+$data = Import-Csv users.csv -Delimiter ';'
+$data[0].Username
+username je vlastnost objektu user
+
+---
+
+# Značkové (značkovací)
+Tag-based File Systems
+
+místo hierarchické struktury využívají pro kategorizace a vyhledávání souborů označení (tagy)
+
+soubory nejsou umístěny ve složkách
+
+jsou označeny tagy (štítky) →  umožňuje více způsoby seskupovat a organizovat obsah
+
+použití např. u knihovny multimédií (např. v hudebních a fotografických aplikacích) 
+
+flexibilní organizace dat – soubor může mít více tagů, což umožňuje jeho rychlé nalezení podle více kategorií
+
+může být matoucí pro uživatele zvyklé na hierarchickou strukturu, závislost na softwarové podpoře pro vyhledávání podle značek
+
+TagFS, TMSU, TagSpaces
+
+---
+
+# Volume Shadow Copy
+Volume Shadow Copy Service (VSS) -  stínová kopie svazku
+
+technologie integrovaná do operačního systému Windows, která umožňuje vytváření snímků (snapshotů) dat na pevném disku
+
+využití pro zálohování, obnovu souborů (předchozích verzí) a systémovou obnovu bez nutnosti přerušení běžného provozu
+
+umožňuje vytvoření konzistentního snímku souborového systému NTFS, a to i v případě, že jsou soubory právě otevřené nebo používány
+
+tohoto je dosaženo pomocí Copy-on-Write (COW) nebo Redirect-on-Write (ROW) techniky, která zachovává původní verzi dat před jejich přepsáním
+
+
+
+Vytvoření stínové kopie
+
+zmrazení souborového systému
+VSS pozastaví zápisy na disk, aby bylo možné pořídit konzistentní snímek (snapshot)
+
+
+vytvoření stínové kopie
+
+zálohují se pouze změněné bloky, což umožňuje efektivní využití úložného prostoru
+
+
+obnovení normálního provozu
+po pořízení snímku je souborový systém opět odblokován a aplikace mohou pokračovat v zápisech
+
+
+Technologie a komponenty VSS
+
+VSS Requester
+aplikace, která požaduje vytvoření stínové kopie
+
+zálohovací software (např. Windows Backup, Acronis apod.)
+
+
+VSS Writer
+komponenta aplikace nebo systému, která zajišťuje konzistentnost dat během provádění snapshotu - musí zajistit, aby se zápisy zatím pozdržely a zapsaly se až po provedení snapshotu
+
+každá důležitá služba (např. SQL Server, Active Directory, Exchange) obsahuje svého vlastního VSS Writera
+
+
+VSS Provider
+odpovídá za skutečné provedení snímku disku
+
+může být software-based (součást Windows) nebo hardware-based (RAID pole, SAN)
+
+
+
+
+Typy stínových kopií
+
+Full Copy (Complete Snapshot)
+celá kopie svazku je vytvořena na jiném úložišti
+
+používáno zejména pro dlouhodobé archivace.
+
+
+ Copy-on-Write (COW)
+nezálohuje celý svazek, ale pouze změněné bloky
+
+efektivní z hlediska úložiště
+
+
+Redirect-on-Write (ROW)
+změněná data jsou zapisována na jiné místo, zatímco původní verze zůstává neměnná
+
+
+
+
+Možné scénáře použití
+
+Obnova předchozích verzí souborů
+uživatelé mohou v Průzkumníku Windows obnovit předchozí verze souborů
+
+používá se v případě náhodného smazání nebo poškození souboru
+
+
+Zálohování a obnovení systému
+systémová obnova (System Restore) využívá VSS ke snímkování důležitých systémových souborů
+
+
+Zálohování databází a aplikací
+například Microsoft SQL Server nebo Exchange Server využívají VSS k vytvoření konzistentních záloh i při běžícím provozu
+
+
+
+
+Omezení a nevýhody
+
+Náročné na místo na disku
+starší verze souborů mohou postupně zaplňovat úložiště
+
+
+Nelze přesunovat mezi disky
+stínové kopie jsou vázány na konkrétní svazek
+
+
+Není plně dostupné ve všech edicích Windows
+např. Windows 10 Home neumožňuje ruční správu stínových kopií
+
+---
+
+# POSIX
+POSIX ACL (Linux/Unix – ext4, xfs, …)
+
+jsou nejjednodušší – neznají Deny ani Audit, jen „Allow“, a prakticky nemají per-ACE flagy
+
+dědičnost se řeší přes Default ACL
+
+Typická položka z getfacl:
+user::rwx
+group::r-x
+other::---
+user:alice:rw-
+group:dev:r-x
+mask::r-x
+Každé ACE má:
+
+Tag (typ položky)
+
+user:: – vlastník souboru
+
+group:: – skupina souboru
+
+other:: – ostatní
+
+user:USERNAME – konkrétní uživatel
+
+group:GROUPNAME – konkrétní skupina
+
+mask:: – maskovací práva (pro user: a group: položky)
+
+Kvalifikátor (volitelné)
+
+jméno uživatele/skupiny (např. alice, dev) nebo UID/GID.
+
+Práva
+
+r – read
+
+w – write
+
+x – execute (u adresářů „enter“)
+
+---
+
+# CLI
+Command Line Interpreter
+
+rozhraní pro komunikaci a ovládání operačního systému a aplikací pomocí textových příkazů
+
+tzv. příkazový řádek, shell, BASH apod.
+
+využívá se pro psaní skriptů, ovládání aplikací či OS, konfiguraci OS apod.
+
+---
+
+# MAC - Mandatory Access Control
+systém určuje pravidla a přístupy, nikoliv uživatel (vlastník, správce)
+
+používají jej bezpečnostní a vojenské systémy: SELinux, AppArmor, MLS (Multi-Level Security)
+
+Princip
+
+systém stanoví bezpečnostní úrovně (např. confidential → secret → top secret)
+
+subjekty (procesy, uživatelé) i objekty (soubory, DB) mají security labels označující příslušnou bezpečnostní úroveň
+
+přístup se řídí přísnými politikami, které uživatel nemůže měnit
+
+každý přístup kontroluje podle politik (např. SELinux policy)
+
+Vlastnosti
+
+velmi bezpečný – brání zneužití práv i malwarem
+
+složitější na konfiguraci.
+
+prakticky neumožňuje „vyjímky“ – vše se musí vejít do politik
+
+Příklady
+
+SELinux v RHEL/Fedora
+
+AppArmor v Ubuntu/SUSE.
+
+Mandatory Integrity Control ve Windows (část UAC)
+
+Vojenské systémy MLS/Biba
+
+---
+
+# Umí cmdlet použít vstup z Pipeline?
+ne každý cmdlet umí zpracovat vstup pomocí roury/pipe
+
+lze to zjistit pomocí Get-Help s parametrem -Full v sekci PARAMETERES( každého parametru zvlášť)
+
+příklad:
+
+Get-Help Get-Item -Full
+
+---
+
+# Dědičnost - Inheritance
+princip dědičnosti u File ACL znamená, že oprávnění (ACL) nastavená na adresáři se mohou automaticky přenášet (dědit) na nově vytvořené soubory a podadresáře uvnitř něj
+
+díky tomu administrátor nebo vlastník nemusí každému novému souboru nebo podadresáři nastavovat přístupová práva ručně – systém je nastaví podle pravidel dědičnosti
+
+ nově vytvořené soubory a adresáře automaticky přebírají přístupová pravidla (ACL) z rodičovského adresáře, podle definovaných dědících příznaků
+
+když se v adresáři vytvoří nový soubor nebo podadresář, systém:
+
+zkopíruje odpovídající dědičné položky z nadřazeného adresáře
+
+aplikuje je na nově vytvořený objekt
+
+případně je modifikuje podle typu objektu (soubor vs. adresář)
+
+
+ale změny rodiče se na existující podřízené objekty automaticky neaplikují - pokud se explicitně nenařídí
+
+---
+
+# Quota Management
+správa kvót
+
+slouží k řízení využití diskového prostoru na úrovni uživatelů
+
+umožňuje nastavovat limity pro uživatele, sledovat využití úložného prostoru a efektivně spravovat kapacitu disků
+
+dotupné pouze v edicích Windows 11 Pro a vyšších
+
+správa je možná pomocí
+
+GUI - Správa disků - diskmgmt.msc
+
+pomocí nástroje  fsutil v příkazovém řádku
+
+
+
+Fungování kvót v NTFS umožňuje
+
+omezit využití diskového prostoru na uživatelské úrovni
+
+monitorovat využití úložného prostoru jednotlivými uživateli
+
+vynucovat limity pro uživatele (hard quota) nebo jen generovat upozornění (soft quota)
+
+automaticky sledovat nové soubory vytvořené uživatelem a jejich velikost
+
+
+
+Hlavní mechanismy kvót v NTFS
+
+Kvóty se nastavují na úrovni objemu (volume), nikoliv na jednotlivé složky
+
+Kvóty se aplikují na uživatelské účty, nikoliv na skupiny
+
+Při nastavování kvót lze definovat dva základní limity:
+Warning Level (Upozornění) – uživatel dostane varování při dosažení určitého množství využitého místa.
+
+Limit (Omezení) – uživateli je zabráněno v dalším zapisování souborů při dosažení limitu.
+
+NTFS kvóty sledují vlastnictví souborů, ne složky - např. pokud uživatel přesune soubor do složky někoho jiného, kvóta se stále vztahuje na původního vlastníka souboru
+
+
+
+
+
+Výhody
+
+integrované do Windows – není nutný žádný externí software
+
+jednoduché nastavení přes GUI i příkazový řádek
+
+automatické vynucování limitů a generování upozornění
+
+možnost správy individuálních kvót pro konkrétní uživatele
+
+Nevýhody
+
+neplatí na úrovni složek, pouze na celý svazek (volume)
+
+nelze nastavovat kvóty pro skupiny uživatelů, pouze individuálně
+
+neumožňuje nastavení kvót na základě typu souborů (např. omezení videí, ale povolení dokumentů)
+
+funkční pouze na NTFS, ne na FAT32 nebo exFAT
+
+---
+
+# Jak File ACL funguje
+Přístupová kontrola
+když uživatel nebo proces požaduje přístup k objektu, operační systém vyhodnotí ACL objektu
+
+systém projde všechny ACE odshora dolů, dokud nenajde odpovídající pravidlo
+
+pokud odpovídající pravidlo neexistuje, přístup je zamítnut (podle implicitního nastavení).
+
+
+Priorita pravidel
+pravidla jsou kontrolována v pořadí, v jakém jsou zapsána v ACL
+
+pokud je definováno pravidlo odepřít (deny), má přednost
+
+některá pravidla v sobě konzumují (obsahují) pravidla nižší úrovně; např. právo zápisu (write) obshuje i právo číst (read)
+
+
+Výchozí pravidla (Default ACL)
+default ACL se aplikuje na nově vytvořené objekty v rámci adresáře, který má tato výchozí pravidla definovaná
+
+---
+
+# Help
+každý nativní cmdlet má k dispozici nápovědu
+
+zobrazení Get-Help
+
+např. 
+
+Get-help Get-NetAdapter
+
+-Full - zobrazí kompletní nápovědu daného příkazu i s ukázkou
+
+-Online - zobrazí online nápovědu z Microsoftu, pokud je k dispozici
+
+---
+
+# DAC - Discretionary Access Control
+práva nejsou nijak předepsána
+
+vlastník rozhoduje
+
+používá se v tradičních OS: Unix/Linux, Windows (NTFS), POSIX ACL.
+
+Princip
+
+každý objekt (soubor, adresář, databázová tabulka…) má vlastníka
+
+vlastník nebo správce může udělit nebo odebrat práva dalším uživatelům nebo skupinám
+
+přístup je řízen podle ACL (Access Control List) nebo jednoduchých práv (např. rwx v Linuxu)
+
+Vlastnosti
+
+jednoduchý a flexibilní
+
+umožňuje uživatelům delegovat práva dál
+
+zranitelnější vůči malwaru nebo záměnám práv, protože uživatel může oprávnění přidělit nechtěně
+
+Příklady
+
+chmod, setfacl v Linuxu.
+
+NTFS icacls ve Windows
+
+---
+
+# Get-Content
+načítá řádky CSV souboru jako textové řetězec
+
+Příklad:
+
+Get-Content -Path uzivatele.csv
+
+výstup
+Username;Password;Role
+novak;Heslo123;Student
+svoboda;Test456;Admin
+výstupem je pole (kolekce) textových řetězců - jeden řádek ↔ jeden textový řetězec
+
+pro daší zpracování je tedy nutno zpracovávat jednotlivé textové řetězce
+
+---
+
+# MFT - Master File Table
+MFT je ústřední struktura souborového systému NTFS
+
+je v ní je uložen kompletní popis všech souborů, adresářů a klíčových metadat na daném oddílu
+
+obdoba File Allocation Table (FAT) v souborovém systému FAT (FAT32, exFAT ...)
+
+ obsahuje záznamy o všech souborech, adresářích i některých speciálních metadatech, která se na daném oddíle (partition) nacházejí
+
+každý záznam MFT má pevně danou velikost a obsahuje atributy – od základních informací (jméno, časy, oprávnění) až po ukazatele na nerezidentní data
+
+škálovatelný, robustní a bezpečný systém s efektivním přístupem k souborům
+
+pro zvýšení bezpečnosti a spolehlivosti je MFT zrcadlen do své kopie MFTMirr
+
+MFT a jeho zrcadlo (MFTMirr) jsou dále chráněny mechanismy typu fixup array a žurnálovacím systémem ($LogFile), což snižuje riziko ztráty dat či poškození metadat při výpadcích
+
+je nejzásadnějším zdrojem informací jakoukoli operaci související se soubory v NTFS 
+
+v NTFS je vše, včetně MFT samotného, reprezentováno jako soubor 
+
+
+
+Umístění MFT
+
+je uložen jako skrytý systémový soubor, typicky s názvem \$MFT
+
+ve Windows (resp. v NTFS) se MFT nenachází v žádné běžně přístupné složce
+
+logicky se sice jedná o „soubor“ jménem \$MFT, který leží v kořenovém adresáři svazku (např. C:\$MFT), avšak:
+
+Windows jej standardně neukazuje – soubor není viditelný ve Průzkumníku ani v CLI či Powershellu
+
+nelze s ním manipulovat jako s běžným souborem – jde o klíčová systémová data NTFS
+
+fyzicky je MFT typicky umístěn v počáteční oblasti (tzv. MFT zone) na daném oddílu, aby k ní měl souborový systém rychlý přístup
+
+
+
+
+
+Systém neumožňují přístup k tomuto souboru.  Jedná se o speciální chráněný soubor a je základem fungování NTFS.
+
+---
+
+# Druhy souborových systémů
+Souborové systémy dělíme dle toho, jakým způsobem organizují a spravují data a soubory.
+
+---
+
+# Formátování výstupu
+výstup cmdletů PS je možno formátovat
+
+příkazy pro formátování by se měly užívat až jako poslední, neboť mění formátované objekty na formátovací instrukce, které již nejsou dále dobře zpracovatelné
+
+Jak PS rozhoduje, co se zobrazí
+
+pokud se napíše cmdlet bez instrukcí pro formátování (např. Get-Service) PS použije:
+
+defaultní view pro daný typ objektu,
+
+typicky definované ve format definition souborech (*.format.ps1xml) načtených modulem
+
+
+nemusí být tedy zobrazeno vše, co by mohlo být 
+
+pro zobrazení všeho se použije formátovací příkaz Format-List *
+
+např. Get-Service | Format-List *
+
+---
+
+# 
+
+
+---
+
+# 
+
+
+---
+
+# Moduly v PS
+modul je balíček příkazů (cmdletů), funkcí, tříd nebo skriptů, který rozšiřuje možnosti PowerShell
+
+vestavěné (součást Windows nebo PowerShellu)
+
+instalovatelné z PowerShell Gallery
+
+systémové (Windows Server, Active Directory)
+
+třetích stran (AWS, VMware, Cisco aj.)
+
+
+seznam aktuálně používaných modulů
+
+Get-Module
+
+
+seznam dostupných modulů v systému (stanici, serveru)
+
+Get-Module -ListAvailable
+
+
+import (aktivace) dostupného modulu 
+
+Import-Module -Name NetAdapter
+
+---
+
+# Proměnná $_
+$_ speciální proměnná pro „aktuální položku v pipeline“
+
+alias pro $PSItem
+
+používá se hlavně ve skriptech bloků { ... } u příkazů jako ForEach-Object, Where-Object, Sort-Object, apod.
+
+vždy je uzavřená ve složených závorkách {}
+
+používá se zejmáne ve skriptech 
+
+Příklad: vypiš procesy, které zabírají více jak 100 MB paměti
+
+Filtrování (Where-Object)
+Get-Process | Where-Object { $_.WorkingSet -gt 100MB }
+nebo
+Get-Process | Where-Object { $PSItem.WorkingSet -gt 100MB }
+$_ je vždy jeden proces (objekt) a beru si z něj vlastnost WorkingSet
+
+Tohle lze ale také zapsat takhle
+
+Get-Process | Where-Object WorkingSet -gt 100MB
+
+
+
+Příklad:  vypiš procesy, které zabírají více jak 100MB paměti  a spotřebovaly již více jak 120 sekund CPU od svého spuštění
+
+Toto se již musí řešít pomocí $_
+
+Get-Process | Where-Object {$_.WorkingSet -gt 100MB -and $_.CPU -gt 120}
+
+---
+
+# Import-Csv
+načítá řádky CSV souboru a převádí je na objekty 
+
+jeden řádek ↔ jeden objekt
+
+dle hlavičky vytváří vlastnosti objektu a jejich názvy
+
+Příklad:
+
+Import-Csv uzivatele.csv -Delimiter ";"
+
+Výstup
+Username Password Role
+-------- -------- -----
+novak Heslo123 Student
+svoboda Test456 Admin
+výstupem je pole/kolekce objektů - jednotlivých řádků
+
+parametr -Delimiter udává oddělovač dat v řádku
+
+pokud se nezadá, použije se jako oddělovač ","
+
+doporučuje se jej zadávat vždy
+
+
+všechny hodnoty jsou textové řetězce
+
+---
+
+# PowerShell
+shell - prostředí příkazové řádky
+
+skriptovací jazyk, automatizační nástroj, postavený na platformě .NET
+
+určen pro:
+
+správu operačních systémů Windows a serverů
+
+automatizaci rutinních úloh
+
+správu cloudových služeb (Azure, M365)
+
+práci se službami, procesy, registry, soubory a sítí
+
+
+není case senzitvní
+
+aktuální verze: 5.1
+
+multiplatformní Powershell Core: verze 7
+
+verzi možno zjistit pomocí Get-Host
+
+Problémy klasického CMD
+
+textový výstup - výstupem jsou textové řetězce, nikoliv data (objekty)
+
+omezené možnosti automatizace
+
+složité parsování výstupu, nejednotné příkazy
+
+Řešení PowerShellu
+
+objektový výstup místo textu
+
+jednotná struktura příkazů
+
+plná skriptovatelnost, integrace s .NET platformou
+
+umožňuje práci s API
+
+---
+
+# Moduly třetích stran
+VMware.PowerCLI
+
+správa VMware vSphere
+
+Veeam.Backup.PowerShell
+
+správa produktu Veeam
+
+Cisco.UCSManager
+
+správa Cisco UCS
+
+SQLServer
+
+správa MS SQL Serveru
+
+DbaTools
+
+komunitní modul pro SQL
+
+---
+
+# Filtrování a řazení záznamů
+Filtrování záznamů
+$data = Import-Csv users.csv -Delimiter ';'
+$data | Where-Object Role -eq "Admin"
+# nebo také
+$data | Where-Object {$_.Role -eq "Admin"}
+
+
+Řazení záznamů
+$data = Import-Csv users.csv -Delimiter ';'
+$data | Sort-Object Username

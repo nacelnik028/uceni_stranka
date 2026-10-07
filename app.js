@@ -9,6 +9,7 @@ const state = {
     ...(Array.isArray(window.ELECTROTECHNICS_EXERCISES) ? window.ELECTROTECHNICS_EXERCISES : []),
     ...(Array.isArray(window.CYBERSECURITY_EXERCISES) ? window.CYBERSECURITY_EXERCISES : []),
     ...(Array.isArray(window.HARDWARE_EXERCISES) ? window.HARDWARE_EXERCISES : []),
+    ...(Array.isArray(window.OPERATING_SYSTEMS_EXERCISES) ? window.OPERATING_SYSTEMS_EXERCISES : []),
   ],
   answerVisible: false,
   view: 'home',
@@ -516,6 +517,7 @@ function subjectIcon(subject) {
     'elektrotechnika': '<path d="m13 2-9 12h7l-1 8 10-13h-7l1-7Z"/>',
     'Kybernetická bezpečnost': '<path d="M12 3 4 6v6c0 5 8 9 8 9s8-4 8-9V6l-8-3Z"/><path d="m8 12 3 3 5-6"/>',
     'Hardware': '<rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9" y="9" width="6" height="6" rx="1"/><path d="M9 3v3m6-3v3M9 18v3m6-3v3M3 9h3m-3 6h3m12-6h3m-3 6h3"/>',
+    'Operační systémy': '<rect x="3" y="4" width="18" height="14" rx="2"/><path d="m6 8 3 3-3 3m5 0h5M8 21h8m-4-3v3"/>',
     'Počítačová grafika': '<rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.5"/><path d="m3 17 5-5 4 4 4-6 5 7"/>'
   };
   return `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[subject] || paths['Literatura']}</svg>`;
@@ -539,6 +541,7 @@ function renderHome() {
     'elektrotechnika': { icon: 'ϟ', color: '#f59e0b' },
     'Kybernetická bezpečnost': { icon: '◇', color: '#2dd4bf' },
     'Hardware': { icon: '▣', color: '#fb923c' },
+    'Operační systémy': { icon: '⌨', color: '#38bdf8' },
     'Počítačová grafika': { icon: '▧', color: '#c084fc' },
   };
   const fallbackIcons = ['◈', '⌘', '✦', '▦', '∑', '◌'];
@@ -571,6 +574,7 @@ function subjectDescription(subject) {
     'elektrotechnika': 'Elektrický proud, Ohmův zákon, odpor vodiče a vliv teploty.',
     'Kybernetická bezpečnost': 'Identity, oprávnění, Active Directory a zabezpečení Windows i Linuxu.',
     'Hardware': 'Disky, rozhraní, displeje, periferie, síťové adaptéry a tiskové technologie.',
+    'Operační systémy': 'Souborové systémy, ACL, šifrování a práce s objekty v PowerShellu.',
     'Počítačová grafika': 'Rastr a vektor, formáty, export a favicon.'
   })[subject] || 'Vyber téma a vyzkoušej své znalosti.';
 }

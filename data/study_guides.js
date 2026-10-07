@@ -281,6 +281,41 @@ window.STUDY_GUIDES.push(
 
 window.STUDY_GUIDES.push(
   {
+    id: 'osy-acl', subject: 'Operační systémy', topic: 'NTFS ACL a dědičnost',
+    title: 'ACL: oprávnění, pořadí a dědičnost', minutes: 4,
+    intro: 'ACL je seznam přístupových pravidel a ACE jeho jednotlivá položka. Ve Windows DACL řídí povolené operace a SACL specifikuje audit.',
+    sections: [
+      { title: 'Přímá a zděděná pravidla', points: [
+        'Explicitní položka je nastavena přímo na objektu, zděděná vzniká z pravidel rodiče.',
+        'OI se vztahuje k dědění na soubory, CI na podadresáře a IO znamená použití jen pro dědění.',
+        'V kanonickém pořadí jsou explicitní ACE před zděděnými; v příslušné skupině jsou Deny před Allow. Samotná poučka „Deny vždy vyhraje“ je proto nepřesná.',
+      ] },
+      { title: 'Příklad', text: 'Explicitní Deny čtení pro Jana před explicitním Allow čtení pro jeho skupinu Students běžný požadavek zamítne. Explicitní Allow může naopak pokrýt požadavek před pozdějším zděděným Deny.' },
+      { title: 'Jiné ACL modely', text: 'POSIX ACL používají masku skupinové třídy a výchozí ACL adresáře. Nejde o totožný model jako NTFS; nelze automaticky přenášet všechny jeho podmínky a pravidla.' },
+    ],
+    mistake: 'Právo zápisu samo automaticky nezahrnuje čtení. Prázdná DACL a null DACL mají odlišný význam. Skutečný přístup posuzuj podle konkrétních požadovaných práv a relevantních položek.',
+    source: 'materialy/operacni-systemy/zdroj/orgpad-osy-2-rocnik.txt', sourceLabel: 'Podklad: OrgPad OSY 2. ročník; zpřesnění v doprovodných poznámkách',
+  },
+  {
+    id: 'osy-pipeline', subject: 'Operační systémy', topic: 'Pipeline, filtrování a formátování',
+    title: 'PowerShell: nejprve data, potom zobrazení', minutes: 3,
+    intro: 'Nativní cmdlety PowerShellu vracejí objekty. Roura předává tyto objekty dalšímu příkazu, který je umí přijmout.',
+    sections: [
+      { title: 'Tři odlišné operace', points: [
+        'Where-Object vybírá objekty splňující podmínku.',
+        'Sort-Object řadí podle hodnot vlastností; -Descending znamená sestupně.',
+        'Format-Table a Format-List vytvářejí formátovací instrukce, proto patří za práci s původními daty.',
+      ] },
+      { title: 'Příklad', code: 'Get-Process | Where-Object CPU -gt 100 | Sort-Object CPU -Descending | Format-Table Name, CPU', text: 'Vybere procesy s více než 100 sekundami akumulovaného CPU času a seřadí je od nejvyšší hodnoty. Nejde o aktuální procento vytížení.' },
+      { title: 'Jak zjistit možnosti', text: 'Get-Member ukáže vlastnosti a metody objektu. Get-Help příkaz -Full obsahuje popis parametrů a jejich podpory vstupu z pipeline. $_ v bloku Where-Object označuje právě zpracovávaný objekt.' },
+    ],
+    mistake: 'Tabulka na obrazovce není úplný popis objektu. Po Format-* už pipeline nenese původní procesové nebo souborové objekty pro další filtrování.',
+    source: 'materialy/operacni-systemy/zdroj/orgpad-osy-2-rocnik.txt', sourceLabel: 'Podklad: OrgPad OSY 2. ročník – textový export',
+  }
+);
+
+window.STUDY_GUIDES.push(
+  {
     id: 'hw-ssd', subject: 'Hardware', topic: 'SSD a NAND flash',
     title: 'SSD: flash, TRIM a opotřebení', minutes: 3,
     intro: 'SSD ukládá data do nevolatilní flash paměti. Nemá pohyblivé hlavy ani plotny; řadič spravuje umístění dat, zápisy a opravy chyb.',

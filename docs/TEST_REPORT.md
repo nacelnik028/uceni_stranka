@@ -1,5 +1,14 @@
 # Kontrolní zpráva projektu Procvičovna
 
+## Operační systémy – 7. 10. 2026
+
+- Přidáno 100 úloh v 10 tématech: 67 výběrových, 13 scénářů, 4 s více odpověďmi, 6 přiřazovacích, 7 otevřených vysvětlení a 3 výpočty.
+- Katalog obsahuje 840 úloh s unikátními ID; knihovna 22 přehledů pro 11 předmětů. Nové přehledy vysvětlují NTFS ACL a pipeline PowerShellu.
+- Prošly oba datové validátory, `scripts/test_question_rules.js`, kontroly syntaxe a `git diff --check`.
+- Headless Microsoft Edge: otevření modulu, všech 10 témat a celé sady. U všech 93 automaticky hodnocených otázek ověřeno přijetí správné i odmítnutí chybné odpovědi; u 7 otevřených otázek zobrazení vzorového řešení.
+- Ověřeny oba přehledy, otevření článku o pipeline a neutrální odezva bez řešení v režimu Test. Mobilní viewport 390 × 844 px bez vodorovného přetékání; screenshot vizuálně zkontrolován. Žádný `pageerror`.
+- Zdroj: text 94 obsahových podstránek OrgPadu OSY. Export a obsahová zpřesnění dokumentuje `materialy/operacni-systemy/zdroj/README.md`.
+
 ## Hardware – 6. 10. 2026
 
 - Přidáno 150 úloh v 15 tématech: 94 výběrových, 20 scénářů, 7 s více odpověďmi, 9 přiřazovacích, 13 otevřených vysvětlení, 5 výpočtů a 2 řazení navazujících kroků.
