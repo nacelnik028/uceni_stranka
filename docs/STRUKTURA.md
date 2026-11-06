@@ -13,13 +13,22 @@ procvicovna-github/
 │   ├── network_exercises.js
 │   ├── literature_exercises.js
 │   ├── cislicova_technika_exercises.js
-│   └── pocitacova_grafika_exercises.js
+│   ├── pocitacova_grafika_exercises.js
+│   ├── elektrotechnika_exercises.js
+│   ├── kyberneticka_bezpecnost_exercises.js
+│   ├── hardware_exercises.js
+│   ├── operacni_systemy_exercises.js
+│   ├── nemcina_exercises.js
+│   └── study_guides.js
 ├── scripts/
-│   └── validate_questions.js
+│   ├── validate_questions.js
+│   ├── validate_study_guides.js
+│   └── test_nemcina.js
 ├── materialy/
 │   ├── programovani/zdroj/
 │   ├── literatura/zdroj/
 │   ├── cislicova-technika/zdroj/
+│   ├── nemcina/zdroj/
 │   ├── vyvoj-webovych-aplikaci/zdroj/
 │   ├── pocitacova-grafika/zdroj/
 │   │   ├── rastrová-vektorová-grafika.md
@@ -54,6 +63,8 @@ Modul `Hardware` používá `data/hardware_exercises.js` a pole `HARDWARE_EXERCI
 
 Modul `Operační systémy` používá `data/operacni_systemy_exercises.js` a pole `OPERATING_SYSTEMS_EXERCISES`: 100 úloh v 10 tématech a dva přehledy. Podklad je v `materialy/operacni-systemy/zdroj/`. Modul načítá `index.html` a kontrolují ho oba datové validátory.
 
+Modul `Němčina` používá `data/nemcina_exercises.js` a pole `GERMAN_EXERCISES`: 265 úloh v 7 tématech a čtyři přehledy. Slovní zásoba má 152 úloh, z toho 133 samostatných otázek pokrývá všechny položky slovníčku. Přepisy obou stránek Notion a vymezení pokrytí jsou v `materialy/nemcina/zdroj/`. Zapojení zajišťují `index.html`, `app.js` a oba validátory. `scripts/test_nemcina.js` porovnává všechny slovníkové položky s podkladem a kontroluje vykreslení v obou režimech i hodnocení doplňování.
+
 ## Kde se upravuje aplikace
 
 - `index.html` – struktura stránky a CSS
@@ -62,7 +73,7 @@ Modul `Operační systémy` používá `data/operacni_systemy_exercises.js` a po
 
 ## Studijní přehledy
 
-- `data/study_guides.js` – statický obsah 12 přehledů pro sedm předmětů; vazba na otázky používá přesné `subject` a `topic`.
+- `data/study_guides.js` – statický obsah 26 přehledů pro dvanáct předmětů; vazba na otázky používá přesné `subject` a `topic`.
 - `study-guides.js` – katalog, hledání bez diakritiky, čtení a spuštění nové sady k tématu.
 - `study-guides.css` – responzivní styly knihovny a článků pro oba motivy.
 - `appearance.css` – společné barvy, typografie, karty a mobilní vzhled; načítá se za styly modulů.

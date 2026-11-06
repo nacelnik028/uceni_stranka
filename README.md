@@ -15,10 +15,11 @@ Statická webová aplikace pro procvičování školních materiálů. GitHub Pa
 - Kybernetická bezpečnost
 - Hardware
 - Operační systémy
+- Němčina
 
 ## Studijní přehledy
 
-Na úvodu je odkaz **Nejdřív si připomenout učivo**, během režimu Učení také **Připomenout učivo**. Knihovna obsahuje 22 stručných přehledů pokrývajících všech jedenáct předmětů. Není úplnou učebnicí všech témat. Obsahuje výklad, příklady, časté chyby a odkaz na podklad. Lze filtrovat podle předmětu a vyhledávat i bez diakritiky.
+Na úvodu je odkaz **Nejdřív si připomenout učivo**, během režimu Učení také **Připomenout učivo**. Knihovna obsahuje 26 stručných přehledů pokrývajících všech dvanáct předmětů. Není úplnou učebnicí všech témat. Obsahuje výklad, příklady, časté chyby a odkaz na podklad. Lze filtrovat podle předmětu a vyhledávat i bez diakritiky.
 
 **Procvičit téma** otevře novou sadu v režimu Učení pro konkrétní předmět a téma, s vymazaným hledáním a filtry typu a obtížnosti. Velikost sady odpovídá aktuální volbě. Při pouhém otevření přehledů ze studia se odpovědi nemění; **Zpět k rozpracované sadě** obnoví původní obrazovku bez překreslení otázek.
 
@@ -42,7 +43,7 @@ Rozhraní a ukládání spravují `study-ux.js` a `study-ux.css`. Doporučení k
 
 Společný vzhled je v `appearance.css`, načítaném za styly jednotlivých modulů. Obsahuje barvy obou motivů, karty s SVG ikonami, typografii, zvýraznění vybrané odpovědi a mobilní rozložení. Úvod zdůrazňuje jednu hlavní akci: rychlou sadu, nebo pokračování v rozpracované sadě. Pokračování a procvičení chyb se zobrazují, když jsou dostupné.
 
-Aktuální runtime obsahuje 480 úloh: 121 v obecném souboru `exercises.js` (30 v Programování, 56 ve Vývoji webových aplikací, 35 v Databázích), 110 ze sítí, 106 z literatury, 40 z číslicové techniky, 59 z počítačové grafiky a 44 z elektrotechniky. Z toho 18 úloh používá interakční vrstvu `scenario`, `diagnostic`, `classification`, `compare` nebo `image-choice`.
+Aktuální runtime obsahuje 1105 úloh ve 12 předmětech, z toho 265 v Němčině. Přesné rozdělení podle předmětu a typu vypíše `node scripts/validate_questions.js`; počty na webu se odvozují přímo z aktivních dat.
 
 Modul **elektrotechnika** pokrývá elektrický proud, Ohmův zákon, rezistivitu a odpor vodiče a závislost odporu na teplotě. Obsahuje výběr odpovědí, přiřazování, výpočty, třídění, scénář a krátké vysvětlení s vlastní kontrolou. Přepis dodaných poznámek je v `materialy/elektrotechnika/zdroj/elektrotechnika.md`. U neúplného příkladu s měděným vinutím je pro výpočet výslovně zadáno zaokrouhlení α = 0,004 K⁻¹; tato hodnota na fotografii chybí.
 
@@ -61,7 +62,12 @@ procvicovna-github/
 │   ├── literature_exercises.js
 │   ├── cislicova_technika_exercises.js
 │   ├── pocitacova_grafika_exercises.js
-│   └── elektrotechnika_exercises.js
+│   ├── elektrotechnika_exercises.js
+│   ├── kyberneticka_bezpecnost_exercises.js
+│   ├── hardware_exercises.js
+│   ├── operacni_systemy_exercises.js
+│   ├── nemcina_exercises.js
+│   └── study_guides.js
 │
 ├── scripts/
 │   └── validate_questions.js          # validace všech aktivních dat
@@ -118,7 +124,7 @@ procvicovna-github/
 
 ### Co je aktivní
 
-Aktivní soubory jsou pouze `index.html`, `app.js`, soubory v `data/` a validátor v `scripts/`. `index.html` načítá data v tomto pořadí:
+Aktivní web tvoří `index.html`, `app.js`, moduly `study-ux.js` a `study-guides.js`, styly a soubory v `data/`. Kontroly jsou v `scripts/`. `index.html` načítá otázky v tomto pořadí:
 
 ```html
 <script src="data/exercises.js"></script>
@@ -130,16 +136,19 @@ Aktivní soubory jsou pouze `index.html`, `app.js`, soubory v `data/` a validát
 <script src="data/kyberneticka_bezpecnost_exercises.js"></script>
 <script src="data/hardware_exercises.js"></script>
 <script src="data/operacni_systemy_exercises.js"></script>
+<script src="data/nemcina_exercises.js"></script>
 <script src="app.js"></script>
 ```
 
-`app.js` pak spojí globální pole `EXERCISES`, `NETWORK_EXERCISES`, `LITERATURE_EXERCISES`, `DIGITAL_TECHNICS_EXERCISES`, `PC_GRAPHICS_EXERCISES`, `ELECTROTECHNICS_EXERCISES`, `CYBERSECURITY_EXERCISES`, `HARDWARE_EXERCISES` a `OPERATING_SYSTEMS_EXERCISES` do jednoho seznamu.
+`app.js` pak spojí globální pole `EXERCISES`, `NETWORK_EXERCISES`, `LITERATURE_EXERCISES`, `DIGITAL_TECHNICS_EXERCISES`, `PC_GRAPHICS_EXERCISES`, `ELECTROTECHNICS_EXERCISES`, `CYBERSECURITY_EXERCISES`, `HARDWARE_EXERCISES`, `OPERATING_SYSTEMS_EXERCISES` a `GERMAN_EXERCISES` do jednoho seznamu.
 
 Modul **Kybernetická bezpečnost** obsahuje 110 otázek v 11 tématech z OrgPadu KYBEZ 2. ročník: výběr, praktické scénáře, více odpovědí, přiřazování a otevřená vysvětlení s vlastní kontrolou. Každá otázka má řešení a obtížnost. Zdrojový export a vymezení pokrytí jsou v `materialy/kyberneticka-bezpecnost/zdroj/`.
 
 Modul **Hardware** obsahuje 150 otázek v 15 tématech z OrgPadu Hardware 2. ročník. Vedle výběru, scénářů, více odpovědí, přiřazování a otevřených vysvětlení zahrnuje výpočty a řazení navazujících kroků. Podklad a obsahová zpřesnění jsou v `materialy/hardware/zdroj/`, dvě stručná opakování v knihovně učiva.
 
 Modul **Operační systémy** obsahuje 100 otázek v 10 tématech z OrgPadu OSY 2. ročník: souborové systémy, ACL, EFS, kvóty, VSS a práce s PowerShellem. Zdroj a zpřesnění jsou v `materialy/operacni-systemy/zdroj/`; knihovna doplňuje dva přehledy k NTFS ACL a pipeline.
+
+Modul **Němčina** vychází z obou dodaných stránek Notion pro lekci 6 – Mein Tagesablauf. Obsahuje **265 úloh v 7 tématech**, včetně samostatné otázky pro všech **133 položek slovníčku** (strany 74–83, doplňkové výrazy i šest zkratek do zpráv). Další úlohy procvičují členy, množné číslo, čas, slovesa, slovosled, zájmena a domlouvání schůzky. Používá výběr, více odpovědí, přiřazování, doplňování, scénáře a vlastní vyjádření. Otevřené překlady a vlastní věty jsou self-check; jednoznačné tvary mají automatickou kontrolu včetně přehlásek. Slovní zásoba má vlastní kartu tématu, takže ji lze procvičovat odděleně od gramatiky. Čtyři studijní přehledy jsou v knihovně učiva. Úplnost slovníčku proti uloženému podkladu ověřuje `node scripts/test_nemcina.js`.
 
 ### Co je v `archiv/`
 

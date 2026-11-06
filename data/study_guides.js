@@ -349,3 +349,158 @@ window.STUDY_GUIDES.push(
     source: 'materialy/hardware/zdroj/orgpad-hardware-2-rocnik.txt', sourceLabel: 'Podklad: OrgPad Hardware 2. ročník – textový export',
   }
 );
+
+window.STUDY_GUIDES.push(
+{
+  "id": "nej-slovicka",
+  "subject": "Němčina",
+  "topic": "Slovní zásoba – lekce 6",
+  "title": "Lekce 6: jak se učit všechna slovíčka",
+  "minutes": 4,
+  "intro": "Slovníček spojuje denní režim, domácí práce, školu, média, časové výrazy a zprávy. Procvičování obsahuje samostatnou otázku ke každé ze 133 slovníkových položek, včetně doplňků a zkratek.",
+  "sections": [
+    {
+      "title": "Podstatná jména se členem",
+      "points": [
+        "Uč se celý výraz: der Wecker (budík), die Spülmaschine (myčka), das Bett (postel).",
+        "U množného čísla sleduj přehlásku: das Bad → die Bäder; der Kanal → die Kanäle; das Krankenhaus → die Krankenhäuser.",
+        "das Bad a das Badezimmer jsou obě koupelna. das Mädchen je gramaticky středního rodu."
+      ]
+    },
+    {
+      "title": "Podobná slovesa",
+      "points": [
+        "aufwachen = probudit se; aufstehen = vstát; einschlafen = usnout; schlafen = spát.",
+        "aufräumen = uklidit; ausräumen = vyklidit, např. myčku; ausleeren = vyprázdnit, např. koš.",
+        "vorbereiten = připravovat (se), např. na test; zubereiten = připravovat jídlo.",
+        "anmachen a einschalten znamenají zapnout; ausschalten znamená vypnout."
+      ]
+    },
+    {
+      "title": "Krátké zprávy",
+      "points": [
+        "hd(l) = Hab dich lieb.; ida = Ich dich auch.",
+        "wmd? = Was machst du?; gn8 = Gute Nacht!",
+        "omg = Oh mein Gott!; ka = Keine Ahnung. Jde o neformální zkratky."
+      ]
+    }
+  ],
+  "mistake": "Znak | uvnitř slovesa v podkladu označuje odlučitelnou předponu. Do běžné německé věty se nepíše. U podstatných jmen nezaměňuj člen a množné číslo.",
+  "source": "materialy/nemcina/zdroj/slovicka-lekce-6.md",
+  "sourceLabel": "Podklad: Slovíčka – Lekce 6 (NEJ), úplný přepis z Notion"
+},
+{
+  "id": "nej-cas",
+  "subject": "Němčina",
+  "topic": "Čas a časové výrazy",
+  "title": "Kolik je hodin a kdy se to opakuje",
+  "minutes": 3,
+  "intro": "Rozlišuj přesný čas, přibližný čas a pravidelnost. Otázka Wie spät ist es? se ptá, kolik je hodin; Wann? se ptá, kdy.",
+  "sections": [
+    {
+      "title": "Příklady času",
+      "points": [
+        "6:05 = fünf nach sechs; 6:15 = Viertel nach sechs.",
+        "6:30 = halb sieben; 6:45 = Viertel vor sieben; 6:50 = zehn vor sieben.",
+        "6:25 = sechs Uhr fünfundzwanzig. halb acht je 7:30."
+      ]
+    },
+    {
+      "title": "Předložky",
+      "points": [
+        "um sieben Uhr = v sedm hodin; gegen fünf Uhr = kolem páté.",
+        "am Montag = v pondělí; am Nachmittag = odpoledne; in der Nacht = v noci.",
+        "von acht bis dreizehn Uhr = od osmi do třinácti; um Mitternacht = o půlnoci."
+      ]
+    },
+    {
+      "title": "Pravidelně",
+      "points": [
+        "am Montag = v pondělí; montags = každé pondělí. Stejně dienstags, mittwochs, donnerstags, freitags, samstags, sonntags.",
+        "am Vormittag = dopoledne; vormittags = pravidelně dopoledne.",
+        "am Nachmittag = odpoledne; nachmittags = pravidelně odpoledne; morgens = každé ráno."
+      ]
+    }
+  ],
+  "mistake": "U výrazu halb acht osmá hodina teprve nastane: jde o 7:30. Před hodinou používej um, před dnem am. Příslovce montags už předložku nepotřebuje.",
+  "source": "materialy/nemcina/zdroj/test-lekce-6.md",
+  "sourceLabel": "Podklad: Test z NEJ – přehled lekce 6"
+},
+{
+  "id": "nej-slovesa",
+  "subject": "Němčina",
+  "topic": "Odlučitelná slovesa a časování",
+  "title": "Sloveso na druhém místě, předpona na konci",
+  "minutes": 4,
+  "intro": "V hlavní oznamovací větě má časované sloveso druhou pozici. Odlučitelná předpona stojí na konci: Ich stehe um sieben Uhr auf.",
+  "sections": [
+    {
+      "title": "Počítají se větné členy",
+      "points": [
+        "Ich stehe um sieben Uhr auf. → Um sieben Uhr stehe ich auf.",
+        "Časový údaj Um sieben Uhr tvoří jeden větný člen; při jeho přesunutí na začátek se podmět ocitá až za slovesem.",
+        "S modálním slovesem zůstává infinitiv pohromadě: Ich muss früh aufstehen."
+      ]
+    },
+    {
+      "title": "Změny kmene",
+      "points": [
+        "anfangen: ich fange an; du fängst an; er fängt an.",
+        "fernsehen: ich sehe fern; du siehst fern; er sieht fern.",
+        "mitnehmen: ich nehme mit; du nimmst mit; er nimmt mit.",
+        "schlafen: ich schlafe; du schläfst; er schläft. schlafen nemá odlučitelnou předponu.",
+        "vergessen: er vergisst; wissen: er weiß."
+      ]
+    },
+    {
+      "title": "Použij ve svém dni",
+      "points": [
+        "Ich räume mein Zimmer auf. Ich bereite mich auf den Test vor.",
+        "Sie räumt die Spülmaschine aus. Sie bereiten das Abendessen zu.",
+        "Am Nachmittag mache ich Hausaufgaben. Am Abend sehe ich fern."
+      ]
+    }
+  ],
+  "mistake": "Ich aufstehe … je chybný slovosled: správně Ich stehe … auf. S muss naopak napiš celé aufstehen na konci. Nezapomínej na přehlásky ve fängst a schläfst.",
+  "source": "materialy/nemcina/zdroj/test-lekce-6.md",
+  "sourceLabel": "Podklad: Test z NEJ – odlučitelná slovesa a denní režim"
+},
+{
+  "id": "nej-zajmena",
+  "subject": "Němčina",
+  "topic": "Osobní zájmena a 4. pád",
+  "title": "Koho vidím a komu co patří",
+  "minutes": 4,
+  "intro": "Německý pád se řídí německým slovesem nebo předložkou. Český překlad může použít jiný pád: Ich rufe ihn an. = Volám mu.",
+  "sections": [
+    {
+      "title": "Osobní zájmena ve 4. pádě",
+      "points": [
+        "ich → mich; du → dich; er → ihn; sie → sie; es → es.",
+        "wir → uns; ihr → euch; sie → sie; Sie → Sie.",
+        "Ich sehe dich. Kannst du uns abholen? Ich habe ein Geschenk für euch.",
+        "Předložky durch, für, gegen, ohne, um vyžadují 4. pád: durch den Park, für mich, ohne dich."
+      ]
+    },
+    {
+      "title": "Přivlastňovací základy",
+      "points": [
+        "ich → mein-; du → dein-; er/es → sein-; sie (ona) → ihr-.",
+        "wir → unser-; ihr → euer-; sie (oni/ony) → ihr-; Sie (vykání) → Ihr-.",
+        "mein Bruder, meine Schwester, mein Zimmer; ale Ich sehe meinen Bruder."
+      ]
+    },
+    {
+      "title": "Domluva schůzky",
+      "points": [
+        "Hast du am Samstag Zeit? Was hast du vor? Kommst du mit?",
+        "Um wie viel Uhr treffen wir uns? Wir treffen uns um fünf Uhr.",
+        "Klar, gerne! Das passt mir gut. Ich habe leider keine Zeit."
+      ]
+    }
+  ],
+  "mistake": "„Volám mu“ se řekne Ich rufe ihn an., protože anrufen vyžaduje 4. pád. Malé ihr- může znamenat její i jejich, velké Ihr- označuje vykání.",
+  "source": "materialy/nemcina/zdroj/test-lekce-6.md",
+  "sourceLabel": "Podklad: Test z NEJ – zájmena a domlouvání schůzky"
+}
+);

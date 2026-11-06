@@ -1,5 +1,14 @@
 # Kontrolní zpráva projektu Procvičovna
 
+## Němčina – 6. 11. 2026
+
+- Přidáno 265 úloh v 7 tématech. Slovní zásoba obsahuje 152 úloh; každá ze všech 133 položek dodané stránky Notion má vlastní otázku na význam, včetně doplňkových výrazů a šesti zkratek do zpráv.
+- Úplnost a přesné překlady všech položek ověřuje `scripts/test_nemcina.js` nezávislým čtením uloženého slovníčku. Kontroluje také vykreslení všech 265 úloh v obou režimech, správné i chybné odpovědi u doplňování a rozlišení fängst / fangst.
+- Aktivní katalog obsahuje 1105 úloh s unikátními ID, knihovna 26 přehledů pro 12 předmětů. Němčina přidává čtyři přehledy.
+- Prošly oba datové validátory, `scripts/test_question_rules.js`, kontroly syntaxe a `git diff --check`.
+- V prohlížeči ověřeny karta Němčina, sedm témat, slovní zásoba, přijetí správné odpovědi v Učení, otevření přehledu i spuštění procvičování z něj. V Testu ověřena neutrální odezva po zaznamenání odpovědi a skrytí řešení. Konzole bez zaznamenaných chyb; náhled vizuálně zkontrolován.
+- Podklady obou stránek a vymezení pokrytí jsou v `materialy/nemcina/zdroj/`.
+
 ## Operační systémy – 7. 10. 2026
 
 - Přidáno 100 úloh v 10 tématech: 67 výběrových, 13 scénářů, 4 s více odpověďmi, 6 přiřazovacích, 7 otevřených vysvětlení a 3 výpočty.

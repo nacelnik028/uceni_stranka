@@ -10,6 +10,7 @@ const state = {
     ...(Array.isArray(window.CYBERSECURITY_EXERCISES) ? window.CYBERSECURITY_EXERCISES : []),
     ...(Array.isArray(window.HARDWARE_EXERCISES) ? window.HARDWARE_EXERCISES : []),
     ...(Array.isArray(window.OPERATING_SYSTEMS_EXERCISES) ? window.OPERATING_SYSTEMS_EXERCISES : []),
+    ...(Array.isArray(window.GERMAN_EXERCISES) ? window.GERMAN_EXERCISES : []),
   ],
   answerVisible: false,
   view: 'home',
@@ -508,6 +509,7 @@ function bySubject(list, subject) {
 
 function subjectIcon(subject) {
   const paths = {
+    'Němčina': '<path d="M4 5h10M9 3v2m-3 0c0 5 3 8 7 10m0-10c0 5-3 8-7 10m8 6 4-10 4 10m-6-4h4"/>',
     'Programování': '<path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-12-2 14"/>',
     'Vývoj webových aplikací': '<rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01m-2 6-2 2 2 2m8-4 2 2-2 2"/>',
     'Databáze': '<ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>',
@@ -532,6 +534,7 @@ function renderHome() {
 
   // Barvy a ikony jsou stabilní podle názvu předmětu, nikoliv podle pořadí dat.
   const subjectVisuals = {
+    'Němčina': { icon: 'DE', color: '#eab308' },
     'Programování': { icon: '◈', color: '#60a5fa' },
     'Vývoj webových aplikací': { icon: '⌘', color: '#4ade80' },
     'Databáze': { icon: '✦', color: '#f6c85f' },
@@ -565,6 +568,7 @@ function renderHome() {
 
 function subjectDescription(subject) {
   return ({
+    'Němčina': 'Lekce 6: slovíčka, čas, denní režim, odlučitelná slovesa a zájmena.',
     'Programování': 'Python: seznamy, indexování a vlastní programy.',
     'Vývoj webových aplikací': 'Osobnosti informatiky, záhlaví webu a favicon.',
     'Databáze': 'Tabulky, klíče, SQL příkazy a správa dat.',
