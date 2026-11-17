@@ -35,6 +35,16 @@ const groups = [
   { file: 'hardware_exercises.js', variable: 'HARDWARE_EXERCISES' },
   { file: 'operacni_systemy_exercises.js', variable: 'OPERATING_SYSTEMS_EXERCISES' },
   { file: 'nemcina_exercises.js', variable: 'GERMAN_EXERCISES' },
+  { file: 'ekonomika_exercises.js', variable: 'ECONOMICS_EXERCISES' },
+  { file: 'obcanska_nauka_exercises.js', variable: 'CIVICS_EXERCISES' },
+  { file: 'programovani_specifikace_exercises.js', variable: 'PRG_SPEC_EXERCISES' },
+  { file: 'anglictina_exercises.js', variable: 'ENGLISH_EXERCISES' },
+  { file: 'site_2_rocnik_exercises.js', variable: 'NETWORK_2_EXERCISES' },
+  { file: 'vwa_2_rocnik_exercises.js', variable: 'WEBDEV_2_EXERCISES' },
+  { file: 'pgr_letak_exercises.js', variable: 'PC_GRAPHICS_2_EXERCISES' },
+  { file: 'osy_2_rocnik_exercises.js', variable: 'OPERATING_SYSTEMS_2_EXERCISES' },
+  { file: 'zdb_sql_server_exercises.js', variable: 'DATABASE_2_EXERCISES' },
+  { file: 'nemcina_doplneni_exercises.js', variable: 'GERMAN_2_EXERCISES' },
 ];
 
 const allowedTypes = new Set(['choice', 'multi', 'match', 'order', 'scenario', 'diagnostic', 'classification', 'compare', 'image-choice', 'text', 'code', 'fill', 'number', 'conversion', 'cloze', 'spot']);

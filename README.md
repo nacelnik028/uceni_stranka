@@ -16,10 +16,32 @@ Statická webová aplikace pro procvičování školních materiálů. GitHub Pa
 - Hardware
 - Operační systémy
 - Němčina
+- Anglický jazyk
+- Ekonomika
+- Občanská nauka
+
+## Zápisy 2. ročníku z Notionu
+
+Otázky ze zápisů v Notionu (databáze Zápisy 2.D, 2026/2027) jsou v samostatných souborech `data/*_2_rocnik_*.js` a dalších, aby se nemíchaly se staršími moduly. Každý soubor má podklad a mapu stránek → témat v `materialy/<předmět>/zdroj/notion-*.md`:
+
+| Předmět | Soubor | Úloh | Témata |
+|---|---|---|---|
+| Počítačové sítě | `site_2_rocnik_exercises.js` | 118 | Ethernet, ARP, zapouzdření a ping, DHCP, domácí síť a vzdálená pomoc, adaptéry ve Windows, porty a sockety, switche a VLAN |
+| Anglický jazyk | `anglictina_exercises.js` | 132 | předpony, první podmínka, spojovací výrazy, svět práce, žádost o zaměstnání |
+| Vývoj webových aplikací | `vwa_2_rocnik_exercises.js` | 62 | HTTP kódy, jednostránkový web a formuláře, programovací jazyky, SWOT/TOWS, GitHub Desktop a Render |
+| Operační systémy | `osy_2_rocnik_exercises.js` | 50 | CMD, místní a doménové účty, net user a PowerShell, PowerShell v praxi, hromadné účty, Mark of the Web |
+| Občanská nauka | `obcanska_nauka_exercises.js` | 36 | osobnost, motivace, učení |
+| Ekonomika | `ekonomika_exercises.js` | 32 | výroba a výrobní činitelé, reprodukční proces a trh |
+| Počítačová grafika | `pgr_letak_exercises.js` | 18 | tiskový leták v Affinity |
+| Databáze | `zdb_sql_server_exercises.js` | 18 | MS SQL Server |
+| Programování | `programovani_specifikace_exercises.js` | 18 | specifikace počítače |
+| Němčina | `nemcina_doplneni_exercises.js` | 15 | doplnění předložek, časových intervalů a předpon do stávajících témat |
+
+Stránky, které už stránka pokrývala (ČJL – literární období, CIT – číselné soustavy, ZDB – základy SQL, VWA – osobnosti), se nezdvojovaly. V Notionu zatím nejsou zápisy z HW, KYB, ELE, MAT, TVZ a PRA.
 
 ## Studijní přehledy
 
-Na úvodu je odkaz **Nejdřív si připomenout učivo**, během režimu Učení také **Připomenout učivo**. Knihovna obsahuje 26 stručných přehledů pokrývajících všech dvanáct předmětů. Není úplnou učebnicí všech témat. Obsahuje výklad, příklady, časté chyby a odkaz na podklad. Lze filtrovat podle předmětu a vyhledávat i bez diakritiky.
+Na úvodu je odkaz **Nejdřív si připomenout učivo**, během režimu Učení také **Připomenout učivo**. Knihovna obsahuje 34 stručných přehledů pokrývajících všech patnáct předmětů. Není úplnou učebnicí všech témat. Obsahuje výklad, příklady, časté chyby a odkaz na podklad. Lze filtrovat podle předmětu a vyhledávat i bez diakritiky.
 
 **Procvičit téma** otevře novou sadu v režimu Učení pro konkrétní předmět a téma, s vymazaným hledáním a filtry typu a obtížnosti. Velikost sady odpovídá aktuální volbě. Při pouhém otevření přehledů ze studia se odpovědi nemění; **Zpět k rozpracované sadě** obnoví původní obrazovku bez překreslení otázek.
 
@@ -43,7 +65,7 @@ Rozhraní a ukládání spravují `study-ux.js` a `study-ux.css`. Doporučení k
 
 Společný vzhled je v `appearance.css`, načítaném za styly jednotlivých modulů. Obsahuje barvy obou motivů, karty s SVG ikonami, typografii, zvýraznění vybrané odpovědi a mobilní rozložení. Úvod zdůrazňuje jednu hlavní akci: rychlou sadu, nebo pokračování v rozpracované sadě. Pokračování a procvičení chyb se zobrazují, když jsou dostupné.
 
-Aktuální runtime obsahuje 1105 úloh ve 12 předmětech, z toho 265 v Němčině. Přesné rozdělení podle předmětu a typu vypíše `node scripts/validate_questions.js`; počty na webu se odvozují přímo z aktivních dat.
+Aktuální runtime obsahuje 1604 úloh v 15 předmětech, z toho 280 v Němčině a 499 ze zápisů 2. ročníku v Notionu. Přesné rozdělení podle předmětu a typu vypíše `node scripts/validate_questions.js`; počty na webu se odvozují přímo z aktivních dat.
 
 Modul **elektrotechnika** pokrývá elektrický proud, Ohmův zákon, rezistivitu a odpor vodiče a závislost odporu na teplotě. Obsahuje výběr odpovědí, přiřazování, výpočty, třídění, scénář a krátké vysvětlení s vlastní kontrolou. Přepis dodaných poznámek je v `materialy/elektrotechnika/zdroj/elektrotechnika.md`. U neúplného příkladu s měděným vinutím je pro výpočet výslovně zadáno zaokrouhlení α = 0,004 K⁻¹; tato hodnota na fotografii chybí.
 
@@ -69,6 +91,16 @@ procvicovna-github/
 │   ├── hardware_exercises.js
 │   ├── operacni_systemy_exercises.js
 │   ├── nemcina_exercises.js
+│   ├── site_2_rocnik_exercises.js       # 2. ročník z Notionu (PSI)
+│   ├── vwa_2_rocnik_exercises.js        # VWA
+│   ├── pgr_letak_exercises.js           # PGR
+│   ├── osy_2_rocnik_exercises.js        # OSY
+│   ├── zdb_sql_server_exercises.js      # ZDB
+│   ├── programovani_specifikace_exercises.js  # PRG
+│   ├── nemcina_doplneni_exercises.js    # NEJ
+│   ├── anglictina_exercises.js          # ANJ
+│   ├── ekonomika_exercises.js           # EKO
+│   ├── obcanska_nauka_exercises.js      # OBN
 │   └── study_guides.js
 │
 ├── scripts/

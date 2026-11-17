@@ -19,6 +19,10 @@ procvicovna-github/
 │   ├── hardware_exercises.js
 │   ├── operacni_systemy_exercises.js
 │   ├── nemcina_exercises.js
+│   ├── site_2_rocnik_exercises.js, vwa_2_rocnik_exercises.js, pgr_letak_exercises.js
+│   ├── osy_2_rocnik_exercises.js, zdb_sql_server_exercises.js, programovani_specifikace_exercises.js
+│   ├── nemcina_doplneni_exercises.js, anglictina_exercises.js
+│   ├── ekonomika_exercises.js, obcanska_nauka_exercises.js
 │   └── study_guides.js
 ├── scripts/
 │   ├── validate_questions.js
@@ -65,6 +69,12 @@ Modul `Operační systémy` používá `data/operacni_systemy_exercises.js` a po
 
 Modul `Němčina` používá `data/nemcina_exercises.js` a pole `GERMAN_EXERCISES`: 265 úloh v 7 tématech a čtyři přehledy. Slovní zásoba má 152 úloh, z toho 133 samostatných otázek pokrývá všechny položky slovníčku. Přepisy obou stránek Notion a vymezení pokrytí jsou v `materialy/nemcina/zdroj/`. Zapojení zajišťují `index.html`, `app.js` a oba validátory. `scripts/test_nemcina.js` porovnává všechny slovníkové položky s podkladem a kontroluje vykreslení v obou režimech i hodnocení doplňování.
 
+## Zápisy 2. ročníku z Notionu (17. 11. 2026)
+
+Z databáze Zápisy 2.D (2026/2027) přibylo 499 úloh v deseti souborech. Každý soubor je samostatná IIFE s vlastním globálním polem (`NETWORK_2_EXERCISES`, `WEBDEV_2_EXERCISES`, `PC_GRAPHICS_2_EXERCISES`, `OPERATING_SYSTEMS_2_EXERCISES`, `DATABASE_2_EXERCISES`, `PRG_SPEC_EXERCISES`, `GERMAN_2_EXERCISES`, `ENGLISH_EXERCISES`, `ECONOMICS_EXERCISES`, `CIVICS_EXERCISES`) a ID s vlastní předponou (`psi2-`, `vwa2-`, `pgr2-`, `osy2-`, `zdb2-`, `prg-spec-`, `nej2-`, `anj-`, `eko-`, `obn-`). Pole spojuje `app.js`, načítá je `index.html` a kontrolují oba validátory.
+
+Nové předměty Anglický jazyk, Ekonomika a Občanská nauka mají v `app.js` ikonu, barvu a popis a v `data/study_guides.js` vlastní přehledy. Podklady s mapou stránek Notionu na témata: `materialy/anglictina/zdroj/`, `materialy/ekonomika/zdroj/`, `materialy/obcanska-nauka/zdroj/` a soubory `notion-*.md` v ostatních složkách `materialy/*/zdroj/`.
+
 ## Kde se upravuje aplikace
 
 - `index.html` – struktura stránky a CSS
@@ -73,7 +83,7 @@ Modul `Němčina` používá `data/nemcina_exercises.js` a pole `GERMAN_EXERCISE
 
 ## Studijní přehledy
 
-- `data/study_guides.js` – statický obsah 26 přehledů pro dvanáct předmětů; vazba na otázky používá přesné `subject` a `topic`.
+- `data/study_guides.js` – statický obsah 34 přehledů pro patnáct předmětů; vazba na otázky používá přesné `subject` a `topic`.
 - `study-guides.js` – katalog, hledání bez diakritiky, čtení a spuštění nové sady k tématu.
 - `study-guides.css` – responzivní styly knihovny a článků pro oba motivy.
 - `appearance.css` – společné barvy, typografie, karty a mobilní vzhled; načítá se za styly modulů.

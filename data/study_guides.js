@@ -504,3 +504,99 @@ window.STUDY_GUIDES.push(
   "sourceLabel": "Podklad: Test z NEJ – zájmena a domlouvání schůzky"
 }
 );
+
+// Přehledy k zápisům 2. ročníku z Notionu (2.D, 2026/2027).
+window.STUDY_GUIDES.push(
+  {
+    id: 'eko-reprodukce', subject: 'Ekonomika', topic: 'Reprodukční proces, trh a spotřeba',
+    title: 'Reprodukční proces a trh', minutes: 3,
+    intro: 'Hospodářské činnosti se opakují, protože uspokojení potřeb vyvolává další potřeby.',
+    sections: [
+      { title: 'Čtyři fáze', points: ['Výroba → rozdělování → směna → spotřeba.', 'Prostá reprodukce: stejný rozsah. Rozšířená: rozsah roste. Zúžená: rozsah klesá.', 'Rozdělování: účastníci výroby dostávají odměnu za své vstupy; stát část prostředků přerozděluje na veřejné a sociální účely.'] },
+      { title: 'Směna a trh', points: ['Barter je přímá směna bez peněz, běžný nákup je peněžní směna.', 'Trh je prostředí, kde se setkává nabídka a poptávka – může být i elektronický.', 'Nákup ovlivňuje cena, potřeba, kvalita, preference, motivace i emoce.'] },
+      { title: 'Příklad', text: 'Kavárna: barista z kávy a mléka připraví nápoj (výroba), z tržeb dostanou zaměstnanci mzdu (rozdělování), zákazník zaplatí (směna) a kávu vypije (jednorázová spotřeba).' }
+    ],
+    mistake: 'Vyšší cena sama o sobě nezaručuje vyšší poptávku a trh nemusí být fyzická tržnice.',
+    sourceLabel: 'Podklad: Notion EKO – Reprodukční proces, výroba a trh', source: 'materialy/ekonomika/zdroj/notion-reprodukcni-proces.md'
+  },
+  {
+    id: 'eko-vyroba', subject: 'Ekonomika', topic: 'Výroba, zboží a výrobní činitelé',
+    title: 'Výroba, zboží a vstupy podniku', minutes: 2,
+    intro: 'Výroba kombinuje vstupy a vytváří výrobky; hospodářská činnost zahrnuje i služby.',
+    sections: [
+      { title: 'Pojmy', points: ['Zboží je výrobek určený k prodeji. Výrobek pro vlastní potřebu zbožím být nemusí.', 'Ostříhání vlasů je služba, aplikace je nehmotný produkt.', 'Obecné výrobní faktory: práce, přírodní zdroje, kapitál.'] },
+      { title: 'Vstupy podniku', points: ['Materiál – suroviny, ze kterých výrobek vzniká.', 'Stroje a vybavení.', 'Pracovní síla – obsluha, účetní, ředitel, marketing.', 'Nemovitosti a prostory – pozemek, budova, provozovna.'] }
+    ],
+    mistake: 'Automatizace mění kombinaci vstupů, ale nezaručuje bezporuchový provoz ani úplné nahrazení lidí.',
+    sourceLabel: 'Podklad: Notion EKO – Výroba, zboží a výrobní činitelé', source: 'materialy/ekonomika/zdroj/notion-reprodukcni-proces.md'
+  },
+  {
+    id: 'obn-motivace-uceni', subject: 'Občanská nauka', topic: 'Motivace',
+    title: 'Osobnost, motivace a učení', minutes: 3,
+    intro: 'Tři navazující psychologická témata: kdo jsme, co nás pohání a jak se učíme.',
+    sections: [
+      { title: 'Osobnost', points: ['Persona = maska. Osobnost je dynamické, jedinečné a neopakovatelné spojení vlastností a vyvíjí se celý život.', 'Vlivy: vnitřní (biologické, vrozené) a vnější (prostředí, výchova).', 'C. G. Jung: extrovert × introvert. Marshmallow experiment (W. Mischel, Stanford, 70. léta) zkoumal sebeovládání.'] },
+      { title: 'Motivace', points: ['Vnitřní (zájem, radost) × vnější (odměna, trest); pozitivní × negativní. Stimulace = vnější podnět.', 'Maslow: vývoj = řetězec voleb mezi jistotou a růstem.', 'Teorie sebedeterminace: autonomie, kompetence, sounáležitost.'] },
+      { title: 'Učení', points: ['Celoživotní osvojování vědomostí (teorie), dovedností (praxe), návyků (opakování) a hodnot.', 'Záměrné × bezděčné; vyučování = řízený proces učení.', 'Učíme se podmiňováním, odměnami a tresty a pozorováním.'] }
+    ],
+    mistake: 'Bezpečí a seberealizace patří do Maslowovy pyramidy, ne do teorie sebedeterminace.',
+    sourceLabel: 'Podklad: Notion OBN – Osobnost, Motivace, Učení', source: 'materialy/obcanska-nauka/zdroj/notion-psychologie.md'
+  },
+  {
+    id: 'anj-first-conditional', subject: 'Anglický jazyk', topic: 'První podmínková věta',
+    title: 'First conditional', minutes: 3,
+    intro: 'První podmínkou mluvíme o reálně možné budoucí situaci a jejím důsledku.',
+    sections: [
+      { title: 'Tvoření', code: "If + present simple, will / won't + základní tvar\nIf I get the job, I'll move.\nI'll reply immediately if you text me.", text: 'Po if je přítomný čas (he/she/it s -s), will patří do hlavní věty. Hlavní věta může být i otázka nebo pokyn.' },
+      { title: 'Čárka', points: ['If na začátku → čárka za vedlejší větou.', 'If na konci → před if čárka není.'] },
+      { title: 'Srovnání', text: 'If I got the job, I would move. = druhá podmínka, hypotetická situace; minulý tvar tu neznamená minulost.' }
+    ],
+    mistake: 'Ve větě s if v první podmínce nepiš will: ne „If she will want…“, ale „If she wants…“.',
+    sourceLabel: 'Podklad: Notion AJ – Gramatika', source: 'materialy/anglictina/zdroj/notion-aj.md'
+  },
+  {
+    id: 'anj-zadost', subject: 'Anglický jazyk', topic: 'Žádost o zaměstnání',
+    title: 'Žádost o zaměstnání a svět práce', minutes: 4,
+    intro: 'Formální dopis představuje uchazeče a vysvětluje, proč se hodí na konkrétní místo.',
+    sections: [
+      { title: 'Oslovení a rozloučení', points: ['Dear Sir or Madam, → Yours faithfully,', 'Dear Mr Brown, → Yours sincerely,', 'Plné tvary (I am, I would), žádný slang; I look forward to hearing from you.'] },
+      { title: 'Odstavce', points: ['Proč píšu a kde jsem místo viděl.', 'Kdo jsem a proč mě práce zajímá.', 'Zkušenosti a vlastnosti (I have some experience of working…).', 'Příloha CV, pohovor, nástup; závěr.'] },
+      { title: 'Slovní zásoba', points: ['look for a job → job advert → apply → interview → job offer; CV (AmE résumé).', "be fired / be made redundant / be laid off; the dole; I'm between jobs.", 'full-time, part-time, temporary job (ne „brigade“), freelance, self-employed.'] }
+    ],
+    mistake: 'Experience ve významu praxe je nepočitatelné: more experience, ne „more experiences“.',
+    sourceLabel: 'Podklad: Notion AJ – Svět práce a Psaní', source: 'materialy/anglictina/zdroj/notion-aj.md'
+  },
+  {
+    id: 'psi2-porty', subject: 'Počítačové sítě', topic: 'Porty a sockety',
+    title: 'Porty, sockety a služby', minutes: 3,
+    intro: 'IP adresa určuje rozhraní, port službu nebo aplikaci. TCP a UDP mají oddělené prostory portů 0–65535.',
+    sections: [
+      { title: 'Rozsahy a služby', points: ['0–1023 well-known, 1024–49151 registered, 49152–65535 dynamic/private.', 'HTTP 80, HTTPS 443, SSH 22, FTP 21, SMTP 25, SMB 445, IMAPS 993 (TCP); DHCP 67/68 (UDP).', 'SQL Server 1433/TCP, SQL Server Browser 1434/UDP.'] },
+      { title: 'Spojení', code: 'klient:<dočasný port> → server:443 (TCP)\nserver:443 → klient:<stejný dočasný port>', text: 'TCP spojení rozlišuje čtveřice IP a portů, s protokolem pětice. netstat -ano ukáže spojení i PID.' }
+    ],
+    mistake: 'Přesun HTTP na port 443 nezapne šifrování – HTTPS potřebuje TLS a certifikát.',
+    sourceLabel: 'Podklad: Notion PSI – Porty a sockety', source: 'materialy/pocitacove-site/zdroj/notion-psi-2-rocnik.md'
+  },
+  {
+    id: 'vwa2-swot', subject: 'Vývoj webových aplikací', topic: 'SWOT a TOWS',
+    title: 'SWOT a TOWS v IT projektu', minutes: 3,
+    intro: 'SWOT pomáhá posoudit projekt před rozhodnutím; TOWS z bodů vytvoří strategie.',
+    sections: [
+      { title: 'Osy SWOT', points: ['S silné a W slabé stránky = vnitřní vlivy týmu.', 'O příležitosti a T hrozby = vnější vlivy okolí.', 'Neumíme Linux = W; výpadky školní sítě = T.'] },
+      { title: 'TOWS', points: ['SO: přednosti k využití příležitosti.', 'ST: přednosti k omezení hrozby.', 'WO: omezit slabinu, aby šla využít příležitost.', 'WT: omezit slabiny i hrozby (např. interní kredit místo platební brány).'] }
+    ],
+    mistake: 'SWOT je subjektivní a sama neurčuje váhu bodů ani cenu projektu – je to podklad pro akční plán.',
+    sourceLabel: 'Podklad: Notion VWA – SWOT analýza', source: 'materialy/vyvoj-webovych-aplikaci/zdroj/notion-vwa-2-rocnik.md'
+  },
+  {
+    id: 'zdb2-sql-server', subject: 'Databáze', topic: 'MS SQL Server',
+    title: 'MS SQL Server v kostce', minutes: 3,
+    intro: 'SQL Server je systém řízení relační báze dat od Microsoftu.',
+    sections: [
+      { title: 'Edice a služby', points: ['Express zdarma (výuka, malé aplikace), Standard, Web, Developer (jen vývoj a test), Enterprise.', 'Database Engine je nezbytný; Agent plánuje úlohy; Browser (UDP 1434) pomáhá najít pojmenované instance.'] },
+      { title: 'Systémové databáze', points: ['master – konfigurace, loginy, seznam databází; bez ní se instance nespustí.', 'model – šablona pro nové databáze.', 'tempdb – dočasné objekty, po restartu se vytvoří znovu, nezálohuje se.', 'msdb – úlohy Agentu a historie záloh.'] }
+    ],
+    mistake: 'GRANT a REVOKE patří do DCL, ne do DML (INSERT, UPDATE, DELETE).',
+    sourceLabel: 'Podklad: Notion ZDB – MS SQL Server', source: 'materialy/databaze/zdroj/notion-ms-sql-server.md'
+  }
+);

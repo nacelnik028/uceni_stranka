@@ -5,7 +5,7 @@ const vm = require('vm');
 const root = path.resolve(__dirname, '..');
 const context = { window: {} };
 vm.createContext(context);
-for (const file of ['exercises.js', 'network_exercises.js', 'literature_exercises.js', 'cislicova_technika_exercises.js', 'pocitacova_grafika_exercises.js', 'elektrotechnika_exercises.js', 'kyberneticka_bezpecnost_exercises.js', 'hardware_exercises.js', 'operacni_systemy_exercises.js', 'nemcina_exercises.js', 'study_guides.js']) {
+for (const file of ['exercises.js', 'network_exercises.js', 'literature_exercises.js', 'cislicova_technika_exercises.js', 'pocitacova_grafika_exercises.js', 'elektrotechnika_exercises.js', 'kyberneticka_bezpecnost_exercises.js', 'hardware_exercises.js', 'operacni_systemy_exercises.js', 'nemcina_exercises.js', 'site_2_rocnik_exercises.js', 'vwa_2_rocnik_exercises.js', 'pgr_letak_exercises.js', 'osy_2_rocnik_exercises.js', 'zdb_sql_server_exercises.js', 'programovani_specifikace_exercises.js', 'nemcina_doplneni_exercises.js', 'anglictina_exercises.js', 'ekonomika_exercises.js', 'obcanska_nauka_exercises.js', 'study_guides.js']) {
   vm.runInContext(fs.readFileSync(path.join(root, 'data', file), 'utf8'), context);
 }
 const guides = context.window.STUDY_GUIDES;

@@ -11,6 +11,17 @@ const state = {
     ...(Array.isArray(window.HARDWARE_EXERCISES) ? window.HARDWARE_EXERCISES : []),
     ...(Array.isArray(window.OPERATING_SYSTEMS_EXERCISES) ? window.OPERATING_SYSTEMS_EXERCISES : []),
     ...(Array.isArray(window.GERMAN_EXERCISES) ? window.GERMAN_EXERCISES : []),
+    // Zápisy 2. ročníku z Notionu (2.D, 2026/2027)
+    ...(Array.isArray(window.NETWORK_2_EXERCISES) ? window.NETWORK_2_EXERCISES : []),
+    ...(Array.isArray(window.WEBDEV_2_EXERCISES) ? window.WEBDEV_2_EXERCISES : []),
+    ...(Array.isArray(window.PC_GRAPHICS_2_EXERCISES) ? window.PC_GRAPHICS_2_EXERCISES : []),
+    ...(Array.isArray(window.OPERATING_SYSTEMS_2_EXERCISES) ? window.OPERATING_SYSTEMS_2_EXERCISES : []),
+    ...(Array.isArray(window.DATABASE_2_EXERCISES) ? window.DATABASE_2_EXERCISES : []),
+    ...(Array.isArray(window.PRG_SPEC_EXERCISES) ? window.PRG_SPEC_EXERCISES : []),
+    ...(Array.isArray(window.GERMAN_2_EXERCISES) ? window.GERMAN_2_EXERCISES : []),
+    ...(Array.isArray(window.ENGLISH_EXERCISES) ? window.ENGLISH_EXERCISES : []),
+    ...(Array.isArray(window.ECONOMICS_EXERCISES) ? window.ECONOMICS_EXERCISES : []),
+    ...(Array.isArray(window.CIVICS_EXERCISES) ? window.CIVICS_EXERCISES : []),
   ],
   answerVisible: false,
   view: 'home',
@@ -583,7 +594,10 @@ function subjectIcon(subject) {
     'Kybernetická bezpečnost': '<path d="M12 3 4 6v6c0 5 8 9 8 9s8-4 8-9V6l-8-3Z"/><path d="m8 12 3 3 5-6"/>',
     'Hardware': '<rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9" y="9" width="6" height="6" rx="1"/><path d="M9 3v3m6-3v3M9 18v3m6-3v3M3 9h3m-3 6h3m12-6h3m-3 6h3"/>',
     'Operační systémy': '<rect x="3" y="4" width="18" height="14" rx="2"/><path d="m6 8 3 3-3 3m5 0h5M8 21h8m-4-3v3"/>',
-    'Počítačová grafika': '<rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.5"/><path d="m3 17 5-5 4 4 4-6 5 7"/>'
+    'Počítačová grafika': '<rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.5"/><path d="m3 17 5-5 4 4 4-6 5 7"/>',
+    'Anglický jazyk': '<path d="M4 5h8a3 3 0 0 1 0 6H4V5Zm0 6h9a3 3 0 0 1 0 6H4v-6Z"/><path d="M17 9h3m-1.5-1.5v3"/>',
+    'Ekonomika': '<path d="M3 20h18M6 16v-5m5 5V8m5 8v-7m4-5-5 4-4-3-5 4"/>',
+    'Občanská nauka': '<circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6m0-5.2c.6-.5 1.3-.8 2-.8 2.2 0 4 1.8 4 4v2"/>'
   };
   return `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[subject] || paths['Literatura']}</svg>`;
 }
@@ -609,6 +623,9 @@ function renderHome() {
     'Hardware': { icon: '▣', color: '#fb923c' },
     'Operační systémy': { icon: '⌨', color: '#38bdf8' },
     'Počítačová grafika': { icon: '▧', color: '#c084fc' },
+    'Anglický jazyk': { icon: 'EN', color: '#f472b6' },
+    'Ekonomika': { icon: '₿', color: '#34d399' },
+    'Občanská nauka': { icon: '☺', color: '#facc15' },
   };
   const fallbackIcons = ['◈', '⌘', '✦', '▦', '∑', '◌'];
   $('subjectCards').innerHTML = subjects.length ? subjects.map((subject, i) => {
@@ -633,18 +650,21 @@ function renderHome() {
 
 function subjectDescription(subject) {
   return ({
-    'Němčina': 'Lekce 6: slovíčka, čas, denní režim, odlučitelná slovesa a zájmena.',
-    'Programování': 'Python: seznamy, indexování a vlastní programy.',
-    'Vývoj webových aplikací': 'Osobnosti informatiky, záhlaví webu a favicon.',
-    'Databáze': 'Tabulky, klíče, SQL příkazy a správa dat.',
-    'Počítačové sítě': 'Topologie, kabeláž, síťové modely, adresace a protokoly.',
+    'Němčina': 'Lekce 6: slovíčka, čas, denní režim, odlučitelná slovesa, předložky a zájmena.',
+    'Programování': 'Python a čtení specifikace počítače ve Správci úloh.',
+    'Vývoj webových aplikací': 'Osobnosti, header, HTTP kódy, formuláře, jazyky, SWOT a nasazení webu.',
+    'Databáze': 'Tabulky, klíče, SQL příkazy a MS SQL Server – edice, služby a systémové databáze.',
+    'Počítačové sítě': 'Topologie a kabeláž, Ethernet, ARP, DHCP, porty, switche a VLAN.',
+    'Anglický jazyk': 'Předpony, první podmínka, spojovací výrazy a svět práce včetně žádosti o místo.',
+    'Ekonomika': 'Výroba, zboží, výrobní činitelé, reprodukční proces, trh a spotřeba.',
+    'Občanská nauka': 'Osobnost, motivace a učení.',
     'Literatura': 'Literární období, autoři, díla a jejich postavy.',
     'Číslicová technika': 'Číselné soustavy, převody a Hornerovo schéma.',
     'elektrotechnika': 'Elektrický proud, Ohmův zákon, odpor vodiče a vliv teploty.',
     'Kybernetická bezpečnost': 'Identity, oprávnění, Active Directory a zabezpečení Windows i Linuxu.',
     'Hardware': 'Disky, rozhraní, displeje, periferie, síťové adaptéry a tiskové technologie.',
-    'Operační systémy': 'Souborové systémy, ACL, šifrování a práce s objekty v PowerShellu.',
-    'Počítačová grafika': 'Rastr a vektor, formáty, export a favicon.'
+    'Operační systémy': 'Souborové systémy, ACL, PowerShell, CMD, uživatelské účty a Mark of the Web.',
+    'Počítačová grafika': 'Rastr a vektor, formáty, export, favicon a tiskový leták v Affinity.'
   })[subject] || 'Vyber téma a vyzkoušej své znalosti.';
 }
 
