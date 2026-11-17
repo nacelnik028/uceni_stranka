@@ -609,31 +609,12 @@ function renderHome() {
   $('homeSubjects').textContent = subjects.length;
   $('homeTopics').textContent = topics.length;
 
-  // Barvy a ikony jsou stabilní podle názvu předmětu, nikoliv podle pořadí dat.
-  const subjectVisuals = {
-    'Němčina': { icon: 'DE', color: '#eab308' },
-    'Programování': { icon: '◈', color: '#60a5fa' },
-    'Vývoj webových aplikací': { icon: '⌘', color: '#4ade80' },
-    'Databáze': { icon: '✦', color: '#f6c85f' },
-    'Počítačové sítě': { icon: '▦', color: '#fb8aa0' },
-    'Literatura': { icon: '∑', color: '#a78bfa' },
-    'Číslicová technika': { icon: '◌', color: '#4aa8ff' },
-    'elektrotechnika': { icon: 'ϟ', color: '#f59e0b' },
-    'Kybernetická bezpečnost': { icon: '◇', color: '#2dd4bf' },
-    'Hardware': { icon: '▣', color: '#fb923c' },
-    'Operační systémy': { icon: '⌨', color: '#38bdf8' },
-    'Počítačová grafika': { icon: '▧', color: '#c084fc' },
-    'Anglický jazyk': { icon: 'EN', color: '#f472b6' },
-    'Ekonomika': { icon: '₿', color: '#34d399' },
-    'Občanská nauka': { icon: '☺', color: '#facc15' },
-  };
-  const fallbackIcons = ['◈', '⌘', '✦', '▦', '∑', '◌'];
+  // Barvy předmětů určuje jen appearance.css přes [data-subject] (tmavý i světlý motiv).
   $('subjectCards').innerHTML = subjects.length ? subjects.map((subject, i) => {
     const items = state.exercises.filter(e => e.subject === subject);
     const topicCount = unique(items.map(e => e.topic)).length;
     const label = topicCount === 1 ? 'téma' : topicCount < 5 ? 'témata' : 'témat';
-    const visual = subjectVisuals[subject] || { icon: fallbackIcons[i % fallbackIcons.length], color: '#6cb6ff' };
-    return `<button class="card" data-subject="${esc(subject)}" style="text-align:left;--subject-color:${visual.color};--i:${i}">
+    return `<button class="card" data-subject="${esc(subject)}" style="text-align:left;--i:${i}">
       <span class="card-glyph" aria-hidden="true">${subjectIcon(subject)}</span>
       <div class="card-top"><div class="card-icon">${subjectIcon(subject)}</div><span class="card-arrow" aria-hidden="true">↗</span></div>
       <h3>${esc(subject === 'elektrotechnika' ? 'Elektrotechnika' : subject)}</h3>
@@ -666,6 +647,27 @@ function subjectDescription(subject) {
     'Operační systémy': 'Souborové systémy, ACL, PowerShell, CMD, uživatelské účty a Mark of the Web.',
     'Počítačová grafika': 'Rastr a vektor, formáty, export, favicon a tiskový leták v Affinity.'
   })[subject] || 'Vyber téma a vyzkoušej své znalosti.';
+}
+
+// Zkratka pro štítek předmětu – rozlišení předmětů nejen barvou.
+function subjectAbbr(subject) {
+  return ({
+    'Programování': 'PRG',
+    'Vývoj webových aplikací': 'VWA',
+    'Databáze': 'DB',
+    'Počítačové sítě': 'PSI',
+    'Literatura': 'LIT',
+    'Číslicová technika': 'ČT',
+    'Počítačová grafika': 'PG',
+    'elektrotechnika': 'ELT',
+    'Kybernetická bezpečnost': 'KB',
+    'Hardware': 'HW',
+    'Operační systémy': 'OS',
+    'Němčina': 'NJ',
+    'Anglický jazyk': 'ANJ',
+    'Ekonomika': 'EKO',
+    'Občanská nauka': 'OBN'
+  })[subject] || '';
 }
 
 function openStudy(subject = 'all', topic = 'all', preserveSubtopic = false) {

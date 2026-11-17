@@ -194,7 +194,16 @@
     $('topicsView').classList.remove('hidden');
     $('homeBtn').classList.remove('hidden');
     $('resetProgress').classList.add('hidden');
-    $('topicsHeading').textContent = subject === 'elektrotechnika' ? 'Elektrotechnika' : subject;
+    const heading = $('topicsHeading');
+    heading.textContent = subject === 'elektrotechnika' ? 'Elektrotechnika' : subject;
+    const abbr = subjectAbbr(subject);
+    if (abbr) {
+      const badge = document.createElement('span');
+      badge.className = 'subject-badge';
+      badge.setAttribute('aria-hidden', 'true');
+      badge.textContent = abbr;
+      heading.append(' ', badge);
+    }
     $('topicsDescription').textContent = subjectDescription(subject);
     $('topicsView').dataset.subject = subject;
     const items = state.exercises.filter(e => e.subject === subject);

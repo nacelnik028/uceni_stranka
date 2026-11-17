@@ -12,23 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Geist:wght@400..700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <title>Procvičovna</title>
   <style>
-    :root{
-      --bg:#0d1117; --panel:#141a23; --panel2:#10151d; --code:#090d13; --line:#252d3a; --line2:#36415a;
-      --text:#e8ecf2; --muted:#9ba6b6; --accent:#6cb6ff; --ink:#06121f;
-      --good:#4cc38a; --bad:#ff7b8a; --warn:#f0c674;
-      --good-bg:#0b231c; --good-border:#2a6a51; --bad-bg:#281019; --bad-border:#6b3040;
-      --hover:#1b2431; --hover-border:#4a5872; --accent-hover:#8ac6ff; --input-focus:rgba(108,182,255,.15);
-      --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
-      --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-    }
-    :root[data-theme="light"]{
-      --bg:#f5f7fa; --panel:#ffffff; --panel2:#eef2f7; --code:#f8fafc; --line:#d8dee8; --line2:#b7c1d0;
-      --text:#182230; --muted:#5e6a7a; --accent:#2563eb; --ink:#ffffff;
-      --good:#16834f; --bad:#c6283d; --warn:#946200;
-      --good-bg:#eaf8f0; --good-border:#82caa4; --bad-bg:#fff0f2; --bad-border:#e8a4ae;
-      --hover:#f0f4fa; --hover-border:#8ea0b9; --accent-hover:#1d4ed8; --input-focus:rgba(37,99,235,.14);
-    }
-    .card[data-subject="Programování"]{--subject-color:#60a5fa}.card[data-subject="Vývoj webových aplikací"]{--subject-color:#4ade80}.card[data-subject="Databáze"]{--subject-color:#f6c85f}.card[data-subject="Počítačové sítě"]{--subject-color:#fb8aa0}.card[data-subject="Literatura"]{--subject-color:#a78bfa}.card[data-subject="Číslicová technika"]{--subject-color:#4aa8ff}.card[data-subject="Počítačová grafika"]{--subject-color:#c084fc}.card[data-subject="elektrotechnika"]{--subject-color:#f59e0b}
+    /* Barevné tokeny (tmavý i světlý motiv) a barvy předmětů jsou jen v appearance.css. */
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{margin:0;background:var(--bg);color:var(--text);font:400 16px/1.6 var(--sans);min-height:100vh;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
@@ -261,7 +245,7 @@
   </style>
   <link rel="stylesheet" href="study-guides.css?v=1">
   <link rel="stylesheet" href="study-ux.css?v=1">
-  <link rel="stylesheet" href="appearance.css?v=5">
+  <link rel="stylesheet" href="appearance.css?v=6">
 </head>
 <body>
   <div class="bg-fx" aria-hidden="true"><div class="aurora a1"></div><div class="aurora a2"></div><div class="aurora a3"></div><div class="bg-grid"></div><div class="bg-noise"></div></div>
@@ -430,9 +414,9 @@
   <script src="data/ekonomika_exercises.js?v=1"></script>
   <script src="data/obcanska_nauka_exercises.js?v=1"></script>
   <script src="data/study_guides.js?v=7"></script>
-  <script src="app.js?v=42"></script>
-  <script src="study-ux.js?v=6"></script>
+  <script src="app.js?v=43"></script>
+  <script src="study-ux.js?v=7"></script>
   <script src="study-guides.js?v=3"></script>
-  <script src="effects.js?v=2"></script>
+  <script src="effects.js?v=3"></script>
 </body>
 </html>
