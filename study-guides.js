@@ -90,7 +90,9 @@
     $('exerciseTitle').focus({ preventScroll: true });
   }
 
-  $('guideSubject').innerHTML += [...new Set(guides.map(guide => guide.subject))]
+  window.studyGuides = { openGuides, openGuide };
+
+  $('guideSubject').innerHTML +=[...new Set(guides.map(guide => guide.subject))]
     .map(subject => `<option value="${esc(subject)}">${esc(subject)}</option>`).join('');
   $('openGuides').addEventListener('click', () => openGuides());
   $('studyGuidesButton').addEventListener('click', () => openGuides($('filterSubject').value));

@@ -119,7 +119,11 @@ function applyTheme(theme) {
   const button = $('themeToggle');
   if (button) {
     const light = next === 'light';
-    button.textContent = light ? '☾ Tmavý motiv' : '☀ Světlý motiv';
+    const sun = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+    const moon = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>';
+    button.innerHTML = `${light ? moon : sun}<span class="theme-label">${light ? 'Tmavý' : 'Světlý'}</span>`;
+    button.title = light ? 'Přepnout na tmavý motiv' : 'Přepnout na světlý motiv';
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', light ? '#f5f5fb' : '#06070d');
     button.setAttribute('aria-pressed', String(!light));
     button.setAttribute('aria-label', light ? 'Přepnout na tmavý motiv' : 'Přepnout na světlý motiv');
   }
@@ -553,11 +557,13 @@ function renderHome() {
     const topicCount = unique(items.map(e => e.topic)).length;
     const label = topicCount === 1 ? 'téma' : topicCount < 5 ? 'témata' : 'témat';
     const visual = subjectVisuals[subject] || { icon: fallbackIcons[i % fallbackIcons.length], color: '#6cb6ff' };
-    return `<button class="card" data-subject="${esc(subject)}" style="text-align:left;--subject-color:${visual.color}">
+    return `<button class="card" data-subject="${esc(subject)}" style="text-align:left;--subject-color:${visual.color};--i:${i}">
+      <span class="card-glyph" aria-hidden="true">${subjectIcon(subject)}</span>
       <div class="card-top"><div class="card-icon">${subjectIcon(subject)}</div><span class="card-arrow" aria-hidden="true">↗</span></div>
       <h3>${esc(subject === 'elektrotechnika' ? 'Elektrotechnika' : subject)}</h3>
       <p>${esc(subjectDescription(subject))}</p>
       <div class="card-meta">${items.length} úloh · ${topicCount} ${label}</div>
+      <div class="card-mastery" data-mastery-subject="${esc(subject)}"><span class="mastery-track"><span class="mastery-fill"></span></span><span class="mastery-label">0 % zvládnuto</span></div>
     </button>`;
   }).join('') : '<div class="empty">Zatím nejsou přidané žádné úlohy.</div>';
 
@@ -693,10 +699,12 @@ function renderHeader() {
   const activeTopics = unique(active.map(e => e.topic));
   const filteredCount = baseFilteredExercises().length;
 
+  // Zobrazovaný název předmětu začíná velkým písmenem (data používají i 'elektrotechnika').
+  const subjectLabel = selectedSubject.charAt(0).toLocaleUpperCase('cs-CZ') + selectedSubject.slice(1);
   if (selectedSubject !== 'all' && selectedTopic !== 'all') {
-    $('exerciseTitle').textContent = `${selectedSubject} – ${selectedTopic}`;
+    $('exerciseTitle').textContent = `${subjectLabel} – ${selectedTopic}`;
   } else if (selectedSubject !== 'all') {
-    $('exerciseTitle').textContent = selectedSubject;
+    $('exerciseTitle').textContent = subjectLabel;
   } else {
     $('exerciseTitle').textContent = window.EXERCISE_SET_TITLE || 'Procvičování';
   }
@@ -704,7 +712,7 @@ function renderHeader() {
     : selectedTopic === 'all' ? 'všechna témata'
     : selectedSubtopic === 'all' ? 'všechna podtémata' : selectedSubtopic;
   $('exerciseMeta').textContent = `${filteredCount} ${filteredCount === 1 ? 'úloha k výběru' : 'úloh k výběru'} · ${metaContext}`;
-  $('crumbSubject').textContent = selectedSubject === 'all' ? 'Všechny předměty' : selectedSubject;
+  $('crumbSubject').textContent = selectedSubject === 'all' ? 'Všechny předměty' : subjectLabel;
   $('crumbTopic').textContent = selectedTopic === 'all' ? 'Všechna témata' : selectedTopic;
 
   const setOptions = (el, title, values, current) => {
@@ -1393,7 +1401,15 @@ function clearCurrentStats() {
   $('statsPanel')?.remove();
 }
 
+// Oznámí vyhodnocenou odpověď ostatním modulům (např. effects.js). Nemění logiku hodnocení.
+function emitResult(e, result) {
+  try {
+    document.dispatchEvent(new CustomEvent('procvicovna:result', { detail: { id: e?.id, subject: e?.subject, result, mode: state.mode } }));
+  } catch { /* efekty jsou volitelné */ }
+}
+
 function recordExerciseResult(e, result) {
+  emitResult(e, result);
   state.results[e.id] = { ...result, timestamp: Date.now() };
   clearCurrentStats();
   updateSessionProgress();
@@ -1531,6 +1547,7 @@ function completeCurrentSet() {
   renderStatsPanel(stats);
   updateMobileCheckBar();
   window.studyUX?.save();
+  try { document.dispatchEvent(new CustomEvent('procvicovna:set-complete', { detail: { percent: stats.percent, mode: stats.mode } })); } catch { /* efekty jsou volitelné */ }
 }
 
 function finishCurrentSet() {
@@ -2003,11 +2020,13 @@ async function runCode(exercise, output) {
       new Function('print', 'console', code)((...args) => logs.push(args.join(' ')), fakeConsole);
       const ok = showRun(output, { text: logs.join('\n'), expected, revealCorrectness: state.mode !== 'test' });
       state.codeResults[exercise.id] = { answered: true, correct: expected == null ? true : ok === true, graded: expected != null };
+      emitResult(exercise, state.codeResults[exercise.id]);
       updateSessionProgress();
       if (state.mode === 'learn') maybeAutoCompleteSet();
     } catch (error) {
       showRun(output, { text: logs.join('\n'), error: `${error.name}: ${error.message}`, revealCorrectness: state.mode !== 'test' });
       state.codeResults[exercise.id] = { answered: true, correct: false, graded: true };
+      emitResult(exercise, state.codeResults[exercise.id]);
       updateSessionProgress();
       if (state.mode === 'learn') maybeAutoCompleteSet();
     }
@@ -2025,6 +2044,7 @@ async function runCode(exercise, output) {
     const line = py.globals.get('__study_line__');
     const ok = showRun(output, { text, error, errorLine: line ?? null, expected, revealCorrectness: state.mode !== 'test' });
     state.codeResults[exercise.id] = { answered: true, correct: error ? false : (expected == null ? true : ok === true), graded: expected != null };
+    emitResult(exercise, state.codeResults[exercise.id]);
     updateSessionProgress();
     if (state.mode === 'learn') maybeAutoCompleteSet();
     window.studyUX?.save();

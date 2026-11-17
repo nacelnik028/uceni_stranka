@@ -56,6 +56,8 @@ procvicovna-github/
 │
 ├── index.html                         # vstupní stránka GitHub Pages + CSS
 ├── app.js                             # UI, filtry, session, kontrola odpovědí
+├── appearance.css                     # vzhled „Aurora“ (barvy, typografie, animace, světlý/tmavý motiv)
+├── effects.js                         # efekty, osobní pokrok, denní série, rychlý start a paleta Ctrl+K
 ├── data/                              # AKTIVNÍ runtime data (načítá index.html)
 │   ├── exercises.js
 │   ├── network_exercises.js
@@ -370,6 +372,17 @@ Pod volbou velikosti sady je progress bar s počtem zodpovězených úloh. Stav 
 Shrnutí používá výraznější skóre a kruhový indikátor, rozpad podle témat a dvě rychlé akce: **🔁 Opakovat tuto sadu** a **🎲 Nová náhodná sada**. Výsledky zůstávají lokální.
 
 Tyto UI změny nemění datový formát existujících úloh.
+
+## Vzhled „Aurora“ a efekty (17. 11. 2026)
+
+- **Úvod:** animované pozadí, velký nadpis s přechodem barev, střídající se návrh tématu (klikem se hned spustí) a počítadla úloh, předmětů a témat.
+- **Karta pokroku:** prstenec „zvládnuto“ (podíl správně vyřešených úloh), **denní série**, počet správně vyřešených úloh a aktivita za posledních 7 dní. Vše se počítá z dat v tomto prohlížeči (`procvicovna-outcomes:v1`, `procvicovna-activity:v1`).
+- **Rychlý start:** běžící pás všech témat – klik na téma rovnou otevře sadu. Při najetí myší se zastaví.
+- **Karty předmětů a témat:** barva podle předmětu, světlo a jemný náklon pod kurzorem, ukazatel zvládnutí.
+- **Paleta příkazů:** `Ctrl+K` (nebo `/`, případně ikona lupy) hledá předměty, témata a studijní přehledy i bez diakritiky; šipky a Enter.
+- **Odezva při Učení:** správná odpověď = konfety, „combo“ za odpovědi v řadě a zelené zvýraznění; chyba = krátké zatřesení. V režimu **Test** se žádné efekty nezobrazují, aby neprozradily správnost. Shrnutí sady nad 80 % spustí velkou oslavu.
+- `effects.js` jen naslouchá událostem `procvicovna:result` a `procvicovna:set-complete` z `app.js` a volá veřejné funkce `window.studyUX` a `window.studyGuides`. Hodnocení odpovědí nemění.
+- Při zapnutém omezení pohybu (`prefers-reduced-motion`) se animace, konfety i běžící pás vypnou.
 
 ## Přidávání nových předmětů
 

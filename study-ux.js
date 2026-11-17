@@ -190,21 +190,25 @@
     $('topicsView').classList.remove('hidden');
     $('homeBtn').classList.remove('hidden');
     $('resetProgress').classList.add('hidden');
-    $('topicsHeading').textContent = subject;
+    $('topicsHeading').textContent = subject === 'elektrotechnika' ? 'Elektrotechnika' : subject;
     $('topicsDescription').textContent = subjectDescription(subject);
+    $('topicsView').dataset.subject = subject;
     const items = state.exercises.filter(e => e.subject === subject);
     const topics = ['all', ...unique(items.map(e => e.topic))];
-    $('topicCards').innerHTML = topics.map(topic => {
+    const outcomes = read(outcomesKey, {});
+    $('topicCards').innerHTML = topics.map((topic, i) => {
       const pool = topic === 'all' ? items : items.filter(e => e.topic === topic);
       const details = unique(pool.map(e => e.subtopic)).slice(0, 3).join(' · ');
-      return `<button type="button" class="card" data-subject="${esc(subject)}" data-topic="${esc(topic)}"><h3>${esc(topic === 'all' ? 'Všechna témata' : topic)}</h3><p>${esc(details)}</p><div class="card-meta">${pool.length} úloh · začít procvičovat →</div></button>`;
+      const solved = pool.filter(e => outcomes[e.id] === true).length;
+      const pct = pool.length ? Math.round((solved / pool.length) * 100) : 0;
+      return `<button type="button" class="card${topic === 'all' ? ' card-all' : ''}" data-subject="${esc(subject)}" data-topic="${esc(topic)}" style="--i:${i}"><h3>${esc(topic === 'all' ? 'Všechna témata' : topic)}</h3><p>${esc(details)}</p><div class="card-meta">${pool.length} úloh · začít procvičovat →</div><div class="card-mastery"><span class="mastery-track"><span class="mastery-fill" style="width:${pct}%"></span></span><span class="mastery-label">${solved}/${pool.length} zvládnuto</span></div></button>`;
     }).join('');
     $('topicCards').querySelectorAll('[data-topic]').forEach(button => button.addEventListener('click', () => start(subject, button.dataset.topic)));
     updateMobileCheckBar();
     window.scrollTo({ top: 0, behavior: 'smooth' });
     $('topicsHeading').focus({ preventScroll: true });
   }
-  window.studyUX = { openTopics, resume, save, updateHome, resetPosition: () => { position = 0; }, onRender: () => { applyLayout(); save(); } };
+  window.studyUX = { openTopics, resume, save, updateHome, start, failedIds, resetPosition: () => { position = 0; }, onRender: () => { applyLayout(); save(); } };
   const storedLayout = read(layoutKey, null);
   $('questionLayout').value = storedLayout === 'list' || storedLayout === 'single' ? storedLayout : window.matchMedia('(max-width:760px)').matches ? 'single' : 'list';
   $('questionLayout').addEventListener('change', () => { write(layoutKey, $('questionLayout').value); applyLayout(); save(); });
