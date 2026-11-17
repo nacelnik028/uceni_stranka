@@ -55,7 +55,42 @@ function inferDifficulty(e) {
   if (e.type === 'order') return 3;
   if (e.type === 'multi') return 3;
   if (['scenario', 'image-choice'].includes(e.type)) return 2;
+  if (e.type === 'spot') return 3;
+  if (e.type === 'cloze') return Array.isArray(e.gaps) && e.gaps.length >= 4 ? 3 : 2;
   return 2;
+}
+
+// Doplňovačka (cloze): text s mezerami {{id}}; mezera má buď nabídku options, nebo se vpisuje.
+function clozeNormalize(value) {
+  return String(value ?? '').normalize('NFC').replace(/\s+/gu, ' ').trim().replace(/[.,;:!?]+$/u, '').toLocaleLowerCase('cs-CZ');
+}
+
+function clozeGapCorrect(gap, value) {
+  if (!gap || !String(value ?? '').trim()) return false;
+  if (Array.isArray(gap.options) && gap.options.length) return String(value).trim() === String(gap.answer).trim();
+  const accepted = [gap.answer, ...(Array.isArray(gap.accept) ? gap.accept : [])].map(clozeNormalize);
+  return accepted.includes(clozeNormalize(value));
+}
+
+function readCloze(e) {
+  const gaps = new Map((e.gaps || []).map(gap => [String(gap.id), gap]));
+  const fields = [...document.querySelectorAll(`[data-cloze="${CSS.escape(e.id)}"]`)];
+  const values = fields.map(field => ({ field, gap: gaps.get(field.dataset.gap), value: String(field.value || '').trim() }));
+  const filled = values.filter(v => v.value).length;
+  const correctCount = values.filter(v => clozeGapCorrect(v.gap, v.value)).length;
+  return { values, filled, total: gaps.size, correctCount, answered: filled > 0, complete: gaps.size > 0 && filled === gaps.size, correct: gaps.size > 0 && correctCount === gaps.size };
+}
+
+// Najdi chybu (spot): text rozdělený na úseky (slova/fráze nebo řádky kódu); wrong = indexy chybných úseků.
+function readSpot(e) {
+  const marked = [...document.querySelectorAll(`[data-spot-seg="${CSS.escape(e.id)}"][aria-pressed="true"]`)].map(b => Number(b.dataset.spotIndex)).sort((a, b) => a - b);
+  const expected = (e.wrong || []).map(Number).sort((a, b) => a - b);
+  const hits = marked.filter(i => expected.includes(i)).length;
+  return { marked, expected, hits, extra: marked.length - hits, answered: marked.length > 0, correct: marked.length === expected.length && expected.every((v, i) => v === marked[i]) };
+}
+
+function czCount(n, one, few, many) {
+  return n === 1 ? one : n >= 2 && n <= 4 ? few : many;
 }
 
 function difficultyText(value) {
@@ -83,7 +118,7 @@ function setupEnterShortcut() {
     if (exercise.dataset.type === 'code' || target?.matches('textarea.code')) return;
     if (target?.matches('button, a, select')) return;
 
-    const quickCheck = exercise.querySelector('[data-action="check-choice"], [data-action="check-multi"], [data-action="check-match"], [data-action="check-order"], [data-action="check-conversion"], [data-action="check-diagnostic"], [data-action="check-classification"], [data-action="check-compare"]');
+    const quickCheck = exercise.querySelector('[data-action="check-choice"], [data-action="check-multi"], [data-action="check-match"], [data-action="check-order"], [data-action="check-conversion"], [data-action="check-diagnostic"], [data-action="check-classification"], [data-action="check-compare"], [data-action="check-cloze"], [data-action="check-spot"]');
     if (quickCheck) {
       ev.preventDefault();
       quickCheck.click();
@@ -305,7 +340,7 @@ function setupCodeTabShortcut() {
 
 function checkActionForExercise(exerciseElement) {
   if (!exerciseElement) return null;
-  return exerciseElement.querySelector('[data-action="check-choice"], [data-action="check-multi"], [data-action="check-match"], [data-action="check-order"], [data-action="check-conversion"], [data-action="check-diagnostic"], [data-action="check-classification"], [data-action="check-compare"], [data-action="check-short"], [data-action="check-personality"], [data-action="show-self-check"], [data-action="run-code"]');
+  return exerciseElement.querySelector('[data-action="check-choice"], [data-action="check-multi"], [data-action="check-match"], [data-action="check-order"], [data-action="check-conversion"], [data-action="check-diagnostic"], [data-action="check-classification"], [data-action="check-compare"], [data-action="check-cloze"], [data-action="check-spot"], [data-action="check-short"], [data-action="check-personality"], [data-action="show-self-check"], [data-action="run-code"]');
 }
 
 function updateMobileCheckBar() {
@@ -396,6 +431,12 @@ function normalizeExercises(list) {
     value: e.value ?? '',
     fromBase: e.fromBase ?? null,
     toBase: e.toBase ?? null,
+    cloze: e.cloze ?? '',
+    gaps: Array.isArray(e.gaps) ? e.gaps : [],
+    segments: Array.isArray(e.segments) ? e.segments : [],
+    wrong: Array.isArray(e.wrong) ? e.wrong : [],
+    corrections: e.corrections && typeof e.corrections === 'object' ? e.corrections : {},
+    layout: e.layout === 'lines' ? 'lines' : 'words',
     difficulty: inferDifficulty(e),
     generated: e.generated === true,
   }));
@@ -404,7 +445,7 @@ function normalizeExercises(list) {
 function validateExercises(list) {
   const seen = new Set();
   const problems = [];
-  const types = ['choice', 'multi', 'match', 'order', 'scenario', 'diagnostic', 'classification', 'compare', 'image-choice', 'text', 'code', 'fill', 'number', 'conversion'];
+  const types = ['choice', 'multi', 'match', 'order', 'scenario', 'diagnostic', 'classification', 'compare', 'image-choice', 'text', 'code', 'fill', 'number', 'conversion', 'cloze', 'spot'];
   list.forEach((e) => {
     if (seen.has(e.id)) problems.push(`${e.id}: id se opakuje`);
     seen.add(e.id);
@@ -492,6 +533,24 @@ function validateExercises(list) {
       if (!Number.isInteger(fromBase) || fromBase < 2 || fromBase > 36) problems.push(`${e.id}: conversion má neplatný fromBase`);
       if (!Number.isInteger(toBase) || toBase < 2 || toBase > 36) problems.push(`${e.id}: conversion má neplatný toBase`);
       if (!answer) problems.push(`${e.id}: conversion potřebuje answer`);
+    }
+    if (e.type === 'cloze') {
+      const placeholders = [...String(e.cloze || '').matchAll(/\{\{([\w-]+)\}\}/g)].map(m => m[1]);
+      const gapIds = (e.gaps || []).map(gap => String(gap?.id ?? ''));
+      if (!placeholders.length) problems.push(`${e.id}: cloze potřebuje text s mezerami {{id}}`);
+      if (new Set(gapIds).size !== gapIds.length) problems.push(`${e.id}: cloze má duplicitní id mezery`);
+      for (const ph of placeholders) if (!gapIds.includes(ph)) problems.push(`${e.id}: cloze mezera {{${ph}}} nemá definici v gaps`);
+      for (const gap of (e.gaps || [])) {
+        if (!placeholders.includes(String(gap?.id))) problems.push(`${e.id}: cloze gap ${gap?.id} není v textu`);
+        if (!String(gap?.answer ?? '').trim()) problems.push(`${e.id}: cloze gap ${gap?.id} nemá answer`);
+        if (Array.isArray(gap?.options) && gap.options.length && !gap.options.includes(gap.answer)) problems.push(`${e.id}: cloze gap ${gap?.id} má answer mimo options`);
+      }
+    }
+    if (e.type === 'spot') {
+      const count = (e.segments || []).length;
+      if (count < 3) problems.push(`${e.id}: spot potřebuje aspoň 3 segments`);
+      if (!(e.wrong || []).length) problems.push(`${e.id}: spot potřebuje neprázdné wrong`);
+      for (const index of (e.wrong || [])) if (!Number.isInteger(index) || index < 0 || index >= count) problems.push(`${e.id}: spot wrong obsahuje neplatný index ${index}`);
     }
     if ((e.type === 'number' || e.type === 'fill') && !e.answer) problems.push(`${e.id}: chybí answer`);
     if (e.type === 'text' && !e.answer && !e.solution) problems.push(`${e.id}: chybí answer nebo solution`);
@@ -653,7 +712,7 @@ function filterSummaryText() {
   if (subject !== 'all') parts.push(subject);
   if (topic !== 'all') parts.push(topic);
   if (subtopic !== 'all') parts.push(subtopic);
-  if (type !== 'all') parts.push(({choice:'Výběr',multi:'Více správných',match:'Párování',order:'Řazení',scenario:'Scénář',diagnostic:'Diagnostika',classification:'Třídění',compare:'Porovnání','image-choice':'Obrázek + výběr',text:'Textová odpověď',code:'Kód',fill:'Doplňování',number:'Výpočet',conversion:'Převod soustavy'})[type] || type);
+  if (type !== 'all') parts.push(({choice:'Výběr',multi:'Více správných',match:'Párování',order:'Řazení',scenario:'Scénář',diagnostic:'Diagnostika',classification:'Třídění',compare:'Porovnání','image-choice':'Obrázek + výběr',text:'Textová odpověď',code:'Kód',fill:'Doplňování',number:'Výpočet',conversion:'Převod soustavy',cloze:'Doplňovačka',spot:'Najdi chybu'})[type] || type);
   if (difficulty !== 'all') parts.push(`obtížnost ${difficulty}`);
   const query = ($('exerciseSearch')?.value || '').trim();
   if (query) parts.push(`hledání „${query}“`);
@@ -776,6 +835,24 @@ function solutionBlock(e) {
     if (e.solution) parts.push(part('Vysvětlení', `<div>${rich(e.solution)}</div>`));
   } else if (e.type === 'compare') {
     if (e.criteria?.length) parts.push(part('Správné porovnání', `<div>${e.criteria.map(item => `<div><strong>${rich(item.text)}</strong> → ${rich(item.answer === 'left' ? e.leftLabel : e.rightLabel)}</div>`).join('')}</div>`));
+    if (e.solution) parts.push(part('Vysvětlení', `<div>${rich(e.solution)}</div>`));
+  } else if (e.type === 'cloze') {
+    const gaps = new Map((e.gaps || []).map(gap => [String(gap.id), gap]));
+    const filledText = rich(e.cloze).replace(/\{\{([\w-]+)\}\}/g, (m, gapId) => `<mark class="cloze-answer">${esc(gaps.get(gapId)?.answer ?? '?')}</mark>`);
+    parts.push(part('Správně doplněný text', `<div class="cloze-solution">${filledText}</div>`));
+    if (e.solution) parts.push(part('Vysvětlení', `<div>${rich(e.solution)}</div>`));
+  } else if (e.type === 'spot') {
+    const wrong = new Set((e.wrong || []).map(Number));
+    const corrections = e.corrections || {};
+    const rows = [...wrong].sort((a, b) => a - b).map(i => {
+      const fix = corrections[i] ?? corrections[String(i)];
+      return `<div class="spot-fix"><del>${esc(e.segments[i])}</del>${fix != null ? ` → <strong>${esc(fix)}</strong>` : ''}</div>`;
+    }).join('');
+    parts.push(part(wrong.size === 1 ? 'Chybné místo' : 'Chybná místa', `<div>${rows}</div>`));
+    if ([...wrong].every(i => (corrections[i] ?? corrections[String(i)]) != null)) {
+      const fixed = (e.segments || []).map((seg, i) => wrong.has(i) ? (corrections[i] ?? corrections[String(i)]) : seg);
+      parts.push(part('Opravené znění', e.layout === 'lines' ? `<pre class="code-block">${esc(fixed.join('\n'))}</pre>` : `<div>${esc(fixed.join(' '))}</div>`));
+    }
     if (e.solution) parts.push(part('Vysvětlení', `<div>${rich(e.solution)}</div>`));
   } else if (e.type === 'scenario') {
     if (e.answer) parts.push(part('Správná odpověď', `<div>${rich(e.answer)}</div>`));
@@ -930,6 +1007,36 @@ function renderExercise(e, index) {
         <button data-action="reset-order" data-id="${id}">Začít znovu</button>
       </div>
       <div class="output" data-out="${id}">Seřaď všechny položky.</div>`;
+  } else if (e.type === 'cloze') {
+    const gaps = new Map((e.gaps || []).map(gap => [String(gap.id), gap]));
+    const body = rich(e.cloze).replace(/\{\{([\w-]+)\}\}/g, (m, gapId) => {
+      const gap = gaps.get(gapId);
+      if (!gap) return m;
+      const common = `class="cloze-field" data-cloze="${id}" data-gap="${esc(gapId)}" data-answer="${id}::${esc(gapId)}" aria-label="Mezera ${esc(gapId)}"`;
+      if (Array.isArray(gap.options) && gap.options.length) {
+        return `<select ${common}><option value="">…</option>${shuffle(gap.options).map(option => `<option value="${esc(option)}">${esc(option)}</option>`).join('')}</select>`;
+      }
+      return `<input type="text" ${common} autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="…">`;
+    });
+    inner = `
+      <div class="cloze-text">${body}</div>
+      <div class="row" style="margin-top:12px">
+        <button data-action="check-cloze" data-id="${id}">${state.mode === 'test' ? 'Zaznamenat odpověď' : 'Zkontrolovat doplnění'}</button>
+      </div>
+      <div class="output" data-out="${id}">Doplň všechna místa v textu.</div>`;
+  } else if (e.type === 'spot') {
+    const lines = e.layout === 'lines';
+    const count = (e.wrong || []).length;
+    inner = `
+      <div class="spot-hint small">${count === 1 ? 'Klikni na <strong>jedno</strong> chybné místo.' : `Klikni na všechna chybná místa – jsou <strong>${count}</strong>.`}</div>
+      <div class="spot-text${lines ? ' spot-lines' : ''}" role="group" aria-label="Text k opravě">
+        ${(e.segments || []).map((seg, i) => `<button type="button" class="spot-seg" data-spot-seg="${id}" data-spot-index="${i}" aria-pressed="false">${lines ? `<span class="spot-ln" aria-hidden="true">${i + 1}</span>` : ''}<span class="spot-txt">${esc(seg)}</span></button>`).join(lines ? '' : ' ')}
+      </div>
+      <div class="row" style="margin-top:12px">
+        <button data-action="check-spot" data-id="${id}">${state.mode === 'test' ? 'Zaznamenat odpověď' : 'Zkontrolovat'}</button>
+        <button data-action="reset-spot" data-id="${id}">Zrušit výběr</button>
+      </div>
+      <div class="output" data-out="${id}">Označ chybné místo a zkontroluj.</div>`;
   } else if (e.type === 'conversion') {
     const fromBase = Number(e.fromBase);
     const toBase = Number(e.toBase);
@@ -999,7 +1106,7 @@ function renderExercise(e, index) {
   const difficultyTag = `<span class="tag difficulty-tag difficulty-${Number(e.difficulty)}">${esc(difficultyText(e.difficulty))}</span>`;
   const tags = `<div class="tags">${difficultyTag}</div>`;
 
-  const typeLabels = {choice:'Výběr', multi:'Více správných', match:'Párování', order:'Řazení', scenario:'Scénář', diagnostic:'Diagnostika', classification:'Třídění', compare:'Porovnání', 'image-choice':'Obrázek + výběr', text:'Text', code:'Kód', fill:'Doplňování', number:'Výpočet', conversion:'Převod soustavy'};
+  const typeLabels = {choice:'Výběr', multi:'Více správných', match:'Párování', order:'Řazení', scenario:'Scénář', diagnostic:'Diagnostika', classification:'Třídění', compare:'Porovnání', 'image-choice':'Obrázek + výběr', text:'Text', code:'Kód', fill:'Doplňování', number:'Výpočet', conversion:'Převod soustavy', cloze:'Doplňovačka', spot:'Najdi chybu'};
   return `<article class="exercise" data-type="${esc(e.type)}" data-subject="${esc(e.subject)}" data-exercise-id="${id}">
     <div class="exercise-head">
       <div>
@@ -1387,6 +1494,14 @@ function readExerciseResponse(e) {
   if (e.type === 'code') {
     const result = state.codeResults[e.id];
     return result || { answered: false, correct: false, graded: true };
+  }
+  if (e.type === 'cloze') {
+    const r = readCloze(e);
+    return { answered: r.answered, correct: r.correct, graded: true };
+  }
+  if (e.type === 'spot') {
+    const r = readSpot(e);
+    return { answered: r.answered, correct: r.correct, graded: true };
   }
   const answer = document.querySelector(`[data-answer="${id}"]`)?.value?.trim() || '';
   if ((e.type === 'text' || e.type === 'fill') && !e.autoGrade) return { answered: Boolean(answer), correct: null, graded: false };
@@ -1821,6 +1936,50 @@ function attachExerciseEvents() {
         return;
       }
 
+      if (button.dataset.action === 'check-cloze') {
+        if (!out) return;
+        const r = readCloze(e);
+        r.values.forEach(v => v.field.classList.remove('is-ok', 'is-bad'));
+        if (!r.answered) { out.className = 'output'; out.textContent = 'Nejdřív doplň aspoň jedno místo v textu.'; return; }
+        recordExerciseResult(e, { answered: true, correct: r.correct, graded: true });
+        if (state.mode === 'test') { renderNeutralFeedback(out, true); return; }
+        r.values.forEach(v => { if (v.value) v.field.classList.add(clozeGapCorrect(v.gap, v.value) ? 'is-ok' : 'is-bad'); });
+        out.className = `output ${r.correct ? 'ok' : 'bad'}`;
+        out.textContent = r.correct
+          ? '✓ Správně – všechna místa jsou doplněná.'
+          : `✗ Správně máš ${r.correctCount} z ${r.total} ${czCount(r.total, 'místa', 'míst', 'míst')}.${r.complete ? ' Oprav červeně označená místa.' : ' Některá místa jsou ještě prázdná.'}`;
+        return;
+      }
+
+      if (button.dataset.action === 'check-spot') {
+        if (!out) return;
+        const r = readSpot(e);
+        const segs = [...document.querySelectorAll(`[data-spot-seg="${CSS.escape(id)}"]`)];
+        segs.forEach(seg => seg.classList.remove('spot-hit', 'spot-false'));
+        if (!r.answered) { out.className = 'output'; out.textContent = 'Nejdřív klikni na místo, které považuješ za chybné.'; return; }
+        recordExerciseResult(e, { answered: true, correct: r.correct, graded: true });
+        if (state.mode === 'test') { renderNeutralFeedback(out, true); return; }
+        const wrongSet = new Set(r.expected);
+        segs.forEach(seg => {
+          if (seg.getAttribute('aria-pressed') !== 'true') return;
+          seg.classList.add(wrongSet.has(Number(seg.dataset.spotIndex)) ? 'spot-hit' : 'spot-false');
+        });
+        const total = r.expected.length;
+        out.className = `output ${r.correct ? 'ok' : 'bad'}`;
+        out.textContent = r.correct
+          ? (total === 1 ? '✓ Přesně tak – chybu jsi našel/našla.' : `✓ Výborně – našel/našla jsi ${total === 2 ? 'obě chyby' : total <= 4 ? `všechny ${total} chyby` : `všech ${total} chyb`}.`)
+          : `✗ Zatím ne. Trefa: ${r.hits} z ${total}.${r.extra ? (r.extra === 1 ? ' Červeně označené místo je ve skutečnosti v pořádku.' : ' Červeně označená místa jsou ve skutečnosti v pořádku.') : ' Hledej dál.'}`;
+        return;
+      }
+
+      if (button.dataset.action === 'reset-spot') {
+        document.querySelectorAll(`[data-spot-seg="${CSS.escape(id)}"]`).forEach(seg => { seg.setAttribute('aria-pressed', 'false'); seg.classList.remove('spot-hit', 'spot-false'); });
+        if (out) { out.className = 'output'; out.textContent = 'Označ chybné místo a zkontroluj.'; }
+        delete state.results[e.id];
+        clearCurrentStats();
+        return;
+      }
+
       if (button.dataset.action === 'check-choice') {
         const selected = document.querySelector(`input[name="choice-${CSS.escape(id)}"]:checked`)?.value;
         if (!out) return;
@@ -1838,6 +1997,23 @@ function attachExerciseEvents() {
         await runCode(e, out);
       }
     });
+  });
+
+  document.querySelectorAll('[data-spot-seg]').forEach((button) => {
+    button.addEventListener('click', () => {
+      button.setAttribute('aria-pressed', String(button.getAttribute('aria-pressed') !== 'true'));
+      const exercise = button.closest('.exercise');
+      exercise?.querySelectorAll('.spot-seg').forEach(seg => seg.classList.remove('spot-hit', 'spot-false'));
+      const out = exercise?.querySelector('[data-out]');
+      if (out && out.className !== 'output') { out.className = 'output'; out.textContent = 'Označ chybné místo a zkontroluj.'; }
+      clearCurrentStats();
+    });
+  });
+
+  document.querySelectorAll('.cloze-field').forEach((field) => {
+    const clear = () => field.classList.remove('is-ok', 'is-bad');
+    field.addEventListener('input', clear);
+    field.addEventListener('change', clear);
   });
 
   document.querySelectorAll('[data-classification-category]').forEach((button) => {
@@ -2095,6 +2271,8 @@ $('resetProgress').addEventListener('click', () => {
     out.className = 'output';
     out.textContent = state.mode === 'test' ? 'Odpověď zatím není zaznamenána.' : 'Výstup / kontrola se objeví zde.';
   });
+  document.querySelectorAll('.cloze-field').forEach((field) => { field.value = ''; field.classList.remove('is-ok', 'is-bad'); });
+  document.querySelectorAll('.spot-seg').forEach((seg) => { seg.setAttribute('aria-pressed', 'false'); seg.classList.remove('spot-hit', 'spot-false'); });
   document.querySelectorAll('details.solution-box').forEach((d) => { d.open = false; });
   state.answerVisible = false;
   state.results = {};

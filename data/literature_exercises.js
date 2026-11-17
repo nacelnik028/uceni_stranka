@@ -302,10 +302,10 @@ window.LITERATURE_EXERCISES = [
     "title": "Stavba sonetu",
     "question": "Jaké je typické rozložení veršů v sonetu?",
     "choices": [
+      "2×3 verše a 2×4 verše",
       "2×4 verše a 2×3 verše",
-      "4×3 verše",
-      "1×8 a 1×6 veršů",
-      "2×5 a 2×2 verše"
+      "4×3 verše a 1×2 verše",
+      "2×5 veršů a 2×2 verše"
     ],
     "answer": "2×4 verše a 2×3 verše",
     "solution": "Materiál popisuje sonet jako 4 strofy, přibližně 2×4 verše a 2×3 verše.",
@@ -406,9 +406,9 @@ window.LITERATURE_EXERCISES = [
     "question": "Čeho se Hamlet bojí v monologu „Být či nebýt.“?",
     "choices": [
       "Toho, co je po smrti",
-      "Toho, že přijde o peníze",
-      "Toho, že ztratí trůn",
-      "Toho, že nenajde cestu do Sherwoodu"
+      "Toho, že přijde o celé jmění",
+      "Toho, že ztratí královský trůn",
+      "Toho, že ho Ofélie opustí"
     ],
     "answer": "Toho, co je po smrti",
     "solution": "Materiál přímo uvádí, že Hamlet se bojí toho, co je po smrti.",
@@ -636,10 +636,10 @@ window.LITERATURE_EXERCISES = [
     "title": "Óda",
     "question": "Co je óda?",
     "choices": [
+      "Satirická báseň s poučením",
+      "Milostná báseň o 14 verších",
       "Oslavná píseň nebo báseň",
-      "Divadelní komedie",
-      "Rámcová novela",
-      "Životopis"
+      "Smuteční báseň o zesnulém"
     ],
     "answer": "Oslavná píseň nebo báseň",
     "solution": "Materiál vysvětluje ódu jako oslavnou píseň/báseň.",
@@ -674,20 +674,43 @@ window.LITERATURE_EXERCISES = [
     "topic": "Klasicismus",
     "subtopic": "Bajka",
     "id": "lit-klasicismus-005",
-    "type": "choice",
+    "type": "cloze",
     "title": "Bajka",
-    "question": "Jak je charakterizována bajka?",
-    "choices": [
-      "Alegorická báseň, v níž vystupují zvířata jako lidé a každá má poučení",
-      "Oslavná báseň bez poučení",
-      "Divadelní hra s tragickým koncem",
-      "Životopis významné osoby"
-    ],
-    "answer": "Alegorická báseň, v níž vystupují zvířata jako lidé a každá má poučení",
+    "question": "Doplň charakteristiku bajky.",
     "solution": "Materiál přesně takto popisuje bajku.",
     "tags": [
       "Klasicismus",
       "bajka"
+    ],
+    "cloze": "Bajka je {{druh}} báseň, ve které vystupují {{postavy}} jednající jako lidé, a končí {{konec}}.",
+    "gaps": [
+      {
+        "id": "druh",
+        "options": [
+          "alegorická",
+          "oslavná",
+          "milostná"
+        ],
+        "answer": "alegorická"
+      },
+      {
+        "id": "postavy",
+        "options": [
+          "zvířata",
+          "bohové",
+          "rytíři"
+        ],
+        "answer": "zvířata"
+      },
+      {
+        "id": "konec",
+        "options": [
+          "poučením",
+          "tragédií",
+          "svatbou"
+        ],
+        "answer": "poučením"
+      }
     ]
   },
   {
@@ -761,10 +784,10 @@ window.LITERATURE_EXERCISES = [
     "title": "Monolog Lakomce",
     "question": "Která věta je uvedena jako nejslavnější monolog Harpagona?",
     "choices": [
-      "Moje penízky, moje penízky, chyťte zloděje!",
-      "Být či nebýt.",
-      "Slza za kapku vody.",
-      "Život je krásný."
+      "Být, či nebýt – to je, oč tu běží.",
+      "Kdo jinému jámu kopá, sám do ní padá.",
+      "Ó Romeo, Romeo, proč jsi Romeo?",
+      "Moje penízky, moje penízky, chyťte zloděje!"
     ],
     "answer": "Moje penízky, moje penízky, chyťte zloděje!",
     "solution": "Materiál uvádí tuto větu jako nejslavnější Harpagonův monolog.",
@@ -804,12 +827,12 @@ window.LITERATURE_EXERCISES = [
     "title": "Romantický hrdina a společnost",
     "question": "Jaký je romantický hrdina ve vztahu ke společnosti?",
     "choices": [
-      "Je vnitřně rozervaný, nezapadá do společnosti a nedokáže se přizpůsobit okolí",
-      "Je vždy spokojený a dokonale zapadá do společnosti",
-      "Je výhradně králem nebo šlechticem",
-      "Nemá žádné vnitřní konflikty"
+      "Je vzorem ctnosti a společnost ho obdivuje",
+      "Je vnitřně rozervaný a nezapadá do společnosti",
+      "Je spokojený, protože se okolí přizpůsobí",
+      "Stojí v čele společnosti a určuje její pravidla"
     ],
-    "answer": "Je vnitřně rozervaný, nezapadá do společnosti a nedokáže se přizpůsobit okolí",
+    "answer": "Je vnitřně rozervaný a nezapadá do společnosti",
     "solution": "První znak romantického hrdiny v materiálu je vnitřní rozervanost a neschopnost zapadnout do společnosti.",
     "tags": [
       "Romantismus",
@@ -825,12 +848,12 @@ window.LITERATURE_EXERCISES = [
     "title": "Láska romantického hrdiny",
     "question": "Jak je popsána láska romantického hrdiny?",
     "choices": [
-      "Bývá nešťastná a tragická a hrdina miluje svou představu dokonalejší ženy",
-      "Je vždy šťastná a bez konfliktů",
-      "Je založena pouze na majetku",
-      "Nemá v romantismu význam"
+      "Bývá šťastná a končí svatbou a klidným životem",
+      "Je pro hrdinu vedlejší, důležitější je kariéra",
+      "Bývá nešťastná, hrdina miluje svou ideální představu",
+      "Je rozumová a podřízená společenským pravidlům"
     ],
-    "answer": "Bývá nešťastná a tragická a hrdina miluje svou představu dokonalejší ženy",
+    "answer": "Bývá nešťastná, hrdina miluje svou ideální představu",
     "solution": "Materiál uvádí, že romantický hrdina často prožívá nešťastnou lásku a miluje svou představu dokonalé ženy.",
     "tags": [
       "Romantismus",
@@ -869,12 +892,12 @@ window.LITERATURE_EXERCISES = [
     "title": "Byron",
     "question": "Kdo byl zakladatelem romantismu v Anglii?",
     "choices": [
-      "Lord George Gordon Byron",
+      "George Gordon Byron",
       "Walter Scott",
       "Victor Hugo",
-      "Stendhal"
+      "William Shakespeare"
     ],
-    "answer": "Lord George Gordon Byron",
+    "answer": "George Gordon Byron",
     "solution": "Materiál uvádí jako zakladatele romantismu v Anglii básníka lorda George Gordona Byrona.",
     "tags": [
       "Romantismus",
@@ -890,10 +913,10 @@ window.LITERATURE_EXERCISES = [
     "title": "Byronovo dílo",
     "question": "Které dílo je spojeno s lordem Byronem?",
     "choices": [
-      "Childe Haroldova pouť",
       "Červený a černý",
-      "Bídníci",
-      "Dekameron"
+      "Chrám Matky boží v Paříži",
+      "Píseň o Rollandovi",
+      "Childe Haroldova pouť"
     ],
     "answer": "Childe Haroldova pouť",
     "solution": "U Byrona je v materiálu uvedena Childe Haroldova pouť.",
@@ -912,10 +935,10 @@ window.LITERATURE_EXERCISES = [
     "title": "Walter Scott",
     "question": "Čím se proslavil Walter Scott?",
     "choices": [
+      "Milostnými sonety",
       "Historickými romány",
-      "Sonety",
-      "Ódami",
-      "Tragédiemi"
+      "Oslavnými ódami",
+      "Antickými tragédiemi"
     ],
     "answer": "Historickými romány",
     "solution": "Materiál uvádí, že Walter Scott se proslavil historickými romány.",
@@ -953,12 +976,12 @@ window.LITERATURE_EXERCISES = [
     "title": "Sherwood",
     "question": "Co je Sherwood?",
     "choices": [
-      "Les, ve kterém měla Robinova skupina útočiště",
-      "Město, kde žil Valjean",
-      "Hrad bohyně Fortuny",
-      "Pařížská barikáda"
+      "Les, kde měla Robinova skupina útočiště",
+      "Hrad, odkud vládl sheriff z Nottinghamu",
+      "Klášter, kde se Robin skrýval před králem",
+      "Vesnice, ze které pocházela Mariana"
     ],
-    "answer": "Les, ve kterém měla Robinova skupina útočiště",
+    "answer": "Les, kde měla Robinova skupina útočiště",
     "solution": "Materiál uvádí Sherwood jako les, ve kterém měla skupina útočiště.",
     "tags": [
       "Romantismus",
@@ -996,10 +1019,10 @@ window.LITERATURE_EXERCISES = [
     "title": "Sheriff z Nottinghamu",
     "question": "Kdo je zápornou postavou příběhu o Robinovi Hoodovi?",
     "choices": [
+      "Král Richard Lví srdce",
+      "Malý John",
       "Sheriff z Nottinghamu",
-      "Richard I.",
-      "Mariana",
-      "Walter Scott"
+      "Mnich Tuck"
     ],
     "answer": "Sheriff z Nottinghamu",
     "solution": "Jako záporná postava je v materiálu uveden sheriff z Nottinghamu.",
@@ -1019,8 +1042,8 @@ window.LITERATURE_EXERCISES = [
     "choices": [
       "Richarda I.",
       "Karla IV.",
-      "Javerta",
-      "George Gordona Byrona"
+      "Jindřicha VIII.",
+      "Ludvíka XIV."
     ],
     "answer": "Richarda I.",
     "solution": "Materiál uvádí, že Ivanhoe se odehrává za vlády krále Richarda I.",
@@ -1082,10 +1105,10 @@ window.LITERATURE_EXERCISES = [
     "title": "Chrám Matky boží v Paříži",
     "question": "Jak se také nazývá dílo Chrám Matky boží v Paříži?",
     "choices": [
-      "Zvoník od Matky boží",
-      "Lví srdce",
       "Ubožáci",
-      "Dekameron"
+      "Zvoník od Matky boží",
+      "Childe Haroldova pouť",
+      "Červený a černý"
     ],
     "answer": "Zvoník od Matky boží",
     "solution": "Materiál uvádí jako alternativní označení „Zvoník od Matky boží“.",
@@ -1189,10 +1212,10 @@ window.LITERATURE_EXERCISES = [
     "title": "Quasimodo na pranýři",
     "question": "Co se stalo Quasimodovi po pokusu o únos Esmeraldy?",
     "choices": [
-      "Byl chycen a přivázán na pranýř",
-      "Stal se starostou",
-      "Odešel do kláštera",
-      "Dostal se do Sherwoodu"
+      "Byl vyhnán z Paříže na venkov",
+      "Uprchl do věže a skrýval se tam",
+      "Byl odsouzen na galeje k veslování",
+      "Byl chycen a přivázán na pranýř"
     ],
     "answer": "Byl chycen a přivázán na pranýř",
     "solution": "Materiál uvádí, že Quasimodo byl chycen a přivázán na pranýř.",
@@ -1206,21 +1229,31 @@ window.LITERATURE_EXERCISES = [
     "topic": "Romantismus",
     "subtopic": "Chrám Matky boží v Paříži",
     "id": "lit-rom-francie-008",
-    "type": "choice",
+    "type": "spot",
     "title": "Slza za kapku vody",
-    "question": "Co se stalo v úryvku „Slza za kapku vody“?",
-    "choices": [
-      "Esmeralda dala Quasimodovi napít a ten poprvé v životě uronil slzu",
-      "Quasimodo uprchl ze Seiny",
-      "Frollo dal napít Javertovi",
-      "Robin Hood zachránil Valjeana"
-    ],
-    "answer": "Esmeralda dala Quasimodovi napít a ten poprvé v životě uronil slzu",
-    "solution": "Materiál popisuje, že Esmeralda mu dala napít a Quasimodo poprvé v životě uronil slzu.",
+    "question": "Převyprávění úryvku „Slza za kapku vody“ obsahuje jednu chybu. Najdi ji.",
+    "solution": "Napít podala Quasimodovi Esmeralda – tedy ta, kterou se předtím pokusil unést. Dojatý Quasimodo poprvé v životě zaplakal.",
     "tags": [
       "Romantismus",
       "Quasimodo"
-    ]
+    ],
+    "segments": [
+      "Quasimodo",
+      "byl přivázán",
+      "na pranýř",
+      "a lidé se mu posmívali.",
+      "Napít mu dal",
+      "Frollo",
+      "a Quasimodo",
+      "poprvé v životě",
+      "uronil slzu."
+    ],
+    "wrong": [
+      5
+    ],
+    "corrections": {
+      "5": "Esmeralda"
+    }
   },
   {
     "subject": "Literatura",
@@ -1233,8 +1266,8 @@ window.LITERATURE_EXERCISES = [
     "choices": [
       "Les Misérables / Ubožáci",
       "Zvoník od Matky boží",
-      "Lví srdce",
-      "Sonety Lauře"
+      "Childe Haroldova pouť",
+      "Červený a černý"
     ],
     "answer": "Les Misérables / Ubožáci",
     "solution": "Materiál uvádí u Bídníků označení Les Miserables a také Ubožáci.",
@@ -1318,10 +1351,10 @@ window.LITERATURE_EXERCISES = [
     "title": "Valjeanova síla",
     "question": "Jakou vlastnost Valjeana ukazuje scéna s nehodou a kamenem?",
     "choices": [
+      "Mimořádnou rychlost",
+      "Lékařské znalosti",
       "Obrovskou sílu",
-      "Schopnost létat",
-      "Moc nad vodou",
-      "Schopnost neviditelnosti"
+      "Vynikající paměť"
     ],
     "answer": "Obrovskou sílu",
     "solution": "Materiál uvádí, že Valjean měl obrovskou sílu a dokázal nadzvednout balvan.",
@@ -1406,12 +1439,12 @@ window.LITERATURE_EXERCISES = [
     "title": "Javert",
     "question": "Kdo je Javert?",
     "choices": [
-      "Nový policejní komisař, který Valjeana pronásleduje",
-      "Valjeanův syn",
-      "Robinova milá",
-      "Valjeanův farář"
+      "Biskup, který Valjeanovi daroval stříbrné svícny",
+      "Policejní komisař, který Valjeana pronásleduje",
+      "Továrník, u kterého Valjean po propuštění pracoval",
+      "Spoluvězeň, se kterým se Valjean poznal na galejích"
     ],
-    "answer": "Nový policejní komisař, který Valjeana pronásleduje",
+    "answer": "Policejní komisař, který Valjeana pronásleduje",
     "solution": "Materiál popisuje Javerta jako policejního komisaře, který Valjeana pronásleduje.",
     "tags": [
       "Romantismus",
@@ -1428,10 +1461,10 @@ window.LITERATURE_EXERCISES = [
     "title": "Javert a Valjean",
     "question": "Jak Javert zjistí, že starosta je Valjean?",
     "choices": [
-      "Uvidí, jak Valjean nadzvedne povoz z člověka",
-      "Najde u něj svícny",
-      "Pozná ho v Sherwoodu",
-      "Slyší o něm od Esmeraldy"
+      "Najde u něj biskupovy stříbrné svícny",
+      "Pozná ho podle jizvy, kterou má z galejí",
+      "Udá ho bývalý spoluvězeň z galejí",
+      "Uvidí, jak Valjean nadzvedne povoz z člověka"
     ],
     "answer": "Uvidí, jak Valjean nadzvedne povoz z člověka",
     "solution": "Materiál uvádí nehodu s povozem; Valjean vůz nadzvedne a Javert pozná, kdo je.",
@@ -1473,9 +1506,9 @@ window.LITERATURE_EXERCISES = [
     "question": "Co se stalo Javertovi poté, co pochopil, že půlku života pronásledoval hodného člověka?",
     "choices": [
       "Zhroutil se mu svět a utopil se v Seině",
-      "Odešel do Sherwoodu",
-      "Stal se starostou",
-      "Napsal sonety Lauře"
+      "Odešel ze služby a odstěhoval se z Paříže",
+      "Valjeana zatkl, ale u soudu ho obhájil",
+      "Požádal Valjeana o odpuštění a stal se knězem"
     ],
     "answer": "Zhroutil se mu svět a utopil se v Seině",
     "solution": "Materiál popisuje Javertovo zhroucení a jeho utonutí v Seině.",
@@ -1494,10 +1527,10 @@ window.LITERATURE_EXERCISES = [
     "title": "Stendhal",
     "question": "Jaké dílo je spojeno se Stendhalem?",
     "choices": [
+      "Chrám Matky boží v Paříži",
+      "Childe Haroldova pouť",
       "Červený a černý",
-      "Ivanhoe",
-      "Hamlet",
-      "Dekameron"
+      "Ivanhoe"
     ],
     "answer": "Červený a černý",
     "solution": "Stendhal je v materiálu spojen s dílem Červený a černý.",
@@ -1580,10 +1613,10 @@ window.LITERATURE_EXERCISES = [
     "title": "Julián a šlechtická rodina",
     "question": "Kým se Julián Sorel nakonec stal?",
     "choices": [
+      "Biskupem v pařížské katedrále",
       "Vychovatelem u šlechtické rodiny",
-      "Policejním komisařem",
-      "Starostou města",
-      "Sochařem v Kuksu"
+      "Starostou svého rodného města",
+      "Úředníkem na královském dvoře"
     ],
     "answer": "Vychovatelem u šlechtické rodiny",
     "solution": "Materiál uvádí, že se nakonec stal vychovatelem u šlechtické rodiny.",
@@ -1602,9 +1635,9 @@ window.LITERATURE_EXERCISES = [
     "question": "Do koho se Julián Sorel zamiloval?",
     "choices": [
       "Do matky dětí, které vychovával",
-      "Do Mariany",
-      "Do Esmeraldy",
-      "Do Julie"
+      "Do dcery pařížského bankéře",
+      "Do herečky z pařížského divadla",
+      "Do sestry svého nejlepšího přítele"
     ],
     "answer": "Do matky dětí, které vychovával",
     "solution": "Materiál uvádí, že se Julián zamiloval do matky dětí, které vychovával, a ona do něj také.",
@@ -1623,10 +1656,10 @@ window.LITERATURE_EXERCISES = [
     "title": "Konec Juliána Sorela",
     "question": "Jak dopadne Julián Sorel?",
     "choices": [
-      "Je zavřen do vězení a popraven",
-      "Stane se starostou",
-      "Odchází do Sherwoodu",
-      "Stane se sochařem"
+      "Odjede do Ameriky a začne nový život",
+      "Ožení se a stane se vlivným šlechticem",
+      "Vstoupí do kláštera a zůstane tam",
+      "Je zavřen do vězení a popraven"
     ],
     "answer": "Je zavřen do vězení a popraven",
     "solution": "Materiál uvádí, že Juliána zavřeli do vězení a popravili ho.",
@@ -1645,10 +1678,10 @@ window.LITERATURE_EXERCISES = [
     "title": "Přiřazení Petrarca",
     "question": "Která dvojice autor–dílo je správně? Zkus určit správné přiřazení bez nápovědy.",
     "choices": [
+      "Giovanni Boccaccio – Sonety Lauře",
       "Francesco Petrarca – Sonety Lauře",
-      "Sofoklés – Dekameron",
-      "Molière – Ivanhoe",
-      "Stendhal – Antigona"
+      "Walter Scott – Childe Haroldova pouť",
+      "Victor Hugo – Červený a černý"
     ],
     "answer": "Francesco Petrarca – Sonety Lauře",
     "solution": "Materiál spojuje Francesca Petrarcu se Sonety Lauře.",
@@ -1841,34 +1874,88 @@ window.LITERATURE_EXERCISES = [
     "topic": "Opakování",
     "subtopic": "Romantismus",
     "id": "lit-opakovani-010",
-    "type": "text",
-    "autoGrade": false,
+    "type": "spot",
     "title": "Znaky romantického hrdiny",
-    "question": "Vyjmenuj tři znaky romantického hrdiny.",
-    "answer": "Je vnitřně rozervaný a nezapadá do společnosti; prožívá nešťastnou nebo tragickou lásku a miluje svou představu dokonalé ženy; často splývá s autorem.",
-    "solution": "Materiál uvádí tři hlavní znaky: vnitřní rozervanost a nepřizpůsobivost společnosti, nešťastnou či tragickou lásku a časté splývání hrdiny s autorem.",
+    "question": "Popis romantického hrdiny obsahuje dvě chyby. Najdi je.",
+    "solution": "Romantický hrdina je rozervaný, nezapadá do společnosti a nedokáže se přizpůsobit. Jeho láska bývá nešťastná – miluje spíš svou představu dokonalejší ženy. Často splývá s autorem.",
     "hint": "Pomůže rozdělit si znaky na společnost, lásku a vztah k autorovi.",
     "tags": [
       "Opakování",
       "Romantismus",
       "romantický hrdina"
-    ]
+    ],
+    "segments": [
+      "Romantický hrdina",
+      "je vnitřně rozervaný,",
+      "dokonale zapadá do společnosti,",
+      "jeho láska bývá",
+      "šťastná a naplněná",
+      "a hrdina často",
+      "splývá s autorem."
+    ],
+    "wrong": [
+      2,
+      4
+    ],
+    "corrections": {
+      "2": "nezapadá do společnosti,",
+      "4": "nešťastná a tragická"
+    },
+    "difficulty": 3
   },
   {
     "subject": "Literatura",
     "topic": "Opakování",
     "subtopic": "Renesance a klasicismus",
     "id": "lit-opakovani-011",
-    "type": "text",
-    "autoGrade": false,
-    "title": "Žánry",
-    "question": "Napiš, co znamenají pojmy sonet, rámcová novela a óda.",
-    "answer": "Sonet je básnická forma o čtyřech strofách přibližně 2×4 a 2×3 verších; Dekameron je rámcová novela; óda je oslavná píseň nebo báseň.",
-    "solution": "Materiál definuje sonet pomocí jeho stavby, Dekameron jako rámcovou novelu a ódu jako oslavnou píseň/báseň.",
+    "type": "cloze",
+    "title": "Sonet, rámcová novela, óda",
+    "question": "Doplň význam tří literárních pojmů.",
+    "solution": "Sonet: 2×4 + 2×3 verše (Petrarca – Sonety Lauře). Rámcová novela: příběhy zasazené do společného rámce (Boccaccio – Dekameron, kde si skupina mladých lidí vypráví příběhy). Óda: oslavná píseň či báseň, žánr vysoké literatury klasicismu.",
     "tags": [
       "Opakování",
       "žánry"
-    ]
+    ],
+    "cloze": "Sonet má čtyři strofy: dvě čtyřverší a dvě {{troj}}. Rámcová novela spojuje více příběhů společným {{ramec}}, jako je tomu v díle {{dilo}}. Óda je {{oda}} píseň nebo báseň.",
+    "gaps": [
+      {
+        "id": "troj",
+        "options": [
+          "trojverší",
+          "dvojverší",
+          "pětiverší"
+        ],
+        "answer": "trojverší"
+      },
+      {
+        "id": "ramec",
+        "options": [
+          "rámcovým příběhem",
+          "hlavním hrdinou",
+          "refrénem"
+        ],
+        "answer": "rámcovým příběhem"
+      },
+      {
+        "id": "dilo",
+        "options": [
+          "Dekameron",
+          "Hamlet",
+          "Antigona"
+        ],
+        "answer": "Dekameron"
+      },
+      {
+        "id": "oda",
+        "options": [
+          "oslavná",
+          "smuteční",
+          "satirická"
+        ],
+        "answer": "oslavná"
+      }
+    ],
+    "difficulty": 2
   },
   {
     "subject": "Literatura",

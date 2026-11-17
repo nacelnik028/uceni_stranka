@@ -9,7 +9,7 @@
   const filterIds = ['filterSubject', 'filterTopic', 'filterSubtopic', 'filterType', 'filterDifficulty', 'exerciseSearch', 'sessionSize'];
   const revisedIds = new Set(['db-030', 'lit-gotika-002', 'lit-renesance-007', 'lit-baroko-004', 'lit-rom-francie-012', 'lit-renesance-var-003', 'pg-check-001', 'lit-rom-francie-014', 'lit-rom-francie-015', 'lit-rom-francie-var-004']);
   function signature(exercise) {
-    return JSON.stringify(['type', 'question', 'scenario', 'choices', 'answer', 'answers', 'answerIds', 'pairs', 'order', 'items', 'criteria', 'categories', 'value', 'fromBase', 'toBase', 'starterCode', 'expectedOutput'].map(key => exercise?.[key] ?? null));
+    return JSON.stringify(['type', 'question', 'scenario', 'choices', 'answer', 'answers', 'answerIds', 'pairs', 'order', 'items', 'criteria', 'categories', 'value', 'fromBase', 'toBase', 'starterCode', 'expectedOutput', 'cloze', 'gaps', 'segments', 'wrong'].map(key => exercise?.[key] ?? null));
   }
   const cards = () => [...document.querySelectorAll('#exercises .exercise')];
   function read(key, fallback) {
@@ -76,6 +76,7 @@
       })),
       order: [...exercise.querySelectorAll('.order-chip')].map(chip => chip.dataset.orderValue),
       categories: [...exercise.querySelectorAll('.classification-item')].map(item => ({ id: item.dataset.classificationItem, category: item.dataset.selectedCategory })),
+      spots: [...exercise.querySelectorAll('.spot-seg[aria-pressed="true"]')].map(seg => seg.dataset.spotIndex),
       output: exercise.querySelector('[data-out]')?.textContent,
       outputClass: exercise.querySelector('[data-out]')?.className,
       solutionOpen: Boolean(exercise.querySelector('.solution-box')?.open)
@@ -119,6 +120,9 @@
       }
       for (const item of response.categories || []) {
         [...exercise.querySelectorAll('[data-classification-category]')].find(button => button.dataset.classificationItem === item.id && button.dataset.classificationCategory === item.category)?.click();
+      }
+      for (const index of response.spots || []) {
+        exercise.querySelector(`.spot-seg[data-spot-index="${CSS.escape(String(index))}"]`)?.setAttribute('aria-pressed', 'true');
       }
       const output = exercise.querySelector('[data-out]');
       if (output && typeof response.output === 'string') {
@@ -229,7 +233,7 @@
   });
   document.addEventListener('click', e => {
     if (restoring) return;
-    const mutation = e.target.closest?.('[data-order-pick],[data-order-remove],[data-classification-category],[data-action^="reset-"],[data-action="clear-code"]');
+    const mutation = e.target.closest?.('[data-order-pick],[data-order-remove],[data-classification-category],[data-spot-seg],[data-action^="reset-"],[data-action="clear-code"]');
     const exercise = mutation?.closest('.exercise');
     if (exercise) {
       delete state.results[exercise.dataset.exerciseId];

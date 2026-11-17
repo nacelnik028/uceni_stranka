@@ -384,6 +384,13 @@ Tyto UI změny nemění datový formát existujících úloh.
 - `effects.js` jen naslouchá událostem `procvicovna:result` a `procvicovna:set-complete` z `app.js` a volá veřejné funkce `window.studyUX` a `window.studyGuides`. Hodnocení odpovědí nemění.
 - Při zapnutém omezení pohybu (`prefers-reduced-motion`) se animace, konfety i běžící pás vypnou.
 
+## Nové typy otázek a přepracování (17. 11. 2026)
+
+- **Doplňovačka (`cloze`)** – doplňování pojmů do souvislého textu z nabídky nebo vpisováním.
+- **Najdi chybu (`spot`)** – kliknutí na chybné slovo, tvrzení nebo řádek kódu.
+- Oba typy fungují v Učení i Testu, ve filtru typu, ve statistikách, v rozpracované sadě i na mobilu (spodní tlačítko Zkontrolovat). Datový formát je popsaný v `docs/TYPY_OTAZEK.md`.
+- Přepracované byly otázky, kde šlo správnou odpověď uhodnout podle délky nebo podle nesmyslných možností (144 → 10). Podrobnosti v `docs/TYPY_OTAZEK.md`, kap. 14.
+
 ## Přidávání nových předmětů
 
 Pro nový předmět vytvoř vlastní runtime soubor v `data/`, přidej jeho `<script>` do `index.html` **před `app.js`** a přidej odpovídající globální pole do `state.exercises` v `app.js`.

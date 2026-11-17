@@ -68,18 +68,30 @@ window.EXERCISES = [
     "topic": "Python",
     "subtopic": "Seznamy",
     "id": "seznamy-004",
-    "type": "text",
-    "autoGrade": false,
-    "title": "Vysvětli index 3",
-    "question": "Měj `seznam = [\"Karel\", \"Frank\", \"Jana\"]`. Proč je `print(seznam[3])` problém?",
-    "answer": "Protože platné indexy tohoto tříprvkového seznamu jsou 0, 1 a 2. Index 3 v seznamu není.",
+    "type": "spot",
+    "title": "Index mimo rozsah",
+    "question": "Program skončí chybou `IndexError`. Klikni na řádek, který ji způsobí.",
     "hint": "Podívej se, od jakého čísla indexování začíná.",
     "tags": [
       "Python",
       "seznamy",
       "indexování"
     ],
-    "solution": "Seznam má tři prvky, ale jejich indexy jsou 0, 1 a 2. Index 3 je mimo rozsah a vyvolá IndexError."
+    "solution": "Tříprvkový seznam má platné indexy 0, 1 a 2 (případně −1 až −3). Index 3 neexistuje, proto vznikne IndexError. Záporný index −1 je v pořádku – znamená poslední prvek.",
+    "layout": "lines",
+    "segments": [
+      "seznam = [\"Karel\", \"Frank\", \"Jana\"]",
+      "print(seznam[0])",
+      "print(seznam[-1])",
+      "print(seznam[3])",
+      "print(len(seznam))"
+    ],
+    "wrong": [
+      3
+    ],
+    "corrections": {
+      "3": "print(seznam[2])"
+    }
   },
   {
     "subject": "Programování",
@@ -305,17 +317,31 @@ window.EXERCISES = [
     "topic": "Python",
     "subtopic": "Seznamy",
     "id": "seznamy-016",
-    "type": "number",
-    "title": "Délka seznamu",
-    "question": "Kolik prvků má seznam `studenti = [\"Karel\", \"Tomas\", \"Lukas\"]`?",
-    "answer": "3",
-    "hint": "Použij `len()`.",
+    "type": "spot",
+    "title": "Najdi chybu v práci se seznamem",
+    "question": "Program skončí chybou `ValueError`. Klikni na řádek, který ji způsobí.",
+    "hint": "Ověř, jestli hodnota, kterou chceš odstranit, v seznamu opravdu je.",
     "tags": [
       "Python",
       "seznamy",
       "len"
     ],
-    "solution": "V seznamu jsou tři položky. len(studenti) vrátí 3, zatímco poslední kladný index je 2."
+    "solution": "remove() odstraní první výskyt zadané hodnoty. Hodnota 10 v seznamu není, a proto Python vyhodí ValueError. append() přidá na konec a insert(0, 8) vloží na začátek – obojí je v pořádku.",
+    "layout": "lines",
+    "segments": [
+      "cisla = [5, 2, 9, 1, 7]",
+      "cisla.append(4)",
+      "cisla.insert(0, 8)",
+      "cisla.remove(10)",
+      "print(len(cisla))"
+    ],
+    "wrong": [
+      3
+    ],
+    "corrections": {
+      "3": "cisla.remove(9)"
+    },
+    "difficulty": 3
   },
   {
     "subject": "Programování",
@@ -534,12 +560,12 @@ window.EXERCISES = [
     "title": "sort vs. sorted",
     "question": "Které tvrzení správně popisuje rozdíl mezi `sort()` a `sorted()`?",
     "choices": [
-      "sort() seřadí seznam na místě a sorted(cisla) vrátí nový seřazený seznam",
-      "sort() počítá délku seznamu a sorted() hledá maximum",
-      "sort() obrací pořadí a sorted() odstraňuje prvek",
-      "sort() je totéž co count()"
+      "sorted() mění původní seznam, sort() vrátí nový seřazený seznam",
+      "sort() mění původní seznam, sorted() vrátí nový seřazený seznam",
+      "Obě funkce mění původní seznam, liší se jen způsobem zápisu",
+      "Obě vrátí nový seznam, sort() ale vždy řadí sestupně"
     ],
-    "answer": "sort() seřadí seznam na místě a sorted(cisla) vrátí nový seřazený seznam",
+    "answer": "sort() mění původní seznam, sorted() vrátí nový seřazený seznam",
     "tags": [
       "Python",
       "seznamy"
@@ -551,18 +577,92 @@ window.EXERCISES = [
     "topic": "Python",
     "subtopic": "Seznamy",
     "id": "seznamy-029",
-    "type": "text",
-    "autoGrade": false,
-    "title": "Spoj metody a jejich účel",
-    "question": "Napiš, k čemu slouží tyto operace: `append()`, `insert()`, `remove()`, `pop()`, `sort()`, `reverse()`, `count()`, `len()`, `sum()`, `min()`, `max()`, `sorted()`.",
-    "answer": "`append()` přidá prvek; `insert()` vloží prvek na pozici; `remove()` odstraní zadaný prvek; `pop()` odstraní prvek podle indexu; `sort()` seřadí seznam; `reverse()` obrátí pořadí; `count()` spočítá výskyty hodnoty; `len()` vrátí délku seznamu; `sum()` sečte čísla; `min()` vrátí nejmenší číslo; `max()` vrátí největší číslo; `sorted()` vrátí seřazenou podobu seznamu.",
-    "hint": "Zaměř se na komentáře u jednotlivých řádků v materiálu.",
+    "type": "cloze",
+    "title": "Metody seznamů v Pythonu",
+    "question": "Doplň ke každému popisu správnou metodu seznamu.",
+    "hint": "Rozliš, které metody prvky přidávají, které odebírají a které jen zjišťují informaci.",
     "tags": [
       "Python",
       "seznamy",
       "opakování"
     ],
-    "solution": "Rozlišuj změny seznamu (append, insert, remove, pop, sort, reverse), zjišťování hodnot (count, len, sum, min, max) a vytvoření nové seřazené kolekce (sorted)."
+    "solution": "append() – přidá na konec; insert(i, x) – vloží na pozici i; remove(x) – smaže první výskyt x; pop() – odebere a vrátí (bez argumentu poslední) prvek; reverse() – obrátí pořadí; count(x) – počet výskytů x. Funkce len(), sum(), min(), max() a sorted() nejsou metody, volají se se seznamem jako argumentem.",
+    "cloze": "{{append}} přidá prvek na konec seznamu, {{insert}} vloží prvek na zadanou pozici a {{remove}} odstraní první výskyt zadané hodnoty. {{pop}} odebere prvek a zároveň ho vrátí, {{reverse}} obrátí pořadí prvků a {{count}} spočítá, kolikrát se hodnota v seznamu vyskytuje.",
+    "gaps": [
+      {
+        "id": "append",
+        "options": [
+          "append()",
+          "insert()",
+          "remove()",
+          "pop()",
+          "reverse()",
+          "count()"
+        ],
+        "answer": "append()"
+      },
+      {
+        "id": "insert",
+        "options": [
+          "append()",
+          "insert()",
+          "remove()",
+          "pop()",
+          "reverse()",
+          "count()"
+        ],
+        "answer": "insert()"
+      },
+      {
+        "id": "remove",
+        "options": [
+          "append()",
+          "insert()",
+          "remove()",
+          "pop()",
+          "reverse()",
+          "count()"
+        ],
+        "answer": "remove()"
+      },
+      {
+        "id": "pop",
+        "options": [
+          "append()",
+          "insert()",
+          "remove()",
+          "pop()",
+          "reverse()",
+          "count()"
+        ],
+        "answer": "pop()"
+      },
+      {
+        "id": "reverse",
+        "options": [
+          "append()",
+          "insert()",
+          "remove()",
+          "pop()",
+          "reverse()",
+          "count()"
+        ],
+        "answer": "reverse()"
+      },
+      {
+        "id": "count",
+        "options": [
+          "append()",
+          "insert()",
+          "remove()",
+          "pop()",
+          "reverse()",
+          "count()"
+        ],
+        "answer": "count()"
+      }
+    ],
+    "difficulty": 2
   },
   {
     "subject": "Programování",
@@ -977,12 +1077,12 @@ window.EXERCISES = [
     "title": "Hlavní navigace",
     "question": "Co typicky obsahuje hlavní navigace v headeru?",
     "choices": [
-      "Odkazy na klíčové sekce webu, například O nás, Služby, Blog nebo Kontakt",
-      "Pouze telefonní číslo správce webu",
-      "Výhradně obrázky bez odkazů",
-      "Jen právní informace o cookies"
+      "Odkazy na všechny jednotlivé články a produkty webu",
+      "Právní odkazy na cookies, GDPR a obchodní podmínky",
+      "Odkazy na hlavní sekce, např. O nás, Služby a Kontakt",
+      "Kontaktní formulář a mapu s adresou sídla firmy"
     ],
-    "answer": "Odkazy na klíčové sekce webu, například O nás, Služby, Blog nebo Kontakt",
+    "answer": "Odkazy na hlavní sekce, např. O nás, Služby a Kontakt",
     "solution": "Hlavní navigace je seznam odkazů na důležité části webu.",
     "hint": "Navigace uživateli pomáhá dostat se do hlavních sekcí.",
     "tags": [
@@ -999,12 +1099,12 @@ window.EXERCISES = [
     "title": "Call-to-action",
     "question": "Co je účelem call-to-action (CTA) tlačítka v headeru?",
     "choices": [
-      "Vyzvat návštěvníka k hlavní požadované akci, například k nákupu nebo odeslání poptávky",
-      "Pouze zobrazit datum vytvoření webu",
-      "Sloužit výhradně jako dekorace",
-      "Skrýt hlavní navigaci"
+      "Vyzvat k hlavní akci, například k nákupu nebo poptávce",
+      "Vrátit návštěvníka zpět na úvodní stránku webu",
+      "Přepnout celý web do jiné jazykové verze",
+      "Rozbalit menu na malých displejích telefonů"
     ],
-    "answer": "Vyzvat návštěvníka k hlavní požadované akci, například k nákupu nebo odeslání poptávky",
+    "answer": "Vyzvat k hlavní akci, například k nákupu nebo poptávce",
     "solution": "CTA má návštěvníka vést k hlavní akci, kterou web požaduje, například k nákupu, zavolání nebo odeslání poptávky.",
     "hint": "CTA = výzva k akci.",
     "tags": [
@@ -1044,12 +1144,12 @@ window.EXERCISES = [
     "title": "Vyhledávání v headeru",
     "question": "Pro které weby je vyhledávání v headeru zvlášť užitečné?",
     "choices": [
-      "E-shopy, portály a rozsáhlé weby s velkým množstvím obsahu",
-      "Pouze osobní vizitky o jedné větě",
-      "Pouze weby bez podstránek",
-      "Pouze weby, které nepoužívají navigaci"
+      "Jednostránkové vizitky s několika odstavci textu",
+      "Landing pages zaměřené na jedinou konkrétní akci",
+      "Osobní portfolia s několika ukázkami prací",
+      "E-shopy, portály a weby s velkým množstvím obsahu"
     ],
-    "answer": "E-shopy, portály a rozsáhlé weby s velkým množstvím obsahu",
+    "answer": "E-shopy, portály a weby s velkým množstvím obsahu",
     "solution": "Vyhledávání je volitelné a hodí se hlavně tam, kde uživatel prochází velké množství obsahu.",
     "hint": "Čím více obsahu, tím více pomáhá hledání.",
     "tags": [
@@ -1086,21 +1186,46 @@ window.EXERCISES = [
     "topic": "Header a favicon",
     "subtopic": "Typy headerů",
     "id": "vwa-header-009",
-    "type": "choice",
-    "title": "Statický header",
-    "question": "Co je charakteristické pro statický header?",
-    "choices": [
-      "Při scrollování zůstává na původním místě a může zmizet z obrazovky",
-      "Vždy se přilepí k hornímu okraji",
-      "Skryje se při scrollování dolů a objeví se při scrollování nahoru",
-      "Je vždy průhledný"
-    ],
-    "answer": "Při scrollování zůstává na původním místě a může zmizet z obrazovky",
-    "solution": "Statický header není při scrollování trvale viditelný. Pro návrat k menu je potřeba vrátit se nahoru.",
-    "hint": "Statický = nic se při scrollování zvláštně nepřilepuje.",
+    "type": "classification",
+    "title": "Statický, sticky, nebo smart sticky?",
+    "question": "Zařaď popis chování k typu headeru.",
+    "solution": "Statický header zůstává na začátku stránky a při scrollování zmizí. Sticky se drží u horního okraje stále. Smart sticky kombinuje obojí: při čtení (scroll dolů) uvolní místo a při návratu (scroll nahoru) se zobrazí.",
+    "hint": "Všímej si, jestli header na scrollování reaguje a jestli záleží na jeho směru.",
     "tags": [
       "header",
-      "statický"
+      "UX"
+    ],
+    "categories": [
+      "Statický",
+      "Sticky",
+      "Smart sticky"
+    ],
+    "items": [
+      {
+        "id": "scrollaway",
+        "text": "Při scrollování odjede nahoru spolu s obsahem stránky.",
+        "category": "Statický"
+      },
+      {
+        "id": "top",
+        "text": "Na dlouhé stránce ho uživatel neuvidí, dokud se nevrátí na začátek.",
+        "category": "Statický"
+      },
+      {
+        "id": "stick",
+        "text": "Je stále přilepený u horního okraje obrazovky.",
+        "category": "Sticky"
+      },
+      {
+        "id": "space",
+        "text": "Navigace je pořád po ruce, ale trvale zabírá část obrazovky.",
+        "category": "Sticky"
+      },
+      {
+        "id": "hide",
+        "text": "Při scrollování dolů zmizí a při scrollování nahoru se vrátí.",
+        "category": "Smart sticky"
+      }
     ]
   },
   {
@@ -1112,12 +1237,12 @@ window.EXERCISES = [
     "title": "Sticky header",
     "question": "Jak funguje sticky header?",
     "choices": [
-      "Přilepí se k hornímu okraji obrazovky a zůstává viditelný při scrollování",
-      "Zmizí při každém scrollování",
-      "Zobrazuje se pouze na domovské stránce",
-      "Je určen pouze pro obrázky"
+      "Odjede s obsahem a zůstane jen na začátku stránky",
+      "Drží se u horního okraje a je viditelný i při scrollování",
+      "Při scrollování dolů zmizí a při scrollování nahoru se vrátí",
+      "Zobrazí se až po doscrollování na konec stránky"
     ],
-    "answer": "Přilepí se k hornímu okraji obrazovky a zůstává viditelný při scrollování",
+    "answer": "Drží se u horního okraje a je viditelný i při scrollování",
     "solution": "Sticky header zůstává při scrollování na dosah uživateli. Nevýhodou je, že zabírá část obrazovky.",
     "hint": "Sticky = přilepený.",
     "tags": [
@@ -1134,12 +1259,12 @@ window.EXERCISES = [
     "title": "Smart sticky header",
     "question": "Jak se chová smart sticky header?",
     "choices": [
-      "Při scrollování dolů se skryje a při scrollování nahoru se znovu objeví",
-      "Vždy zůstává viditelný bez ohledu na směr scrollování",
-      "Automaticky mění barvu podle favicony",
-      "Funguje pouze na tabletech"
+      "Drží se stále u horního okraje bez ohledu na směr scrollování",
+      "Odjede s obsahem a objeví se znovu až na začátku stránky",
+      "Při scrollování dolů se skryje, při scrollování nahoru se vrátí",
+      "Zprůhlední se a překryje úvodní obrázek celé stránky"
     ],
-    "answer": "Při scrollování dolů se skryje a při scrollování nahoru se znovu objeví",
+    "answer": "Při scrollování dolů se skryje, při scrollování nahoru se vrátí",
     "solution": "Smart sticky header kombinuje úsporu místa při scrollování dolů se snadným návratem k navigaci při scrollování nahoru.",
     "hint": "Je to „inteligentní“ sticky varianta.",
     "tags": [
@@ -1156,12 +1281,12 @@ window.EXERCISES = [
     "title": "Transparentní header",
     "question": "Kde se hodí transparentní header?",
     "choices": [
-      "Například v portfoliích, kreativních webech nebo landing pages s výrazným hero obrázkem",
-      "Pouze v tabulkách bez grafiky",
-      "Pouze v administraci databáze",
-      "Jen na tiskových stránkách"
+      "Portfolia a landing pages s výrazným úvodním obrázkem",
+      "Administrace s hustými tabulkami a formuláři",
+      "E-shopy s rozsáhlým mega menu všech kategorií",
+      "Dokumentace s dlouhým textem a vyhledáváním"
     ],
-    "answer": "Například v portfoliích, kreativních webech nebo landing pages s výrazným hero obrázkem",
+    "answer": "Portfolia a landing pages s výrazným úvodním obrázkem",
     "solution": "Transparentní header překrývá pozadí nebo hero sekci a může působit elegantně a moderně.",
     "hint": "Transparentní header pracuje s obrázkem nebo pozadím pod sebou.",
     "tags": [
@@ -1178,12 +1303,12 @@ window.EXERCISES = [
     "title": "Mega menu",
     "question": "Co je mega menu header?",
     "choices": [
-      "Rozbalovací velké menu s podkategoriemi, obrázky a dalšími odkazy",
-      "Menu s jediným odkazem na úvodní stránku",
-      "Pouze hamburger menu pro telefony",
-      "Samostatná patička s odkazy"
+      "Menu ukryté pod ikonou se třemi vodorovnými čárkami",
+      "Lišta s drobečkovou navigací k aktuální stránce",
+      "Menu, které se drží u horního okraje obrazovky",
+      "Velké rozbalovací menu s podkategoriemi a obrázky"
     ],
-    "answer": "Rozbalovací velké menu s podkategoriemi, obrázky a dalšími odkazy",
+    "answer": "Velké rozbalovací menu s podkategoriemi a obrázky",
     "solution": "Mega menu umožňuje zobrazit mnoho odkazů a podkategorií najednou. Často se používá u velkých e-shopů a portálů.",
     "hint": "Mega menu = rozsáhlé rozbalené menu.",
     "tags": [
@@ -1224,12 +1349,12 @@ window.EXERCISES = [
     "title": "Kontrast v headeru",
     "question": "Co je důležité pro čitelnost textu v headeru?",
     "choices": [
-      "Dostatečný kontrast mezi textem a pozadím",
-      "Co nejnižší kontrast",
-      "Použití co nejmenšího písma",
-      "Průhlednost textu"
+      "Písmo ve stejné barvě jako logo webu",
+      "Dostatečný kontrast textu vůči pozadí",
+      "Text psaný výhradně velkými písmeny",
+      "Co nejtenčí řez písma pro elegantní vzhled"
     ],
-    "answer": "Dostatečný kontrast mezi textem a pozadím",
+    "answer": "Dostatečný kontrast textu vůči pozadí",
     "solution": "Text musí být dobře čitelný. U průhledných headerů je potřeba zvlášť hlídat, aby text nesplynul s pozadím.",
     "hint": "Černá na bílé nebo bílá na tmavé je jednoduchý příklad.",
     "tags": [
@@ -1269,12 +1394,12 @@ window.EXERCISES = [
     "title": "Mobilní header",
     "question": "Které uspořádání je typické pro zjednodušený mobilní header?",
     "choices": [
-      "Logo vlevo nebo uprostřed, hamburger menu vpravo a případně výrazné CTA",
-      "Rozsáhlá desktopová navigace přes polovinu obrazovky",
-      "Pouze favicon bez navigace",
-      "Jen kontaktní formulář přes celou šířku"
+      "Logo vlevo nebo uprostřed a hamburger menu vpravo",
+      "Celá desktopová navigace zalomená do více řádků",
+      "Pouze logo bez jakéhokoli přístupu k navigaci",
+      "Vyhledávací pole přes celou šířku místo loga"
     ],
-    "answer": "Logo vlevo nebo uprostřed, hamburger menu vpravo a případně výrazné CTA",
+    "answer": "Logo vlevo nebo uprostřed a hamburger menu vpravo",
     "solution": "Na mobilu je méně místa, proto se často používá minimalistický header s hamburger menu a případně CTA.",
     "hint": "Mobil = méně prostoru, zjednodušená navigace.",
     "tags": [
@@ -1764,12 +1889,12 @@ window.EXERCISES = [
     "title": "Co jsou informace?",
     "question": "Co jsou informace v kontextu databází?",
     "choices": [
-      "Jako zpracovaná data",
-      "Jako pouze veřejná data",
-      "Jako databázové tabulky",
-      "Jako připojovací řetězce"
+      "Surové hodnoty zatím bez jakéhokoli zpracování",
+      "Zpracovaná data, která mají pro nás význam",
+      "Tabulky uložené v relační databázi",
+      "Údaje volně dostupné všem bez omezení"
     ],
-    "answer": "Jako zpracovaná data",
+    "answer": "Zpracovaná data, která mají pro nás význam",
     "solution": "Informace jsou zpracovaná data.",
     "hint": "Informace vznikají zpracováním dat.",
     "tags": [
@@ -1786,12 +1911,12 @@ window.EXERCISES = [
     "title": "Open data",
     "question": "Jak jsou definována open data?",
     "choices": [
-      "Jako veřejná data",
-      "Jako data uložená jen v relacích",
-      "Jako data dostupná pouze přes ODBC",
-      "Jako data uložená výhradně v CSV"
+      "Veřejně dostupná data",
+      "Data uložená pouze v relacích",
+      "Data dostupná jen přes ODBC",
+      "Data uložená výhradně v CSV"
     ],
-    "answer": "Jako veřejná data",
+    "answer": "Veřejně dostupná data",
     "solution": "Open data jsou veřejná data dostupná veřejnosti.",
     "hint": "Jde o data přístupná veřejnosti.",
     "tags": [
@@ -1920,12 +2045,12 @@ window.EXERCISES = [
     "title": "Co je entita?",
     "question": "Co je entita?",
     "choices": [
-      "Reálný nebo abstraktní objekt v databázi",
-      "Pouze sloupec databáze",
-      "Příkaz SELECT",
-      "Formát importovaného souboru"
+      "Vlastnost objektu uložená ve sloupci",
+      "Vazba mezi dvěma tabulkami přes klíč",
+      "Objekt, o kterém databáze ukládá data",
+      "Pravidlo omezující hodnoty ve sloupci"
     ],
-    "answer": "Reálný nebo abstraktní objekt v databázi",
+    "answer": "Objekt, o kterém databáze ukládá data",
     "solution": "Entita je reálný nebo abstraktní objekt v databázi.",
     "hint": "Entita je objekt, nikoli příkaz.",
     "tags": [
@@ -2068,10 +2193,10 @@ window.EXERCISES = [
     "title": "Zálohování a obnova",
     "question": "Která dvojice patří mezi vlastnosti databází?",
     "choices": [
-      "Zálohování a obnova dat",
-      "Import a animace",
-      "Barvy a fonty",
-      "Logo a favicon"
+      "Kompilace a ladění programu",
+      "Vykreslování a animace grafiky",
+      "Směrování a přepínání paketů",
+      "Zálohování a obnova dat"
     ],
     "answer": "Zálohování a obnova dat",
     "solution": "Zálohování a obnova dat patří mezi základní oblasti správy databází.",
@@ -2175,9 +2300,9 @@ window.EXERCISES = [
     "question": "K čemu slouží DCL (Data Control Language)?",
     "choices": [
       "Řízení přístupových práv",
-      "Definici struktury",
-      "Dotazování",
-      "Řízení transakcí"
+      "Definice struktury tabulek",
+      "Dotazování na uložená data",
+      "Řízení průběhu transakcí"
     ],
     "answer": "Řízení přístupových práv",
     "solution": "DCL (Data Control Language) slouží k řízení přístupových práv.",
@@ -2348,12 +2473,12 @@ window.EXERCISES = [
     "title": "Účel připojovacího řetězce",
     "question": "Jaký je hlavní účel připojovacího řetězce k databázi?",
     "choices": [
-      "Předat informace potřebné k připojení k databázi",
-      "Určit barevné schéma aplikace",
-      "Seřadit záznamy bez SQL dotazu",
-      "Vytvořit favicon webu"
+      "Uložit výsledek posledního provedeného SQL dotazu",
+      "Předat aplikaci údaje potřebné k připojení k databázi",
+      "Definovat strukturu všech tabulek v databázi",
+      "Zaznamenávat historii změn uložených dat"
     ],
-    "answer": "Předat informace potřebné k připojení k databázi",
+    "answer": "Předat aplikaci údaje potřebné k připojení k databázi",
     "solution": "Připojovací řetězec obsahuje informace potřebné pro práci s databázovým připojením; vizuální nastavení aplikace do něj nepatří.",
     "hint": "Souvisí s připojením aplikace k databázi, ne s vzhledem rozhraní.",
     "tags": [
@@ -2370,12 +2495,12 @@ window.EXERCISES = [
     "title": "Co je ODBC?",
     "question": "Jak ODBC umožňuje aplikacím pracovat s různými databázemi?",
     "choices": [
-      "Standardizované rozhraní pro jednotný přístup aplikací k různým databázím nezávisle na výrobci",
-      "Formát souboru pro export databáze",
-      "Příkaz pro řízení transakcí",
-      "Typ primárního klíče"
+      "Převádí všechna data do jednoho společného souborového formátu",
+      "Synchronizuje obsah všech databází do jedné centrální",
+      "Poskytuje jednotné rozhraní nezávislé na konkrétním výrobci",
+      "Překládá SQL dotazy do jazyka konkrétní aplikace"
     ],
-    "answer": "Standardizované rozhraní pro jednotný přístup aplikací k různým databázím nezávisle na výrobci",
+    "answer": "Poskytuje jednotné rozhraní nezávislé na konkrétním výrobci",
     "solution": "ODBC je standardizované rozhraní, které umožňuje aplikacím přistupovat k různým databázím jednotným způsobem nezávisle na výrobci.",
     "hint": "ODBC je rozhraní, ne příkaz SQL.",
     "tags": [
@@ -2566,19 +2691,26 @@ window.EXERCISES = [
     "topic": "Základy databází",
     "subtopic": "Shrnutí",
     "id": "db-034",
-    "type": "choice",
-    "title": "Který příkaz kam patří?",
-    "question": "Která dvojice je správně spojena?",
-    "choices": [
-      "DQL — SELECT",
-      "DLL — SELECT",
-      "DQL — DROP",
-      "DTL/TCL — GRANT"
+    "type": "spot",
+    "title": "Chybné přiřazení skupiny SQL",
+    "question": "V přehledu skupin SQL příkazů je jedno přiřazení chybné. Klikni na něj.",
+    "solution": "GRANT patří do DCL (řízení práv), stejně jako REVOKE. Do DML (manipulace s daty) patří INSERT, UPDATE a DELETE.",
+    "hint": "Projdi, které příkazy mění data a které řídí přístupová práva.",
+    "tags": [],
+    "segments": [
+      "DDL – CREATE,",
+      "DQL – SELECT,",
+      "DML – GRANT,",
+      "DCL – REVOKE,",
+      "TCL – COMMIT"
     ],
-    "answer": "DQL — SELECT",
-    "solution": "DQL souvisí s dotazováním a SELECT je typický dotazovací příkaz.",
-    "hint": "SELECT patří k dotazování.",
-    "tags": []
+    "wrong": [
+      2
+    ],
+    "corrections": {
+      "2": "DML – INSERT,"
+    },
+    "difficulty": 3
   },
   {
     "subject": "Databáze",

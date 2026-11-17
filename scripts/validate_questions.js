@@ -37,11 +37,11 @@ const groups = [
   { file: 'nemcina_exercises.js', variable: 'GERMAN_EXERCISES' },
 ];
 
-const allowedTypes = new Set(['choice', 'multi', 'match', 'order', 'scenario', 'diagnostic', 'classification', 'compare', 'image-choice', 'text', 'code', 'fill', 'number', 'conversion']);
+const allowedTypes = new Set(['choice', 'multi', 'match', 'order', 'scenario', 'diagnostic', 'classification', 'compare', 'image-choice', 'text', 'code', 'fill', 'number', 'conversion', 'cloze', 'spot']);
 const all = [];
 const errors = [];
 const warnings = [];
-const warningCounts = { noHint: 0, noTags: 0 };
+const warningCounts = { noHint: 0, noTags: 0, longestAnswer: 0 };
 
 for (const group of groups) {
   try {
@@ -173,6 +173,13 @@ function getCorrectAnswerValues(exercise) {
       return [exercise.answer];
     case 'code':
       return [exercise.expectedOutput];
+    case 'cloze':
+      return Array.isArray(exercise.gaps) ? exercise.gaps.map(gap => gap?.answer) : [];
+    case 'spot': {
+      const segments = Array.isArray(exercise.segments) ? exercise.segments : [];
+      const corrections = exercise.corrections && typeof exercise.corrections === 'object' ? exercise.corrections : {};
+      return (Array.isArray(exercise.wrong) ? exercise.wrong : []).flatMap(i => [segments[i], corrections[i]]);
+    }
     default:
       return [];
   }
@@ -393,6 +400,57 @@ for (const e of all) {
     else if (!Number.isFinite(Number(raw))) errors.push(`${prefix}: number answer není číselná hodnota: ${e.answer}`);
   }
 
+  if (e.type === 'cloze') {
+    const text = String(e.cloze ?? '');
+    const placeholders = [...text.matchAll(/\{\{([\w-]+)\}\}/g)].map(m => m[1]);
+    if (!placeholders.length) errors.push(`${prefix}: cloze nemá v textu žádnou mezeru {{id}}`);
+    if (new Set(placeholders).size !== placeholders.length) errors.push(`${prefix}: cloze má mezeru se stejným id vícekrát`);
+    if (!Array.isArray(e.gaps) || !e.gaps.length) errors.push(`${prefix}: cloze nemá gaps`);
+    else {
+      const gapIds = e.gaps.map(gap => String(gap?.id ?? '').trim());
+      validateUniqueStrings(gapIds, 'id mezery', prefix);
+      for (const ph of placeholders) if (!gapIds.includes(ph)) errors.push(`${prefix}: mezera {{${ph}}} nemá definici v gaps`);
+      for (const gap of e.gaps) {
+        const gapId = String(gap?.id ?? '').trim();
+        if (!placeholders.includes(gapId)) errors.push(`${prefix}: gap "${gapId}" není v textu`);
+        if (!String(gap?.answer ?? '').trim()) errors.push(`${prefix}: gap "${gapId}" nemá answer`);
+        if (Array.isArray(gap?.options) && gap.options.length) {
+          if (gap.options.length < 2) errors.push(`${prefix}: gap "${gapId}" potřebuje aspoň 2 options`);
+          validateUniqueStrings(gap.options, `option v mezeře ${gapId}`, prefix);
+          if (!gap.options.includes(gap.answer)) errors.push(`${prefix}: gap "${gapId}" má answer mimo options`);
+        }
+      }
+    }
+  }
+
+  if (e.type === 'spot') {
+    const segments = Array.isArray(e.segments) ? e.segments : [];
+    if (segments.length < 3) errors.push(`${prefix}: spot potřebuje alespoň 3 segments`);
+    if (segments.some(seg => !String(seg ?? '').trim())) errors.push(`${prefix}: spot nesmí mít prázdný segment`);
+    if (!Array.isArray(e.wrong) || !e.wrong.length) errors.push(`${prefix}: spot nemá wrong`);
+    else {
+      validateUniqueStrings(e.wrong, 'index chyby', prefix);
+      for (const i of e.wrong) if (!Number.isInteger(i) || i < 0 || i >= segments.length) errors.push(`${prefix}: spot wrong obsahuje neplatný index ${i}`);
+      if (e.wrong.length >= segments.length) errors.push(`${prefix}: spot nemůže mít chybné všechny segmenty`);
+    }
+    if (e.layout != null && !['words', 'lines'].includes(e.layout)) errors.push(`${prefix}: spot layout musí být words nebo lines`);
+    if (e.corrections != null) {
+      if (typeof e.corrections !== 'object' || Array.isArray(e.corrections)) errors.push(`${prefix}: spot corrections musí být objekt {index: oprava}`);
+      else for (const key of Object.keys(e.corrections)) if (!(e.wrong || []).includes(Number(key))) errors.push(`${prefix}: spot corrections obsahuje index ${key}, který není ve wrong`);
+    }
+  }
+
+  // Odhadnutelný vzorec: správná odpověď je výrazně nejdelší ze všech možností.
+  if (['choice', 'scenario', 'image-choice'].includes(e.type) && Array.isArray(e.choices) && e.choices.length >= 3) {
+    const answerLength = String(e.answer ?? '').length;
+    const others = e.choices.filter(c => String(c).trim() !== String(e.answer).trim()).map(c => String(c).length);
+    const average = others.reduce((sum, n) => sum + n, 0) / Math.max(1, others.length);
+    if (others.length && others.every(n => n < answerLength) && answerLength > average * 1.6) {
+      warningCounts.longestAnswer += 1;
+      if (process.env?.SHOW_LONGEST) warnings.push(`${prefix}: správná odpověď je výrazně nejdelší`);
+    }
+  }
+
   if (e.type === 'fill' && !String(e.answer ?? '').trim()) {
     errors.push(`${prefix}: fill nemá answer`);
   }
@@ -454,10 +512,17 @@ console.log(`Unikátní ID: ${ids.size}`);
 console.log('Podle předmětu:', subjectCounts);
 console.log('Podle typu:', typeCounts);
 
-if (warningCounts.noHint || warningCounts.noTags) {
+if (warningCounts.noHint || warningCounts.noTags || warningCounts.longestAnswer) {
   console.log('\nNepovinná metadata:');
   if (warningCounts.noHint) console.log(`  - bez hintu: ${warningCounts.noHint}`);
   if (warningCounts.noTags) console.log(`  - bez tags: ${warningCounts.noTags}`);
+  if (warningCounts.longestAnswer) console.log(`  - správná odpověď výrazně nejdelší, lze ji odhadnout (SHOW_LONGEST=1 vypíše seznam): ${warningCounts.longestAnswer}`);
+}
+
+if (warnings.length) {
+  console.log(`
+Upozornění (${warnings.length}):`);
+  for (const warning of warnings) console.log(`  - ${warning}`);
 }
 
 if (errors.length) {

@@ -74,12 +74,12 @@ window.NETWORK_EXERCISES = [
     "title": "Lokální síť (LAN)",
     "question": "Co je charakteristické pro lokální síť (LAN)?",
     "choices": [
-      "Pokrývá budovu nebo areál (stovky metrů až jednotky km), bývá v soukromé správě a dosahuje rychlostí řádově Gb/s",
-      "Pokrývá celý kontinent a využívá výhradně satelitní spoje",
-      "Je omezena pouze na dosah jednoho metru od počítače",
-      "Spojuje výhradně telekomunikační ústředny různých států"
+      "Pokrývá město a spravuje ji zpravidla poskytovatel",
+      "Propojuje státy a kontinenty přes veřejné linky",
+      "Pokrývá budovu nebo areál a bývá v soukromé správě",
+      "Propojuje zařízení jedné osoby na pár metrů"
     ],
-    "answer": "Pokrývá budovu nebo areál (stovky metrů až jednotky km), bývá v soukromé správě a dosahuje rychlostí řádově Gb/s",
+    "answer": "Pokrývá budovu nebo areál a bývá v soukromé správě",
     "solution": "LAN (Local Area Network) funguje na vzdálenost stovek metrů až jednotek km (např. škola, firma, domov), má vysoké rychlosti (Gb/s) a bývá spravována jednou organizací či majitelem.",
     "tags": [
       "Dělení sítí",
@@ -127,20 +127,43 @@ window.NETWORK_EXERCISES = [
     "topic": "Základy a rozdělení sítí",
     "subtopic": "Definice a rozlehlost",
     "id": "ps-zaklady-007",
-    "type": "choice",
+    "type": "cloze",
     "title": "Přenosová média v sítích",
-    "question": "Jaká tři základní fyzikální prostředí (přenosová média) se v počítačových sítích používají pro šíření signálu?",
-    "choices": [
-      "Kov (metalické kabely), vzduch/vakuum (elektromagnetické vlny) a sklo/plast (optická vlákna)",
-      "Pouze měděné dráty a vodní paprsek",
-      "Výhradně vzduch a infračervený plyn",
-      "Pouze optické kabely a koaxiální vodiče bez možnosti bezdrátového přenosu"
-    ],
-    "answer": "Kov (metalické kabely), vzduch/vakuum (elektromagnetické vlny) a sklo/plast (optická vlákna)",
+    "question": "Doplň tři základní prostředí, kterými se v sítích šíří signál.",
     "solution": "Přenosová média dělíme podle prostředí na: kov / metalické kabely (elektrický proud), vzduch / vakuum (elektromagnetické vlny v bezdrátových sítích) a sklo / plast (světelné pulzy v optických vláknech).",
     "tags": [
       "Média",
       "Fyzika sítí"
+    ],
+    "cloze": "Signál se šíří {{kov}} (metalické kabely), {{vzduch}} (elektromagnetické vlny) a {{sklo}} (optická vlákna).",
+    "gaps": [
+      {
+        "id": "kov",
+        "options": [
+          "kovem",
+          "vzduchem nebo vakuem",
+          "sklem nebo plastem"
+        ],
+        "answer": "kovem"
+      },
+      {
+        "id": "vzduch",
+        "options": [
+          "kovem",
+          "vzduchem nebo vakuem",
+          "sklem nebo plastem"
+        ],
+        "answer": "vzduchem nebo vakuem"
+      },
+      {
+        "id": "sklo",
+        "options": [
+          "kovem",
+          "vzduchem nebo vakuem",
+          "sklem nebo plastem"
+        ],
+        "answer": "sklem nebo plastem"
+      }
     ]
   },
   {
@@ -207,12 +230,12 @@ window.NETWORK_EXERCISES = [
     "title": "Vysílání typu Multicast",
     "question": "Co charakterizuje vysílání typu Multicast (komunikace 1:n)?",
     "choices": [
-      "Data jsou odeslána ze zdroje jednou a doručena pouze zařízením, která jsou součástí dané skupiny (např. videokonference)",
-      "Data jsou odesílána každému účastníkovi v síti bez možnosti odhlášení",
-      "Data smí přijímat vždy pouze jediné zařízení na světě",
-      "Data mohou proudit pouze jedním kabelem bez větvení"
+      "Data dostane jediný konkrétní příjemce v síti",
+      "Zdroj vysílá jednou a data dostanou jen členové skupiny",
+      "Data dostanou všechna zařízení v dané síti",
+      "Data dostane jen nejbližší člen ze skupiny"
     ],
-    "answer": "Data jsou odeslána ze zdroje jednou a doručena pouze zařízením, která jsou součástí dané skupiny (např. videokonference)",
+    "answer": "Zdroj vysílá jednou a data dostanou jen členové skupiny",
     "solution": "Multicast (1:n) šetří šířku pásma: zdroj odešle paket pouze jednou a kopie se vytvoří až v místech, kde se cesty ke členům skupiny rozdělují. Příkladem jsou videokonference, IPTV nebo hromadné chaty.",
     "tags": [
       "Vysílání",
@@ -245,20 +268,44 @@ window.NETWORK_EXERCISES = [
     "topic": "Základy a rozdělení sítí",
     "subtopic": "Typy vysílání a přenosové módy",
     "id": "ps-zaklady-012",
-    "type": "choice",
-    "title": "Simplexní přenos",
-    "question": "Který příklad nejlépe vystihuje simplexní režim přenosu (Simplex)?",
-    "choices": [
-      "Tradiční televizní a rozhlasové vysílání, kde data proudí pouze od vysílače k přijímači bez jakékoliv zpětné vazby",
-      "Telefonní hovor dvou lidí mluvících současně přes sebe",
-      "Komunikace pomocí vysílaček, kde se po domluvení stiskne tlačítko pro přepnutí",
-      "Obousměrné kopírování souborů mezi dvěma servery přes Ethernet"
-    ],
-    "answer": "Tradiční televizní a rozhlasové vysílání, kde data proudí pouze od vysílače k přijímači bez jakékoliv zpětné vazby",
-    "solution": "V simplexním přenosu mohou data proudit pouze jedním směrem – od vysílače k přijímači. Přijímač nemůže odesílat žádnou odpověď ani potvrzení.",
+    "type": "classification",
+    "title": "Přenosové módy v praxi",
+    "question": "Zařaď příklady komunikace k přenosovému módu.",
+    "solution": "Simplex: data tečou jen jedním směrem (TV, rozhlas). Poloduplex: oba směry, ale střídavě (vysílačky). Plný duplex: oba směry současně (telefon, přepínaný Ethernet).",
     "tags": [
-      "Přenosové módy",
-      "Simplex"
+      "Přenosové módy"
+    ],
+    "categories": [
+      "Simplex",
+      "Poloduplex",
+      "Plný duplex"
+    ],
+    "items": [
+      {
+        "id": "tv",
+        "text": "Klasické televizní vysílání",
+        "category": "Simplex"
+      },
+      {
+        "id": "radio",
+        "text": "Rozhlas na FM",
+        "category": "Simplex"
+      },
+      {
+        "id": "walkie",
+        "text": "Vysílačky, kde se mluví po stisknutí tlačítka",
+        "category": "Poloduplex"
+      },
+      {
+        "id": "phone",
+        "text": "Telefonní hovor, kdy mohou mluvit oba naráz",
+        "category": "Plný duplex"
+      },
+      {
+        "id": "eth",
+        "text": "Přepínaný Ethernet, kde port současně vysílá i přijímá",
+        "category": "Plný duplex"
+      }
     ]
   },
   {
@@ -270,12 +317,12 @@ window.NETWORK_EXERCISES = [
     "title": "Poloduplexní přenos (Half-Duplex)",
     "question": "Co je podstatou poloduplexního (Half-Duplex) přenosu?",
     "choices": [
-      "Obousměrná komunikace, ale v jednom okamžiku pouze jedním směrem (např. vysílačky walkie-talkie)",
-      "Komunikace pouze jedním směrem napořád bez možnosti odpovědi",
-      "Současné nezávislé vysílání i příjem dat oběma stanicemi naráz",
-      "Přenášení pouze poloviny každého datového paketu"
+      "Přenos jen jedním směrem bez možnosti odpovědi",
+      "Současný přenos oběma směry ve stejný okamžik",
+      "Přenos po polovině párů kabelu oběma směry naráz",
+      "Obousměrný přenos, ale v jednu chvíli jen jedním směrem"
     ],
-    "answer": "Obousměrná komunikace, ale v jednom okamžiku pouze jedním směrem (např. vysílačky walkie-talkie)",
+    "answer": "Obousměrný přenos, ale v jednu chvíli jen jedním směrem",
     "solution": "Half-duplex umožňuje komunikaci v obou směrech, ale střídavě. Pokud jedna stanice vysílá, druhá musí čekat na ukončení přenosu (např. vysílačky, starý sběrnicový Ethernet s kolizemi).",
     "tags": [
       "Přenosové módy",
@@ -328,12 +375,12 @@ window.NETWORK_EXERCISES = [
     "title": "Paketový přenos vs přepojování okruhů",
     "question": "Jaký klíčový koncept nahradil tradiční přepojování okruhů (circuit switching) používané v telefonních sítích?",
     "choices": [
-      "Balíčkově orientovaná komunikace (packet switching) – data se dělí na pakety putující sítí nezávisle",
-      "Přenášení celé zprávy pouze v jednom kuse bez jakéhokoliv dělení",
-      "Použití analogových pásek zasílaných poštovní službou",
-      "Zrušení adresace a posílání signálu náhodně do všech kabelů"
+      "Přepojování paketů – data putují sítí v samostatných paketech",
+      "Přepojování zpráv – celá zpráva se předává uzel po uzlu vcelku",
+      "Časový multiplex – každý hovor má pevně přidělený časový slot",
+      "Pronajaté linky – každá dvojice uzlů má vlastní vyhrazený okruh"
     ],
-    "answer": "Balíčkově orientovaná komunikace (packet switching) – data se dělí na pakety putující sítí nezávisle",
+    "answer": "Přepojování paketů – data putují sítí v samostatných paketech",
     "solution": "Paul Baran (USA) a Donald Davies (Velká Británie) navrhli rozdělení dat na menší části – pakety (packet switching), které putují sítí nezávisle na sobě, což zajišťuje odolnost i při výpadku části sítě.",
     "tags": [
       "Historie"
@@ -483,12 +530,12 @@ window.NETWORK_EXERCISES = [
     "title": "Stromová topologie (Tree)",
     "question": "Co v počítačových sítích představuje stromová topologie (Tree Topology)?",
     "choices": [
-      "Hierarchickou kombinaci – například jednotlivá patra budovy tvoří hvězdy propojené páteřní sběrnicí (backbone)",
-      "Síť složenou výhradně z bezdrátových senzorů umístěných v korunách stromů",
-      "Sběrnici, která nemá zakončovací terminátory a signál se volně šíří do vzduchu",
-      "Zapojení, kde každý uzel funguje pouze v noci"
+      "Uzly zapojené do uzavřeného kruhu",
+      "Hvězdy hierarchicky propojené páteřním vedením",
+      "Každý uzel propojený s každým dalším uzlem",
+      "Všechny uzly připojené k jednomu kabelu"
     ],
-    "answer": "Hierarchickou kombinaci – například jednotlivá patra budovy tvoří hvězdy propojené páteřní sběrnicí (backbone)",
+    "answer": "Hvězdy hierarchicky propojené páteřním vedením",
     "solution": "Stromová topologie (Tree) je hierarchická kombinace hvězdicových sítí propojených páteřní trasou (backbone). Je typická pro větší budovy, školy nebo firemní areály.",
     "tags": [
       "Topologie",
@@ -543,12 +590,12 @@ window.NETWORK_EXERCISES = [
     "title": "Využití MESH topologie v praxi",
     "question": "Kde se princip MESH topologie běžně využívá v praxi?",
     "choices": [
-      "V bezdrátových Wi-Fi Mesh sítích (pokrytí velkých domů) a v páteřních sítích poskytovatelů internetu (ISP)",
-      "Výhradně v malých kancelářích se dvěma počítači a jednou tiskárnou",
-      "Pouze při připojení starých jehličkových tiskáren přes paralelní port LPT",
-      "U telefonních budek pro přenos mincí"
+      "Domácí síť s jedním routerem a několika PC",
+      "Starší Ethernet na koaxiálním kabelu 10BASE2",
+      "Wi-Fi mesh systémy a páteřní sítě poskytovatelů",
+      "Kancelářské sítě Token Ring z 80. let"
     ],
-    "answer": "V bezdrátových Wi-Fi Mesh sítích (pokrytí velkých domů) a v páteřních sítích poskytovatelů internetu (ISP)",
+    "answer": "Wi-Fi mesh systémy a páteřní sítě poskytovatelů",
     "solution": "Mesh se v praxi používá v bezdrátových Wi-Fi Mesh systémech (propojené satelity v domech a firmách), v páteřních trasách ISP routerů i ve vojenských sítích odolných proti poškození.",
     "tags": [
       "Topologie",
@@ -561,19 +608,48 @@ window.NETWORK_EXERCISES = [
     "topic": "Topologie a prvky sítí",
     "subtopic": "Aktivní a pasivní prvky",
     "id": "ps-topologie-008",
-    "type": "choice",
-    "title": "Rozdíl mezi aktivními a pasivními prvky",
-    "question": "Jaký je zásadní rozdíl mezi aktivními a pasivními síťovými prvky?",
-    "choices": [
-      "Aktivní prvky signál/data zpracovávají, upravují či směrují a potřebují napájení; pasivní prvky signál pouze přenášejí a napájení nepotřebují",
-      "Aktivní prvky jsou vždy kovové kabely, pasivní prvky jsou výhradně softwarové programy",
-      "Aktivní prvky fungují pouze v bezdrátových sítích, pasivní pouze v optických",
-      "Pasivní prvky generují elektrickou energii a napájejí celou síť"
-    ],
-    "answer": "Aktivní prvky signál/data zpracovávají, upravují či směrují a potřebují napájení; pasivní prvky signál pouze přenášejí a napájení nepotřebují",
+    "type": "classification",
+    "title": "Aktivní, nebo pasivní prvek?",
+    "question": "Rozděl síťové prvky: aktivní signál zpracovávají a potřebují napájení, pasivní ho jen přenášejí.",
     "solution": "Aktivní prvky provádějí s daty/signálem aktivní činnost (zesílení, přepínání, směrování) a vyžadují napájení ze sítě. Pasivní prvky (kabely, konektory, zásuvky, patch panely) signál nijak nemění a napájení nepotřebují.",
     "tags": [
       "Síťové prvky"
+    ],
+    "categories": [
+      "Aktivní prvek",
+      "Pasivní prvek"
+    ],
+    "items": [
+      {
+        "id": "switch",
+        "text": "Switch",
+        "category": "Aktivní prvek"
+      },
+      {
+        "id": "router",
+        "text": "Router",
+        "category": "Aktivní prvek"
+      },
+      {
+        "id": "ap",
+        "text": "Access point",
+        "category": "Aktivní prvek"
+      },
+      {
+        "id": "patch",
+        "text": "Patch panel",
+        "category": "Pasivní prvek"
+      },
+      {
+        "id": "utp",
+        "text": "Kabel UTP",
+        "category": "Pasivní prvek"
+      },
+      {
+        "id": "socket",
+        "text": "Datová zásuvka",
+        "category": "Pasivní prvek"
+      }
     ]
   },
   {
@@ -644,12 +720,12 @@ window.NETWORK_EXERCISES = [
     "title": "Funkce patch panelu v racku",
     "question": "K čemu v datovém rozvaděči (racku) slouží patch panel (propojovací panel)?",
     "choices": [
-      "K přehlednému a pevnému zakončení strukturované kabeláže z celého objektu a snadnému přepojování portů do switche",
-      "K automatickému přidělování IP adres počítačům v síti",
-      "K filtrování virů a blokování nebezpečných webových stránek",
-      "K bezdrátovému vysílání Wi-Fi signálu s vysokým ziskem"
+      "K automatickému přidělování IP adres v síti",
+      "K propojení sítí s různými rozsahy IP adres",
+      "K rozbočení signálu do všech portů zároveň",
+      "K zakončení kabeláže z objektu a přepojování portů"
     ],
-    "answer": "K přehlednému a pevnému zakončení strukturované kabeláže z celého objektu a snadnému přepojování portů do switche",
+    "answer": "K zakončení kabeláže z objektu a přepojování portů",
     "solution": "Patch panel je pasivní prvek instalovaný do 19\" racku. Ze zadní strany jsou napevno zařezány kabely ze zásuvek v budově, zepředu se pomocí krátkých patch cordů propojují do portů switche.",
     "tags": [
       "Hardware",
@@ -822,21 +898,34 @@ window.NETWORK_EXERCISES = [
     "topic": "Přenosová média a kabeláž",
     "subtopic": "Zapojení RJ-45 a patch cordy",
     "id": "ps-media-009",
-    "type": "choice",
+    "type": "cloze",
     "title": "Rozdíl mezi přímým a kříženým kabelem",
-    "question": "V čem se konstrukčně liší přímý kabel (straight-through) a křížený kabel (crossover patch cord)?",
-    "choices": [
-      "Přímý kabel má na obou koncích stejný standard (např. T-568B na obou), křížený má na jednom konci T-568A a na druhém T-568B",
-      "Přímý kabel je rovný, křížený se smí vést pouze za roh",
-      "Přímý kabel přenáší pouze nuly, křížený kabel přenáší pouze jedničky",
-      "Přímý kabel má konektory RJ-45, křížený má konektory USB-C"
-    ],
-    "answer": "Přímý kabel má na obou koncích stejný standard (např. T-568B na obou), křížený má na jednom konci T-568A a na druhém T-568B",
+    "question": "Doplň, čím se liší přímý a křížený kabel.",
     "solution": "Přímý patch cord má oba konce zapojené identicky (např. T-568B na obou stranách). Křížený kabel má na jednom konci T-568A a na druhém T-568B (prohazují se vysílací a přijímací páry pro přímé propojení dvou PC bez switche).",
     "tags": [
       "Kabeláž",
       "Patch cord",
       "Crossover"
+    ],
+    "cloze": "Přímý kabel má na obou koncích {{same}} standard zapojení. Křížený kabel má na jednom konci T-568A a na druhém {{other}}.",
+    "gaps": [
+      {
+        "id": "same",
+        "options": [
+          "stejný",
+          "opačný"
+        ],
+        "answer": "stejný"
+      },
+      {
+        "id": "other",
+        "options": [
+          "T-568B",
+          "T-568A",
+          "RJ-11"
+        ],
+        "answer": "T-568B"
+      }
     ]
   },
   {
@@ -861,21 +950,31 @@ window.NETWORK_EXERCISES = [
     "topic": "Přenosová média a kabeláž",
     "subtopic": "Koaxiální a optické kabely",
     "id": "ps-media-011",
-    "type": "choice",
+    "type": "spot",
     "title": "Vlastnosti optických kabelů",
-    "question": "Které vlastnosti charakterizují optické datové kabely?",
-    "choices": [
-      "Přenos dat světlem ve skleněném/plastovém jádře, obrovské přenosové rychlosti (Gb/s až Tb/s) a naprostá imunita vůči elektromagnetickému rušení",
-      "Přenos dat pomocí střídavého proudu 50 Hz po hliníkovém drátu s velkým elektrickým odporem",
-      "Vysoká náchylnost k rušení bleskem a rádiovým vysíláním",
-      "Neschopnost přenášet data na vzdálenost delší než 5 metrů"
-    ],
-    "answer": "Přenos dat světlem ve skleněném/plastovém jádře, obrovské přenosové rychlosti (Gb/s až Tb/s) a naprostá imunita vůči elektromagnetickému rušení",
-    "solution": "Optické kabely využívají totální odraz světla ve skleněném či plastovém vlákně. Nabízejí extrémní šířku pásma, dosah desítek kilometrů a jsou absolutně netečné k elektromagnetickému rušení.",
+    "question": "Ve větě o optických kabelech je jedna chyba. Najdi ji.",
+    "solution": "Optika přenáší světlo, ne elektrický proud, a proto je vůči elektromagnetickému rušení imunní. To je jedna z hlavních výhod oproti metalickým kabelům.",
     "tags": [
       "Optika",
       "Vlákna"
-    ]
+    ],
+    "segments": [
+      "Optický kabel",
+      "přenáší data",
+      "světlem",
+      "ve skleněném nebo plastovém jádře,",
+      "dosahuje rychlostí",
+      "Gb/s až Tb/s",
+      "a je",
+      "velmi citlivý",
+      "na elektromagnetické rušení."
+    ],
+    "wrong": [
+      7
+    ],
+    "corrections": {
+      "7": "zcela odolný"
+    }
   },
   {
     "subject": "Počítačové sítě",
@@ -886,12 +985,12 @@ window.NETWORK_EXERCISES = [
     "title": "Optická vana (ODF)",
     "question": "Co je to optická vana (ODF – Optical Distribution Frame)?",
     "choices": [
-      "Pasivní rackové zařízení určené k bezpečnému uložení, ukončení a organizaci optických vláken a svarů",
-      "Nádoba s chladicí kapalinou, do které se ponořují servery",
-      "Speciální software pro zálohování souborů do cloudu",
-      "Označení pro vnější plastový plášť venkovního koaxiálního kabelu"
+      "Rackový panel pro ukončení a organizaci optických vláken",
+      "Rackový panel pro zakončení metalické kabeláže UTP",
+      "Převodník mezi optickým a metalickým vedením",
+      "Přístroj pro svařování optických vláken v terénu"
     ],
-    "answer": "Pasivní rackové zařízení určené k bezpečnému uložení, ukončení a organizaci optických vláken a svarů",
+    "answer": "Rackový panel pro ukončení a organizaci optických vláken",
     "solution": "Optická vana (též optický patch panel či ODF) slouží k ukončení optických kabelů v racku, ochraně křehkých svárů vláken a vyvedení optických spojek pro připojení optických patch cordů.",
     "tags": [
       "Optika",
@@ -936,18 +1035,34 @@ window.NETWORK_EXERCISES = [
     "topic": "Přenosová média a kabeláž",
     "subtopic": "PoE technologie",
     "id": "ps-media-015",
-    "type": "choice",
+    "type": "cloze",
     "title": "Komponenty PoE: PSE a PD",
-    "question": "Co v systému PoE označují pojmy PSE a PD?",
-    "choices": [
-      "PSE je zdroj napájení (např. PoE switch či injektor); PD je napájené koncové zařízení (např. IP kamera či VoIP telefon)",
-      "PSE je přenosný software; PD je pevný disk v počítači",
-      "PSE je přístupové heslo k Wi-Fi; PD je personální oddělení",
-      "PSE je optický kabel; PD je koaxiální redukce"
-    ],
-    "answer": "PSE je zdroj napájení (např. PoE switch či injektor); PD je napájené koncové zařízení (např. IP kamera či VoIP telefon)",
+    "question": "Doplň zkratky rolí v systému PoE.",
     "solution": "PSE (Power Sourcing Equipment) poskytuje napájení (PoE switch, PoE midspan injektor). PD (Powered Device) je spotřebič napájený z kabelu (kamera, Wi-Fi AP, VoIP telefon).",
-    "tags": []
+    "tags": [
+      "PoE"
+    ],
+    "cloze": "Zdrojem napájení, například PoE switchem nebo injektorem, je {{pse}}. Napájené koncové zařízení, například IP kamera, se označuje {{pd}}.",
+    "gaps": [
+      {
+        "id": "pse",
+        "options": [
+          "PSE",
+          "PD",
+          "PoE+"
+        ],
+        "answer": "PSE"
+      },
+      {
+        "id": "pd",
+        "options": [
+          "PSE",
+          "PD",
+          "PoE+"
+        ],
+        "answer": "PD"
+      }
+    ]
   },
   {
     "subject": "Počítačové sítě",
@@ -975,12 +1090,12 @@ window.NETWORK_EXERCISES = [
     "title": "PoE u Gigabit Ethernetu",
     "question": "Jakým způsobem se přenáší napájení PoE u Gigabit Ethernetu (1000BASE-T)?",
     "choices": [
-      "Přes všechny 4 páry současně společně s daty (fantomové napájení), protože všechny páry se využívají i pro data",
-      "Pouze po jednom zemnicím plášti, data jsou zcela odpojena",
-      "Napájení se posílá bezdrátově vzduchem kolem konektoru",
-      "U Gigabit Ethernetu není technologie PoE fyzikálně možná"
+      "Jen po volných párech, které u gigabitu data nenesou",
+      "Po datových párech současně s daty (fantomové napájení)",
+      "Po samostatném napájecím vodiči uvnitř kabelu",
+      "Po stínění kabelu, které slouží jako vodič"
     ],
-    "answer": "Přes všechny 4 páry současně společně s daty (fantomové napájení), protože všechny páry se využívají i pro data",
+    "answer": "Po datových párech současně s daty (fantomové napájení)",
     "solution": "U 10/100 Mbps Ethernetu lze využít volné páry (4-5 a 7-8), ale u 1000BASE-T (Gigabit) přenášejí data všechny 4 páry, takže napájení probíhá přes středové odbočky transformátorů po všech párech současně.",
     "tags": [
       "PoE",
@@ -1139,21 +1254,49 @@ window.NETWORK_EXERCISES = [
     "topic": "Síťové modely",
     "subtopic": "Model ISO/OSI",
     "id": "ps-modely-008",
-    "type": "choice",
-    "title": "Úkol prezentační vrstvy (L6)",
-    "question": "Jaké jsou hlavní úkoly 6. vrstvy (prezentační) modelu ISO/OSI?",
-    "choices": [
-      "Převod formátů dat, konverze kódování znaků (např. ASCII na UTF-8), komprese a šifrování dat",
-      "Výroba optických konektorů a lisování pinů RJ-45",
-      "Směrování paketů na základě čísla autonomního systému",
-      "Napájení koncových zařízení přes ethernetový kabel"
-    ],
-    "answer": "Převod formátů dat, konverze kódování znaků (např. ASCII na UTF-8), komprese a šifrování dat",
+    "type": "classification",
+    "title": "Úkoly vrstev OSI",
+    "question": "Zařaď úkol ke správné vrstvě modelu ISO/OSI.",
     "solution": "Prezentační vrstva zajišťuje, aby data byla pro aplikace na obou stranách srozumitelná bez ohledu na operační systém a hardware. Provádí formátování, převody kódování (ASCII, UTF-8), kompresi a šifrování.",
     "tags": [
-      "ISO/OSI",
-      "Prezentační vrstva",
-      "L6"
+      "ISO/OSI"
+    ],
+    "categories": [
+      "L6 – prezentační",
+      "L3 – síťová",
+      "L2 – linková"
+    ],
+    "items": [
+      {
+        "id": "charset",
+        "text": "Převod kódování znaků (ASCII → UTF-8)",
+        "category": "L6 – prezentační"
+      },
+      {
+        "id": "crypto",
+        "text": "Komprese a šifrování dat",
+        "category": "L6 – prezentační"
+      },
+      {
+        "id": "route",
+        "text": "Směrování paketů mezi sítěmi",
+        "category": "L3 – síťová"
+      },
+      {
+        "id": "ip",
+        "text": "Logické adresy IP",
+        "category": "L3 – síťová"
+      },
+      {
+        "id": "mac",
+        "text": "Fyzické adresy MAC",
+        "category": "L2 – linková"
+      },
+      {
+        "id": "frame",
+        "text": "Rámce a kontrola chyb pomocí CRC",
+        "category": "L2 – linková"
+      }
     ]
   },
   {
@@ -1198,21 +1341,31 @@ window.NETWORK_EXERCISES = [
     "topic": "Síťové modely",
     "subtopic": "Model TCP/IP a enkapsulace",
     "id": "ps-modely-011",
-    "type": "choice",
+    "type": "spot",
     "title": "Princip enkapsulace dat",
-    "question": "Co je to enkapsulace (zapouzdření) dat při odesílání ze zařízení?",
-    "choices": [
-      "Proces, při němž každá nižší vrstva obalí data z vyšší vrstvy svou vlastní řídicí hlavičkou (header) a předá je dál",
-      "Smazání nepotřebných dat z pevného disku pro zrychlení internetu",
-      "Zabalení ethernetového kabelu do ochranné plastové lišty na zdi",
-      "Odstranění všech IP adres z paketu před odesláním do sítě"
-    ],
-    "answer": "Proces, při němž každá nižší vrstva obalí data z vyšší vrstvy svou vlastní řídicí hlavičkou (header) a předá je dál",
-    "solution": "Při enkapsulaci postupují data od aplikační vrstvy dolů: transportní vrstva přidá hlavičku s porty (segment), internetová vrstva přidá IP hlavičku (paket), síťový přístup přidá MAC hlavičku a patičku FCS (rámec) a fyzická vrstva vyšle bity do média.",
+    "question": "Popis zapouzdření (enkapsulace) při odesílání obsahuje dvě chyby. Najdi je.",
+    "solution": "Při odesílání data putují shora dolů: každá vrstva přidá k datům z vyšší vrstvy svou hlavičku a předá je nižší vrstvě. Opačný postup při příjmu je dekapsulace.",
     "tags": [
       "Enkapsulace",
       "PDU"
-    ]
+    ],
+    "segments": [
+      "Při odesílání",
+      "každá vrstva",
+      "obalí data",
+      "z nižší vrstvy",
+      "svou řídicí hlavičkou",
+      "a předá je",
+      "vyšší vrstvě."
+    ],
+    "wrong": [
+      3,
+      6
+    ],
+    "corrections": {
+      "3": "z vyšší vrstvy",
+      "6": "nižší vrstvě."
+    }
   },
   {
     "subject": "Počítačové sítě",
@@ -1240,12 +1393,12 @@ window.NETWORK_EXERCISES = [
     "title": "Zápis MAC adresy",
     "question": "V jaké soustavě a formátu se MAC adresa standardně zapisuje?",
     "choices": [
-      "V šestnáctkové (hexadecimální) soustavě jako šestice dvojic znaků oddělených dvojtečkami nebo pomlčkami (např. 00:1A:2B:3C:4D:5E)",
-      "V desítkové soustavě jako čtyři čísla oddělená tečkami od 0 do 255",
-      "Ve dvojkové soustavě jako 48 jedniček a nul bez mezer",
-      "V textové podobě křestním jménem majitele počítače"
+      "Desítkově jako čtyři čísla 0–255 oddělená tečkami, např. 192.168.1.10",
+      "Šestnáctkově jako osm skupin po čtyřech znacích oddělených dvojtečkou",
+      "Šestnáctkově jako šest dvojic znaků, např. 00:1A:2B:3C:4D:5E",
+      "Dvojkově jako 32 bitů rozdělených mezerami do čtyř oktetů"
     ],
-    "answer": "V šestnáctkové (hexadecimální) soustavě jako šestice dvojic znaků oddělených dvojtečkami nebo pomlčkami (např. 00:1A:2B:3C:4D:5E)",
+    "answer": "Šestnáctkově jako šest dvojic znaků, např. 00:1A:2B:3C:4D:5E",
     "solution": "MAC adresa se zapisuje hexadecimálně (číslice 0-9 a písmena A-F). Skládá se ze 6 bajtů, každý bajt je zapsán 2 hexadecimálními znaky (např. `00:1A:2B:3C:4D:5E` nebo `00-1A-2B-3C-4D-5E`).",
     "tags": [
       "MAC",
@@ -1257,19 +1410,43 @@ window.NETWORK_EXERCISES = [
     "topic": "Adresace a konfigurace",
     "subtopic": "MAC adresa",
     "id": "ps-adresace-003",
-    "type": "choice",
+    "type": "cloze",
     "title": "Části MAC adresy: OUI a NIC",
-    "question": "Z jakých dvou částí se skládá každá MAC adresa?",
-    "choices": [
-      "Prvních 24 bitů je OUI (kód výrobce) a druhých 24 bitů je unikátní číslo zařízení (NIC specific) přidělené výrobcem",
-      "Prvních 16 bitů je stát a zbylých 32 bitů je telefonní číslo uživatele",
-      "Celých 48 bitů generuje náhodně operační systém při každém restartu",
-      "První polovina určuje rychlost v Mb/s a druhá polovina napájecí napětí"
-    ],
-    "answer": "Prvních 24 bitů je OUI (kód výrobce) a druhých 24 bitů je unikátní číslo zařízení (NIC specific) přidělené výrobcem",
+    "question": "Doplň, z čeho se skládá MAC adresa.",
     "solution": "MAC adresa se dělí na 2 poloviny (po 24 bitech / 3 bajtech): OUI (Organizationally Unique Identifier) identifikuje výrobce síťové karty (např. Intel, Cisco, Realtek), zbývající část (NIC) je unikátní sériové číslo daného kusu.",
     "tags": [
-      "MAC"
+      "MAC adresa"
+    ],
+    "cloze": "MAC adresa má {{bits}} bitů. Prvních 24 bitů tvoří {{oui}}, tedy kód výrobce, a zbylých 24 bitů je {{nic}} přidělené výrobcem.",
+    "gaps": [
+      {
+        "id": "bits",
+        "options": [
+          "32",
+          "48",
+          "64",
+          "128"
+        ],
+        "answer": "48"
+      },
+      {
+        "id": "oui",
+        "options": [
+          "OUI",
+          "CIDR",
+          "VLAN ID"
+        ],
+        "answer": "OUI"
+      },
+      {
+        "id": "nic",
+        "options": [
+          "unikátní číslo zařízení",
+          "číslo podsítě",
+          "číslo portu switche"
+        ],
+        "answer": "unikátní číslo zařízení"
+      }
     ]
   },
   {
@@ -1335,12 +1512,12 @@ window.NETWORK_EXERCISES = [
     "title": "Význam notace CIDR",
     "question": "Co udává číslo za lomítkem v zápisu sítě pomocí notace CIDR (např. /24 v 192.168.1.100/24)?",
     "choices": [
-      "Počet jedničkových bitů v masce podsítě zleva, které určují síťovou část adresy",
-      "Maximální povolený počet uživatelů na daném počítači",
-      "Přenosovou rychlost síťové karty v megabitech za sekundu",
-      "Číslo síťové zásuvky na zdi v kanceláři"
+      "Počet jedničkových bitů masky, tedy délku síťové části",
+      "Počet použitelných adres pro hosty v této síti",
+      "Počet podsítí, na které je síť rozdělena",
+      "Pořadové číslo hosta v rámci dané sítě"
     ],
-    "answer": "Počet jedničkových bitů v masce podsítě zleva, které určují síťovou část adresy",
+    "answer": "Počet jedničkových bitů masky, tedy délku síťové části",
     "solution": "CIDR (Classless Inter-Domain Routing) nahradil staré třídy A, B, C. Prefix /24 znamená, že prvních 24 bitů z 32bitové IP adresy náleží síti (odpovídá dekadické masce 255.255.255.0) a zbylých 8 bitů zůstává pro adresování hostů.",
     "tags": [
       "CIDR",
@@ -1414,12 +1591,12 @@ window.NETWORK_EXERCISES = [
     "title": "Role výchozí brány (Default Gateway)",
     "question": "K čemu slouží výchozí brána (Default Gateway) v konfiguraci síťového adaptéru?",
     "choices": [
-      "Je to IP adresa lokálního routeru, kterému počítač předává pakety určené pro zařízení v jiných (vzdálených) sítích a internetu",
-      "Je to fyzická závora u vjezdu do areálu s optickými kabely",
-      "Je to heslo správce počítače vyžadované pro přístup na sociální sítě",
-      "Slouží výhradně k automatickému vypínání monitoru při nečinnosti"
+      "Adresu serveru, který překládá doménová jména",
+      "Adresu serveru, který přiděluje IP adresy",
+      "Adresu, na kterou se v síti posílá broadcast",
+      "Adresu routeru, přes který jdou pakety do jiných sítí"
     ],
-    "answer": "Je to IP adresa lokálního routeru, kterému počítač předává pakety určené pro zařízení v jiných (vzdálených) sítích a internetu",
+    "answer": "Adresu routeru, přes který jdou pakety do jiných sítí",
     "solution": "Pokud počítač zjistí, že cíl leží mimo jeho lokální podsíť (jiný prefix), odešle rámec na MAC adresu výchozí brány (Default Gateway). Brána (router) pak paket přepošle dál podle svých směrovacích tabulek.",
     "tags": [
       "Brána",
@@ -1504,12 +1681,12 @@ window.NETWORK_EXERCISES = [
     "title": "Zobrazení ARP tabulky (arp -a)",
     "question": "Co dělá příkaz `arp -a` spuštěný v příkazovém řádku Windows nebo v terminálu Linuxu?",
     "choices": [
-      "Zobrazí obsah lokální ARP cache – tedy namapované IP adresy na odpovídající MAC adresy zařízení v lokální síti",
-      "Okamžitě zformátuje pevný disk a restartuje počítač",
-      "Změní MAC adresu síťové karty na náhodnou hodnotu",
-      "Otestuje rychlost stahování souborů z internetu v Mb/s"
+      "Vypíše směrovací tabulku počítače a výchozí bránu",
+      "Vypíše ARP cache – mapování IP adres na MAC adresy",
+      "Vypíše aktivní TCP spojení a naslouchající porty",
+      "Vypíše IP konfiguraci všech síťových adaptérů"
     ],
-    "answer": "Zobrazí obsah lokální ARP cache – tedy namapované IP adresy na odpovídající MAC adresy zařízení v lokální síti",
+    "answer": "Vypíše ARP cache – mapování IP adres na MAC adresy",
     "solution": "Příkaz `arp -a` vypíše obsah vyrovnávací paměti protokolu ARP, kde jsou uloženy dvojice IP adresa a k ní příslušná MAC adresa nedávno komunikujících sousedních stanic.",
     "tags": [
       "CLI",
@@ -1547,12 +1724,12 @@ window.NETWORK_EXERCISES = [
     "title": "Hlavní účel služby DNS",
     "question": "Co je hlavním úkolem systému DNS (Domain Name System)?",
     "choices": [
-      "Překládat srozumitelná textová doménová jména (např. spssol.cz) na číselné IP adresy a naopak",
-      "Šifrovat hesla uživatelů při přihlašování do operačního systému",
-      "Přidělovat dynamické IP adresy počítačům v lokální síti",
-      "Generovat náhodná čísla pro Wi-Fi šifrovací klíče"
+      "Přiděluje počítačům v síti IP adresy automaticky",
+      "Překládá IP adresy na MAC adresy v lokální síti",
+      "Překládá doménová jména na IP adresy a naopak",
+      "Překládá privátní IP adresy na veřejnou adresu"
     ],
-    "answer": "Překládat srozumitelná textová doménová jména (např. spssol.cz) na číselné IP adresy a naopak",
+    "answer": "Překládá doménová jména na IP adresy a naopak",
     "solution": "DNS (Domain Name System) je celosvětově distribuovaná databáze, která zajišťuje překlad doménových jmen (např. `www.google.com`) na odpovídající IP adresy počítačů a serverů, aby spolu mohly navázat spojení.",
     "tags": [
       "DNS",
@@ -1564,20 +1741,42 @@ window.NETWORK_EXERCISES = [
     "topic": "Služby a protokoly",
     "subtopic": "DNS - systém doménových jmen",
     "id": "ps-sluzby-002",
-    "type": "choice",
+    "type": "cloze",
     "title": "Hierarchická struktura domén",
-    "question": "Jak je organizována hierarchie doménových jmen v DNS?",
-    "choices": [
-      "Jako stromová struktura: na vrcholu je kořenová doména (tečka .), následují domény nejvyššího řádu (TLD jako .cz, .com), domény 2. řádu a subdomény",
-      "Všechna doménová jména na světě jsou uložena v jednom textovém souboru v abecedním pořadí",
-      "Každý stát má svou oddělenou síť bez jakéhokoliv společného kořene",
-      "Domény se řadí výhradně podle data jejich zakoupení"
-    ],
-    "answer": "Jako stromová struktura: na vrcholu je kořenová doména (tečka .), následují domény nejvyššího řádu (TLD jako .cz, .com), domény 2. řádu a subdomény",
+    "question": "Doplň, jak je uspořádaná hierarchie doménových jmen.",
     "solution": "Hierarchie DNS má stromovou strukturu s kořenovou zónou (.) na samém vrcholu. Pod ní jsou domény 1. řádu (TLD, např. `.cz`, `.org`), dále domény 2. řádu (např. `spssol`), 3. řádu (např. `mail`) atd.",
     "tags": [
-      "DNS",
-      "Hierarchie"
+      "DNS"
+    ],
+    "cloze": "Doménová jména tvoří {{shape}} strukturu. Na vrcholu je {{root}} (zapisuje se tečkou), pod ní domény nejvyššího řádu jako {{tld}} a dál domény 2. řádu a subdomény.",
+    "gaps": [
+      {
+        "id": "shape",
+        "options": [
+          "stromovou",
+          "kruhovou",
+          "plochou"
+        ],
+        "answer": "stromovou"
+      },
+      {
+        "id": "root",
+        "options": [
+          "kořenová doména",
+          "subdoména",
+          "doména 2. řádu"
+        ],
+        "answer": "kořenová doména"
+      },
+      {
+        "id": "tld",
+        "options": [
+          ".cz",
+          "www",
+          "spssol"
+        ],
+        "answer": ".cz"
+      }
     ]
   },
   {
@@ -1601,20 +1800,41 @@ window.NETWORK_EXERCISES = [
     "topic": "Služby a protokoly",
     "subtopic": "DNS - systém doménových jmen",
     "id": "ps-sluzby-004",
-    "type": "choice",
-    "title": "Autoritativní vs rekurzivní DNS server",
-    "question": "Jaký je rozdíl mezi autoritativním a rekurzivním (caching) DNS serverem?",
-    "choices": [
-      "Autoritativní server má originální data své domény/zóny; rekurzivní server vyhledává odpovědi u autoritativních serverů a ukládá je do cache",
-      "Autoritativní server funguje pouze na Linuxu, rekurzivní pouze na Windows",
-      "Autoritativní server spravuje výhradně hesla k e-mailu, rekurzivní šifruje web",
-      "Mezi těmito servery není žádný technický rozdíl"
-    ],
-    "answer": "Autoritativní server má originální data své domény/zóny; rekurzivní server vyhledává odpovědi u autoritativních serverů a ukládá je do cache",
+    "type": "compare",
+    "title": "Autoritativní a rekurzivní DNS",
+    "question": "Rozhodni, ke kterému typu DNS serveru tvrzení patří.",
     "solution": "Autoritativní server je definitivním správcem zóny a zná oficiální záznamy dané domény. Rekurzivní resolver (poskytovaný např. ISP nebo Google 8.8.8.8) se ptá v hierarchii za klienta a výsledek si po dobu TTL pamatuje v mezipaměti.",
     "tags": [
-      "DNS",
-      "Servery"
+      "DNS"
+    ],
+    "leftLabel": "Autoritativní server",
+    "rightLabel": "Rekurzivní (caching) server",
+    "criteria": [
+      {
+        "id": "zone",
+        "text": "Má originální záznamy své zóny.",
+        "answer": "left"
+      },
+      {
+        "id": "ask",
+        "text": "Dohledává odpověď za klienta u dalších serverů.",
+        "answer": "right"
+      },
+      {
+        "id": "cache",
+        "text": "Ukládá získané odpovědi po dobu TTL do mezipaměti.",
+        "answer": "right"
+      },
+      {
+        "id": "final",
+        "text": "Odpovídá za svou doménu s konečnou platností.",
+        "answer": "left"
+      },
+      {
+        "id": "isp",
+        "text": "Klientům ho obvykle nabízí poskytovatel nebo domácí router.",
+        "answer": "right"
+      }
     ]
   },
   {
@@ -1681,12 +1901,12 @@ window.NETWORK_EXERCISES = [
     "title": "Kanonický název – CNAME záznam",
     "question": "K čemu v DNS slouží záznam typu CNAME (Canonical Name)?",
     "choices": [
-      "Definuje alias (zástupné jméno) pro jiné doménové jméno (např. www.seznam.cz jako alias pro seznam.cz)",
-      "Blokuje přístup k nebezpečným serverům v cizích zemích",
-      "Překládá doménové jméno na číslo mobilního telefonu",
-      "Slouží k zálohování zdrojového kódu webu do cloudu"
+      "Alias – odkazuje na jiné doménové jméno",
+      "Přiřazuje doménovému jménu adresu IPv4",
+      "Přiřazuje doménovému jménu adresu IPv6",
+      "Určuje poštovní server pro danou doménu"
     ],
-    "answer": "Definuje alias (zástupné jméno) pro jiné doménové jméno (např. www.seznam.cz jako alias pro seznam.cz)",
+    "answer": "Alias – odkazuje na jiné doménové jméno",
     "solution": "CNAME záznam (Canonical Name) vytváří přezdívku (alias) odkazující na jiné doménové jméno (kanonický název). Používá se pro nasměrování více subdomén na jeden cíl.",
     "tags": [
       "DNS",
@@ -1698,21 +1918,32 @@ window.NETWORK_EXERCISES = [
     "topic": "Služby a protokoly",
     "subtopic": "DNS záznamy",
     "id": "ps-sluzby-009",
-    "type": "choice",
+    "type": "cloze",
     "title": "MX záznam a priorita",
-    "question": "K čemu slouží DNS záznam typu MX (Mail Exchanger) a co znamená jeho hodnota priority?",
-    "choices": [
-      "Určuje poštovní servery pro příjem e-mailů dané domény; čím nižší číslo priority, tím vyšší má server přednost",
-      "Měří rychlost odesílání e-mailů v bajtech za sekundu",
-      "Ukládá texty všech doručených zpráv za posledních 30 dní",
-      "Určuje, který uživatel v doméně smí odesílat hromadné zprávy"
-    ],
-    "answer": "Určuje poštovní servery pro příjem e-mailů dané domény; čím nižší číslo priority, tím vyšší má server přednost",
+    "question": "Doplň, k čemu slouží záznam MX a jak funguje jeho priorita.",
     "solution": "Záznam MX (Mail Exchanger) specifikuje poštovní servery obsluhující e-maily pro danou doménu. Parametr preference/priority určuje pořadí: odesílající server zkouší nejdříve stroj s nejnižším číslem (nejvyšší prioritou).",
     "tags": [
-      "DNS",
-      "MX",
-      "E-mail"
+      "DNS"
+    ],
+    "cloze": "Záznam MX určuje {{what}} domény. Má-li doména více MX záznamů, přednost dostane server s {{prio}} číslem priority.",
+    "gaps": [
+      {
+        "id": "what",
+        "options": [
+          "poštovní servery",
+          "webové servery",
+          "jmenné servery"
+        ],
+        "answer": "poštovní servery"
+      },
+      {
+        "id": "prio",
+        "options": [
+          "nižším",
+          "vyšším"
+        ],
+        "answer": "nižším"
+      }
     ]
   },
   {
@@ -1741,19 +1972,35 @@ window.NETWORK_EXERCISES = [
     "topic": "Služby a protokoly",
     "subtopic": "Hlasové a datové služby",
     "id": "ps-sluzby-011",
-    "type": "choice",
+    "type": "cloze",
     "title": "Protokoly SIP a RTP u VoIP",
-    "question": "Které dva protokoly se klíčově doplňují při realizaci VoIP hovorů?",
-    "choices": [
-      "SIP (navázání, řízení a ukončení hovoru) a RTP (přenos samotných hlasových dat v reálném čase)",
-      "HTTP (načítání stylů) a CSS (formátování zvuku)",
-      "POP3 (stahování hlasu) a SMTP (odesílání ticha)",
-      "BNC (krimpování) a ODF (optická vana)"
-    ],
-    "answer": "SIP (navázání, řízení a ukončení hovoru) a RTP (přenos samotných hlasových dat v reálném čase)",
+    "question": "Doplň protokoly, které spolu zajišťují VoIP hovor.",
     "solution": "SIP (Session Initiation Protocol) slouží jako signalizační protokol pro sestavení, správu a zavěšení hovoru. Samotný proud digitalizovaného audia pak v reálném čase přenáší protokol RTP (Real-time Transport Protocol).",
     "tags": [
       "VoIP"
+    ],
+    "cloze": "Protokol {{sig}} hovor navazuje, řídí a ukončuje. Samotný hlas v reálném čase přenáší protokol {{media}}.",
+    "gaps": [
+      {
+        "id": "sig",
+        "options": [
+          "SIP",
+          "RTP",
+          "SMTP",
+          "HTTP"
+        ],
+        "answer": "SIP"
+      },
+      {
+        "id": "media",
+        "options": [
+          "SIP",
+          "RTP",
+          "SMTP",
+          "HTTP"
+        ],
+        "answer": "RTP"
+      }
     ]
   },
   {
@@ -1765,12 +2012,12 @@ window.NETWORK_EXERCISES = [
     "title": "Výhody technologie VoLTE",
     "question": "Co přináší technologie VoLTE (Voice over LTE) v mobilních 4G sítích?",
     "choices": [
-      "Současný přenos hlasu i vysokorychlostních dat bez přepínání na 2G/3G, rychlejší sestavení spojení a vyšší kvalitu zvuku HD Voice",
-      "Nutnost odpojit internet v mobilu během každého hovoru",
-      "Placení hovorů podle počtu vyslovených slov",
-      "Omezení délky každého hovoru na maximálně 60 sekund"
+      "Hovor přes Wi-Fi síť místo mobilního signálu",
+      "Hovor, při kterém se telefon přepne do sítě 3G",
+      "Hovor přes aplikaci typu WhatsApp nebo Skype",
+      "Hovor přes 4G bez přepnutí na 2G/3G a ve vyšší kvalitě"
     ],
-    "answer": "Současný přenos hlasu i vysokorychlostních dat bez přepínání na 2G/3G, rychlejší sestavení spojení a vyšší kvalitu zvuku HD Voice",
+    "answer": "Hovor přes 4G bez přepnutí na 2G/3G a ve vyšší kvalitě",
     "solution": "VoLTE přenáší hovory přímo přes datovou LTE síť s využitím IMS infrastruktury a širokopásmového kodeku AMR-WB (HD Voice). Telefon nemusí přepínat do starších sítí, hovor se spojí za 1-2 sekundy a během volání fungují data plnou rychlostí.",
     "tags": [
       "Mobilní sítě",
@@ -1799,20 +2046,42 @@ window.NETWORK_EXERCISES = [
     "topic": "Služby a protokoly",
     "subtopic": "Hlasové a datové služby",
     "id": "ps-sluzby-014",
-    "type": "choice",
+    "type": "cloze",
     "title": "Kanály ISDN BRI",
-    "question": "Jaké kanály a v jakém počtu tvoří základní digitální telefonní přípojku ISDN BRI (Basic Rate Interface)?",
-    "choices": [
-      "2 B-kanály (přenos hlasu/dat, každý 64 kb/s) + 1 D-kanál (signalizace, 16 kb/s)",
-      "10 B-kanálů a 5 D-kanálů",
-      "Pouze 1 společný analogový kanál s proměnlivou rychlostí",
-      "30 kanálů pro video a žádný kanál pro signalizaci"
-    ],
-    "answer": "2 B-kanály (přenos hlasu/dat, každý 64 kb/s) + 1 D-kanál (signalizace, 16 kb/s)",
+    "question": "Doplň složení přípojky ISDN BRI.",
     "solution": "Přípojka ISDN BRI (2B+D) pro domácnosti nabízela 2 nezávislé hovorové B-kanály (Bearer, po 64 kb/s) a jeden signalizační D-kanál (Delta, 16 kb/s). Umožňovala současně volat a používat internet rychlostí až 128 kb/s.",
     "tags": [
-      "ISDN",
-      "BRI"
+      "ISDN"
+    ],
+    "cloze": "ISDN BRI tvoří {{b}} B-kanály po 64 kb/s pro hlas a data a {{d}} D-kanál o rychlosti {{speed}} pro signalizaci.",
+    "gaps": [
+      {
+        "id": "b",
+        "options": [
+          "2",
+          "30",
+          "1"
+        ],
+        "answer": "2"
+      },
+      {
+        "id": "d",
+        "options": [
+          "1",
+          "2",
+          "16"
+        ],
+        "answer": "1"
+      },
+      {
+        "id": "speed",
+        "options": [
+          "16 kb/s",
+          "64 kb/s",
+          "2 Mb/s"
+        ],
+        "answer": "16 kb/s"
+      }
     ]
   },
   {
@@ -1837,21 +2106,41 @@ window.NETWORK_EXERCISES = [
     "topic": "Služby a protokoly",
     "subtopic": "Transportní protokoly TCP a UDP",
     "id": "ps-sluzby-016",
-    "type": "choice",
-    "title": "Vlastnosti protokolu TCP",
-    "question": "Které vlastnosti vystihují transportní protokol TCP (Transmission Control Protocol)?",
-    "choices": [
-      "Spojovaný a spolehlivý přenos – navazuje spojení (handshake), potvrzuje doručení dat (ACK), řídí tok a ztracené pakety posílá znovu",
-      "Nespojovaný a nezaručený přenos – data posílá bez jakéhokoliv potvrzení za účelem maximální rychlosti",
-      "Hardware v základní desce, který se stará o chlazení grafické karty",
-      "Protokol určený výhradně pro vysílání rozhlasu po drátě"
-    ],
-    "answer": "Spojovaný a spolehlivý přenos – navazuje spojení (handshake), potvrzuje doručení dat (ACK), řídí tok a ztracené pakety posílá znovu",
+    "type": "compare",
+    "title": "TCP, nebo UDP?",
+    "question": "Rozhodni, ke kterému transportnímu protokolu vlastnost patří.",
     "solution": "TCP je spolehlivý spojovaný protokol. Zajišťuje, že data dorazí kompletní a ve správném pořadí (využívá se pro HTTP/HTTPS, e-mail SMTP/IMAP, FTP, SSH).",
     "tags": [
-      "TCP",
-      "Transport",
-      "Spolehlivost"
+      "Transport"
+    ],
+    "leftLabel": "TCP",
+    "rightLabel": "UDP",
+    "criteria": [
+      {
+        "id": "handshake",
+        "text": "Před přenosem naváže spojení (handshake).",
+        "answer": "left"
+      },
+      {
+        "id": "ack",
+        "text": "Potvrzuje doručení a ztracená data posílá znovu.",
+        "answer": "left"
+      },
+      {
+        "id": "nogarant",
+        "text": "Nezaručuje doručení ani pořadí dat.",
+        "answer": "right"
+      },
+      {
+        "id": "realtime",
+        "text": "Hodí se pro hovory a hry, kde vadí zpoždění víc než ztráta.",
+        "answer": "right"
+      },
+      {
+        "id": "flow",
+        "text": "Řídí tok dat podle možností příjemce.",
+        "answer": "left"
+      }
     ]
   },
   {
@@ -1863,12 +2152,12 @@ window.NETWORK_EXERCISES = [
     "title": "Vlastnosti protokolu UDP",
     "question": "Které vlastnosti vystihují transportní protokol UDP (User Datagram Protocol)?",
     "choices": [
-      "Nespojovaný (connectionless) a rychlý protokol bez záruky doručení a bez potvrzování, vhodný pro aplikace citlivé na zpoždění",
-      "Vysoká režie, trojcestné navazování spojení a automatické šifrování",
-      "Protokol pro fyzické propojování kabelů v rozvaděči",
-      "Výhradně zálohovací protokol pro páskové mechaniky"
+      "Spojovaný, s potvrzováním a opakováním ztracených dat",
+      "Spojovaný, ale bez kontroly pořadí přijatých segmentů",
+      "Nespojovaný, bez potvrzování a bez záruky doručení",
+      "Nespojovaný, ale s povinným potvrzením každého paketu"
     ],
-    "answer": "Nespojovaný (connectionless) a rychlý protokol bez záruky doručení a bez potvrzování, vhodný pro aplikace citlivé na zpoždění",
+    "answer": "Nespojovaný, bez potvrzování a bez záruky doručení",
     "solution": "UDP posílá datagramy bez předchozího navazování spojení a bez potvrzování. Má minimální zpoždění a režii, což je ideální pro streamování zvuku/videa, online hraní her, VoIP a rychlé DNS dotazy.",
     "tags": [
       "UDP",
@@ -1885,12 +2174,12 @@ window.NETWORK_EXERCISES = [
     "title": "Proč DNS dotazy běžně používají protokol UDP?",
     "question": "Z jakého důvodu běžné klientské dotazy na DNS server standardně využívají protokol UDP namísto TCP?",
     "choices": [
-      "Protože dotaz i odpověď se typicky vejdou do jednoho paketu a UDP ušetří čas potřebný na zdlouhavé navazování TCP spojení",
-      "Protože protokol TCP neumí přenášet písmena z doménových jmen",
-      "Protože v síti internet je protokol TCP od roku 2020 zakázán",
-      "Protože UDP servery jsou zdarma, zatímco za TCP se platí měsíční poplatek"
+      "TCP neumožňuje přenášet zprávy kratší než 512 bajtů",
+      "Malý dotaz se vejde do jednoho paketu bez navazování spojení",
+      "UDP na rozdíl od TCP zaručuje doručení na první pokus",
+      "TCP smí používat jen servery, nikoli běžní klienti"
     ],
-    "answer": "Protože dotaz i odpověď se typicky vejdou do jednoho paketu a UDP ušetří čas potřebný na zdlouhavé navazování TCP spojení",
+    "answer": "Malý dotaz se vejde do jednoho paketu bez navazování spojení",
     "solution": "Běžný DNS dotaz je krátký. Při použití UDP proběhne celá transakce během jednoho dotazu a jedné odpovědi (1 RTT), zatímco u TCP by se muselo nejdřív navazovat a pak ukončovat spojení.",
     "tags": [
       "DNS",
@@ -1928,12 +2217,12 @@ window.NETWORK_EXERCISES = [
     "title": "Terminátor u sběrnicové topologie",
     "question": "K čemu slouží zakončovací odpor (terminátor) na obou koncích kabelu ve sběrnicové topologii?",
     "choices": [
-      "Pohlcuje elektrický signál na konci vedení a brání jeho nežádoucímu odrazu zpět do kabelu",
-      "Zvyšuje rychlost internetu zdvojnásobením frekvence",
-      "Chrání síťové karty před napadením počítačovým virem",
-      "Slouží jako bezdrátová anténa pro příjem mobilního signálu"
+      "Pohltí signál na konci kabelu, aby se neodrážel zpět",
+      "Zesílí signál, aby došel až na druhý konec kabelu",
+      "Odfiltruje rámce určené pro jiné segmenty sítě",
+      "Uzemní kabel a chrání karty před přepětím"
     ],
-    "answer": "Pohlcuje elektrický signál na konci vedení a brání jeho nežádoucímu odrazu zpět do kabelu",
+    "answer": "Pohltí signál na konci kabelu, aby se neodrážel zpět",
     "solution": "Terminátor (odpor typicky 50 ohmů u koaxiálu) pohltí energii signálu na konci vedení, čímž zabrání odrazu vlnění (reflexi), které by zničilo probíhající komunikaci ostatních stanic.",
     "tags": [
       "Topologie",
@@ -1968,21 +2257,41 @@ window.NETWORK_EXERCISES = [
     "topic": "Přenosová média a kabeláž",
     "subtopic": "Koaxiální a optické kabely",
     "id": "ps-media-019",
-    "type": "choice",
-    "title": "Jednovidové vs mnohovidové optické vlákno",
-    "question": "Jaký je rozdíl mezi jednovidovým (Single-Mode) a mnohovidovým (Multi-Mode) optickým vláknem?",
-    "choices": [
-      "Jednovidové vlákno má velmi tenké jádro (cca 9 µm), šíří se v něm jediný světelný paprsek (laser) a je určeno pro dlouhé trasy; mnohovidové má tlustší jádro (50/62,5 µm) pro kratší trasy",
-      "Jednovidové vlákno přenáší pouze černobílý obraz, mnohovidové plnobarevný",
-      "Jednovidové vlákno funguje pouze ve vakuu, mnohovidové pouze pod vodou",
-      "Jednovidové vlákno má elektrické vodiče, mnohovidové nemá žádné"
-    ],
-    "answer": "Jednovidové vlákno má velmi tenké jádro (cca 9 µm), šíří se v něm jediný světelný paprsek (laser) a je určeno pro dlouhé trasy; mnohovidové má tlustší jádro (50/62,5 µm) pro kratší trasy",
+    "type": "compare",
+    "title": "Jednovidové a mnohovidové vlákno",
+    "question": "Přiřaď vlastnosti ke správnému typu optického vlákna.",
     "solution": "Single-Mode (SM) vlákno má úzké jádro (cca 9 mikrometrů), v němž nedochází k modální disperzi – je ideální pro páteřní a telekomunikační sítě na kilometry až desítky kilometrů. Multi-Mode (MM) má jádro širší a používá se na kratší vzdálenosti v budovách a serverovnách.",
     "tags": [
-      "Optika",
-      "Single-Mode",
-      "Multi-Mode"
+      "Optika"
+    ],
+    "leftLabel": "Jednovidové (SM)",
+    "rightLabel": "Mnohovidové (MM)",
+    "criteria": [
+      {
+        "id": "core9",
+        "text": "Velmi tenké jádro, přibližně 9 µm.",
+        "answer": "left"
+      },
+      {
+        "id": "core50",
+        "text": "Jádro o průměru 50 nebo 62,5 µm.",
+        "answer": "right"
+      },
+      {
+        "id": "long",
+        "text": "Páteřní trasy na kilometry až desítky kilometrů.",
+        "answer": "left"
+      },
+      {
+        "id": "short",
+        "text": "Kratší trasy uvnitř budov a serveroven.",
+        "answer": "right"
+      },
+      {
+        "id": "laser",
+        "text": "Šíří se v něm jediný paprsek, obvykle z laseru.",
+        "answer": "left"
+      }
     ]
   },
   {
@@ -1994,12 +2303,12 @@ window.NETWORK_EXERCISES = [
     "title": "Standard PoE+ (IEEE 802.3at)",
     "question": "Jaký maximální výkon na portu nabízí standard PoE+ (IEEE 802.3at)?",
     "choices": [
-      "Až 30 W (dodává cca 25,5 W pro napájené koncové zařízení)",
-      "Maximálně 1 W",
-      "Přes 5000 W (vhodné pro elektrické trouby)",
-      "Pouze 5 V při 100 mA jako USB 1.0"
+      "Až 15,4 W na portu, zařízení dostane zhruba 13 W",
+      "Až 30 W na portu, zařízení dostane zhruba 25,5 W",
+      "Až 60 W na portu, zařízení dostane zhruba 51 W",
+      "Až 90 W na portu, zařízení dostane zhruba 71 W"
     ],
-    "answer": "Až 30 W (dodává cca 25,5 W pro napájené koncové zařízení)",
+    "answer": "Až 30 W na portu, zařízení dostane zhruba 25,5 W",
     "solution": "Standard IEEE 802.3at (PoE+) zvýšil maximální dodávaný výkon ze switche z původních 15,4 W (u 802.3af) až na 30 W na port (cca 25,5 W na straně spotřebiče), což stačí i pro otočné PTZ kamery či výkonná Wi-Fi AP.",
     "tags": [
       "PoE",
@@ -2016,12 +2325,12 @@ window.NETWORK_EXERCISES = [
     "title": "Synchronizační body na relační vrstvě (L5)",
     "question": "K čemu slouží kontrolní body (checkpoints) vkládané relační vrstvou (L5) během dlouhého přenosu dat?",
     "choices": [
-      "Při přerušení spojení umožňují navázat na přenos od posledního kontrolního bodu bez nutnosti posílat celý velký soubor znovu od začátku",
-      "Měří teplotu procesoru v průběhu stahování",
-      "Zastaví přenos dat při vyčerpání FUP limitu",
-      "Automaticky vymažou historii v prohlížeči"
+      "Ověřují, že pakety dorazily ve správném pořadí",
+      "Šifrují data ještě před odesláním do sítě",
+      "Určují nejkratší cestu paketů mezi sítěmi",
+      "Po přerušení lze pokračovat od posledního kontrolního bodu"
     ],
-    "answer": "Při přerušení spojení umožňují navázat na přenos od posledního kontrolního bodu bez nutnosti posílat celý velký soubor znovu od začátku",
+    "answer": "Po přerušení lze pokračovat od posledního kontrolního bodu",
     "solution": "Relační vrstva (Session Layer) synchronizuje dialog a vkládá do dlouhých přenosů kontrolní body (checkpoints). Dojde-li k pádu spojení v 90 % přenosu, komunikace naváže od posledního kontrolního bodu.",
     "tags": [
       "ISO/OSI",
@@ -2038,12 +2347,12 @@ window.NETWORK_EXERCISES = [
     "title": "Manchester kódování na 1. vrstvě",
     "question": "Co je to Manchester kódování (Manchester coding) na fyzické vrstvě v klasickém Ethernetu?",
     "choices": [
-      "Způsob kódování binárních dat elektrickým signálem, kde každý bit má hranu (změnu napětí) přesně uprostřed bitového intervalu pro synchronizaci hodin",
-      "Šifrovací algoritmus vyvinutý univerzitou v Manchesteru pro bankovní převody",
-      "Název konektoru pro připojení monitoru",
-      "Metoda komprese textových dokumentů"
+      "Jednička je vysoké napětí a nula nízké po celou dobu bitu",
+      "Napětí se mění pouze při každé přenášené jedničce",
+      "Každý bit má změnu napětí přesně uprostřed svého intervalu",
+      "Každé čtyři bity se převedou na pětibitovou skupinu"
     ],
-    "answer": "Způsob kódování binárních dat elektrickým signálem, kde každý bit má hranu (změnu napětí) přesně uprostřed bitového intervalu pro synchronizaci hodin",
+    "answer": "Každý bit má změnu napětí přesně uprostřed svého intervalu",
     "solution": "Manchester kódování zajišťuje přenos hodin (synchronizaci) přímo v datovém signálu: logická 0 a 1 jsou reprezentovány přechodem z nízké na vysokou úroveň nebo naopak uprostřed každého bitového taktu.",
     "tags": [
       "Fyzická vrstva",
@@ -2098,12 +2407,12 @@ window.NETWORK_EXERCISES = [
     "title": "Zjištění MAC adresy v GUI Windows",
     "question": "Kde lze v grafickém rozhraní (GUI) Windows najít MAC adresu síťového adaptéru?",
     "choices": [
-      "V Centrum síťových připojení -> Zobrazit připojení -> Podrobnosti (Fyzická adresa) nebo v Nastavení -> Síť a internet -> Vlastnosti",
-      "Pouze v koši mezi smazanými soubory",
-      "V programu Malování pod položkou Vložit text",
-      "V internetovém bankovnictví v záložce Moje platby"
+      "V podrobnostech síťového připojení jako Fyzická adresa",
+      "Ve Správě disků ve vlastnostech systémového disku",
+      "V Ovládacích panelech u názvu počítače",
+      "V nastavení Windows Update v historii aktualizací"
     ],
-    "answer": "V Centrum síťových připojení -> Zobrazit připojení -> Podrobnosti (Fyzická adresa) nebo v Nastavení -> Síť a internet -> Vlastnosti",
+    "answer": "V podrobnostech síťového připojení jako Fyzická adresa",
     "solution": "Ve Windows lze MAC adresu v GUI najít přes: Ovládací panely -> Síť a internet -> Centrum síťových připojení -> Podrobnosti (položka Fyzická adresa), nebo v moderním Nastavení -> Síť a internet -> Vlastnosti hardwaru, případně v aplikaci Systémové informace.",
     "tags": [
       "Windows",
@@ -2120,12 +2429,12 @@ window.NETWORK_EXERCISES = [
     "title": "Co je FQDN (Fully Qualified Domain Name)",
     "question": "Co v systému DNS znamená pojem FQDN (Fully Qualified Domain Name)?",
     "choices": [
-      "Plně kvalifikované (jednoznačné) doménové jméno obsahující všechny úrovně domén až po kořen (např. mail.spssol.cz.)",
-      "Heslo pro přístup k routeru přes Wi-Fi",
-      "Formát komprese souborů typu ZIP",
-      "Označení pro optický kabel v podmořském vedení"
+      "Doménové jméno zapsané bez domény nejvyššího řádu",
+      "Krátké jméno počítače platné jen v lokální síti",
+      "Doména druhého řádu zakoupená u registrátora",
+      "Úplné doménové jméno se všemi úrovněmi až po kořen"
     ],
-    "answer": "Plně kvalifikované (jednoznačné) doménové jméno obsahující všechny úrovně domén až po kořen (např. mail.spssol.cz.)",
+    "answer": "Úplné doménové jméno se všemi úrovněmi až po kořen",
     "solution": "FQDN (Fully Qualified Domain Name) jednoznačně a bez pochyb specifikuje konkrétní uzel v hierarchii DNS (včetně hostitele a všech nadřazených domén až ke kořenové tečce).",
     "tags": [
       "DNS",
@@ -2141,12 +2450,12 @@ window.NETWORK_EXERCISES = [
     "title": "DNS a geografická poloha hostitele",
     "question": "Vypovídá příslušnost dvou zařízení ke stejné doméně DNS něco o jejich skutečném geografickém umístění?",
     "choices": [
-      "Ne, DNS je logická databáze – dvě zařízení ve stejné doméně mohou být na opačných koncích planety a mít zcela odlišné sítě",
-      "Ano, zařízení ve stejné doméně musí být fyzicky v téže místnosti a propojena jedním kabelem",
-      "Ano, doména přesně určuje GPS souřadnice budovy",
-      "Platí to pouze pro domény s koncovkou .org"
+      "Ano, zařízení jedné domény musí být ve stejné síti",
+      "Ne, DNS je logické členění a zařízení mohou být kdekoli",
+      "Ano, doména určuje stát, kde zařízení fyzicky stojí",
+      "Ano, ale jen u domén nejvyššího řádu podle států"
     ],
-    "answer": "Ne, DNS je logická databáze – dvě zařízení ve stejné doméně mohou být na opačných koncích planety a mít zcela odlišné sítě",
+    "answer": "Ne, DNS je logické členění a zařízení mohou být kdekoli",
     "solution": "Jak zdůrazňuje studijní materiál: DNS je distribuovaná databáze jmen. Neříká nic o zeměpisné poloze hosta – 2 zařízení mohou patřit do stejné domény, ale geograficky se nacházet na opačných stranách zeměkoule a v různých IP podsítích.",
     "tags": [
       "DNS",

@@ -261,10 +261,10 @@ window.DIGITAL_TECHNICS_EXERCISES = [
     "title": "Binární soustava v technice",
     "question": "Která číselná soustava je základem reprezentace dat v počítačích a digitální technice?",
     "choices": [
+      "Osmičková (oktalová)",
       "Dvojková (binární)",
-      "Osmičková",
-      "Čtyřková",
-      "Desítková"
+      "Desítková (dekadická)",
+      "Šestnáctková (hexa)"
     ],
     "answer": "Dvojková (binární)",
     "solution": "Poznámky spojují binární soustavu s počítači a výpočetní technikou a dále zmiňují základy programování a Booleovu algebru.",
@@ -282,12 +282,12 @@ window.DIGITAL_TECHNICS_EXERCISES = [
     "title": "Účel Hornerova schématu",
     "question": "K čemu se používá Hornerovo schéma při převodu čísel?",
     "choices": [
-      "K převodu čísla z obecné soustavy do dekadické hodnoty",
-      "K převodu písmen na číslice",
-      "K řazení soustav podle základu",
-      "K vytvoření náhodného čísla"
+      "K převodu čísla z obecné soustavy na desítkovou hodnotu",
+      "K převodu desítkového čísla do jiné soustavy dělením",
+      "K převodu mezi dvojkovou a šestnáctkovou po čtveřicích",
+      "K převodu záporného čísla do doplňkového kódu"
     ],
-    "answer": "K převodu čísla z obecné soustavy do dekadické hodnoty",
+    "answer": "K převodu čísla z obecné soustavy na desítkovou hodnotu",
     "solution": "Hornerovo schéma v zápisu slouží k výpočtu hodnoty čísla v dekadické soustavě z jeho číslic a základu.",
     "hint": "V příkladech se na konci získá F₁₀.",
     "tags": [
@@ -413,16 +413,44 @@ window.DIGITAL_TECHNICS_EXERCISES = [
     "topic": "Hornerovo schéma",
     "subtopic": "Výpočet hodnoty",
     "id": "ct-horner-008",
-    "type": "text",
-    "autoGrade": false,
-    "title": "Vysvětlení principu",
-    "question": "Vysvětli vlastními slovy, proč u čísla s více číslicemi postupně pracujeme s vyššími mocninami základu z.",
-    "answer": "Každá pozice číslice má jinou váhu danou mocninou základu; zleva začíná nejvyšší mocninou a směrem doprava exponent klesá až k 0.",
-    "solution": "V pozičním zápisu má každá číslice svou váhu z^m. U pětimístného čísla jsou to z⁴, z³, z², z¹ a z⁰. Právě proto jednotlivé číslice přispívají různými násobky základu.",
+    "type": "cloze",
+    "title": "Váha číslice podle pozice",
+    "question": "Doplň, proč u vícemístného čísla pracujeme s vyššími mocninami základu.",
+    "solution": "Poziční soustava: hodnota = cₙ·zⁿ + … + c₁·z¹ + c₀·z⁰. Pozice zprava mají váhy z⁰, z¹, z², … – proto u více číslic používáme vyšší mocniny.",
     "hint": "Zamysli se nad hodnotou míst v pozičním zápisu.",
     "tags": [
       "Hornerovo schéma",
       "poziční zápis"
+    ],
+    "cloze": "Každá číslice má váhu danou {{vaha}} základu z. Nejpravější číslice má váhu z⁰ = {{jedna}} a čím víc vlevo číslice stojí, tím {{smer}} mocninu základu použijeme.",
+    "gaps": [
+      {
+        "id": "vaha",
+        "options": [
+          "mocninou",
+          "násobkem",
+          "dělitelem"
+        ],
+        "answer": "mocninou"
+      },
+      {
+        "id": "jedna",
+        "options": [
+          "1",
+          "0",
+          "z"
+        ],
+        "answer": "1"
+      },
+      {
+        "id": "smer",
+        "options": [
+          "vyšší",
+          "nižší",
+          "stejnou"
+        ],
+        "answer": "vyšší"
+      }
     ]
   },
   {
@@ -434,12 +462,12 @@ window.DIGITAL_TECHNICS_EXERCISES = [
     "title": "Postupný převod z desítkové",
     "question": "Jaký postup se používá při převodu čísla z desítkové soustavy do jiné soustavy?",
     "choices": [
-      "Postupné dělení základem cílové soustavy a práce se zbytky",
-      "Pouhé přepsání čísla bez změny",
-      "Násobení pouze desítkou",
-      "Seřazení číslic podle velikosti"
+      "Násobení číslic mocninami základu a jejich sečtení",
+      "Rozdělení čísla na skupiny po třech nebo čtyřech bitech",
+      "Postupné dělení základem cílové soustavy a čtení zbytků",
+      "Postupné odečítání mocnin deseti od převáděného čísla"
     ],
-    "answer": "Postupné dělení základem cílové soustavy a práce se zbytky",
+    "answer": "Postupné dělení základem cílové soustavy a čtení zbytků",
     "solution": "V poznámkách je popsáno postupné dělení základem cílové soustavy a zapisování zbytků.",
     "hint": "V příkladu 190 se opakovaně dělí dvěma.",
     "tags": [
@@ -596,17 +624,31 @@ window.DIGITAL_TECHNICS_EXERCISES = [
     "topic": "Převod z dekadické soustavy",
     "subtopic": "Kontrola výsledku",
     "id": "ct-decimal-009",
-    "type": "text",
-    "autoGrade": false,
-    "title": "Proč číst zbytky odzadu?",
-    "question": "Proč se při postupném dělení při převodu z desítkové do dvojkové soustavy čtou zbytky od posledního k prvnímu?",
-    "answer": "První zbytek představuje nejnižší řád, další zbytky postupně vyšší řády, takže správný zápis získáme čtením zbytků v opačném pořadí.",
-    "solution": "Při dělení dvěma první zbytek určuje bit na pozici 2⁰, druhý na pozici 2¹ atd. Proto se při sestavení výsledného čísla čte posloupnost zbytků od posledního k prvnímu.",
+    "type": "spot",
+    "title": "Pořadí zbytků při dělení",
+    "question": "Vysvětlení převodu dělením obsahuje dvě chyby. Najdi je.",
+    "solution": "První zbytek je nejnižší řád (2⁰), každý další zbytek patří o řád výš. Výsledek proto zapisujeme od posledního zbytku k prvnímu.",
     "hint": "První zbytek je řád 2⁰.",
     "tags": [
       "zbytky",
       "poziční zápis"
-    ]
+    ],
+    "segments": [
+      "Při převodu z desítkové do dvojkové soustavy",
+      "číslo postupně dělíme dvěma.",
+      "První zbytek",
+      "představuje nejvyšší řád,",
+      "a proto zbytky čteme",
+      "od prvního k poslednímu."
+    ],
+    "wrong": [
+      3,
+      5
+    ],
+    "corrections": {
+      "3": "představuje nejnižší řád,",
+      "5": "od posledního k prvnímu."
+    }
   },
   {
     "subject": "Číslicová technika",

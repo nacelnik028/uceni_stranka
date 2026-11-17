@@ -484,22 +484,29 @@ window.ELECTROTECHNICS_EXERCISES = [
     "topic": "Rezistivita a odpor vodiče",
     "subtopic": "Porozumění",
     "id": "et-vodic-002",
-    "type": "choice",
+    "type": "spot",
     "title": "Vztah pro odpor vodiče",
-    "question": "Který vztah platí pro odpor homogenního vodiče délky l, průřezu S a rezistivity ρ?",
-    "solution": "Odpor roste s rezistivitou a délkou a klesá s průřezem: R = ρ · l / S.",
+    "question": "V popisu odporu homogenního vodiče je jedna chyba. Najdi ji.",
+    "solution": "R = ρ · l / S: odpor roste s délkou l (je v čitateli) a klesá s průřezem S (je ve jmenovateli). Zbytek tvrzení odpovídá správnému vztahu.",
     "hint": "Delší vodič má větší odpor, silnější vodič menší.",
     "difficulty": 1,
     "tags": [
       "elektrické obvody"
     ],
-    "choices": [
-      "R = ρ · l / S",
-      "R = ρ · S / l",
-      "R = l · S / ρ",
-      "R = ρ / (l · S)"
+    "segments": [
+      "Pro odpor vodiče platí",
+      "R = ρ · S / l,",
+      "takže delší vodič",
+      "má větší odpor",
+      "a vodič s větším průřezem",
+      "má menší odpor."
     ],
-    "answer": "R = ρ · l / S"
+    "wrong": [
+      1
+    ],
+    "corrections": {
+      "1": "R = ρ · l / S,"
+    }
   },
   {
     "subject": "elektrotechnika",
@@ -912,16 +919,44 @@ window.ELECTROTECHNICS_EXERCISES = [
     "topic": "Odpor a teplota",
     "subtopic": "Porozumění",
     "id": "et-teplota-011",
-    "type": "text",
-    "title": "Proč se mění proud při zahřátí",
-    "question": "Kovový vodič je připojen ke stálému napětí. Zahřeje se a jeho odpor vzroste. Jak se změní proud a proč?",
-    "solution": "Proud se zmenší. U běžného kovového vodiče při zahřátí roste odpor a podle I = U / R při stálém napětí klesá proud.",
+    "type": "cloze",
+    "title": "Zahřátý vodič při stálém napětí",
+    "question": "Kovový vodič je připojen ke stálému napětí a zahřeje se. Doplň, co se stane.",
+    "solution": "U kovů odpor s teplotou roste. Při stálém U je proud I = U / R nepřímo úměrný odporu, takže klesne.",
     "hint": "Propoj změnu odporu s Ohmovým zákonem.",
     "difficulty": 3,
     "tags": [
       "elektrické obvody"
     ],
-    "answer": "Proud klesne, protože při stálém napětí větší odpor znamená menší proud.",
-    "autoGrade": false
+    "cloze": "Zahřátím se odpor kovového vodiče {{r}}. Napětí je stálé, takže proud {{i}}, protože podle Ohmova zákona platí I = {{law}}.",
+    "gaps": [
+      {
+        "id": "r",
+        "options": [
+          "zvětší",
+          "zmenší",
+          "nezmění"
+        ],
+        "answer": "zvětší"
+      },
+      {
+        "id": "i",
+        "options": [
+          "vzroste",
+          "klesne",
+          "zůstane stejný"
+        ],
+        "answer": "klesne"
+      },
+      {
+        "id": "law",
+        "options": [
+          "U / R",
+          "U · R",
+          "R / U"
+        ],
+        "answer": "U / R"
+      }
+    ]
   }
 ];

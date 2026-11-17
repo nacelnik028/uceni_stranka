@@ -138,8 +138,7 @@ window.CYBERSECURITY_EXERCISES = (() => {
   multi('Ochrana doménových účtů', 'Která opatření snižují riziko zneužití doménových přihlašovacích údajů?',
     ['Omezování použití privilegovaných účtů', 'Sledování neobvyklých autentizačních událostí', 'Unikátní hesla lokálních správců', 'Sdílení doménového administrátorského účtu mezi uživateli'],
     ['Omezování použití privilegovaných účtů', 'Sledování neobvyklých autentizačních událostí', 'Unikátní hesla lokálních správců'], 'Omezená práva, monitoring a unikátní lokální hesla snižují pravděpodobnost nebo dopad šíření útoku.');
-  text('Útoky a obrana', 'Proč samotné dlouhé uživatelské heslo nezabrání útoku Pass-the-Hash?',
-    'Útočník s již odcizeným použitelným NTLM hashem nemusí původní heslo hádat. Důležité je chránit přihlašovací materiál, omezit privilegované přihlášení a podle možností omezovat NTLM.');
+  add("cloze", "Útoky a obrana", "Doplň, proč samotné dlouhé heslo nezabrání útoku Pass-the-Hash.", {"cloze":"Při útoku Pass-the-Hash útočník k ověření použije ukradený {{co}}, takže nepotřebuje znát {{heslo}}. Délka ani složitost hesla ho proto {{chrani}}.","gaps":[{"id":"co","options":["hash hesla","PIN","e-mail"],"answer":"hash hesla"},{"id":"heslo","options":["heslo v čitelné podobě","uživatelské jméno","IP adresu stanice"],"answer":"heslo v čitelné podobě"},{"id":"chrani","options":["nezastaví","spolehlivě zastaví"],"answer":"nezastaví"}]}, "Útočník s odcizeným použitelným NTLM hashem nemusí původní heslo hádat. Důležité je chránit přihlašovací materiál, omezit privilegované přihlašování a používat unikátní hesla lokálních správců (LAPS).", 3);
 
   topic = 'LAPS a lokální administrátoři';
   choice('Účel LAPS', 'Jaký problém řeší LAPS?',

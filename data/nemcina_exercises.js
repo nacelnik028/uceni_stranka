@@ -681,17 +681,32 @@ window.GERMAN_EXERCISES = (() => {
   ]
 ];
 
+  // Nesprávné možnosti se berou ze stejného druhu výrazu, aby nešlo hádat podle slovního druhu
+  // (dny se střídají s dny, předložky s předložkami, otázky s otázkami).
   const kind = de => /^(der |die |das |das\/der )/.test(de) ? 'noun'
     : /, (er|sie) |^(feiern|ins Bett gehen|sich treffen)/.test(de) ? 'verb'
-    : /^(hd\(l\)|ida|wmd\?|gn8|omg|ka)$/.test(de) ? 'message' : 'other';
+    : /^(hd\(l\)|ida|wmd\?|gn8|omg|ka)$/.test(de) ? 'message'
+    : /^(montags|dienstags|mittwochs|donnerstags|freitags|samstags|sonntags|morgens|vormittags|nachmittags)$/.test(de) ? 'recurring'
+    : /^(am (Morgen|Vormittag|Nachmittag|Abend)|in der Nacht|um Mitternacht)$/.test(de) ? 'daytime'
+    : /^(halb|Viertel nach|Viertel vor|um \(Uhrzeit\))$/.test(de) ? 'clock'
+    : /\?$|^wen$/.test(de) ? 'question'
+    : /^(durch|gegen|ohne|für|bis)$/.test(de) ? 'preposition'
+    : /^(fertig|müde|lieb|dumm)$/.test(de) ? 'adjective' : 'other';
   // Synonyma nesmějí být navzájem nesprávnou možností (Bad/Badezimmer, anmachen/einschalten).
   const meaning = cs => cs.replace(/\\([^)]*\\)/g, '').replace(/[!?,.]/g, '').replace(/\\s+/g, ' ').trim()
     .replace(/^zapnout.*$/, 'zapnout');
   vocabulary.forEach(([de, cs, subtopic], index) => {
     const pool = vocabulary.filter(([otherDe, otherCs]) => kind(otherDe) === kind(de) && meaning(otherCs) !== meaning(cs));
+    // Přednost mají možnosti podobné délky, aby správnou odpověď neprozradila délka textu.
+    const ranked = pool.slice().sort((a, b) => Math.abs(a[1].length - cs.length) - Math.abs(b[1].length - cs.length) || a[1].localeCompare(b[1], 'cs'));
+    const nearest = ranked.slice(0, Math.min(ranked.length, 6));
     const wrong = [];
-    for (let offset = 0; wrong.length < 3 && offset < pool.length; offset++) {
-      const candidate = pool[(index * 7 + offset) % pool.length][1];
+    for (let offset = 0; wrong.length < 3 && offset < nearest.length * 2; offset++) {
+      const candidate = nearest[(index * 5 + offset) % nearest.length][1];
+      if (!wrong.some(value => meaning(value) === meaning(candidate))) wrong.push(candidate);
+    }
+    for (const [, candidate] of ranked) {
+      if (wrong.length >= 3) break;
       if (!wrong.some(value => meaning(value) === meaning(candidate))) wrong.push(candidate);
     }
     const choices = wrong.slice();
@@ -917,7 +932,7 @@ window.GERMAN_EXERCISES = (() => {
     ['Ich habe leider keine Zeit.', 'Bohužel nemám čas.'],
   ], 'Čas a aktivitu domlouváme otázkami Hast du … Zeit?, Was hast du vor? a Kommst du mit?');
   s('Čas setkání', 'Kamarád souhlasí, že půjdete do parku. Potřebuješ se teď zeptat na přesnou hodinu schůzky.',
-    'Kterou otázku mu položíš?', ['Was hast du vor?', 'Um wie viel Uhr treffen wir uns?', 'Wo ist der Park?', 'Wer kommt mit?'], 1,
+    'Kterou otázku mu položíš?', ['Was machen wir im Park?', 'Um wie viel Uhr treffen wir uns?', 'Wo treffen wir uns genau?', 'Wer kommt noch mit uns?'], 1,
     'Um wie viel Uhr treffen wir uns? = V kolik se sejdeme? Ostatní otázky se ptají na plán, místo nebo účastníky.');
   s('Nemáš volno', 'Kamarád tě zve ven, ale máš povinnosti a potřebuješ zdvořile odmítnout.',
     'Která reakce vyjadřuje, že bohužel nemáš čas?', ['Klar, gerne!', 'Das passt mir gut.', 'Ich habe leider keine Zeit.', 'Wir treffen uns um fünf Uhr.'], 2,

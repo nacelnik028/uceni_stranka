@@ -32,10 +32,10 @@ window.PC_GRAPHICS_EXERCISES = [
     "title": "Jak vektor popisuje obrázek",
     "question": "Jak vektorový soubor vytváří obrázek?",
     "choices": [
-      "Pomocí matematicky definovaných tvarů, čar a křivek",
-      "Pomocí milionů pevných pixelů",
-      "Pouze pomocí fotografických filtrů",
-      "Pouze pomocí zvukových vzorků"
+      "Pomocí mřížky barevných pixelů s pevným rozlišením",
+      "Pomocí komprese podobně barevných oblastí",
+      "Pomocí vrstev naskenovaných fotografií",
+      "Pomocí matematicky definovaných tvarů, čar a křivek"
     ],
     "answer": "Pomocí matematicky definovaných tvarů, čar a křivek",
     "solution": "Vektor používá matematické rovnice, body, čáry a křivky, které definují tvar a barvu.",
@@ -56,12 +56,12 @@ window.PC_GRAPHICS_EXERCISES = [
     "title": "Zvětšení rastrového obrázku",
     "question": "Co se může stát při výrazném zvětšení rastrového obrázku?",
     "choices": [
-      "Mohou být viditelné jednotlivé pixely a klesnout kvalita",
-      "Obrázek se automaticky převede na vektor",
-      "Kvalita se vždy zlepší",
-      "Zmizí všechny barvy"
+      "Mohou být vidět jednotlivé pixely a klesne kvalita",
+      "Obrázek se sám převede na vektorové křivky",
+      "Detaily se doplní a obrázek se zostří",
+      "Zmenší se velikost souboru i počet barev"
     ],
-    "answer": "Mohou být viditelné jednotlivé pixely a klesnout kvalita",
+    "answer": "Mohou být vidět jednotlivé pixely a klesne kvalita",
     "solution": "Při zvětšení rastru se mohou projevit jednotlivé obrazové body a obraz může být rozmazaný nebo kostičkovaný.",
     "hint": "Rastr má pevně danou mřížku bodů.",
     "tags": [
@@ -221,12 +221,12 @@ window.PC_GRAPHICS_EXERCISES = [
     "title": "Převod mezi typy",
     "question": "Které tvrzení o převodu mezi rastrem a vektorem je správné?",
     "choices": [
-      "Lze převést vektor na rastr i rastr na vektor, i když druhý převod může být složitější",
-      "Převod mezi nimi není nikdy možný",
-      "Na vektor lze převést jen fotografie z fotoaparátu",
-      "Rastrový soubor nelze otevřít v grafickém editoru"
+      "Lze jen rastr na vektor, opačný převod provést nelze",
+      "Lze oběma směry, ale převod rastru na vektor bývá složitější",
+      "Lze jen vektor na rastr, opačný převod provést nelze",
+      "Převod je v obou směrech vždy bezeztrátový a automatický"
     ],
-    "answer": "Lze převést vektor na rastr i rastr na vektor, i když druhý převod může být složitější",
+    "answer": "Lze oběma směry, ale převod rastru na vektor bývá složitější",
     "solution": "Oba směry převodu existují; převod rastru na vektor může být náročnější.",
     "hint": "Materiál popisuje oba směry převodu.",
     "tags": [
@@ -535,12 +535,12 @@ window.PC_GRAPHICS_EXERCISES = [
     "title": "Proč SVG pro logo",
     "question": "Proč přiložená infografika doporučuje SVG pro logo a ikonu?",
     "choices": [
-      "Protože jde o vektorový formát, který zůstává ostrý při změně velikosti",
-      "Protože SVG je vždy nejmenší rastrový soubor",
-      "Protože SVG je pouze fotografický formát",
-      "Protože SVG nelze použít na webu"
+      "Je rastrový, ale používá bezeztrátovou kompresi",
+      "Podporuje animace stejně jako formát GIF",
+      "Je vektorový, takže zůstane ostrý v jakékoli velikosti",
+      "Tiskne se v CMYK bez nutnosti převodu barev"
     ],
-    "answer": "Protože jde o vektorový formát, který zůstává ostrý při změně velikosti",
+    "answer": "Je vektorový, takže zůstane ostrý v jakékoli velikosti",
     "solution": "SVG je vektorové a může se škálovat bez ztráty ostrosti.",
     "hint": "V infografice hledej vlastnost „neomezené škálování“.",
     "tags": [
@@ -561,12 +561,12 @@ window.PC_GRAPHICS_EXERCISES = [
     "title": "Pracovní dokument versus export",
     "question": "Na přiložené infografice je uvedeno, že pracovní dokumenty uchovávají vrstvy a historii, zatímco exportní persona vytváří ploché výstupy. Jaký závěr z toho plyne?",
     "choices": [
-      "Pracovní soubor slouží k další editaci, exportovaný soubor je určen pro použití v cílovém prostředí",
-      "Export vždy obsahuje více vrstev než pracovní dokument",
-      "Pracovní dokument je vždy menší než export",
-      "Exportovaná data nelze použít pro web ani tisk"
+      "Pracovní soubor je pro další úpravy, plochý výstup pro cílové použití",
+      "Plochý výstup je pro další úpravy, pracovní soubor pro cílové použití",
+      "Oba soubory jsou rovnocenné a lze je libovolně zaměňovat",
+      "Pracovní soubor je určen jen pro tisk, výstup jen pro web"
     ],
-    "answer": "Pracovní soubor slouží k další editaci, exportovaný soubor je určen pro použití v cílovém prostředí",
+    "answer": "Pracovní soubor je pro další úpravy, plochý výstup pro cílové použití",
     "solution": "Infografika rozlišuje pracovní projekt s editovatelnou historií a plochý exportní výstup.",
     "hint": "Rozlišuj zdrojový projekt od výstupního souboru.",
     "tags": [
@@ -1060,12 +1060,12 @@ window.PC_GRAPHICS_EXERCISES = [
     "title": "Smysl spadávky",
     "question": "Co znamená spadávka (bleed) v přípravě profesionálního tisku?",
     "choices": [
-      "Definovaný přesah grafiky za finální ořez dokumentu",
-      "Barevný prostor určený pro web",
-      "Automatická komprese JPEG",
-      "Počet vrstev v pracovním souboru"
+      "Bezpečný okraj uvnitř formátu, kam nepatří text",
+      "Ořezové značky vytištěné v rozích tiskového archu",
+      "Přetisk tmavé barvy přes světlejší podklad",
+      "Přesah grafiky za finální ořez dokumentu"
     ],
-    "answer": "Definovaný přesah grafiky za finální ořez dokumentu",
+    "answer": "Přesah grafiky za finální ořez dokumentu",
     "solution": "Spadávka je přesah tiskového motivu za hranici finálního formátu, aby po ořezu nevznikly nežádoucí bílé okraje.",
     "hint": "Souvisí s ořezem tištěného materiálu.",
     "tags": [
@@ -1426,12 +1426,12 @@ window.PC_GRAPHICS_EXERCISES = [
     "title": "Přímý vliv na SEO",
     "question": "Které tvrzení nejlépe popisuje vztah favicony k SEO?",
     "choices": [
-      "Favicon přímo neurčuje pořadí ve vyhledávači, ale může nepřímo pomoci viditelnosti a prokliku",
-      "Favicon je hlavní faktor pořadí výsledků",
-      "Favicon automaticky zdvojnásobí návštěvnost",
-      "Favicon nemá žádnou vazbu na vnímání značky"
+      "Favicon přímo zvyšuje pozici webu ve výsledcích hledání",
+      "Pořadí přímo neovlivní, ale zlepší rozpoznatelnost a proklik",
+      "Ve výsledcích vyhledávání se favicon nikdy nezobrazuje",
+      "Bez favicony vyhledávač web vůbec nezaindexuje"
     ],
-    "answer": "Favicon přímo neurčuje pořadí ve vyhledávači, ale může nepřímo pomoci viditelnosti a prokliku",
+    "answer": "Pořadí přímo neovlivní, ale zlepší rozpoznatelnost a proklik",
     "solution": "Podklad výslovně uvádí, že favicon přímo neovlivňuje hodnocení, ale její zobrazení může podpořit zapamatovatelnost a CTR.",
     "hint": "Rozlišuj přímý ranking faktor a nepřímý efekt přes uživatelské chování.",
     "tags": [
@@ -1450,12 +1450,12 @@ window.PC_GRAPHICS_EXERCISES = [
     "title": "Proč jednoduchý motiv",
     "question": "Proč by měla být favicon jednoduchá a dobře rozpoznatelná?",
     "choices": [
-      "Protože se často zobrazuje ve velmi malé velikosti, například 16×16 px",
-      "Protože složité obrázky mají vždy menší soubor",
-      "Protože favicon je určená jen pro tisk",
-      "Protože favicon nesmí obsahovat barvy"
+      "Prohlížeče zobrazí nejvýše dvě barvy",
+      "Složitá ikona zpomalí načítání stránky",
+      "Zobrazuje se velmi malá, třeba jen 16×16 px",
+      "Vyhledávače penalizují detailní ikony"
     ],
-    "answer": "Protože se často zobrazuje ve velmi malé velikosti, například 16×16 px",
+    "answer": "Zobrazuje se velmi malá, třeba jen 16×16 px",
     "solution": "Příliš detailní motiv se v malé velikosti může stát nečitelným.",
     "hint": "Představ si stejný symbol zmenšený na 16×16 pixelů.",
     "tags": [

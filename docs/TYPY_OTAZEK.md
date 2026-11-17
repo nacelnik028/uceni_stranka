@@ -351,6 +351,8 @@ Nové typy mají stejné základní požadavky jako starší typy:
 | Více správných nezávislých možností | `multi` |
 | Unikátní párování dvojic | `match` |
 | Chronologické nebo procedurální pořadí | `order` |
+| Doplnění pojmů přímo do souvislého textu | `cloze` |
+| Nalezení chybného slova, tvrzení nebo řádku kódu v kontextu | `spot` |
 
 ## 11. Reálné příklady, které jsou už v projektu
 
@@ -389,3 +391,67 @@ Nové typy byly nasazeny na existující úlohy, aby se otestovalo, že nejde po
 - `pg-tech-005` → `diagnostic`
 
 Celkový počet úloh se tím nemění; mění se způsob interakce a prezentace vybraných úloh.
+
+## 12. `cloze` – doplňovačka v textu
+
+### K čemu slouží
+
+Student doplňuje několik míst přímo v souvislém textu. Každé místo má buď nabídku (rozbalovací seznam), nebo se vpisuje. Hodí se pro definice s více klíčovými pojmy, postupy, gramatiku a vztahy (autor – dílo – období). Nahrazuje otevřené otázky se self-checkem tam, kde lze odpověď jednoznačně vyhodnotit.
+
+### Datový formát
+
+```js
+{
+  type: 'cloze',
+  question: 'Doplň protokoly, které spolu zajišťují VoIP hovor.',
+  cloze: 'Protokol {{sig}} hovor navazuje a ukončuje. Hlas přenáší protokol {{media}}.',
+  gaps: [
+    { id: 'sig', options: ['SIP', 'RTP', 'SMTP'], answer: 'SIP' },
+    { id: 'media', options: ['SIP', 'RTP', 'SMTP'], answer: 'RTP' },
+    // Bez options se místo vpisuje; accept = další přijatelné tvary (bez ohledu na velikost písmen).
+    // { id: 'plural', answer: 'Bäder', accept: ['die Bäder'] }
+  ],
+  solution: '...'
+}
+```
+
+### Jak funguje v aplikaci
+
+- Mezery `{{id}}` se nahradí rozbalovacím seznamem (nabídka se míchá) nebo krátkým polem.
+- V režimu **Učení** se po kontrole každé místo obarví zeleně / červeně a výsledek říká, kolik míst je správně.
+- Úloha je správně, jen když jsou správně všechna místa. V režimu **Test** se jen zaznamená odpověď.
+- V řešení se zobrazí celý text s doplněnými odpověďmi.
+
+## 13. `spot` – najdi chybu
+
+### K čemu slouží
+
+Text je rozdělený na úseky (slova, fráze nebo řádky kódu) a student klikne na ty, které jsou chybně. Na rozdíl od `diagnostic` (seznam zaškrtávacích tvrzení) se chyba hledá v kontextu jedné věty, popisu nebo programu.
+
+### Datový formát
+
+```js
+{
+  type: 'spot',
+  question: 'Program skončí chybou ValueError. Klikni na řádek, který ji způsobí.',
+  layout: 'lines',                       // 'words' (výchozí, souvislý text) nebo 'lines' (řádky kódu)
+  segments: ['cisla = [5, 2, 9]', 'cisla.append(4)', 'cisla.remove(10)', 'print(cisla)'],
+  wrong: [2],                            // indexy chybných úseků (od 0)
+  corrections: { 2: 'cisla.remove(9)' }, // volitelné opravy, zobrazí se v řešení
+  solution: '...'
+}
+```
+
+### Jak funguje v aplikaci
+
+- Zadání prozradí počet chyb, aby šlo poznat, kdy je hledání hotové.
+- Kliknutím se úsek označí (vlnovka), dalším kliknutím se označení zruší.
+- V **Učení** se po kontrole trefená místa obarví zeleně a omylem označená červeně; chybějící se neprozradí, aby šlo hledat dál.
+- Pokud mají všechny chyby `corrections`, řešení ukáže i opravené znění.
+
+## 14. Přepracování otázek – 17. 11. 2026
+
+- Validátor nově hlásí upozornění, když je správná odpověď výrazně nejdelší ze všech možností (lze ji odhadnout). Počet klesl ze 144 na 10; zbytek jsou krátká slovíčka nebo pojmy, kde délka nic neprozrazuje. Seznam vypíše `SHOW_LONGEST=1 node scripts/validate_questions.js`.
+- Nesprávné možnosti byly přepsány na věrohodné omyly podobné délky (např. DHCP/ARP/NAT místo DNS, SLA/SLS místo FDM), místo absurdních voleb typu „schopnost létat“.
+- Generátor slovíček v Němčině vybírá nesprávné možnosti ze stejného druhu výrazu (dny s dny, předložky s předložkami) a podobné délky.
+- Na nové a méně používané typy bylo převedeno 34 úloh se zachovaným ID: 16× `cloze`, 11× `spot`, 4× `classification`, 3× `compare`. Deset otevřených otázek se self-checkem je nyní hodnoceno automaticky.
