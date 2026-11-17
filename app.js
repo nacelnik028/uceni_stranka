@@ -123,7 +123,7 @@ function applyTheme(theme) {
     const moon = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>';
     button.innerHTML = `${light ? moon : sun}<span class="theme-label">${light ? 'Tmavý' : 'Světlý'}</span>`;
     button.title = light ? 'Přepnout na tmavý motiv' : 'Přepnout na světlý motiv';
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', light ? '#f5f5fb' : '#06070d');
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', light ? '#f4f7f6' : '#05080a');
     button.setAttribute('aria-pressed', String(!light));
     button.setAttribute('aria-label', light ? 'Přepnout na tmavý motiv' : 'Přepnout na světlý motiv');
   }

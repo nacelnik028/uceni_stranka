@@ -175,8 +175,8 @@
   function burst(x, y, count = 40, { angle = null, spread = Math.PI * 2, speed = 7, lift = 3 } = {}) {
     if (reduceMotion || !ensureCanvas()) return;
     const colors = isLight()
-      ? ['#5a48ff', '#0a9fd6', '#0fae6f', '#e0329f', '#f2a900', '#7a3df5']
-      : ['#8c7dff', '#38d9ff', '#7dffb5', '#ff5fcf', '#ffd36e', '#ffffff'];
+      ? ['#07806a', '#0a7fbf', '#4a8f12', '#d97706', '#e05d44', '#0f1f1e']
+      : ['#2ee6b6', '#4cc9ff', '#b8f35a', '#ffb547', '#ff7a59', '#ffffff'];
     for (let i = 0; i < count; i++) {
       const a = angle == null ? Math.random() * Math.PI * 2 : angle + (Math.random() - 0.5) * spread;
       const v = speed * (0.45 + Math.random() * 0.8);
