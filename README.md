@@ -46,7 +46,7 @@ Pro přípravu na konkrétní písemku vzniká samostatná stránka v kořeni (`
 **Pravidlo: procvičování na test obsahuje vždy kartičky a kvíz** a k tomu všechno další, co se k látce hodí. Standardní výbava:
 
 - **Tahák** ke každému tématu: stručné shrnutí v odrážkách a tabulkách.
-- **Kvíz** ke každému tématu: výběr ze 4 možností, doplňování s tolerantní kontrolou a otevřené otázky se sebehodnocením. V angličtině se uzná i zkratka bez apostrofu („dont get“ = „don't get“ = „do not get“, „Ill“ = „I'll“) a stránka pak ukáže správný zápis s apostrofem. Hned po odpovědi správně / špatně, správná odpověď a vysvětlení proč. Na konci skóre, seznam chyb, „Zopakovat chyby“ a „Znovu“.
+- **Kvíz** ke každému tématu: výběr ze 4 možností, doplňování s tolerantní kontrolou (viz pravidlo „Kontrola psaných odpovědí“ níže) a otevřené otázky se sebehodnocením. Hned po odpovědi správně / špatně, správná odpověď a vysvětlení proč. Na konci skóre, seznam chyb, „Zopakovat chyby“ a „Znovu“.
 - **Kartičky**: otočení kliknutím nebo mezerníkem, „Umím“ / „Ještě ne“, neznámé karty se vrací na konec.
 - **Zkušební test** napříč tématy (asi 25 otázek, váha podle toho, co bude v testu nejvíc), volitelně ostrý režim bez průběžné kontroly.
 - **Moje chyby**: špatně zodpovězené otázky se ukládají a dají se procvičit znovu.
@@ -69,6 +69,22 @@ Pro přípravu na konkrétní písemku vzniká samostatná stránka v kořeni (`
 - CSS je kvůli offline použití zkopírované přímo do stránky. Když se změní tokeny v `appearance.css`, uprav je i ve stránkách testů.
 
 **Pravidlo: procvičování na test se počítá do denní série.** Každá odpověď v kvízu i každá kartička („Umím“ / „Ještě ne“) přičte 1 k dnešku v `procvicovna-activity:v1` v `localStorage`, stejně jako odpověď na hlavní stránce. Ta z toho počítá „dní v řadě“ i graf týdne. Klávesy `1`–`4` se berou podle fyzické klávesy (`e.code`), takže fungují i na české klávesnici (`+ ě š č`).
+
+**Pravidlo: kontrola psaných odpovědí (doplňovačky).** Kontrolu dělá `Norm.check()` ve stránce testu. Správnou odpověď nesmí shodit drobnost v zápisu, špatná ale projít nesmí.
+
+- **Vždy:** nezáleží na velikosti písmen, diakritice, interpunkci, uvozovkách, mezerách ani na typu apostrofu (`’` = `'`).
+- **Čeština:** u odpovědí od 6 znaků se uzná překlep o jeden znak a stránka ukáže správný tvar. U jmen (`name: 1`) stačí příjmení.
+- **Angličtina** se kontroluje ve dvou krocích:
+  1. **Přesně:** zkratky se rozepíšou a porovnají (`don't` = `do not`, `won't` = `will not`, `'ll` = `will`, `'s` = `is` / `has`, `'d` = `would` / `had`). Podmět na začátku nevadí (`I don't get` = `don't get`).
+  2. **Bez apostrofů**, když přesná shoda nevyjde: zkratka napsaná bez apostrofu se doplní (`dont`, `doesnt`, `isnt`, `arent`, `wont`, `cant`, `Im`, `Ive`, `youre`, `theyre`, `shes`, `thats`, `ll get` …). „ill“, „hell“ a „shell“ se doplní na I'll / he'll / she'll jen na začátku odpovědi, „Ill“ s velkým I kdekoli. Pak se porovná i se správnou odpovědí bez apostrofů. Odpověď se uzná a pod ní se ukáže *„Uznáno – jen se píše s apostrofem: don't get.“*
+- **Nedoplňují se** slova, která bez apostrofu znamenají něco jiného: `its`, `were`, `well`, `id`, `wed` a uprostřed věty ani malé `ill` (nemocný), `hell`, `shell`. Otázka, která zkouší právě rozdíl `its` × `it's` nebo `were` × `we're`, by proto potřebovala výběr z možností, ne doplňovačku.
+- **Jiný tvar dál neprojde:** „doesnt get“ ani „wont get“ se za „don't get“ neuzná.
+- **Uvádět všechny správné tvary:** když je víc správných odpovědí (`are going to have | are having`, `isn't | there isn't`, `résumé | resume`), musí být všechny v poli odpovědí.
+
+**Pravidlo: před nahráním stránky testu zkontrolovat všechny otázky a odpovědi.**
+
+- Přečíst všechny otázky, odpovědi, vysvětlení i kartičky: odpověď je správná a podle zápisů. U výběru z možností nesmí být žádná špatná možnost obhajitelná jako správná (např. „Nosticovo → Stavovské → Tylovo“ byla historicky napůl pravda, proto byla vyměněna).
+- U každé doplňovačky skriptem (Node) ověřit, že projde každá uvedená odpověď: přesně, velkými písmeny, s tečkou na konci a v angličtině i bez apostrofů a rozepsaná. Zároveň ověřit, že neprojde odpověď z jiné otázky stejného předmětu.
 
 | Stránka | Test | Obsah |
 |---|---|---|
