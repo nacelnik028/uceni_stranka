@@ -1,0 +1,2032 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0f1318">
+<title>Procvičování na testy 19. 11. – ČJ a AJ</title>
+<!-- Jeden samostatný soubor: funguje offline, bez instalace. Vygenerováno z obsahu zápisů 2.D. -->
+<style>
+:root{
+  --bg:#0f1318; --bg2:#141a21; --surface:#18202a; --surface2:#1f2935; --line:#2b3644; --line2:#3a4757;
+  --text:#e7ecf2; --strong:#ffffff; --muted:#a6b1be; --dim:#8794a3;
+  --accent:#86bbff; --accent-strong:#5f9ff4; --accent-bg:rgba(124,180,255,.12);
+  --ok:#62d690; --ok-bg:rgba(98,214,144,.12); --bad:#ff8a8a; --bad-bg:rgba(255,138,138,.12);
+  --warn:#f2c55c; --warn-bg:rgba(242,197,92,.10);
+  --radius:14px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:80px}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+.wrap{width:100%;max-width:860px;margin:0 auto;padding:0 16px}
+main{flex:1;padding-top:18px;padding-bottom:40px;outline:none}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+h1{font-size:1.6rem;line-height:1.25;margin:.15em 0 .4em;color:var(--strong)}
+h2{font-size:1.25rem;line-height:1.3;color:var(--strong)}
+h3{font-size:1.08rem;margin:1.4em 0 .5em;color:var(--strong)}
+p{margin:.5em 0}
+.muted{color:var(--muted)} .small{font-size:.9rem}
+kbd{display:inline-block;font:600 .72rem/1 ui-monospace,Consolas,monospace;padding:.28em .45em;border:1px solid var(--line2);border-bottom-width:2px;border-radius:6px;color:var(--muted);background:var(--bg2)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* hlavička */
+.top{position:sticky;top:0;z-index:10;background:rgba(15,19,24,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:60px;flex-wrap:wrap;padding-top:6px;padding-bottom:6px}
+.brand{color:var(--text);font-weight:700;font-size:1rem;display:flex;flex-direction:column;line-height:1.2}
+.brand span{font-weight:500;font-size:.78rem;color:var(--muted)}
+.brand:hover{text-decoration:none}
+.tabs{display:flex;gap:4px;background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:4px}
+.tabs a{padding:8px 14px;border-radius:9px;color:var(--muted);font-weight:600;font-size:.95rem;min-height:40px;display:flex;align-items:center}
+.tabs a[aria-current="page"]{background:var(--surface2);color:var(--strong);box-shadow:inset 0 0 0 1px var(--line2)}
+.tabs a:hover{text-decoration:none;color:var(--strong)}
+
+/* tlačítka */
+.btn{appearance:none;-webkit-appearance:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 16px;border-radius:11px;border:1px solid var(--line2);background:var(--surface2);color:var(--text);font:inherit;font-weight:600;font-size:.95rem;line-height:1.25;cursor:pointer;text-decoration:none;text-align:center;transition:background .15s,border-color .15s}
+.btn:hover{background:#263241;text-decoration:none}
+.btn:active{transform:translateY(1px)}
+.btn.primary{background:var(--accent-strong);border-color:var(--accent-strong);color:#06111f}
+.btn.primary:hover{background:#74aef8}
+.btn.ghost{background:transparent}
+.btn.ghost:hover{background:var(--surface2)}
+.btn.good{border-color:rgba(98,214,144,.5);background:var(--ok-bg);color:var(--ok)}
+.btn.bad{border-color:rgba(255,138,138,.5);background:var(--bad-bg);color:var(--bad)}
+.btn.big{min-height:52px;padding:12px 24px;font-size:1.05rem}
+.btn.sm{min-height:38px;padding:6px 12px;font-size:.88rem}
+.btn:disabled{opacity:.45;cursor:default;transform:none}
+.btn.chosen{opacity:1;box-shadow:0 0 0 2px currentColor inset}
+.btn.dimmed{opacity:.35}
+.btn kbd{background:rgba(0,0,0,.18);color:inherit;border-color:currentColor;opacity:.75}
+.linkbtn{background:none;border:0;color:var(--muted);text-decoration:underline;text-underline-offset:3px;cursor:pointer;font:inherit;font-size:.9rem;padding:10px 0 0}
+.linkbtn:hover{color:var(--text)}
+
+/* domů */
+.hero p{margin:.1em 0 1.1em}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.tile{display:flex;gap:12px;align-items:center;padding:16px;border-radius:var(--radius);background:var(--surface);border:1px solid var(--line);color:var(--text)}
+.tile:hover{border-color:var(--line2);background:var(--surface2);text-decoration:none}
+.tile b{display:block;color:var(--strong)}
+.tile small{display:block;font-size:.85rem;line-height:1.35;color:var(--muted)}
+.ti{font-size:1.5rem;line-height:1}
+.tile-test{border-color:rgba(124,180,255,.5);background:linear-gradient(180deg,rgba(124,180,255,.13),rgba(124,180,255,.04))}
+.sec{font-size:1.05rem;margin:28px 0 12px;color:var(--muted);font-weight:700;letter-spacing:.02em}
+.topics{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.topic{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:flex;flex-direction:column;gap:10px}
+.topic.main{border-color:rgba(242,197,92,.45)}
+.topic-h{display:flex;gap:12px;align-items:flex-start}
+.topic h3{margin:0;font-size:1.06rem}
+.topic p{margin:2px 0 0;color:var(--muted);font-size:.9rem}
+.num{flex:none;display:inline-grid;place-items:center;width:32px;height:32px;border-radius:9px;background:var(--surface2);border:1px solid var(--line2);font-weight:700;font-size:.92rem;color:var(--accent)}
+.star{color:var(--warn);font-weight:600}
+.meta{display:flex;gap:14px;color:var(--dim);font-size:.85rem}
+.bestbar{display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--muted)}
+.bestbar .lbl{color:var(--dim)}
+.bar{flex:1;height:7px;border-radius:7px;background:var(--bg2);overflow:hidden;border:1px solid var(--line)}
+.bar i{display:block;height:100%;background:var(--ok);border-radius:7px}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+.topic .acts{margin-top:auto}
+.topic .acts .btn{flex:1 1 0;padding:10px 6px;min-width:0}
+
+/* téma */
+.crumbs{margin-bottom:8px;font-size:.92rem}
+.ttl{display:flex;align-items:flex-start;gap:12px}
+.ttl .num{margin-top:4px}
+.ttl h1{margin:0}
+.ttl p{margin:0}
+.seg{display:flex;gap:4px;background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:4px;margin:14px 0 16px}
+.seg a{flex:1;text-align:center;padding:10px 6px;border-radius:9px;color:var(--muted);font-weight:600;min-height:42px}
+.seg a:hover{text-decoration:none;color:var(--strong)}
+.seg a.on{background:var(--surface2);color:var(--strong);box-shadow:inset 0 0 0 1px var(--line2)}
+
+/* tahák */
+.sheet{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:6px 20px 18px;overflow-wrap:break-word}
+.sheet > :first-child{margin-top:14px}
+.sheet ul,.sheet ol{padding-left:1.3em;margin:.4em 0}
+.sheet li{margin:.28em 0}
+.sheet q{quotes:"„" "“";font-style:italic;color:var(--strong)}
+.sheet b{color:var(--strong)}
+.lead{font-size:1.05rem}
+.tag{display:inline-block;font-size:.78rem;font-weight:600;padding:2px 9px;border-radius:999px;background:var(--accent-bg);color:var(--accent);vertical-align:middle;margin-left:6px;white-space:nowrap}
+.note{background:var(--accent-bg);border:1px solid rgba(124,180,255,.3);border-radius:12px;padding:12px 14px;margin:14px 0}
+.note ul{margin:.3em 0 0}
+.warn{background:var(--warn-bg);border:1px solid rgba(242,197,92,.38);border-radius:12px;padding:12px 14px;margin:14px 0}
+.tablewrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:12px;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{text-align:left;vertical-align:top;padding:9px 12px;border-bottom:1px solid var(--line)}
+th{background:var(--surface2);font-weight:700;color:var(--strong)}
+tr:last-child td{border-bottom:0}
+td ul{margin:0;padding-left:1.1em}
+tr.hl td{background:rgba(124,180,255,.08)}
+tr.bonus td{color:var(--muted)}
+table.voc td:first-child{font-weight:600;color:var(--strong);width:48%}
+.steps li{margin:.4em 0}
+ul.x{list-style:none;padding-left:0}
+ul.ex li{font-style:italic}
+.flow{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:.95rem}
+.letter{border:1px solid var(--line2);border-radius:10px;padding:14px;background:var(--bg2);display:grid;gap:8px;font-size:.92rem}
+.letter .r{text-align:right}
+.sheet-foot{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+
+/* kvíz */
+.qtop{display:flex;justify-content:space-between;align-items:center;gap:10px;color:var(--muted);font-size:.92rem;margin-bottom:8px}
+.qtop b{color:var(--strong)}
+.okc{color:var(--ok);font-weight:600} .badc{color:var(--bad);font-weight:600}
+.timer{margin-left:10px;font-variant-numeric:tabular-nums}
+.progress{height:7px;background:var(--bg2);border-radius:7px;overflow:hidden;border:1px solid var(--line);margin-bottom:14px}
+.progress i{display:block;height:100%;background:var(--accent);transition:width .3s}
+.qcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.badge{display:inline-block;font-size:.75rem;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--surface2);border:1px solid var(--line2);color:var(--muted)}
+.badge.bonus{color:var(--warn);border-color:rgba(242,197,92,.5)}
+.badge.ctx{color:var(--accent);border-color:rgba(124,180,255,.5)}
+.qtext{font-size:1.18rem;line-height:1.45;font-weight:600;margin-bottom:16px;color:var(--strong);overflow-wrap:break-word}
+.qtext .hint{display:inline-block;font-weight:500;color:var(--muted);font-size:.92rem}
+.opts{display:grid;gap:10px}
+.opt{display:flex;align-items:flex-start;gap:12px;text-align:left;width:100%;padding:12px 14px;min-height:52px;border-radius:12px;border:1px solid var(--line2);background:var(--bg2);color:var(--text);font:inherit;font-size:1rem;line-height:1.4;cursor:pointer;transition:border-color .12s,background .12s;overflow-wrap:break-word}
+.opt span{min-width:0}
+.opt:hover:not(:disabled){border-color:var(--accent);background:#17212d}
+.opt kbd{flex:none;margin-top:1px}
+.opt.sel{border-color:var(--accent);background:var(--accent-bg)}
+.opt.right{border-color:var(--ok);background:var(--ok-bg);color:var(--strong)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.opt.dim{opacity:.5}
+.opt:disabled{cursor:default}
+.fill{display:flex;gap:8px}
+.fill input,textarea{flex:1;min-width:0;font:inherit;font-size:1.05rem;padding:11px 14px;border-radius:11px;border:1px solid var(--line2);background:var(--bg2);color:var(--text)}
+textarea{width:100%;resize:vertical;font-size:1rem;line-height:1.45}
+.fill input::placeholder,textarea::placeholder{color:var(--dim)}
+.fill input:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(124,180,255,.22)}
+.fill input.right{border-color:var(--ok);background:var(--ok-bg)} .fill input.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.fill input:disabled{opacity:1;color:var(--text)}
+.nudge{animation:nudge .35s}
+@keyframes nudge{20%{transform:translateX(-5px)}60%{transform:translateX(5px)}}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.fb{margin-top:16px;border-radius:12px;padding:12px 14px;border:1px solid}
+.fb.ok{background:var(--ok-bg);border-color:rgba(98,214,144,.45)}
+.fb.bad{background:var(--bad-bg);border-color:rgba(255,138,138,.45)}
+.fb-h{font-weight:700;font-size:1.05rem}
+.fb.ok .fb-h{color:var(--ok)} .fb.bad .fb-h{color:var(--bad)}
+.fb-a{margin-top:4px}
+.fb-a b{color:var(--strong)}
+.fb-e{margin-top:6px;color:#dde3ea}
+.fb-e span{color:var(--muted);font-weight:700}
+.fb-x{margin-top:4px;color:var(--warn)}
+.model{background:var(--bg2);border:1px solid var(--line2);border-radius:12px;padding:12px 14px;margin-top:12px}
+.model .lbl{font-size:.78rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.model ul,.model ol{margin:.3em 0;padding-left:1.25em}
+.selfq{margin:12px 0 8px}
+.self{display:flex;gap:8px;flex-wrap:wrap}
+.self .btn{flex:1 1 140px}
+.qnav{display:flex;justify-content:flex-end;margin-top:16px}
+.qnav .btn{min-width:190px}
+
+/* výsledek */
+.result{display:flex;align-items:center;gap:20px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin-bottom:14px}
+.ring{--p:0;flex:none;width:100px;height:100px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--ok) calc(var(--p) * 1%),var(--bg2) 0);position:relative}
+.ring::before{content:"";position:absolute;inset:9px;border-radius:50%;background:var(--surface)}
+.ring span{position:relative;font-weight:800;font-size:1.3rem;color:var(--strong)}
+.result h2{margin:0 0 4px}
+.result p{margin:0;color:var(--muted)}
+.nb{color:var(--warn)}
+.res-acts{margin-bottom:6px}
+.mistakes{padding-left:1.4em;margin:0}
+.mistakes li{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:0 0 10px}
+.mistakes li::marker{color:var(--dim)}
+.mistakes .badge{margin-bottom:6px}
+.m-q{font-weight:600;margin-bottom:6px;color:var(--strong)}
+.m-row{display:flex;gap:10px;font-size:.95rem;margin:3px 0}
+.m-row .lbl{flex:none;width:120px;color:var(--muted)}
+.m-row .bad{color:var(--bad);overflow-wrap:anywhere} .m-row .ok{color:var(--ok)}
+.m-e{margin-top:6px;font-size:.93rem;color:#d3dae2;border-top:1px solid var(--line);padding-top:6px}
+details summary{cursor:pointer;color:var(--accent)}
+details .model{color:var(--text)}
+.allok{font-size:1.1rem}
+
+/* kartičky */
+.flip{perspective:1200px;cursor:pointer;margin:6px 0 14px;outline:none;border-radius:var(--radius);-webkit-tap-highlight-color:transparent}
+.flip:focus-visible .face{box-shadow:0 0 0 2px var(--accent)}
+.flip-in{display:grid;transition:transform .45s cubic-bezier(.3,.7,.2,1);transform-style:preserve-3d;-webkit-transform-style:preserve-3d;min-height:240px}
+.flip.on .flip-in{transform:rotateY(180deg)}
+.face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:var(--radius);border:1px solid var(--line2);padding:24px 20px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:12px;overflow-wrap:break-word}
+.front{background:var(--surface)}
+.back{background:#1a2634;border-color:rgba(124,180,255,.45);transform:rotateY(180deg)}
+.ftext{font-size:1.28rem;font-weight:600;line-height:1.4;color:var(--strong);max-width:100%}
+.back .ftext{font-size:1.12rem;font-weight:500}
+.back .ftext b{color:var(--accent)}
+.face .hint{font-size:.8rem;color:var(--dim)}
+.cardbtns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cardbtns .btn{min-height:56px;font-size:1rem}
+.cardtools{display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap}
+
+/* test – nastavení */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.quota{list-style:none;padding:0;margin:10px 0;display:grid;grid-template-columns:repeat(2,1fr);gap:4px 18px;font-size:.92rem;color:var(--muted)}
+.quota li{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed var(--line);padding:4px 0}
+.quota b{color:var(--strong)}
+.check{display:flex;gap:10px;align-items:flex-start;margin:16px 0;cursor:pointer}
+.check input{flex:none;width:20px;height:20px;margin-top:3px;accent-color:var(--accent-strong)}
+
+.foot{color:var(--dim);font-size:.82rem;padding-top:8px;padding-bottom:24px;text-align:center;line-height:2}
+
+@media (hover:none){.foot,.kbdhint,.opt kbd,.btn kbd{display:none}}
+@media (max-width:720px){.tiles,.topics{grid-template-columns:1fr}}
+@media (max-width:480px){
+  body{font-size:16px}
+  h1{font-size:1.35rem}
+  .brand span{display:none}
+  .tabs a{padding:8px 11px}
+  .qcard{padding:14px}
+  .sheet{padding:4px 14px 14px}
+  .qtext{font-size:1.08rem}
+  .fill{flex-direction:column}
+  .qnav .btn,.sheet-foot .btn,.res-acts .btn{width:100%}
+  .result{flex-direction:column;text-align:center}
+  .m-row{flex-direction:column;gap:0}
+  .m-row .lbl{width:auto;font-size:.82rem}
+  th,td{padding:8px 9px}
+  .quota{grid-template-columns:1fr}
+  .ftext{font-size:1.15rem}
+  .back .ftext{font-size:1.05rem}
+}
+td .tag{white-space:normal;margin:4px 0 0}
+@media (max-width:600px){
+  table.stack,table.stack tbody,table.stack tr,table.stack td{display:block;width:100%}
+  table.stack tr:first-child{display:none}
+  table.stack tr{border-bottom:1px solid var(--line);padding:8px 0}
+  table.stack tr:last-child{border-bottom:0}
+  table.stack td{border:0;padding:3px 14px}
+  table.stack td:first-child{font-weight:700;color:var(--strong);padding-top:4px}
+  table.stack td[data-l]::before{content:attr(data-l);display:block;font-size:.74rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-top:4px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{
+  :root{--bg:#fff;--surface:#fff;--surface2:#eee;--bg2:#f4f4f4;--text:#000;--strong:#000;--muted:#333;--dim:#555;--line:#bbb;--line2:#999;--accent:#003a8c;--accent-bg:#eef3ff;--warn-bg:#fff8e6}
+  .top,.foot,.seg,.crumbs,.sheet-foot{display:none!important}
+  body{background:#fff;color:#000;font-size:12pt}
+  .sheet{border:0;padding:0}
+  .tablewrap{overflow:visible}
+}
+
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="#/cj">Procvičování 2.D <span>testy ve čtvrtek 19. 11. 2026</span></a>
+    <nav class="tabs" aria-label="Předmět">
+      <a href="#/cj" data-s="cj">Čeština</a>
+      <a href="#/aj" data-s="aj">Angličtina</a>
+    </nav>
+  </div>
+</header>
+<main id="app" class="wrap" tabindex="-1"></main>
+<footer class="wrap foot">Klávesy: <kbd>1</kbd>–<kbd>4</kbd> výběr · <kbd>Enter</kbd> zkontrolovat / další · <kbd>Mezerník</kbd> otočit kartu · <kbd>←</kbd> Ještě ne · <kbd>→</kbd> Umím</footer>
+<script>
+/* Pomocné konstruktory otázek
+   M = výběr ze 4 možností (a = správně, w = 3 špatné), F = doplňovačka (a = uznávané odpovědi),
+   O = otevřená otázka se vzorovou odpovědí (sebehodnocení).
+   x: { bonus:1 } 3. kondicionál „pokud jste brali“ · { ctx:1 } kontext mimo rozsah · { name:1 } stačí příjmení */
+var DATA = {};
+function M(q, a, w, e, x) { return Object.assign({ t: "mc", q: q, a: a, w: w, e: e }, x || {}); }
+function F(q, a, e, x) { return Object.assign({ t: "fill", q: q, a: [].concat(a), e: e }, x || {}); }
+function O(q, a, x) { return Object.assign({ t: "open", q: q, a: a }, x || {}); }
+
+/* Tolerantní kontrola psaných odpovědí */
+var Norm = (function () {
+  function stripDia(s) { return s.normalize("NFD").replace(/[̀-ͯ]/g, ""); }
+  function stripTags(s) { return String(s).replace(/<[^>]*>/g, " "); }
+
+  // malá písmena, bez diakritiky, bez interpunkce, jednotné apostrofy a mezery
+  function base(s) {
+    return stripDia(stripTags(s).toLowerCase())
+      .replace(/[’‘`´ʼ]/g, "'")
+      .replace(/[–—]/g, "-")
+      .replace(/[„“”"«»]/g, " ")
+      .replace(/[.,!?;:…()\[\]\/]/g, " ")
+      .replace(/\s*-\s*/g, "-")
+      .replace(/\s+/g, " ")
+      .trim()
+      .replace(/^-+|-+$/g, "")
+      .trim();
+  }
+
+  var PRON_S = /\b(he|she|it|that|there|what|who|here|where|how|this|everyone|nobody|somebody|someone)'s\b/g;
+  // alt = false: 'd → would, 's → is ; alt = true: 'd → had, 's → has
+  function expandEn(s, alt) {
+    s = s.replace(/\bwon't\b/g, "will not")
+      .replace(/\bcan't\b/g, "can not")
+      .replace(/\bcannot\b/g, "can not")
+      .replace(/\bshan't\b/g, "shall not")
+      .replace(/\blet's\b/g, "let us")
+      .replace(/n't\b/g, " not")
+      .replace(/'ll\b/g, " will")
+      .replace(/'re\b/g, " are")
+      .replace(/'m\b/g, " am")
+      .replace(/'ve\b/g, " have")
+      .replace(/'d\b/g, alt ? " had" : " would")
+      .replace(PRON_S, function (m, p) { return p + (alt ? " has" : " is"); })
+      .replace(/(^|\s)'s\b/g, function (m, p) { return p + (alt ? "has" : "is"); });
+    return s.replace(/\s+/g, " ").trim();
+  }
+
+  var SUBJ = /^(i|you|he|she|it|we|they) /;
+  function enVariants(s) {
+    var b = base(s), out = new Set();
+    [false, true].forEach(function (alt) {
+      var v = expandEn(b, alt);
+      out.add(v);
+      out.add(v.replace(SUBJ, ""));
+    });
+    out.delete("");
+    return out;
+  }
+
+  function lev(a, b) {
+    if (Math.abs(a.length - b.length) > 1) return 2;
+    var prev = [], cur, i, j;
+    for (j = 0; j <= b.length; j++) prev[j] = j;
+    for (i = 1; i <= a.length; i++) {
+      cur = [i];
+      for (j = 1; j <= b.length; j++) {
+        cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      }
+      prev = cur;
+    }
+    return prev[b.length];
+  }
+
+  // vrací null (prázdné), {ok:true}, {ok:true, typo:"správný tvar"} nebo {ok:false}
+  function check(q, input, subj) {
+    var raw = String(input || "").trim();
+    if (!raw) return null;
+    var i, a;
+    if (subj === "aj") {
+      var vin = enVariants(raw);
+      for (i = 0; i < q.a.length; i++) {
+        var hit = false;
+        enVariants(q.a[i]).forEach(function (v) { if (vin.has(v)) hit = true; });
+        if (hit) return { ok: true };
+      }
+      return { ok: false };
+    }
+    var n = base(raw);
+    for (i = 0; i < q.a.length; i++) {
+      a = base(q.a[i]);
+      if (n === a) return { ok: true };
+      if (q.name) {
+        var last = a.split(" ").pop();
+        if (n.split(" ").pop() === last) return { ok: true };
+      }
+    }
+    for (i = 0; i < q.a.length; i++) {
+      a = base(q.a[i]);
+      if (a.length >= 6 && lev(n, a) <= 1) return { ok: true, typo: q.a[i] };
+      if (q.name) {
+        var l2 = a.split(" ").pop(), nl = n.split(" ").pop();
+        if (l2.length >= 6 && lev(nl, l2) <= 1) return { ok: true, typo: q.a[i] };
+      }
+    }
+    return { ok: false };
+  }
+
+  return { base: base, expandEn: expandEn, enVariants: enVariants, check: check, lev: lev };
+})();
+
+/* ČEŠTINA – pouze ze zápisů 2.D */
+DATA.cj = {
+  name: "Čeština",
+  testInfo: "25 náhodných otázek ze všech šesti témat (literatura: romantismus).",
+  quotas: { rus: 4, one: 4, dal: 3, mac: 6, tyl: 4, erb: 4 },
+  topics: [
+/* ───────────────────────── 1. ROMANTISMUS V RUSKU ───────────────────────── */
+{
+  id: "rus", title: "Romantismus v Rusku", sub: "Lermontov, Puškin",
+  sheet: `
+<div class="note"><b>Kontext (starší zápis, mimo rozsah testu):</b> Romantismus vzniká v Evropě na konci 18. století. Romantický hrdina:
+<ul><li>je vnitřně rozervaný, nezapadá do společnosti, neumí se přizpůsobit okolí,</li>
+<li>prožívá tragickou lásku: miluje svou představu dokonalé ženy, ne skutečnou bytost z masa a kostí,</li>
+<li>často splývá s autorem.</li></ul></div>
+
+<h3>Michail Jurjevič Lermontov <span class="tag">1814–1841</span></h3>
+<ul>
+<li>Podle zápisu <b>zakladatel ruského romantismu</b>.</li>
+<li>Nepohodlný carské vládě kvůli básni <b>Na smrt básníka</b>: obvinil v ní cara, že zavinil smrt Puškina.</li>
+<li>Car ho poslal do vyhnanství na <b>Kavkaz</b>, kde probíhaly boje s místními, a myslel, že ho tam zabijí.</li>
+<li>Pak car zařídil <b>souboj</b>, ve kterém byl Lermontov zabit.</li>
+<li><b>Maškaráda</b> – divadelní hra (drama): manžel se domnívá, že je mu žena nevěrná, otráví ji a nakonec zjistí, že to nebyla pravda.</li>
+</ul>
+
+<h3>Alexandr Sergejevič Puškin <span class="tag">1799–1837</span></h3>
+<ul>
+<li>Zemřel také v <b>souboji</b>, protože byl nepohodlný pro cara.</li>
+<li>Car ho nejdřív poslal do vyhnanství na <b>Sibiř a na Kavkaz</b>.</li>
+<li><b>Kavkazský zajatec</b> = romantická poema, napsaná pod vlivem kavkazské přírody.</li>
+<li><b>Cikáni</b>: hlavní hrdina <b>Aleko</b> je šlechtic, který touží po svobodě, a proto odchází do stepi do cikánského tábora. Zamiluje se do dcery cikánského vůdce. Ona ho zpočátku miluje, pak má ráda jiného → Aleko ji zabije. Otec ho vyžene z tábora: <q>Ty chceš svobodu jenom pro sebe!</q></li>
+<li>Nejznámější dílo: <b>Evžen Oněgin</b> (samostatné téma).</li>
+</ul>
+
+<div class="tablewrap"><table>
+<tr><th></th><th>Lermontov</th><th>Puškin</th></tr>
+<tr><td>Život</td><td>1814–1841</td><td>1799–1837</td></tr>
+<tr><td>Proč vadil carovi</td><td>báseň Na smrt básníka</td><td>byl nepohodlný pro cara</td></tr>
+<tr><td>Vyhnanství</td><td>Kavkaz</td><td>Sibiř a Kavkaz</td></tr>
+<tr><td>Smrt</td><td>souboj (zařídil ho car)</td><td>souboj</td></tr>
+<tr><td>Díla</td><td>Na smrt básníka, Maškaráda</td><td>Kavkazský zajatec, Cikáni, Evžen Oněgin</td></tr>
+</table></div>
+<div class="warn"><b>Chyták:</b> <b>Cikáni</b> jsou v zápisech u Puškina (hrdina Aleko) i u Máchy.</div>`,
+  qs: [
+    M("Koho zápis označuje za <b>zakladatele ruského romantismu</b>?", "Michail Jurjevič Lermontov", ["Alexandr Sergejevič Puškin", "Mickiewicz", "Petőfi"], "Podle zápisu je zakladatelem ruského romantismu Lermontov. Puškin je také ruský romantik (nejznámější dílo Evžen Oněgin), Mickiewicz je z Polska a Petőfi z Maďarska."),
+    M("V jakých letech žil <b>Lermontov</b>?", "1814–1841", ["1799–1837", "1810–1836", "1808–1856"], "Lermontov 1814–1841. Pro srovnání: Puškin 1799–1837, Mácha 1810–1836, Tyl 1808–1856."),
+    M("V jakých letech žil <b>Puškin</b>?", "1799–1837", ["1814–1841", "1810–1836", "1808–1856"], "Puškin 1799–1837. Lermontov 1814–1841, Mácha 1810–1836, Tyl 1808–1856."),
+    M("Proč byl Lermontov nepohodlný carské vládě?", "Napsal báseň Na smrt básníka, ve které obvinil cara, že zavinil smrt Puškina.", ["Napsal drama Maškaráda, ve kterém zesměšnil cara.", "V souboji zastřelil Puškina.", "Uprchl z vyhnanství na Sibiři."], "Báseň Na smrt básníka: Lermontov v ní obvinil cara ze smrti Puškina. Maškaráda je o manželovi, který otráví nevinnou ženu."),
+    F("Jak se jmenuje Lermontovova báseň, ve které obvinil cara, že zavinil smrt Puškina?", ["Na smrt básníka"], "Báseň Na smrt básníka – kvůli ní byl Lermontov nepohodlný carské vládě."),
+    M("Kam poslal car <b>Lermontova</b> do vyhnanství?", "Na Kavkaz, kde probíhaly boje s místními", ["Na Sibiř", "Za hranice", "Do Moskvy"], "Car poslal Lermontova na Kavkaz a myslel, že ho tam v bojích zabijí. Na Sibiř (a na Kavkaz) poslal Puškina."),
+    M("Jak zemřel Lermontov?", "Byl zabit v souboji, který zařídil car.", ["Zemřel ve vyhnanství na Sibiři.", "Pomáhal hasit požár a onemocněl.", "Zemřel ve velké bídě."], "Když Lermontova na Kavkaze nezabili, car zařídil souboj, ve kterém byl zabit. Požár a nemoc je Mácha, bída je Tyl."),
+    M("O čem je Lermontovova <b>Maškaráda</b>?", "Manžel si myslí, že je mu žena nevěrná, otráví ji a nakonec zjistí, že to nebyla pravda.", ["Šlechtic odchází do cikánského tábora a zabije svou milou.", "Muž po letech vyzná lásku vdané ženě a ta ho odmítne.", "Básník truchlí nad mrtvou milenkou a havran mu odpovídá „never more“."], "Maškaráda = žárlivý manžel otráví nevinnou ženu. Ostatní možnosti jsou Cikáni (Puškin), Evžen Oněgin (Puškin) a Havran (Poe)."),
+    M("Co je Lermontovova Maškaráda?", "divadelní hra (drama)", ["romantická poema", "balada", "lyrickoepická báseň"], "Maškaráda je divadelní hra – drama. Romantická poema je Kavkazský zajatec, lyrickoepická báseň je Máj, balady jsou v Kytici."),
+    M("Jak zemřel <b>Puškin</b>?", "V souboji – byl nepohodlný pro cara.", ["Ve vyhnanství na Kavkaze při bojích s místními.", "Na tuberkulózu.", "Ve velké bídě v Plzni."], "Puškin zemřel stejně jako Lermontov v souboji, protože byl nepohodlný pro cara. Na tuberkulózu umírá Máchova Marinka, v bídě v Plzni zemřel Tyl."),
+    M("Kam poslal car <b>Puškina</b> do vyhnanství?", "Na Sibiř a na Kavkaz", ["Jen na Kavkaz", "Do Moskvy", "Za hranice"], "Puškin: Sibiř a Kavkaz. Pozor – Lermontov byl jen na Kavkaze."),
+    M("Které dílo napsal Puškin pod vlivem kavkazské přírody?", "Kavkazský zajatec", ["Maškaráda", "Na smrt básníka", "Havran"], "Kavkazský zajatec – romantická poema inspirovaná kavkazskou přírodou. Maškaráda a Na smrt básníka jsou od Lermontova, Havran od Poea."),
+    F("Kavkazský zajatec je podle zápisu romantická ___ .", ["poema"], "Kavkazský zajatec = romantická poema (Puškin)."),
+    M("Kdo je <b>Aleko</b>?", "šlechtic, hlavní hrdina Puškinových Cikánů", ["hlavní hrdina Máchova Máje", "dudák ze Strakonického dudáka", "snoubenec Olgy z Evžena Oněgina"], "Aleko je šlechtic toužící po svobodě z Puškinových Cikánů. Hrdinou Máje je Vilém, dudák je Švanda."),
+    M("Proč odchází Aleko do cikánského tábora?", "Touží po svobodě.", ["Car ho poslal do vyhnanství.", "Potřebuje vydělat peníze na svatbu.", "Musí vyřídit pozůstalost po strýci."], "Aleko touží po svobodě, proto odchází do stepi k cikánům. Peníze na svatbu shání Švanda, pozůstalost vyřizuje Oněgin."),
+    M("Co udělá Aleko, když jeho milá začne mít ráda jiného?", "Zabije ji.", ["Vyzve soka na souboj a zastřelí ho.", "Odjede za hranice.", "Vrátí se domů a ožení se s jinou."], "Aleko svou milou (dceru cikánského vůdce) zabije. Za to ho její otec vyžene z tábora."),
+    F("Doplň slova cikánského vůdce, když vyhání Aleka: „Ty chceš ___ jenom pro sebe!“", ["svobodu"], "„Ty chceš svobodu jenom pro sebe!“ – Aleko touží po svobodě, ale jiným ji nepřeje."),
+    M("Které dílo je podle zápisu Puškinovo <b>nejznámější</b>?", "Evžen Oněgin", ["Kavkazský zajatec", "Cikáni", "Maškaráda"], "Nejznámější Puškinovo dílo je Evžen Oněgin. Maškaráda je navíc od Lermontova."),
+    M("Chyták: u kterého autora je v zápisech dílo <b>Cikáni</b>?", "u Puškina i u Máchy", ["jen u Puškina", "jen u Máchy", "u Lermontova"], "Cikáni jsou v zápisech dvakrát: Puškinovi Cikáni (hrdina Aleko) a Máchovi Cikáni."),
+    O("Porovnej osudy Lermontova a Puškina: proč vadili carovi, kam byli vyhnáni a jak zemřeli.", "<ul><li><b>Lermontov</b> (1814–1841): báseň <i>Na smrt básníka</i> – obvinil cara ze smrti Puškina → vyhnanství na <b>Kavkaz</b> (car čekal, že ho zabijí v bojích s místními) → car zařídil <b>souboj</b>, ve kterém byl zabit.</li><li><b>Puškin</b> (1799–1837): nepohodlný pro cara → vyhnanství na <b>Sibiř a Kavkaz</b> → zemřel také v <b>souboji</b>.</li></ul>"),
+    O("Převyprávěj děj Puškinových Cikánů.", "Šlechtic <b>Aleko</b> touží po svobodě, a proto odchází do stepi do cikánského tábora. Zamiluje se do dcery cikánského vůdce, ona ho zpočátku také miluje, ale pak má ráda jiného. Aleko ji zabije. Její otec ho vyžene z tábora se slovy: „Ty chceš svobodu jenom pro sebe!“"),
+    M("Který rys má podle zápisu <b>romantický hrdina</b>?", "Je vnitřně rozervaný a nezapadá do společnosti.", ["Snadno se přizpůsobí okolí.", "Miluje skutečnou ženu, ne svou představu.", "Nikdy nesplývá s autorem."], "Romantický hrdina je rozervaný, nezapadá do společnosti, miluje svou představu dokonalé ženy (tragická láska) a často splývá s autorem.", { ctx: 1 }),
+  ],
+  cards: [
+    ["Na smrt básníka", "<b>Lermontov</b><br>obvinil cara ze smrti Puškina"],
+    ["Maškaráda", "<b>Lermontov</b> – drama<br>manžel otráví ženu, kterou podezírá z nevěry, a pak zjistí, že byla nevinná"],
+    ["Kavkazský zajatec", "<b>Puškin</b> – romantická poema<br>(pod vlivem kavkazské přírody)"],
+    ["Cikáni", "<b>Puškin</b> (hrdina Aleko)<br>i <b>Mácha</b> – stejný název!"],
+    ["Evžen Oněgin", "<b>Puškin</b> – jeho nejznámější dílo"],
+    ["Aleko", "<b>Cikáni</b> (Puškin)<br>šlechtic toužící po svobodě"],
+    ["„Ty chceš svobodu jenom pro sebe!“", "cikánský vůdce Alekovi<br>(Puškin: Cikáni)"],
+    ["Lermontov – život", "1814–1841<br>zabit v souboji (zařídil ho car)"],
+    ["Puškin – život", "1799–1837<br>zemřel v souboji"],
+    ["Lermontov – vyhnanství", "Kavkaz (boje s místními)"],
+    ["Puškin – vyhnanství", "Sibiř a Kavkaz"],
+    ["Zakladatel ruského romantismu (podle zápisu)", "Lermontov"],
+  ]
+},
+/* ───────────────────────── 2. EVŽEN ONĚGIN ───────────────────────── */
+{
+  id: "one", title: "Evžen Oněgin", sub: "Puškin",
+  sheet: `
+<p class="lead">Nejznámější dílo <b>A. S. Puškina</b>.</p>
+<h3>Oněgin = „zbytečný člověk“</h3>
+<ul><li>Má <b>postavení, peníze i vzdělání</b>, ale nikde to nemůže uplatnit.</li>
+<li><b>Režim dne:</b> vstával kolem <b>poledne</b> → po obědě projížďka po městě nebo okolí → večer společnost (divadlo, ples) → domů k ránu a spát.</li></ul>
+
+<h3>Děj krok za krokem</h3>
+<ol class="steps">
+<li>Dopis od <b>umírajícího strýce</b> → Oněgin musí za ním jet, zůstane, než vyřídí <b>pozůstalost</b>.</li>
+<li>Seznámí se se šlechtickou rodinou se dvěma dcerami: <b>Olga</b> a <b>Taťána</b>.</li>
+<li><b>Taťána</b> se do Oněgina zamiluje a napíše mu <b>dopis</b>: <q>Já píši vám, co mohu více? Co ještě mohu dodat?</q> Vyznává lásku a ví, že on odjede a že ho nebude vídat.</li>
+<li>Oněgin jí <b>neodpoví</b> a začne flirtovat s <b>Olgou</b>.</li>
+<li>Olžin <b>snoubenec</b> vyzve Oněgina na <b>souboj</b> → Oněgin ho zastřelí a odjede <b>za hranice</b>.</li>
+<li>Po několika letech se vrátí do <b>Moskvy</b> a na <b>plese</b> potká Taťánu – je vdaná za mnohem <b>staršího generála</b>.</li>
+<li>Oněgin zjistí, že ji miluje, a vyzná jí lásku.</li>
+<li>Taťána ho <b>odmítne</b>: nepřestala ho mít ráda, ale zůstane <b>věrná manželovi</b>.</li>
+</ol>
+<div class="tablewrap"><table>
+<tr><th>Postava</th><th>Kdo to je</th></tr>
+<tr><td>Oněgin</td><td>zbytečný člověk; odmítne Taťánu, později ji miluje</td></tr>
+<tr><td>Taťána</td><td>napíše Oněginovi dopis; nakonec vdaná za staršího generála, zůstane mu věrná</td></tr>
+<tr><td>Olga</td><td>Taťánina sestra; Oněgin s ní flirtuje</td></tr>
+<tr><td>Olžin snoubenec</td><td>vyzve Oněgina na souboj, Oněgin ho zastřelí</td></tr>
+</table></div>`,
+  qs: [
+    M("Kdo napsal <b>Evžena Oněgina</b>?", "Puškin", ["Lermontov", "Mácha", "Mickiewicz"], "Evžen Oněgin je nejznámější dílo A. S. Puškina."),
+    M("Proč je Oněgin <b>zbytečný člověk</b>?", "Má postavení, peníze i vzdělání, ale nikde to nemůže uplatnit.", ["Nemá peníze ani vzdělání, proto ho společnost nepotřebuje.", "Žádnou zemi nepovažuje za vlast.", "Touží po svobodě a odchází do stepi."], "Zbytečný člověk = má postavení, peníze i vzdělání, ale nemůže je nikde uplatnit. Žádnou zemi za vlast nepovažuje Vocilka (kosmopolita), do stepi odchází Aleko."),
+    F("Jak se nazývá typ postavy, která má postavení, peníze i vzdělání, ale nemůže je nikde uplatnit? (dvě slova)", ["zbytečný člověk"], "Zbytečný člověk – takový je Evžen Oněgin."),
+    M("Jak vypadal Oněginův běžný den?", "Vstával kolem poledne, po obědě se projížděl, večer šel do společnosti a vracel se k ránu.", ["Vstával brzy ráno, celý den pracoval na statku a večer četl.", "Dopoledne psal básně, odpoledne spal a v noci hrál karty.", "Ráno chodil do úřadu a večer zůstával doma."], "Režim dne: kolem poledne vstát → po obědě projížďka po městě nebo okolí → večer společnost (divadlo, ples) → domů k ránu a spát."),
+    F("Doplň: Oněgin vstával kolem ___ .", ["poledne", "12", "dvanácté", "dvanácti", "12 hodin", "dvanácté hodiny"], "Oněgin vstával kolem poledne a vracel se domů až k ránu."),
+    M("Proč Oněgin odjel za strýcem?", "Strýc umíral a poslal mu dopis.", ["Strýc ho vyzval na souboj.", "Strýc ho chtěl oženit s Taťánou.", "Car ho poslal do vyhnanství."], "Oněgin dostal dopis od umírajícího strýce, musel za ním jet a zůstal tam, než vyřídil pozůstalost."),
+    M("Jak dlouho zůstal Oněgin u strýce?", "dokud nevyřídil pozůstalost", ["jen jeden den", "do strýcovy svatby", "až do konce života"], "Zůstal tam, než vyřídil pozůstalost – a mezitím se seznámil s rodinou Olgy a Taťány."),
+    M("Jak se jmenují dvě dcery šlechtické rodiny, se kterou se Oněgin seznámil?", "Olga a Taťána", ["Olga a Jarmila", "Taťána a Dorotka", "Eleonora a Taťána"], "Sestry jsou Olga a Taťána. Jarmila je z Máje, Dorotka ze Strakonického dudáka, Eleonora (Lori) byla Máchova snoubenka."),
+    M("Která ze sester se zamilovala do Oněgina a napsala mu dopis?", "Taťána", ["Olga", "Jarmila", "Dorotka"], "Dopis napsala Taťána. S Olgou Oněgin později flirtoval."),
+    F("Doplň začátek Taťánina dopisu: „Já píši vám, co mohu ___ ? Co ještě mohu dodat?“", ["více", "víc"], "Dopis začíná: „Já píši vám, co mohu více? Co ještě mohu dodat?“"),
+    M("Co Taťána ve svém dopise ví?", "Že Oněgin odjede a ona ho nebude vídat.", ["Že Oněgin flirtuje s Olgou.", "Že Oněgin zastřelil Olžina snoubence.", "Že se má provdat za generála."], "Taťána vyznává lásku a ví, že Oněgin odjede a ona ho nebude vídat. Ostatní věci se stanou až později."),
+    M("Jak Oněgin reagoval na Taťánin dopis?", "Neodpověděl jí a začal flirtovat s Olgou.", ["Hned jí vyznal lásku a oženil se s ní.", "Vyzval jejího otce na souboj.", "Odepsal jí, že ji miluje, ale musí odjet."], "Oněgin Taťáně neodpověděl a flirtoval s Olgou – to vedlo k souboji."),
+    M("Kdo vyzval Oněgina na souboj?", "Olžin snoubenec", ["Taťánin manžel generál", "Oněginův strýc", "car"], "Olga měla snoubence, který Oněgina kvůli flirtování s Olgou vyzval na souboj."),
+    M("Jak souboj skončil?", "Oněgin snoubence zastřelil a odjel za hranice.", ["Oněgin byl v souboji zabit.", "Souboj se nekonal, protože se usmířili.", "Oněgin byl zraněn a Taťána ho ošetřovala."], "Oněgin Olžina snoubence zastřelil a odjel za hranice."),
+    M("Kde se Oněgin po letech znovu setkal s Taťánou?", "na plese v Moskvě", ["u strýce při vyřizování pozůstalosti", "v divadle za hranicemi", "na strýcově pohřbu"], "Po několika letech se vrátil do Moskvy a na plese potkal Taťánu."),
+    M("Za koho byla Taťána provdaná, když ji Oněgin znovu potkal?", "za mnohem staršího generála", ["za Olžina snoubence", "za Oněginova strýce", "za mladého básníka"], "Taťána byla vdaná za mnohem staršího generála."),
+    M("Jak Taťána odpověděla na Oněginovo vyznání lásky?", "Odmítla ho: stále ho má ráda, ale zůstane věrná manželovi.", ["Odmítla ho, protože ho nikdy nemilovala.", "Opustila manžela a odjela s Oněginem.", "Vyzvala ho, ať se s generálem utká v souboji."], "Taťána přiznala, že ho nepřestala mít ráda, ale zůstane věrná manželovi."),
+    F("Do které ze sester se Oněgin na konci příběhu zamiluje?", ["Taťána", "Taťánu", "do Taťány", "Taťány"], "Oněgin po letech zjistí, že miluje Taťánu – ta ho ale odmítne."),
+    O("Stručně převyprávěj děj Evžena Oněgina.", "<ol><li>Oněgin (zbytečný člověk) jede za umírajícím strýcem a zůstane, než vyřídí pozůstalost.</li><li>Seznámí se s rodinou se dvěma dcerami, Olgou a Taťánou. Taťána se zamiluje a napíše mu dopis.</li><li>Oněgin neodpoví a flirtuje s Olgou. Olžin snoubenec ho vyzve na souboj, Oněgin ho zastřelí a odjede za hranice.</li><li>Po letech v Moskvě potká na plese Taťánu, vdanou za mnohem staršího generála. Zjistí, že ji miluje, a vyzná jí lásku.</li><li>Taťána ho odmítne: má ho stále ráda, ale zůstane věrná manželovi.</li></ol>"),
+    O("Vysvětli, proč je Oněgin „zbytečný člověk“, a popiš jeho běžný den.", "Má <b>postavení, peníze i vzdělání</b>, ale nikde to nemůže uplatnit. Den: vstával kolem poledne, po obědě se projel po městě nebo okolí, večer šel do společnosti (divadlo, ples), vrátil se k ránu a šel spát."),
+  ],
+  cards: [
+    ["Oněgin", "<b>Evžen Oněgin</b> (Puškin)<br>zbytečný člověk"],
+    ["Taťána", "<b>Evžen Oněgin</b><br>napíše Oněginovi dopis; nakonec vdaná za staršího generála"],
+    ["Olga", "<b>Evžen Oněgin</b><br>Taťánina sestra, Oněgin s ní flirtuje"],
+    ["Olžin snoubenec", "vyzve Oněgina na souboj – Oněgin ho zastřelí"],
+    ["zbytečný člověk", "má postavení, peníze i vzdělání, ale nemůže je nikde uplatnit"],
+    ["„Já píši vám, co mohu více? Co ještě mohu dodat?“", "začátek <b>Taťánina dopisu</b> Oněginovi"],
+    ["Oněginův den", "vstává kolem poledne → projížďka → večer divadlo / ples → domů k ránu"],
+    ["Proč Oněgin odjel za strýcem?", "strýc umíral; zůstal, než vyřídil pozůstalost"],
+    ["Co udělá Oněgin po souboji?", "odjede za hranice"],
+    ["Kde se po letech setká s Taťánou?", "na plese v Moskvě"],
+    ["Konec Evžena Oněgina", "Taťána ho odmítne – má ho ráda, ale zůstane věrná manželovi"],
+  ]
+},
+/* ───────────────────────── 3. DALŠÍ ROMANTICI ───────────────────────── */
+{
+  id: "dal", title: "Další romantičtí autoři", sub: "Mickiewicz, Petőfi, Poe",
+  sheet: `
+<div class="tablewrap"><table>
+<tr><th>Autor</th><th>Země</th><th>Ze zápisu</th></tr>
+<tr><td><b>Mickiewicz</b> [mickjevič]</td><td>Polsko</td><td>–</td></tr>
+<tr><td><b>Petőfi</b></td><td>Maďarsko</td><td>–</td></tr>
+<tr><td><b>Edgar Allan Poe</b></td><td>USA</td><td>báseň <b>Havran</b></td></tr>
+</table></div>
+<h3>Havran (Poe)</h3>
+<ul><li><b>Pochmurná</b> báseň.</li>
+<li>Básník truchlí nad <b>mrtvou milenkou</b>.</li>
+<li>Na <b>bustě</b> sedí havran a na konci každé sloky mu odpovídá <q>never more</q>.</li></ul>
+<div class="warn">Pomůcka: <b>M</b>ickiewicz – <b>P</b>olsko, <b>P</b>etőfi – <b>M</b>aďarsko (písmena se „prohodí“), Poe – USA.</div>`,
+  qs: [
+    M("Z jaké země je <b>Mickiewicz</b>?", "Polsko", ["Maďarsko", "USA", "Rusko"], "Mickiewicz [mickjevič] – Polsko. Petőfi – Maďarsko, Poe – USA."),
+    M("Z jaké země je <b>Petőfi</b>?", "Maďarsko", ["Polsko", "USA", "Rusko"], "Petőfi – Maďarsko. Mickiewicz – Polsko, Poe – USA."),
+    M("Z jaké země je <b>Edgar Allan Poe</b>?", "USA", ["Polsko", "Maďarsko", "Rusko"], "Edgar Allan Poe – USA, báseň Havran."),
+    F("Který romantický autor je podle zápisu z <b>Polska</b>?", ["Mickiewicz", "Mickjevič", "Mickievič", "Mickiewič"], "Mickiewicz [mickjevič] – Polsko.", { name: 1 }),
+    F("Který romantický autor je podle zápisu z <b>Maďarska</b>?", ["Petőfi", "Petöfi", "Petofi"], "Petőfi – Maďarsko.", { name: 1 }),
+    M("Jak se podle zápisu vyslovuje jméno Mickiewicz?", "[mickjevič]", ["[mikievik]", "[mikivič]", "[mitskivic]"], "Zápis uvádí výslovnost [mickjevič]."),
+    M("Kdo napsal báseň <b>Havran</b>?", "Edgar Allan Poe", ["Petőfi", "Mickiewicz", "Lermontov"], "Havran je od Edgara Allana Poea (USA)."),
+    F("Kdo napsal báseň Havran? (stačí příjmení)", ["Edgar Allan Poe"], "Havran – Edgar Allan Poe (USA).", { name: 1 }),
+    F("Co odpovídá havran na konci každé sloky? (anglicky)", ["never more", "nevermore"], "Havran na konci každé sloky odpovídá „never more“."),
+    M("Kde v básni Havran sedí havran?", "na bustě", ["na hrobě milenky", "na stromě u jezera", "na popravišti"], "Havran sedí na bustě a odpovídá „never more“."),
+    M("Nad čím básník v Havranovi truchlí?", "nad mrtvou milenkou", ["nad smrtí svého otce", "nad ztrátou vlasti", "nad ztrátou svého vůdce"], "Básník truchlí nad mrtvou milenkou. Nad ztrátou vůdce naříkají loupežníci ve 2. intermezzu Máje."),
+    M("Jaká je podle zápisu báseň Havran?", "pochmurná", ["veselá a hravá", "vlastenecká", "pohádka s dobrým koncem"], "Havran je pochmurná báseň. Pohádka s dobrým koncem (s hororovými prvky) je Erbenův Zlatý kolovrat."),
+    M("Která dvojice autor – země je správně?", "Petőfi – Maďarsko", ["Mickiewicz – Maďarsko", "Poe – Polsko", "Petőfi – USA"], "Správně: Mickiewicz – Polsko, Petőfi – Maďarsko, Poe – USA."),
+  ],
+  cards: [
+    ["Mickiewicz", "<b>Polsko</b><br>čti [mickjevič]"],
+    ["Petőfi", "<b>Maďarsko</b>"],
+    ["Edgar Allan Poe", "<b>USA</b><br>báseň Havran"],
+    ["Havran", "<b>Edgar Allan Poe</b><br>pochmurná báseň, havran na bustě odpovídá „never more“"],
+    ["Polsko", "Mickiewicz"],
+    ["Maďarsko", "Petőfi"],
+    ["USA", "Edgar Allan Poe"],
+    ["Lermontov, Puškin", "Rusko"],
+  ]
+},
+/* ───────────────────────── 4. MÁCHA A MÁJ ───────────────────────── */
+{
+  id: "mac", title: "Mácha a Máj", sub: "K. H. Mácha",
+  sheet: `
+<h3>Karel Hynek Mácha <span class="tag">1810–1836</span></h3>
+<ul>
+<li><b>Největší představitel romantismu u nás.</b></li>
+<li>Narodil se v <b>Praze</b>, vystudoval <b>práva</b>, advokátní praxi si zařídil v <b>Litoměřicích</b>.</li>
+<li>Ve městě vypukl <b>požár</b> – pomáhal hasit, napil se vody, kterou hasili, onemocněl a zemřel.</li>
+<li>Pochován v Litoměřicích, kde měl mít svatbu s <b>Eleonorou (Lori)</b>.</li>
+<li><b>O 100 let později</b> převezeny ostatky do Prahy → <b>Vyšehrad, hřbitov Slavín</b>.</li>
+<li>Další díla: <b>Křivoklát</b> [křivoklad], <b>Pouť krkonošská</b>, <b>Marinka</b> (dívka umírající na tuberkulózu), <b>Cikáni</b>.</li>
+</ul>
+<div class="warn"><b>Chyták:</b> <b>Cikáni</b> – v zápisech u Máchy i u Puškina (Aleko).</div>
+
+<h3>Máj – lyrickoepická báseň</h3>
+<ul><li><b>Epická</b> = má děj. <b>Lyrická</b> = přírodní i milostná.</li>
+<li>Začátek (zkoušelo se): <q>Byl pozdní večer…</q> · Závěr: <q>Hynku! Viléme! Jarmilo!</q></li></ul>
+<ol class="steps">
+<li><b>Vilém</b>: v dětství ho otec vyhnal z domu, vychovali ho <b>loupežníci</b> → „strašný lesů pán“.</li>
+<li>Seznámil se s <b>Jarmilou</b>. Tu svedl nějaký člověk a Vilém ho zabil – nevěděl, že to byl <b>jeho otec</b>.</li>
+<li>Vilém je uvězněn, čeká na <b>popravu</b> a loučí se se svou zemí (<b>vlastenecká lyrika</b>).</li>
+<li><b>Jarmila</b> se utopí v <b>jezeře</b>.</li>
+<li>Milenci hynou <b>cizí vinou</b>: on jako otcovrah, ona se utopí.</li>
+</ol>
+
+<h3>Struktura</h3>
+<div class="tablewrap"><table>
+<tr><td><b>předzpěv</b></td><td>úvodní část</td></tr>
+<tr><td><b>4 zpěvy</b></td><td>děj</td></tr>
+<tr><td><b>1. intermezzo</b> (vsuvka)</td><td>sbor duchů, kteří čekají na popravišti na tělo mrtvého</td></tr>
+<tr><td><b>2. intermezzo</b></td><td>loupežníci naříkají nad ztrátou svého vůdce</td></tr>
+</table></div>
+
+<h3>Básnické figury a tropy v Máji</h3>
+<div class="tablewrap"><table>
+<tr><th>Figura</th><th>Příklady ze zápisu</th></tr>
+<tr><td><b>epiteton</b> (básnický přívlastek)</td><td>tichý mech, vonný vzduch, hladké jezero</td></tr>
+<tr><td>– epiteton <b>constans</b> (běžný)</td><td>pozdní večer, kvetoucí strom</td></tr>
+<tr><td>– epiteton <b>ornans</b> (zdobný)</td><td>lásky čas</td></tr>
+<tr><td><b>personifikace</b></td><td>šeptal tichý mech, břehy objímal, strom lhal lásky (žel), hrdliččin zval ku lásce hlas</td></tr>
+<tr><td><b>zvukomalba</b></td><td>„Hrdliččin zval ku lásce hlas“, „O lásce šeptal tichý mech“, „Svou lásku slavík růži pěl“</td></tr>
+<tr><td><b>oxymóron</b> (zdánlivě nesmyslné spojení slov)</td><td>zbortěné harfy tón, mrtvé milenky cit, vyhaslé světlo</td></tr>
+</table></div>
+<p class="small">Mácha hojně používá neotřelé básnické obrazy. Některé verše jsou v zápisu u dvou figur (např. „hrdliččin zval ku lásce hlas“ = personifikace i zvukomalba).</p>`,
+  qs: [
+    M("V jakých letech žil <b>Mácha</b>?", "1810–1836", ["1814–1841", "1799–1837", "1808–1856"], "Mácha 1810–1836. Lermontov 1814–1841, Puškin 1799–1837, Tyl 1808–1856."),
+    M("Koho zápis označuje za <b>největšího představitele romantismu u nás</b>?", "Karel Hynek Mácha", ["Josef Kajetán Tyl", "Karel Jaromír Erben", "František Škroup"], "Největší představitel českého romantismu je K. H. Mácha. Tyl byl dramatik, Erben autor Kytice, Škroup složil hudbu k „Kde domov můj“."),
+    M("Kde se Mácha narodil?", "v Praze", ["v Litoměřicích", "v Kutné Hoře", "v Plzni"], "Mácha se narodil v Praze. V Litoměřicích měl advokátní praxi; v Kutné Hoře se narodil Tyl, v Plzni Tyl zemřel."),
+    M("Co Mácha vystudoval?", "práva", ["medicínu", "teologii", "herectví"], "Mácha vystudoval práva a v Litoměřicích si zařídil advokátní praxi."),
+    M("Kde si Mácha zařídil advokátní praxi?", "v Litoměřicích", ["v Praze", "v Plzni", "v Kutné Hoře"], "Advokátní praxe – Litoměřice. Tam také zemřel a byl nejdřív pochován."),
+    M("Jak Mácha zemřel?", "Pomáhal hasit požár, napil se vody, kterou hasili, onemocněl a zemřel.", ["Byl zabit v souboji.", "Zemřel ve velké bídě.", "Utopil se v jezeře."], "Mácha pomáhal hasit požár v Litoměřicích, napil se vody, kterou hasili, onemocněl a zemřel. Souboj je Lermontov a Puškin, bída Tyl."),
+    M("S kým měl mít Mácha svatbu?", "s Eleonorou (Lori)", ["s Jarmilou", "s Marinkou", "s Dorotkou"], "Máchova snoubenka byla Eleonora, říkali jí Lori. Jarmila je postava z Máje, Marinka z Máchova díla Marinka, Dorotka z Tylova Strakonického dudáka."),
+    F("Jak se říkalo Máchově snoubence Eleonoře?", ["Lori"], "Eleonora – říkali jí Lori. Svatbu měli mít v Litoměřicích."),
+    M("Kde je Mácha pohřben <b>dnes</b>?", "v Praze na Vyšehradě, na hřbitově Slavín", ["v Litoměřicích", "v Kutné Hoře", "v Plzni"], "Nejdřív byl pochován v Litoměřicích, ale o 100 let později převezli ostatky do Prahy na Vyšehrad (Slavín)."),
+    F("Jak se jmenuje hřbitov na Vyšehradě, kde je Mácha pohřben?", ["Slavín"], "Mácha je pohřben na Vyšehradě na hřbitově Slavín."),
+    M("Kdy převezli Máchovy ostatky z Litoměřic do Prahy?", "o 100 let později", ["hned po jeho smrti", "o 10 let později", "o 50 let později"], "Podle zápisu o 100 let později."),
+    M("Jaký žánr je <b>Máj</b>?", "lyrickoepická báseň", ["divadelní hra", "sbírka balad", "pohádka s dobrým koncem"], "Máj je lyrickoepická báseň: epická, protože má děj, a lyrická (přírodní i milostná)."),
+    M("Proč je Máj <b>epický</b>?", "Má děj.", ["Je psaný ve verších.", "Popisuje přírodu.", "Obsahuje milostné pasáže."], "Epická složka = děj. Popis přírody a láska patří k lyrické složce."),
+    M("Jaká lyrika je v Máji podle zápisu (kromě vlastenecké)?", "přírodní i milostná", ["jen přírodní", "jen milostná", "duchovní a pochmurná"], "Máj je lyrický přírodní i milostný; Vilémovo loučení se zemí je vlastenecká lyrika."),
+    M("Vilémovo loučení se zemí před popravou zápis označuje jako:", "vlasteneckou lyriku", ["milostnou lyriku", "přírodní lyriku", "intermezzo"], "Vilém čeká na popravu a loučí se se svou zemí – vlastenecká lyrika."),
+    M("Kdo vychoval Viléma?", "loupežníci", ["jeho otec", "cikáni", "víla"], "Otec Viléma v dětství vyhnal z domu, vychovali ho loupežníci."),
+    F("Doplň: Z Viléma se stal „strašný ___ pán“.", ["lesů", "lesu"], "Vilém – „strašný lesů pán“ (vůdce loupežníků)."),
+    M("Koho Vilém zabil?", "muže, který svedl Jarmilu – nevěděl, že je to jeho otec", ["svého bratra", "Jarmilina otce", "vůdce loupežníků"], "Vilém zabil svůdce Jarmily, aniž věděl, že to byl jeho otec – stal se otcovrahem."),
+    M("Jak zemře Jarmila?", "utopí se v jezeře", ["zabije ji Vilém", "zemře na tuberkulózu", "je popravena"], "Jarmila se utopí v jezeře. Na tuberkulózu umírá Máchova Marinka."),
+    M("Proč milenci Vilém a Jarmila hynou?", "cizí vinou", ["protože porušili boží zákony a osud je nepřiměřeně potrestal", "kvůli své zvědavosti", "protože Vilém zradil vlast"], "Podle zápisu hynou cizí vinou (on jako otcovrah, ona se utopí). Pozor: osud a nepřiměřený trest je princip Erbenovy Kytice, zvědavost je Štědrý den."),
+    M("Jaká je struktura Máje?", "předzpěv, 4 zpěvy, 2 intermezza", ["4 zpěvy a 4 intermezza", "předzpěv, 2 zpěvy, 4 intermezza", "3 zpěvy a 1 intermezzo"], "Máj: předzpěv (úvod), 4 zpěvy, 2 intermezza (vsuvky)."),
+    F("Kolik zpěvů má Máj?", ["4", "čtyři"], "Máj má 4 zpěvy (+ předzpěv a 2 intermezza)."),
+    F("Kolik intermezz (vsuvek) má Máj?", ["2", "dvě", "dva"], "Máj má 2 intermezza."),
+    F("Jak se nazývá úvodní část Máje?", ["předzpěv"], "Úvodní část = předzpěv."),
+    M("Co je v <b>1. intermezzu</b>?", "sbor duchů, kteří čekají na popravišti na tělo mrtvého", ["loupežníci naříkají nad ztrátou svého vůdce", "Vilém se loučí se svou zemí", "Jarmila čeká u jezera na Viléma"], "1. intermezzo = sbor duchů na popravišti. 2. intermezzo = nářek loupežníků."),
+    M("Co je ve <b>2. intermezzu</b>?", "loupežníci naříkají nad ztrátou svého vůdce", ["sbor duchů čeká na popravišti na tělo mrtvého", "Vilém se loučí se svou zemí", "básník truchlí nad mrtvou milenkou"], "2. intermezzo = loupežníci naříkají nad ztrátou svého vůdce."),
+    F("Jak se jmenuje vsuvka v Máji (cizím slovem)?", ["intermezzo", "intermezza"], "Vsuvka = intermezzo (množné číslo intermezza)."),
+    M("„zbortěné harfy tón“ je:", "oxymóron", ["personifikace", "epiteton constans", "zvukomalba"], "Oxymóron = zdánlivě nesmyslné spojení slov: zbortěné harfy tón, mrtvé milenky cit, vyhaslé světlo."),
+    M("„vyhaslé světlo“ je:", "oxymóron", ["epiteton ornans", "personifikace", "zvukomalba"], "Vyhaslé světlo – zdánlivě nesmyslné spojení = oxymóron."),
+    M("„břehy objímal“ je:", "personifikace", ["oxymóron", "epiteton ornans", "zvukomalba"], "Břehy objímal – v zápisu jako personifikace (spolu s „šeptal tichý mech“, „strom lhal lásky žel“)."),
+    M("„Svou lásku slavík růži pěl“ uvádí zápis jako příklad:", "zvukomalby", ["oxymóronu", "epitetonu constans", "epitetonu ornans"], "Zvukomalba: „Svou lásku slavík růži pěl“, „O lásce šeptal tichý mech“, „Hrdliččin zval ku lásce hlas“."),
+    M("„pozdní večer“ je podle zápisu:", "epiteton constans (běžný)", ["epiteton ornans (zdobný)", "oxymóron", "personifikace"], "Epiteton constans = běžný přívlastek: pozdní večer, kvetoucí strom."),
+    M("„lásky čas“ je podle zápisu:", "epiteton ornans (zdobný)", ["epiteton constans (běžný)", "oxymóron", "zvukomalba"], "Epiteton ornans = zdobný přívlastek: lásky čas."),
+    M("„vonný vzduch, hladké jezero“ jsou příklady:", "epitetonu (básnického přívlastku)", ["oxymóronu", "zvukomalby", "intermezza"], "Epiteton = básnický přívlastek: tichý mech, vonný vzduch, hladké jezero."),
+    F("Jak se nazývá zdánlivě nesmyslné spojení slov (např. „mrtvé milenky cit“)?", ["oxymóron", "oxymoron"], "Oxymóron = zdánlivě nesmyslné spojení slov."),
+    F("Básnický přívlastek se odborně nazývá ___ .", ["epiteton", "epitheton"], "Epiteton = básnický přívlastek (constans = běžný, ornans = zdobný)."),
+    M("Verš „Hrdliččin zval ku lásce hlas“ uvádí zápis u dvou figur. U kterých?", "personifikace a zvukomalba", ["oxymóron a epiteton", "personifikace a oxymóron", "epiteton constans a zvukomalba"], "„Hrdliččin zval ku lásce hlas“ je v zápisu u personifikace i u zvukomalby."),
+    M("Jak končí Máj?", "„Hynku! Viléme! Jarmilo!“", ["„Ty chceš svobodu jenom pro sebe!“", "„never more“", "„Já píši vám, co mohu více?“"], "Závěr Máje: „Hynku! Viléme! Jarmilo!“ Ostatní citáty: Cikáni (Puškin), Havran (Poe), Taťánin dopis (Evžen Oněgin)."),
+    M("Úryvek „Byl pozdní večer…“ pochází z díla:", "Máj (K. H. Mácha)", ["Kytice (K. J. Erben)", "Evžen Oněgin (A. S. Puškin)", "Havran (E. A. Poe)"], "„Byl pozdní večer…“ je začátek Máje – v hodině se zkoušel autor, dílo i tento úryvek."),
+    M("Které dílo <b>nenapsal</b> Mácha?", "Fidlovačka", ["Křivoklát", "Pouť krkonošská", "Marinka"], "Fidlovačka je od Tyla. Mácha napsal Máj, Křivoklát, Pouť krkonošská, Marinka a Cikáni."),
+    M("O čem je Máchova <b>Marinka</b>?", "o dívce, která umírala na tuberkulózu", ["o dívce, která se utopila v jezeře", "o dívce, která ve vodě viděla pohřeb", "o venkovské dívce, která čeká na dudáka"], "Marinka = dívka umírající na tuberkulózu. Utopí se Jarmila (Máj), pohřeb ve vodě vidí dívka ve Štědrém dni, na dudáka čeká Dorotka."),
+    F("Které Máchovo dílo má stejný název jako dílo Puškinovo?", ["Cikáni"], "Cikáni – v zápisech u Máchy i u Puškina (hrdina Aleko)."),
+    O("Proč je Máj lyrickoepická báseň?", "<b>Epická</b> složka = Máj má <b>děj</b> (Vilém, Jarmila, otcovražda, poprava). <b>Lyrická</b> složka = přírodní a milostná lyrika (a vlastenecká lyrika při Vilémově loučení se zemí)."),
+    O("Popiš strukturu Máje a obsah obou intermezz.", "<b>Předzpěv</b> (úvodní část), <b>4 zpěvy</b>, <b>2 intermezza</b> (vsuvky).<br>1. intermezzo: sbor duchů čeká na popravišti na tělo mrtvého.<br>2. intermezzo: loupežníci naříkají nad ztrátou svého vůdce."),
+    O("Uveď příklady básnických figur a tropů z Máje.", "<ul><li><b>Epiteton:</b> tichý mech, vonný vzduch, hladké jezero (constans: pozdní večer, kvetoucí strom; ornans: lásky čas)</li><li><b>Personifikace:</b> šeptal tichý mech, břehy objímal, strom lhal lásky žel</li><li><b>Zvukomalba:</b> „Svou lásku slavík růži pěl“, „Hrdliččin zval ku lásce hlas“</li><li><b>Oxymóron:</b> zbortěné harfy tón, mrtvé milenky cit, vyhaslé světlo</li></ul>"),
+    O("Převyprávěj děj Máje.", "Viléma v dětství vyhnal otec z domu, vychovali ho loupežníci a stal se z něj „strašný lesů pán“. Seznámil se s Jarmilou, kterou svedl nějaký člověk – Vilém ho zabil a nevěděl, že to byl jeho otec. Je uvězněn, čeká na popravu a loučí se se svou zemí. Jarmila se utopí v jezeře. Milenci hynou cizí vinou."),
+  ],
+  cards: [
+    ["Mácha – život", "1810–1836"],
+    ["Mácha – kde se narodil", "Praha"],
+    ["Mácha – advokátní praxe", "Litoměřice"],
+    ["Jak zemřel Mácha", "hasil požár, napil se vody, kterou hasili, onemocněl"],
+    ["Máchova snoubenka", "Eleonora (Lori)"],
+    ["Kde je Mácha pohřben dnes", "Vyšehrad, hřbitov Slavín<br>(ostatky převezeny o 100 let později)"],
+    ["Máj – žánr", "lyrickoepická báseň<br>epická = děj; lyrická = přírodní i milostná"],
+    ["Vilém", "<b>Máj</b><br>„strašný lesů pán“, nevědomky zabije otce"],
+    ["Jarmila", "<b>Máj</b><br>utopí se v jezeře"],
+    ["Struktura Máje", "předzpěv, 4 zpěvy, 2 intermezza"],
+    ["1. intermezzo", "sbor duchů čeká na popravišti na tělo mrtvého"],
+    ["2. intermezzo", "loupežníci naříkají nad ztrátou vůdce"],
+    ["Proč hynou Vilém a Jarmila?", "cizí vinou"],
+    ["epiteton", "básnický přívlastek: tichý mech, vonný vzduch, hladké jezero"],
+    ["epiteton constans", "běžný: pozdní večer, kvetoucí strom"],
+    ["epiteton ornans", "zdobný: lásky čas"],
+    ["personifikace (Máj)", "šeptal tichý mech, břehy objímal, strom lhal lásky žel"],
+    ["zvukomalba (Máj)", "„Svou lásku slavík růži pěl“"],
+    ["oxymóron", "zdánlivě nesmyslné spojení slov: zbortěné harfy tón, mrtvé milenky cit, vyhaslé světlo"],
+    ["Závěr Máje", "„Hynku! Viléme! Jarmilo!“"],
+    ["„Byl pozdní večer…“", "začátek <b>Máje</b> (K. H. Mácha)"],
+    ["Křivoklát, Pouť krkonošská, Marinka, Cikáni", "<b>Mácha</b>"],
+    ["Marinka", "<b>Mácha</b> – dívka umírající na tuberkulózu"],
+  ]
+},
+/* ───────────────────────── 5. TYL ───────────────────────── */
+{
+  id: "tyl", title: "Josef Kajetán Tyl", sub: "Fidlovačka, Strakonický dudák",
+  sheet: `
+<h3>Josef Kajetán Tyl <span class="tag">1808–1856</span></h3>
+<ul>
+<li>Významný český <b>dramatik</b> první poloviny 19. století; také <b>novinář</b> – vydával např. časopis <b>Květy</b>.</li>
+<li>Narodil se v <b>Kutné Hoře</b>. Od mládí miloval divadlo, hrál v <b>kočovné společnosti</b>, která se za <b>2 roky</b> rozpadla.</li>
+<li>Dramaturg ve <b>Stavovském divadle</b>: původně <b>Nosticovo</b> → pak <b>Tylovo</b> → dnes <b>Stavovské</b>.</li>
+<li>Založil vlastní kočovnou společnost, finančně se mu nedařilo. Zemřel ve <b>velké bídě v Plzni</b>.</li>
+</ul>
+
+<h3>Fidlovačka aneb Žádný hněv a žádná rvačka</h3>
+<ul><li>Poprvé zde zazněla píseň <b>„Kde domov můj“</b> – hudbu složil <b>František Škroup</b>.</li>
+<li><b>fidlovačka</b> = ševcovský nástroj / slavnost pražských ševců.</li></ul>
+
+<h3>Strakonický dudák aneb Hody divých žen</h3>
+<ol class="steps">
+<li>Dudák <b>Švanda</b> miluje venkovskou dívku <b>Dorotku</b>, potřebuje peníze na svatbu → odchází do světa.</li>
+<li>Švandova <b>matka je víla</b> a očaruje jeho dudy → velký úspěch, vydělává, dostane se na královský dvůr, má se oženit s princeznou.</li>
+<li>Doprovází ho <b>Vocilka</b>, žije ze Švandových peněz. Je <b>kosmopolita</b> (žádnou zemi nepovažuje za vlast) – v národním obrození krajně záporná vlastnost.</li>
+<li>Nakonec se Švanda vrátí a <b>ožení se s Dorotkou</b>.</li>
+</ol>
+<p>Další díla: <b>Tvrdohlavá žena</b>, <b>Jiříkovo vidění</b>.</p>`,
+  qs: [
+    M("V jakých letech žil <b>Tyl</b>?", "1808–1856", ["1810–1836", "1814–1841", "1799–1837"], "Tyl 1808–1856. Mácha 1810–1836, Lermontov 1814–1841, Puškin 1799–1837."),
+    M("Kde se Tyl narodil?", "v Kutné Hoře", ["v Praze", "v Plzni", "v Litoměřicích"], "Tyl se narodil v Kutné Hoře a zemřel v Plzni. V Praze se narodil Mácha."),
+    M("Kde a jak Tyl zemřel?", "v Plzni, ve velké bídě", ["v Kutné Hoře, v souboji", "v Praze, po hašení požáru", "v Litoměřicích, na tuberkulózu"], "Tylovi se s vlastní kočovnou společností finančně nedařilo a zemřel ve velké bídě v Plzni."),
+    M("Jaký časopis Tyl vydával (podle zápisu např.)?", "Květy", ["Kytice", "Máj", "Fidlovačka"], "Tyl byl také novinář a vydával např. časopis Květy. Kytice je Erbenova sbírka, Máj Máchova báseň, Fidlovačka Tylova hra."),
+    F("Jak se jmenoval časopis, který Tyl vydával?", ["Květy"], "Časopis Květy."),
+    M("Čím byl Tyl podle zápisu především?", "významným českým dramatikem", ["autorem balad", "autorem lyrickoepických básní", "skladatelem hudby"], "Tyl = významný český dramatik první poloviny 19. století (a novinář). Hudbu ke „Kde domov můj“ složil František Škroup."),
+    M("Jak dopadla kočovná společnost, ve které Tyl začínal hrát?", "Za 2 roky se rozpadla.", ["Stala se z ní Stavovská scéna.", "Hrála úspěšně 20 let.", "Zakázal ji car."], "Kočovná společnost se za 2 roky rozpadla. Později Tyl založil vlastní, ale finančně se mu nedařilo."),
+    M("Jak se postupně jmenovalo divadlo, kde byl Tyl dramaturgem?", "Nosticovo → Tylovo → Stavovské", ["Stavovské → Tylovo → Nosticovo", "Tylovo → Nosticovo → Stavovské", "Nosticovo → Stavovské → Tylovo"], "Původně Nosticovo, pak Tylovo, dnes Stavovské divadlo."),
+    M("Jakou funkci měl Tyl ve Stavovském divadle?", "dramaturg", ["ředitel opery", "kapelník", "majitel"], "Tyl se stal dramaturgem ve Stavovském divadle."),
+    M("Ve které hře poprvé zazněla píseň <b>„Kde domov můj“</b>?", "Fidlovačka aneb Žádný hněv a žádná rvačka", ["Strakonický dudák aneb Hody divých žen", "Tvrdohlavá žena", "Jiříkovo vidění"], "„Kde domov můj“ poprvé zazněla ve Fidlovačce; hudbu složil František Škroup."),
+    F("Kdo složil hudbu k písni „Kde domov můj“?", ["František Škroup"], "Hudbu složil František Škroup, píseň zazněla ve Fidlovačce.", { name: 1 }),
+    M("Co znamená slovo <b>fidlovačka</b>?", "ševcovský nástroj / slavnost pražských ševců", ["kočovná divadelní společnost", "dudácká píseň", "slavnost divých žen"], "Fidlovačka = ševcovský nástroj a také slavnost pražských ševců."),
+    F("Doplň celý název: Fidlovačka aneb Žádný hněv a žádná ___ .", ["rvačka"], "Fidlovačka aneb Žádný hněv a žádná rvačka."),
+    F("Doplň celý název: Strakonický dudák aneb Hody ___ žen.", ["divých"], "Strakonický dudák aneb Hody divých žen."),
+    M("Kdo je hlavní hrdina <b>Strakonického dudáka</b>?", "dudák Švanda", ["Vocilka", "Vilém", "Aleko"], "Hlavní hrdina je dudák Švanda. Vocilka je jeho průvodce, Vilém je z Máje, Aleko z Cikánů."),
+    F("Jak se jmenuje dívka, kterou miluje Švanda?", ["Dorotka"], "Švanda miluje venkovskou dívku Dorotku a nakonec si ji vezme."),
+    M("Proč Švanda odchází do světa?", "Potřebuje peníze na svatbu s Dorotkou.", ["Touží po svobodě.", "Otec ho vyhnal z domu.", "Car ho poslal do vyhnanství."], "Švanda potřebuje vydělat peníze na svatbu. Po svobodě touží Aleko, z domu vyhnali Viléma."),
+    M("Kdo očaruje Švandovy dudy?", "jeho matka, která je víla", ["Dorotka", "polednice", "Vocilka"], "Švandova matka je víla a očaruje jeho dudy – proto má Švanda velký úspěch."),
+    M("Jak daleko to Švanda díky dudám dotáhne?", "až na královský dvůr – má se oženit s princeznou", ["stane se dramaturgem Stavovského divadla", "stane se vůdcem loupežníků", "nikam, nikdo ho nechce poslouchat"], "Švanda vydělává, dostane se až na královský dvůr a má se oženit s princeznou."),
+    M("Kdo je <b>Vocilka</b>?", "Švandův průvodce, který žije z jeho peněz", ["Dorotčin otec", "král, u jehož dvora Švanda hraje", "Švandův otec"], "Vocilka doprovází Švandu na cestách a žije z jeho peněz."),
+    M("Proč je Vocilka záporná postava?", "Je kosmopolita – žádnou zemi nepovažuje za vlast.", ["Je to zbytečný člověk.", "Zabil svého otce.", "Ze žárlivosti zabije svou milou."], "Kosmopolitismus byl v národním obrození krajně záporná vlastnost. Navíc Vocilka žije ze Švandových peněz."),
+    F("Jak se nazývá člověk, který žádnou zemi nepovažuje za vlast?", ["kosmopolita"], "Kosmopolita – jako Vocilka ze Strakonického dudáka."),
+    M("Jak Strakonický dudák končí?", "Švanda se vrátí a ožení se s Dorotkou.", ["Švanda se ožení s princeznou.", "Švanda zůstane s Vocilkou ve světě.", "Švanda je popraven."], "Nakonec se Švanda vrátí domů a ožení se s Dorotkou."),
+    M("Které dílo <b>není</b> od Tyla?", "Křivoklát", ["Tvrdohlavá žena", "Jiříkovo vidění", "Fidlovačka"], "Křivoklát je od Máchy. Tyl: Fidlovačka, Strakonický dudák, Tvrdohlavá žena, Jiříkovo vidění."),
+    O("Převyprávěj děj Strakonického dudáka.", "Dudák <b>Švanda</b> miluje venkovskou dívku <b>Dorotku</b> a odchází do světa vydělat na svatbu. Jeho <b>matka víla</b> očaruje dudy, Švanda má úspěch, dostane se až na královský dvůr a má si vzít princeznu. Doprovází ho <b>Vocilka</b>, který žije z jeho peněz. Nakonec se Švanda vrátí a ožení se s Dorotkou."),
+    O("Vysvětli vlastními slovy, proč Tyl vykreslil Vocilku jako zápornou postavu.", "Je <b>kosmopolita</b> – žádnou zemi nepovažuje za vlast, což byla v <b>národním obrození</b> krajně záporná vlastnost. Navíc žije ze Švandových peněz."),
+  ],
+  cards: [
+    ["Tyl – život", "1808–1856"],
+    ["Tyl – narození / úmrtí", "Kutná Hora / Plzeň (ve velké bídě)"],
+    ["Časopis, který vydával Tyl", "Květy"],
+    ["Divadlo, kde byl Tyl dramaturgem", "Nosticovo → Tylovo → dnes Stavovské"],
+    ["Fidlovačka", "<b>Tyl</b><br>poprvé zazněla „Kde domov můj“ (hudba F. Škroup)"],
+    ["fidlovačka (význam slova)", "ševcovský nástroj / slavnost pražských ševců"],
+    ["Fidlovačka aneb …", "Žádný hněv a žádná rvačka"],
+    ["Strakonický dudák aneb …", "Hody divých žen"],
+    ["„Kde domov můj“", "Fidlovačka (Tyl), hudba František Škroup"],
+    ["Švanda", "<b>Strakonický dudák</b> – dudák"],
+    ["Dorotka", "<b>Strakonický dudák</b> – venkovská dívka, Švandova milá"],
+    ["Vocilka", "<b>Strakonický dudák</b> – kosmopolita, žije ze Švandových peněz"],
+    ["Švandova matka", "víla, očaruje dudy"],
+    ["Tvrdohlavá žena, Jiříkovo vidění", "<b>Tyl</b>"],
+    ["kosmopolita", "žádnou zemi nepovažuje za vlast (v obrození krajně záporné)"],
+  ]
+},
+/* ───────────────────────── 6. ERBEN ───────────────────────── */
+{
+  id: "erb", title: "Erben a Kytice", sub: "K. J. Erben",
+  sheet: `
+<h3>Karel Jaromír Erben</h3>
+<ul><li>Patří do <b>romantismu</b>, do <b>poslední části národního obrození</b>.</li>
+<li><b>Kytice</b> – sbírka <b>balad</b>.</li></ul>
+
+<h3>Druhy balad</h3>
+<div class="tablewrap"><table>
+<tr><th>Druh</th><th>Kdo způsobuje zlo</th></tr>
+<tr><td><b>klasická</b> balada</td><td>nadpřirozeno</td></tr>
+<tr><td><b>sociální</b> balada</td><td>člověk</td></tr>
+<tr><td><b>villonská</b> balada</td><td>podle tvůrce Françoise Villona (renesance)</td></tr>
+</table></div>
+<p><b>Kytice obsahuje klasické balady.</b></p>
+<div class="note"><b>Princip Kytice:</b> člověk je řízen <b>osudem</b>. Když udělá něco, co se protiví lidským, božím nebo přírodním zákonům, je <b>potrestán</b> a trest je <b>nepřiměřený</b>.</div>
+
+<h3>Balady</h3>
+<div class="tablewrap"><table>
+<tr><th>Balada</th><th>O čem (podle zápisu)</th></tr>
+<tr><td><b>Polednice</b></td><td>matka křičela na dítě a volala na něj polednici; pak ho před ní bránila, tiskla k sobě a tím ho zabila</td></tr>
+<tr><td><b>Vodník</b></td><td>konflikt mateřské lásky – je důležitější vztah matky k dítěti, nebo dítěte k matce?</td></tr>
+<tr><td><b>Svatební košile</b></td><td>dívka se provinila <b>slovy</b> (zhruba „milého z ciziny mi vrať, anebo můj život zkrať“ – z ručního zápisu); nakonec <b>nezemřela</b></td></tr>
+<tr><td><b>Zlatý kolovrat</b></td><td>pohádka s dobrým koncem, má hororové prvky</td></tr>
+<tr><td><b>Štědrý den</b></td><td>dvě dívky u jezera udělají díru v ledu: jedna vidí pohřeb, druhá svatbu; ta s pohřbem do roka umře → zvědavost = trest smrti</td></tr>
+<tr><td>další</td><td>Vrba, Lilie, Holoubek</td></tr>
+</table></div>`,
+  qs: [
+    M("Do kterého období patří Erben?", "romantismus – poslední část národního obrození", ["renesance", "romantismus – první část národního obrození", "ruský romantismus"], "Erben patří do romantismu, do poslední části národního obrození. Renesance je doba Françoise Villona."),
+    F("Jak se jmenuje Erbenova sbírka balad?", ["Kytice"], "Kytice – sbírka (klasických) balad."),
+    M("Co obsahuje Erbenova Kytice?", "balady", ["romantické poemy", "divadelní hry", "intermezza"], "Kytice je sbírka balad, konkrétně klasických."),
+    M("<b>Klasická</b> balada: zlo způsobuje", "nadpřirozeno", ["člověk", "společnost", "náhoda"], "Klasická balada = zlo způsobuje nadpřirozeno. Sociální = zlo způsobuje člověk."),
+    M("<b>Sociální</b> balada: zlo způsobuje", "člověk", ["nadpřirozeno", "polednice", "víla"], "Sociální balada = zlo způsobuje člověk."),
+    M("Podle koho se jmenuje <b>villonská</b> balada?", "podle básníka Françoise Villona (renesance)", ["podle postavy Viléma z Máje", "podle Erbenova rodiště", "podle Edgara Allana Poea"], "Villonská balada – podle tvůrce Françoise Villona z renesance."),
+    M("Jaké balady obsahuje Kytice?", "klasické", ["sociální", "villonské", "všechny tři druhy rovným dílem"], "Kytice obsahuje klasické balady – zlo v nich způsobuje nadpřirozeno."),
+    M("Jaký je <b>princip</b> Kytice?", "Člověk je řízen osudem; když poruší lidské, boží nebo přírodní zákony, je nepřiměřeně potrestán.", ["Milenci vždy hynou cizí vinou.", "Dobro vždy zvítězí a trest je spravedlivý.", "Zlo způsobuje vždy jen člověk."], "Princip Kytice: osud + porušení zákonů → trest, který je nepřiměřený. „Cizí vinou“ hynou Vilém a Jarmila v Máji."),
+    F("Doplň: Trest v baladách Kytice je podle zápisu ___ . (přiměřený / nepřiměřený)", ["nepřiměřený"], "Trest je nepřiměřený – to je důležitá součást principu Kytice."),
+    M("Ve které baladě matka volá na dítě strašidlo, které pak opravdu přijde?", "Polednice", ["Vodník", "Štědrý den", "Svatební košile"], "Polednice: matka křičí na dítě a volá na něj polednici."),
+    M("Polednice: jak dítě zemřelo?", "Matka ho tiskla k sobě, když ho bránila před polednicí, a tím ho zabila.", ["Odnesla ho polednice.", "Utopilo se v jezeře.", "Odnesl ho vodník."], "Matka dítě bránila, tiskla ho k sobě a tím ho zabila."),
+    M("Jaký konflikt řeší balada <b>Vodník</b>?", "konflikt mateřské lásky – je důležitější vztah matky k dítěti, nebo dítěte k matce?", ["zvědavost potrestanou smrtí", "dívku, která se provinila slovy", "pohádku s dobrým koncem a hororovými prvky"], "Vodník = konflikt mateřské lásky. Zvědavost je Štědrý den, provinění slovy Svatební košile, pohádka s dobrým koncem Zlatý kolovrat."),
+    M("Svatební košile: čím se dívka provinila?", "slovy", ["zvědavostí", "tím, že křičela na dítě", "tím, že odešla k vodníkovi"], "Dívka ve Svatební košili se provinila slovy (prosbou, ať se jí milý z ciziny vrátí, jinak ať zemře)."),
+    M("Jak končí Svatební košile pro dívku?", "nezemře", ["utopí se v jezeře", "do roka zemře", "promění se ve vrbu"], "Podle zápisu dívka nakonec nezemřela."),
+    M("Která balada z Kytice je pohádka s dobrým koncem a hororovými prvky?", "Zlatý kolovrat", ["Polednice", "Štědrý den", "Vodník"], "Zlatý kolovrat = pohádka s dobrým koncem, má hororové prvky."),
+    M("Co udělaly dívky ve <b>Štědrém dni</b>?", "Šly k jezeru a udělaly díru v ledu.", ["Šly v poledne na pole.", "Šly k vodníkovi pod hladinu.", "Šly na popraviště."], "Dvě dívky šly k jezeru a udělaly do ledu díru – jedna ve vodě viděla pohřeb, druhá svatbu."),
+    M("Štědrý den: co se stalo dívce, která ve vodě viděla pohřeb?", "do roka umřela", ["vdala se", "nic se jí nestalo", "utopila se ještě ten večer"], "Dívka, která viděla pohřeb, do roka umřela."),
+    F("Štědrý den: za co je dívka potrestána smrtí?", ["zvědavost", "za zvědavost", "zvědavosti", "byla zvědavá", "za to, že byla zvědavá", "protože byla zvědavá"], "Zvědavost → trest smrti (a trest je nepřiměřený, jak to v Kytici bývá)."),
+    M("Která z těchto <b>není</b> balada z Kytice?", "Marinka", ["Vrba", "Lilie", "Holoubek"], "Marinka je dílo Máchovo (dívka umírající na tuberkulózu). Vrba, Lilie a Holoubek jsou balady z Kytice."),
+    O("Vysvětli druhy balad a princip Kytice.", "<ul><li><b>Klasická</b> balada: zlo způsobuje nadpřirozeno (takové jsou v Kytici).</li><li><b>Sociální</b> balada: zlo způsobuje člověk.</li><li><b>Villonská</b> balada: podle Françoise Villona (renesance).</li></ul><b>Princip:</b> člověk je řízen osudem; když poruší lidské, boží nebo přírodní zákony, je potrestán a trest je nepřiměřený (např. Štědrý den: zvědavost → smrt)."),
+    O("Vyber dvě balady z Kytice a řekni, o čem jsou.", "Např. <b>Polednice</b>: matka volá na dítě polednici, pak ho před ní brání a tiskne k sobě tak, že ho zabije. <b>Štědrý den</b>: dvě dívky udělají díru v ledu, jedna vidí pohřeb, druhá svatbu; ta s pohřbem do roka umře (zvědavost → smrt). Dále Vodník (konflikt mateřské lásky), Svatební košile (provinila se slovy, nezemřela), Zlatý kolovrat (pohádka s dobrým koncem a hororovými prvky)."),
+  ],
+  cards: [
+    ["Kytice", "<b>Erben</b> – klasické balady"],
+    ["Erben – období", "romantismus, poslední část národního obrození"],
+    ["klasická balada", "zlo způsobuje nadpřirozeno"],
+    ["sociální balada", "zlo způsobuje člověk"],
+    ["villonská balada", "podle Françoise Villona (renesance)"],
+    ["Princip Kytice", "člověk řízen osudem; porušení lidských, božích či přírodních zákonů → trest, který je nepřiměřený"],
+    ["Polednice", "matka volá na dítě polednici, pak ho tiskne k sobě a zabije"],
+    ["Vodník", "konflikt mateřské lásky (matka × dítě)"],
+    ["Svatební košile", "dívka se provinila slovy, nakonec nezemřela"],
+    ["Zlatý kolovrat", "pohádka s dobrým koncem, hororové prvky"],
+    ["Štědrý den", "díra v ledu: pohřeb × svatba; zvědavost → trest smrti"],
+    ["Vrba, Lilie, Holoubek", "další balady z <b>Kytice</b> (Erben)"],
+  ]
+},
+  ]
+};
+
+/* ANGLIČTINA – celé čtvrtletí, důraz na will / going to a podmínkové věty */
+DATA.aj = {
+  name: "Angličtina",
+  testInfo: "25 náhodných otázek; 17 z nich (2/3) je z will / going to a podmínkových vět.",
+  quotas: { will: 9, cond: 8, link: 2, pref: 2, work: 2, listen: 1, letter: 1 },
+  topics: [
+/* ───────────────────────── 1. WILL / GOING TO ───────────────────────── */
+{
+  id: "will", title: "Will / going to", sub: "budoucnost (B1)", main: 1,
+  sheet: `
+<div class="tablewrap"><table>
+<tr><th></th><th>will + infinitiv</th><th>be going to + infinitiv</th></tr>
+<tr><td>Kdy</td><td><ul><li>rozhodnutí <b>v okamžiku mluvení</b></li><li>předpověď podle <b>názoru</b> (I think, I'm sure, probably, I don't think)</li><li><b>nabídka, slib, prosba, výhrůžka</b></li><li>budoucí <b>fakt</b></li></ul></td>
+<td><ul><li><b>plán / úmysl</b> rozhodnutý předem</li><li>předpověď podle toho, co <b>právě vidím</b> (mám důkaz)</li></ul></td></tr>
+<tr><td>Příklady</td><td>The phone's ringing. – I'll get it.<br>I think it will be sunny.<br>That bag looks heavy. I'll help you.<br>I promise I won't tell anyone.<br>Will you help me, please?<br>Stop it or I'll tell the teacher!<br>I'll be 17 next year.</td>
+<td>I'm going to study medicine.<br>We've bought a tent – we're going to camp.<br>Look at those clouds – it's going to rain.<br>Watch out! You're going to fall!</td></tr>
+<tr><td>+</td><td>I'll (= I will) go</td><td>I'm / he's / they're going to go</td></tr>
+<tr><td>−</td><td>I won't (= will not) go</td><td>I'm not / he isn't / they aren't going to go</td></tr>
+<tr><td>?</td><td>Will you go?</td><td>Are you going to go?</td></tr>
+<tr><td>Krátká odpověď</td><td>Yes, I will. / No, I won't.</td><td>Yes, I am. / No, I'm not.</td></tr>
+</table></div>
+
+<h3>Signály</h3>
+<ul><li><b>will:</b> I think, I'm sure, probably, I don't think, I promise, Don't worry, I'll…, OK, I'll…</li>
+<li><b>going to:</b> Look! / Watch out! (vidím důkaz), already decided, We've bought…, plány (What are you going to do?)</li></ul>
+
+<h3>Typické chyby</h3>
+<ul class="x"><li>✗ I will <s>to</s> go → ✓ I will go (po will není to)</li>
+<li>✗ She going to… → ✓ She <b>is</b> going to…</li>
+<li>✗ It will rain! Look at the clouds. → ✓ It's going to rain! (vidím mraky)</li>
+<li>✗ I don't think it won't… → ✓ I don't think it <b>will</b>… (zápor je už v I don't think)</li></ul>
+
+<h3>Slovosled s probably</h3>
+<p>It <b>will probably</b> rain. (probably za will) · He <b>probably won't</b> come. (probably před won't)</p>
+
+<h3>Bonus: domluvená schůzka</h3>
+<p>Přítomný průběhový čas: <i>I'm meeting Tom at six.</i> (domluveno s někým, je to v diáři)</p>
+
+<h3>Propojení s dalšími tématy</h3>
+<ul><li><b>1. kondicionál:</b> If it rains, we'll stay at home. – po if přítomný čas, v hlavní větě will.</li>
+<li><b>be likely to + infinitiv</b> (pravděpodobně): Travel agents are likely to disappear in five to ten years' time.</li></ul>`,
+  qs: [
+    M("The phone's ringing. – “OK, I ___ it.”", "'ll get", ["'m going to get", "get", "will to get"], "Rozhodnutí v okamžiku mluvení → will. Going to by znamenalo, že to bylo naplánované předem; „will to“ je chyba."),
+    M("“Why have you bought all that paint?” – “I ___ my bedroom this weekend.”", "'m going to paint", ["'ll paint", "paint", "will to paint"], "Barvu už koupil → plán rozhodnutý předem → be going to."),
+    M("Look at those black clouds! It ___.", "'s going to rain", ["will rain", "rains", "will to rain"], "Předpověď podle toho, co právě vidím (mraky) → be going to. „It will rain! Look at the clouds.“ je typická chyba."),
+    M("“I've left my wallet at home.” – “Don't worry, I ___ for you.”", "'ll pay", ["'m going to pay", "pay", "paid"], "Nabídka, rozhodnutá teď → will."),
+    M("“This bag is really heavy.” – “I ___ you with it.”", "'ll help", ["'m going to help", "help", "helped"], "Nabídka pomoci rozhodnutá v okamžiku mluvení → will."),
+    M("I promise I ___ anyone your secret.", "won't tell", ["don't tell", "won't to tell", "not tell"], "Slib → will; zápor won't (= will not) + infinitiv bez to."),
+    M("I ___ 17 next year.", "'ll be", ["will to be", "going to be", "will being"], "Budoucí fakt → will + be. „going to be“ bez am je chybně (správně by bylo I'm going to be)."),
+    M("Which sentence is correct?", "I'm going to visit my grandma tomorrow.", ["I will to visit my grandma tomorrow.", "I going to visit my grandma tomorrow.", "I'm going visit my grandma tomorrow."], "be going to + infinitiv: I'm going to visit. Chyby: „will to“, chybí am, chybí to."),
+    M("Which sentence is correct?", "She's going to study medicine.", ["She going to study medicine.", "She is going study medicine.", "She's going to studies medicine."], "She + is going to + základní tvar slovesa (study)."),
+    M("Which sentence has the correct word order?", "He probably won't come.", ["He won't probably come.", "He probably won't to come.", "He probably not will come."], "Probably stojí PŘED won't (He probably won't come), ale ZA will (It will probably rain)."),
+    M("Which sentence is correct?", "It will probably rain tomorrow.", ["It will probably to rain tomorrow.", "It will probable rain tomorrow.", "It wills probably rain tomorrow."], "will + probably + infinitiv bez to. Will nemá -s."),
+    M("I don't think it ___ tomorrow.", "will snow", ["won't snow", "snows", "will snows"], "Zápor už je v „I don't think“, proto dál kladné will + infinitiv."),
+    M("Stop that now or I ___ the teacher!", "'ll tell", ["tell", "told", "will telling"], "Výhrůžka → will + infinitiv."),
+    M("___ you help me with my homework, please?", "Will", ["Are", "Going", "Does"], "Prosba → Will you…? (Are you help / Does you help jsou chybně.)"),
+    M("Která věta vyjadřuje <b>plán rozhodnutý předem</b>?", "I'm going to learn to drive next summer.", ["The phone's ringing – I'll get it.", "I think it will be sunny tomorrow.", "I promise I'll call you."], "Plán / úmysl → be going to. Ostatní: rozhodnutí teď, předpověď podle názoru, slib."),
+    M("Která věta je <b>předpověď podle toho, co právě vidím</b>?", "Look at that man – he's going to fall!", ["I think he'll be a great teacher.", "I'll be 17 next year.", "I'll carry your bag."], "Vidím důkaz teď → be going to."),
+    M("Která věta je <b>nabídka</b> (offer)?", "That looks heavy. I'll carry it for you.", ["It's going to rain.", "I'm going to study law.", "She'll be 18 in May."], "Nabídka → will."),
+    M("Která věta je <b>slib</b> (promise)?", "I promise I won't be late again.", ["We're going to buy a new car.", "Look, the bus is going to leave!", "I think it'll be cold."], "Slib → will / won't."),
+    M("Která věta je <b>budoucí fakt</b>?", "My brother will be 20 in June.", ["I'll help you with that.", "I'm going to buy a bike.", "Look! He's going to fall."], "Budoucí fakt (věk, datum) → will."),
+    M("Travel agents ___ disappear in five to ten years' time.", "are likely to", ["are likely", "likely to", "are likely for"], "be likely to + infinitiv = pravděpodobně (něco) udělá. Potřebuješ be i to."),
+    M("Which sentence is correct?", "Driverless taxis are likely to replace many taxi drivers.", ["Driverless taxis are likely replace many taxi drivers.", "Driverless taxis likely to replace many taxi drivers.", "Driverless taxis are likely to replacing many taxi drivers."], "be likely to + základní tvar slovesa."),
+    M("___ it be cold tomorrow?", "Will", ["Is", "Does", "Going"], "Otázka s will: Will + podmět + infinitiv."),
+    M("What ___ you going to wear to the party?", "are", ["will", "do", "is"], "Otázka s going to: What are you going to…?"),
+    M("I ___ going to watch TV tonight – I have to study.", "'m not", ["don't", "won't", "not"], "Zápor going to: I'm not going to…"),
+    M("“I've got a terrible headache.” – “Wait, I ___ you an aspirin.”", "'ll get", ["get", "got", "'m going to get"], "Spontánní nabídka (rozhodnutí teď) → will."),
+    M("“Are you going to apply for the job?” – “Yes, I ___.”", "am", ["will", "do", "going"], "Krátká odpověď se slovesem z otázky: Are you…? – Yes, I am."),
+    M("“Will you be at home tonight?” – “No, I ___.”", "won't", ["willn't", "don't", "not will"], "Will you…? – No, I won't. Tvar willn't neexistuje."),
+    M("We've bought a new tent. We ___ in the mountains this summer.", "'re going to camp", ["'ll camp", "camp", "camping"], "Stan už koupili → plán → be going to."),
+    M("Které spojení typicky uvádí předpověď s <b>will</b> (můj názor)?", "I'm sure…", ["Look at…!", "We've already decided…", "We've bought the tickets, so…"], "I think / I'm sure / probably / I don't think → předpověď podle názoru → will. Look! a hotová rozhodnutí → going to."),
+    M("Careful! You ___ that glass off the table!", "'re going to knock", ["'ll knocking", "knock", "knocked"], "Vidím, co se za chvíli stane → be going to."),
+    M("Domluvená schůzka: “Can you come tonight?” – “Sorry, I ___ Tom at six. We arranged it last week.”", "'m meeting", ["meet", "met", "'ll meeting"], "Domluvená schůzka s časem → přítomný průběhový čas (I'm meeting…)."),
+    M("Která věta je <b>chybně</b>?", "It will rain! Look at the clouds.", ["It's going to rain! Look at the clouds.", "I think it will rain tomorrow.", "It will probably rain tomorrow."], "Když vidím důkaz (mraky), použiju going to. Ostatní věty jsou správně."),
+    M("“There's no milk.” – “Really? I ___ some.”", "'ll buy", ["buy", "bought", "will buying"], "Rozhodnutí v okamžiku mluvení → will + infinitiv."),
+    M("“Is it going to snow?” – “No, it ___.”", "isn't", ["doesn't", "not", "aren't"], "Is it going to…? – No, it isn't."),
+    M("“What are your plans for the weekend?” – “I ___ my grandparents.”", "'m going to visit", ["visit", "visited", "will visiting"], "Plány → be going to. „will visiting“ je chyba, visit / visited nevyjadřují budoucnost."),
+    M("Which sentence is correct?", "Will you open the window, please?", ["Will you to open the window, please?", "Are you open the window, please?", "Do you will open the window, please?"], "Prosba: Will you + infinitiv bez to?"),
+    F("She ___ medicine next year. <span class=hint>(going to / study)</span>", ["is going to study"], "she → is going to + study (she's going to study)."),
+    F("___ to Prague? <span class=hint>(you / going to / move – otázka)</span>", ["are you going to move"], "Otázka: Are you going to move…?"),
+    F("I'm sure you ___ the exam. <span class=hint>(will / pass)</span>", ["will pass"], "Předpověď s I'm sure → will pass (you'll pass)."),
+    F("Don't worry, I ___ . <span class=hint>(will – zápor / forget)</span>", ["won't forget"], "Slib → won't (= will not) forget."),
+    F("They ___ their house. <span class=hint>(going to – zápor / sell)</span>", ["aren't going to sell"], "they → aren't (are not) going to sell; „they're not going to sell“ je taky správně."),
+    F("Look at that car! It ___ ! <span class=hint>(going to / crash)</span>", ["is going to crash"], "Vidím důkaz → it is going to crash (it's going to crash)."),
+    F("I think it ___ a great party. <span class=hint>(will / be)</span>", ["will be"], "I think → will be (it'll be)."),
+    F("He ___ . <span class=hint>(will – zápor / probably / come) – pozor na slovosled</span>", ["probably won't come"], "probably stojí před won't: He probably won't come."),
+    F("It ___ tomorrow. <span class=hint>(will / probably / rain)</span>", ["will probably rain"], "probably stojí za will: It will probably rain."),
+    F("What ___ after school? <span class=hint>(you / going to / do)</span>", ["are you going to do"], "What are you going to do…?"),
+    F("Oprav chybu a napiš celou větu: <i>I will to go home.</i>", ["I will go home"], "Po will není to: I will go home / I'll go home."),
+    F("Oprav chybu a napiš celou větu: <i>She going to buy a car.</i>", ["She is going to buy a car"], "Chybí is: She is going to buy a car (She's going to…)."),
+    F("The phone's ringing. – I ___ it. <span class=hint>(get – rozhodnutí teď)</span>", ["will get"], "Rozhodnutí v okamžiku mluvení → will get (I'll get it)."),
+    F("We ___ a party next Saturday – we've already invited everyone. <span class=hint>(have – plán)</span>", ["are going to have", "are having"], "Plán → we're going to have (domluvené – lze i we're having)."),
+    F("Look at the sky! It ___ . <span class=hint>(rain – vidím mraky)</span>", ["is going to rain"], "Vidím důkaz → it's going to rain."),
+    F("I ___ you tomorrow, I promise. <span class=hint>(call – slib)</span>", ["will call"], "Slib → will call (I'll call)."),
+    O("Vysvětli rozdíl mezi will a going to a ke každému použití uveď příklad.", "<b>will:</b> rozhodnutí teď (I'll get it), předpověď podle názoru (I think it will rain), nabídka/slib/prosba/výhrůžka (I'll help you; I won't tell; Will you help me?; Stop or I'll…), budoucí fakt (I'll be 17).<br><b>going to:</b> plán rozhodnutý předem (I'm going to study medicine), předpověď podle důkazu (Look at the clouds – it's going to rain)."),
+  ],
+  cards: [
+    ["Rozhodnutí v okamžiku mluvení", "<b>will</b><br>The phone's ringing. – I'll get it."],
+    ["Plán rozhodnutý předem", "<b>be going to</b><br>I'm going to study medicine."],
+    ["Předpověď podle názoru<br>(I think, I'm sure, probably)", "<b>will</b><br>I think it will be sunny."],
+    ["Předpověď podle toho, co vidím", "<b>be going to</b><br>Look at those clouds – it's going to rain."],
+    ["Nabídka / slib / prosba / výhrůžka", "<b>will</b><br>I'll help you. · I promise I won't tell. · Will you help me? · Stop or I'll tell!"],
+    ["Budoucí fakt", "<b>will</b><br>I'll be 17 next year."],
+    ["Domluvená schůzka (bonus)", "<b>přítomný průběhový čas</b><br>I'm meeting Tom at six."],
+    ["I will to go ✗", "I will go ✓<br>(po will není to)"],
+    ["She going to ✗", "She <b>is</b> going to ✓"],
+    ["Slovosled s probably", "It will probably rain.<br>He probably won't come."],
+    ["won't =", "will not"],
+    ["Krátké odpovědi", "Will you…? – Yes, I will. / No, I won't.<br>Are you going to…? – Yes, I am. / No, I'm not."],
+    ["be likely to + infinitiv", "pravděpodobně (něco) udělat<br>Travel agents are likely to disappear."],
+  ]
+},
+/* ───────────────────────── 2. PODMÍNKOVÉ VĚTY ───────────────────────── */
+{
+  id: "cond", title: "Podmínkové věty", sub: "0., 1., 2. kondicionál (+ bonus 3.)", main: 1,
+  sheet: `
+<div class="tablewrap"><table>
+<tr><th>Typ</th><th>Vzorec</th><th>Kdy</th><th>Příklad</th></tr>
+<tr><td><b>0.</b></td><td>if + present simple, <b>present simple</b></td><td>obecná pravda, platí vždy</td><td>If you heat ice, it melts.</td></tr>
+<tr class="hl"><td><b>1.</b></td><td>if + present simple, <b>will / won't + infinitiv</b></td><td>budoucí situace, reálně možná</td><td>If I have time, I'll call you.</td></tr>
+<tr><td><b>2.</b></td><td>if + past simple, <b>would + infinitiv</b></td><td>hypotetická, méně pravděpodobná situace (minulý tvar ≠ minulost)</td><td>If I got the job, I would move.</td></tr>
+<tr class="bonus"><td><b>3.</b><br><span class="tag">bonus – pokud jste brali</span></td><td>if + past perfect, <b>would have + 3. tvar</b></td><td>minulost, už nejde změnit</td><td>If I had studied, I would have passed.</td></tr>
+</table></div>
+
+<h3>1. kondicionál – pravidla</h3>
+<ul>
+<li>Po <b>if</b> je přítomný čas: if I <b>have</b> time tomorrow (✗ if I will have).</li>
+<li>he / she / it → <b>-s</b>: if she want<b>s</b>; zápor <b>don't / doesn't</b>, <b>isn't</b>.</li>
+<li>I'll = I will, won't = will not.</li>
+<li>Výjimka: <b>will</b> po if ve významu <b>ochoty</b> (If you will help me, …).</li>
+<li>Hlavní věta může být <b>otázka</b> nebo <b>pokyn</b>: If you have time tomorrow, can you call me? / If you're in town next week, get in touch.</li>
+<li>Místo will může být <b>may / might</b> (možná) nebo <b>can</b> (můžeš, smíš): If it rains, we might stay at home.</li>
+</ul>
+
+<h3>Čárka</h3>
+<p>If-věta <b>na začátku → čárka</b>: If you text me<b>,</b> I'll reply immediately.<br>If-věta <b>na konci → bez čárky</b>: I'll reply immediately if you text me.</p>
+
+<h3>unless = if not</h3>
+<p>Unless you hurry, you'll miss the bus. = If you don't hurry, you'll miss the bus. (po unless je sloveso kladně)</p>
+
+<h3>Rada: If I were you…</h3>
+<p>If I were you, I'd apologise. (u všech osob <b>were</b>)</p>
+
+<h3>Postup při tvoření věty</h3>
+<ol class="steps"><li>Urči podmínku a výsledek.</li><li>Do if-věty dej přítomný čas (pozor na -s a zápor).</li><li>V hlavní větě will / won't + infinitiv (nebo otázka či pokyn).</li><li>Zkontroluj čárku.</li></ol>
+
+<h3>Příklady ze zápisu</h3>
+<ul class="ex">
+<li>She'll earn a lot of money if she becomes a solicitor.</li>
+<li>She will have to work very hard if she wants to go to university.</li>
+<li>We won't go skiing if there isn't enough snow.</li>
+<li>If you come home late, your parents will worry.</li>
+<li>I'll quit if I don't get a pay rise.</li>
+<li>If I graduate from this school, I'll celebrate.</li>
+<li>If you don't hurry up, you'll be late for school.</li>
+<li>If I have time, I'll call you later.</li>
+<li>If this trend continues, travel agents will probably become unnecessary.</li>
+<li>People will no longer need guidebooks if they use tourist information websites.</li>
+<li>If people can find flats and houses online, we won't need estate agents.</li>
+</ul>`,
+  qs: [
+    M("If it ___ tomorrow, we'll stay at home.", "rains", ["will rain", "rain", "rained"], "1. kondicionál: po if přítomný čas, it → rains. „If it will rain“ je chyba."),
+    M("If you ___ hard, you'll pass the exam.", "study", ["will study", "studies", "studied"], "Po if přítomný čas; you → study (bez -s)."),
+    M("She will have to work very hard if she ___ to go to university.", "wants", ["want", "will want", "is wanting"], "Po if přítomný čas, she → -s: wants."),
+    M("We ___ skiing if there isn't enough snow.", "won't go", ["won't to go", "not will go", "doesn't go"], "Hlavní věta: won't + infinitiv bez to."),
+    M("If you come home late, your parents ___.", "will worry", ["will worried", "worries", "would worried"], "Hlavní věta: will + základní tvar (worry)."),
+    M("I'll quit if I ___ a pay rise.", "don't get", ["won't get", "doesn't get", "not get"], "Zápor v if-větě v přítomném čase: I don't get. Po if není will."),
+    M("If I ___ from this school, I'll celebrate.", "graduate", ["will graduate", "graduates", "graduated"], "Po if přítomný čas: I graduate."),
+    M("If you don't hurry up, you ___ late for school.", "'ll be", ["will to be", "be", "would being"], "Hlavní věta: will ('ll) + be."),
+    M("If I have time, I ___ you later.", "'ll call", ["'ll calling", "calls", "would called"], "will + základní tvar: I'll call."),
+    M("She'll earn a lot of money if she ___ a solicitor.", "becomes", ["will become", "become", "became"], "Po if přítomný čas, she → becomes."),
+    M("If this trend ___, travel agents will probably become unnecessary.", "continues", ["will continue", "continue", "continued"], "If + present simple; this trend (it) → continues."),
+    M("People ___ guidebooks if they use tourist information websites.", "will no longer need", ["will no longer needs", "won't no longer need", "are no longer need"], "will + no longer + základní tvar. „won't no longer“ = dvojitý zápor."),
+    M("If people can find flats and houses online, we ___ estate agents.", "won't need", ["won't needs", "not will need", "doesn't need"], "won't + základní tvar: won't need."),
+    M("If she ___ late again, her boss will be angry.", "is", ["will be", "be", "was"], "Po if přítomný čas: she is."),
+    M("Which sentence is correct?", "If it rains tomorrow, we'll stay at home.", ["If it will rain tomorrow, we'll stay at home.", "If it will rain tomorrow, we stay at home.", "If it rain tomorrow, we'll stay at home."], "Po if je přítomný čas a u it koncovka -s: If it rains…"),
+    M("Najdi <b>chybnou</b> větu.", "If he will come, we'll start.", ["If he comes, we'll start.", "We'll start if he comes.", "If he doesn't come, we'll start without him."], "Po if v běžné podmínce není will: If he comes, …"),
+    M("Which sentence is a <b>first</b> conditional?", "If it's sunny on Saturday, we'll have a picnic.", ["If it was sunny, we would have a picnic.", "If you heat water, it boils.", "If it had been sunny, we would have had a picnic."], "if + present, will = 1. kondicionál. Ostatní: 2., 0. a 3. kondicionál."),
+    M("Která věta má správně čárku?", "If you text me, I'll reply immediately.", ["If you text me I'll reply, immediately.", "I'll reply immediately, if you text me.", "If, you text me I'll reply immediately."], "If-věta na začátku → čárka za ní. If-věta na konci → bez čárky."),
+    M("Která věta je interpunkčně správně?", "I'll call you if I have time.", ["I'll call you, if I have time.", "I'll call, you if I have time.", "If I have time I'll call, you."], "If-věta na konci → žádná čárka."),
+    M("Která věta je správná první podmínková věta s <b>pokynem</b>?", "If you're in town next week, get in touch.", ["If you'll be in town next week, get in touch.", "If you were in town next week, get in touch.", "If you're in town next week, will get in touch."], "Hlavní věta může být pokyn (rozkazovací způsob). Po if přítomný čas: you're."),
+    M("If you have time tomorrow, ___ call me?", "can you", ["can you to", "will you can", "do you can"], "Hlavní věta může být otázka: can you + základní tvar."),
+    M("“Unless you hurry, you'll miss the bus.” means:", "If you don't hurry, you'll miss the bus.", ["If you hurry, you'll miss the bus.", "If you don't hurry, you won't miss the bus.", "Unless you don't hurry, you'll miss the bus."], "unless = if not. Po unless je kladné sloveso."),
+    M("I'm scared to go alone. I won't go ___ you come with me.", "unless", ["despite", "although", "in spite of"], "unless = pokud ne: Nepůjdu, pokud nepůjdeš se mnou."),
+    M("If you heat ice, it ___.", "melts", ["melt", "melted", "melting"], "Nultý kondicionál – obecná pravda: present simple v obou větách (it melts)."),
+    M("Nultý kondicionál používáme pro:", "obecné pravdy a věci, které platí vždy", ["reálně možné budoucí situace", "hypotetické, málo pravděpodobné situace", "minulost, kterou už nejde změnit"], "0. = obecná pravda. 1. = reálná budoucnost, 2. = hypotetická situace, 3. = minulost."),
+    M("Který vzorec je <b>nultý</b> kondicionál?", "if + present simple, present simple", ["if + present simple, will + infinitive", "if + past simple, would + infinitive", "if + past perfect, would have + past participle"], "0.: present – present. 1.: present – will. 2.: past – would. 3.: past perfect – would have."),
+    M("If I ___ the job, I would move.", "got", ["get", "will get", "would get"], "2. kondicionál: if + past simple (got), would + infinitiv."),
+    M("If I won the lottery, I ___ a big house.", "would buy", ["will buy", "buy", "bought"], "2. kondicionál: if + past simple, would + infinitiv."),
+    M("If I ___ you, I would apply for that job.", "were", ["am", "will be", "would be"], "Rada: If I were you… (u všech osob were)."),
+    M("Jaký je rozdíl? (a) If I get the job, I'll move. (b) If I got the job, I'd move.", "(a) je reálně možná budoucnost, (b) je hypotetická, méně pravděpodobná situace.", ["(a) je o minulosti, (b) o budoucnosti.", "Obě znamenají totéž, (b) je jen formálnější.", "(a) je hypotetická, (b) je reálná."], "1. kondicionál = reálná možnost. 2. kondicionál = hypotéza; minulý tvar tu neznamená minulost."),
+    M("Ve větě „If I got the job, I would move.“ znamená minulý tvar „got“:", "hypotetičnost (méně pravděpodobné) – ne minulost", ["že se to stalo včera", "že to už nejde změnit", "obecnou pravdu"], "Ve 2. kondicionálu minulý tvar vyjadřuje nereálnost, ne minulost."),
+    M("Which sentence gives advice correctly?", "If I were you, I'd apologise.", ["If I am you, I'll apologise.", "If I were you, I'll apologise.", "If I would be you, I'd apologise."], "If I were you, I'd (= I would) … – pevná vazba pro radu."),
+    M("If it rains, we ___ stay at home – we haven't decided yet.", "might", ["might to", "musts", "would"], "might = možná (není to jisté). Po might základní tvar bez to."),
+    M("Která věta vyjadřuje jen <b>možnost</b>, ne jistotu?", "If you study, you may pass.", ["If you study, you will pass.", "If you heat ice, it melts.", "If you study, you'll definitely pass."], "may / might = možná. will = jistota."),
+    M("Jaký typ je věta: „If you heat ice, it melts.“?", "nultý kondicionál", ["první kondicionál", "druhý kondicionál", "třetí kondicionál"], "present + present = 0. kondicionál (obecná pravda)."),
+    M("Jaký typ je věta: „If I have time, I'll call you.“?", "první kondicionál", ["nultý kondicionál", "druhý kondicionál", "třetí kondicionál"], "if + present, will = 1. kondicionál."),
+    M("Jaký typ je věta: „If I had a car, I'd drive to school.“?", "druhý kondicionál", ["první kondicionál", "nultý kondicionál", "třetí kondicionál"], "if + past simple, would = 2. kondicionál."),
+    M("Po if v běžné podmínce s budoucím významem dáváme:", "přítomný čas (present simple)", ["will", "going to", "minulý čas"], "Pravidlo „po if není will“: If I have time tomorrow…"),
+    M("Kdy může být will po if?", "když znamená ochotu (If you will help me, …)", ["nikdy", "vždy, když mluvíme o budoucnosti", "jen v otázkách"], "Výjimka ze zápisu: will ve významu ochoty."),
+    F("If she ___ , she can come with us. <span class=hint>(want)</span>", ["wants"], "Po if přítomný čas, she → wants."),
+    F("If you ___ up, you'll miss the bus. <span class=hint>(not / hurry)</span>", ["don't hurry"], "Zápor v přítomném čase: you don't hurry."),
+    F("If he ___ , he won't pass the test. <span class=hint>(not / study)</span>", ["doesn't study"], "he → doesn't + základní tvar: doesn't study."),
+    F("If it ___ sunny tomorrow, we'll go to the beach. <span class=hint>(be)</span>", ["is"], "Po if přítomný čas: it is (it's)."),
+    F("If you text me, I ___ immediately. <span class=hint>(reply)</span>", ["will reply"], "Hlavní věta: will reply (I'll reply)."),
+    F("If it rains this afternoon, I ___ my new umbrella. <span class=hint>(open)</span>", ["will open"], "Hlavní věta 1. kondicionálu: will + infinitiv – I'll open."),
+    F("We ___ skiing if there isn't enough snow. <span class=hint>(not / go)</span>", ["won't go"], "won't (= will not) + go."),
+    F("If there ___ enough snow, we won't go skiing. <span class=hint>(not / be)</span>", ["isn't", "there isn't"], "Po if přítomný čas, zápor: there isn't (is not)."),
+    F("She ___ a lot of money if she becomes a solicitor. <span class=hint>(earn)</span>", ["will earn"], "Hlavní věta: will earn (she'll earn)."),
+    F("If I ___ the job, I'll move to London. <span class=hint>(get)</span>", ["get"], "Po if přítomný čas: I get."),
+    F("If they ___ the train, they'll be late. <span class=hint>(miss)</span>", ["miss"], "Po if přítomný čas: they miss."),
+    F("If I ___ a pay rise, I'll quit. <span class=hint>(not / get)</span>", ["don't get"], "Zápor v if-větě: I don't get."),
+    F("If you come home late, your parents ___ . <span class=hint>(worry)</span>", ["will worry"], "Hlavní věta: will worry."),
+    F("Oprav chybu a napiš celou větu: <i>If I will see him, I'll tell him.</i>", ["If I see him, I will tell him"], "Po if přítomný čas: If I see him, I'll tell him."),
+    F("unless = ___ <span class=hint>(dvě slova)</span>", ["if not"], "unless = if not (pokud ne)."),
+    F("Přepiš s unless: If you don't study, you'll fail. → ___ you study, you'll fail.", ["unless"], "If you don't study = Unless you study (po unless kladně)."),
+    F("Water ___ if you heat it to 100 °C. <span class=hint>(boil – nultý kondicionál)</span>", ["boils"], "Obecná pravda → present simple: water boils."),
+    F("If you mix red and white, you ___ pink. <span class=hint>(get – nultý kondicionál)</span>", ["get"], "Nultý kondicionál: present simple – you get."),
+    F("If I ___ more money, I would travel the world. <span class=hint>(have)</span>", ["had"], "2. kondicionál: if + past simple → had."),
+    F("If she studied harder, she ___ the exam. <span class=hint>(pass)</span>", ["would pass"], "2. kondicionál: would + infinitiv (she'd pass)."),
+    F("If I ___ you, I'd take the job. <span class=hint>(be)</span>", ["were"], "If I were you – v radách u všech osob were."),
+    F("If you finish early, you ___ home. <span class=hint>(can / go)</span>", ["can go"], "can + základní tvar: you can go."),
+    M("If I had studied, I ___ the exam.", "would have passed", ["will have pass", "would passed", "had passed"], "3. kondicionál: if + past perfect, would have + 3. tvar (passed).", { bonus: 1 }),
+    M("Třetí kondicionál vyjadřuje:", "nesplněnou podmínku v minulosti (už se to nestalo a nejde to změnit)", ["reálně možnou budoucnost", "obecnou pravdu", "radu do budoucna"], "If I had studied, I would have passed. = Kdybych se (býval) učil, (byl bych) prošel – ale neučil jsem se.", { bonus: 1 }),
+    M("Který vzorec je <b>třetí</b> kondicionál?", "if + past perfect, would have + past participle", ["if + past simple, would + infinitive", "if + present simple, will + infinitive", "if + present perfect, will have + infinitive"], "3. kondicionál: if + had + 3. tvar, would have + 3. tvar.", { bonus: 1 }),
+    F("If she had left earlier, she ___ the bus. <span class=hint>(not / miss)</span>", ["wouldn't have missed"], "3. kondicionál: would not have + missed.", { bonus: 1 }),
+    O("Vysvětli postup při tvoření první podmínkové věty a uveď příklad s čárkou i bez čárky.", "<ol><li>Urči podmínku a výsledek.</li><li>If-věta: přítomný čas (he/she/it -s, zápor don't/doesn't/isn't).</li><li>Hlavní věta: will / won't + infinitiv (nebo otázka či pokyn).</li><li>Čárka jen když je if-věta na začátku.</li></ol>If you text me<b>,</b> I'll reply immediately. / I'll reply immediately if you text me."),
+    O("Porovnej nultý, první a druhý kondicionál: vzorec, použití a příklad.", "<b>0.</b> if + present, present – obecná pravda: If you heat ice, it melts.<br><b>1.</b> if + present, will – reálná budoucnost: If I have time, I'll call you.<br><b>2.</b> if + past, would – hypotéza: If I got the job, I would move."),
+  ],
+  cards: [
+    ["0. kondicionál – vzorec", "if + present simple, present simple<br><i>If you heat ice, it melts.</i>"],
+    ["1. kondicionál – vzorec", "if + present simple, will / won't + infinitiv<br><i>If I have time, I'll call you.</i>"],
+    ["2. kondicionál – vzorec", "if + past simple, would + infinitiv<br><i>If I got the job, I would move.</i>"],
+    ["3. kondicionál (bonus)", "if + past perfect, would have + 3. tvar<br><i>If I had studied, I would have passed.</i>"],
+    ["Po if v 1. kondicionálu", "přítomný čas – ne will!<br><i>If it rains, …</i>"],
+    ["If-věta na začátku", "čárka: <i>If you text me, I'll reply.</i>"],
+    ["If-věta na konci", "bez čárky: <i>I'll reply if you text me.</i>"],
+    ["unless =", "if not<br><i>Unless you hurry, you'll miss the bus.</i>"],
+    ["Rada „Být tebou…“", "<i>If I were you, I'd …</i>"],
+    ["may / might v hlavní větě", "jen možnost: <i>If it rains, we might stay at home.</i>"],
+    ["Hlavní věta jako pokyn", "<i>If you're in town next week, get in touch.</i>"],
+    ["Hlavní věta jako otázka", "<i>If you have time tomorrow, can you call me?</i>"],
+    ["Kdy může být will po if?", "ve významu ochoty: <i>If you will help me, …</i>"],
+    ["Minulý tvar ve 2. kondicionálu znamená…", "hypotetičnost, ne minulost"],
+  ]
+},
+/* ───────────────────────── 3. SPOJOVACÍ VÝRAZY ───────────────────────── */
+{
+  id: "link", title: "Spojovací výrazy", sub: "linking words",
+  sheet: `
+<div class="tablewrap"><table>
+<tr><th>Funkce</th><th>Výrazy</th></tr>
+<tr><td><b>kontrast</b></td><td>however, nevertheless, on the other hand, although / even though, in spite of this / despite this</td></tr>
+<tr><td><b>doplnění</b> (navíc)</td><td>additionally, moreover, what is more, not only that</td></tr>
+<tr><td><b>názor</b></td><td>in my opinion, from my point of view, from my perspective, as I see it, the way I see it <span class="small">(„for me“ je do formálního psaní méně vhodné)</span></td></tr>
+<tr><td><b>příklad</b></td><td>for example, for instance</td></tr>
+<tr><td><b>přeformulování</b></td><td>in other words, what I mean is</td></tr>
+</table></div>
+<h3>Vazby</h3>
+<ul>
+<li><b>although / even though</b> + věta (podmět + sloveso): <i>Although it was raining, we went out.</i></li>
+<li><b>despite / in spite of</b> + podstatné jméno, zájmeno nebo -ing: <i>Despite the rain… / In spite of being tired…</i></li>
+<li class="x">✗ <s>despite of</s> → ✓ despite / in spite of</li>
+</ul>
+<h3>Interpunkce</h3>
+<ul>
+<li><b>However, / Nevertheless,</b> na začátku věty + čárka: <i>It was expensive. However, it was worth it.</i></li>
+<li>Samotná čárka mezi dvěma hlavními větami nestačí (✗ <i>It was expensive, however it was worth it.</i>).</li>
+<li>Vložené <b>for example</b> oddělit čárkami: <i>Some jobs, for example nursing, are demanding.</i></li>
+</ul>
+<h3>Příklady ze zápisu</h3>
+<ul class="ex"><li>Photographers often travel around a lot, although some of them work in a studio.</li>
+<li>Being a sports coach isn't that well paid. On the other hand, it can be very rewarding.</li></ul>`,
+  qs: [
+    M("Being a sports coach isn't that well paid. ___, it can be very rewarding.", "On the other hand", ["Moreover", "For example", "In other words"], "Kontrast (na druhou stranu) → On the other hand."),
+    M("___ it was raining, we went for a walk.", "Although", ["Despite", "In spite of", "However"], "Although + věta (it was raining). Despite / in spite of + podstatné jméno nebo -ing; However se takto nepoužívá."),
+    M("___ the rain, we went for a walk.", "Despite", ["Although", "Even though", "Despite of"], "Despite + podstatné jméno (the rain). „Despite of“ je chyba."),
+    M("In spite ___ the bad weather, the match went ahead.", "of", ["for", "to", "at"], "in spite of (ale despite bez of)."),
+    M("Which sentence is correct?", "Despite being tired, she finished the report.", ["Despite of being tired, she finished the report.", "Despite she was tired, she finished the report.", "Although being tired, she finished the report."], "despite + -ing; although + věta (podmět + sloveso)."),
+    M("Photographers often travel around a lot, ___ some of them work in a studio.", "although", ["despite", "in spite of", "moreover"], "although + věta (some of them work…)."),
+    M("<b>Moreover</b> / <b>what is more</b> znamená:", "navíc (doplnění)", ["avšak (kontrast)", "například", "jinými slovy"], "Doplnění: additionally, moreover, what is more, not only that."),
+    M("Které spojení je pro názor do formálního psaní <b>méně vhodné</b>?", "For me", ["In my opinion", "From my point of view", "As I see it"], "„For me“ je hovorové; formálně in my opinion, from my point of view, as I see it…"),
+    M("Která věta má správnou interpunkci?", "It was expensive. However, it was worth it.", ["It was expensive, however it was worth it.", "It was expensive however, it was worth it.", "It was expensive. However it was worth it."], "However na začátku věty + čárka. Samotná čárka mezi dvěma hlavními větami nestačí."),
+    M("Která věta má správnou interpunkci?", "Some jobs, for example nursing, are very demanding.", ["Some jobs for example nursing, are very demanding.", "Some jobs, for example nursing are very demanding.", "Some jobs for example, nursing are very demanding."], "Vložené for example oddělíme čárkami z obou stran."),
+    M("<b>In other words</b> znamená:", "jinými slovy (přeformulování)", ["navíc", "nicméně", "podle mého názoru"], "Přeformulování: in other words, what I mean is."),
+    M("Který výraz <b>nevyjadřuje</b> kontrast?", "additionally", ["however", "nevertheless", "on the other hand"], "additionally = navíc (doplnění)."),
+    M("Po <b>even though</b> následuje:", "věta (podmět + sloveso)", ["podstatné jméno", "tvar na -ing", "předložka of"], "although / even though + věta. Despite / in spite of + podstatné jméno / -ing."),
+    M("The salary is low. ___, I'd like to take the job.", "Nevertheless", ["Although", "Despite", "Moreover"], "Nevertheless (= přesto) na začátku věty + čárka. Although a despite by potřebovaly jinou stavbu věty, moreover je doplnění."),
+    M("Which phrase is <b>not</b> used to give an opinion?", "for instance", ["from my perspective", "the way I see it", "in my opinion"], "for instance = například."),
+    M("She's very experienced. ___, she speaks three languages.", "What is more", ["However", "Although", "Despite this"], "Doplnění (navíc) → What is more / Moreover."),
+    M("The job is demanding. ___, I enjoy it.", "Despite this", ["Despite", "Despite of this", "Although"], "despite this / in spite of this = přesto (na začátku věty). Samotné „Despite,“ ani „Although,“ takto nejde."),
+    F("Oprav chybu: „<i>Despite of the rain, we played.</i>“ Napiš správně začátek věty (před „the rain“):", ["despite", "in spite of"], "despite BEZ of, nebo in spite OF."),
+    F("Doplň jedno spojení: She got the job, ___ she had little experience. <span class=hint>(= ačkoli)</span>", ["although", "even though", "though"], "although / even though + věta."),
+    F("Doplň: ___ my opinion, students should work part-time. <span class=hint>(jedno slovo)</span>", ["in"], "In my opinion."),
+  ],
+  cards: [
+    ["nicméně (na začátku věty + čárka)", "However, … / Nevertheless, …"],
+    ["na druhou stranu", "on the other hand"],
+    ["ačkoli (+ věta)", "although / even though"],
+    ["navzdory (+ podst. jméno / -ing)", "despite / in spite of<br>(✗ despite of)"],
+    ["přesto (na začátku věty)", "in spite of this / despite this"],
+    ["navíc", "additionally / moreover / what is more / not only that"],
+    ["podle mého názoru", "in my opinion · from my point of view · from my perspective · as I see it · the way I see it"],
+    ["například", "for example / for instance"],
+    ["jinými slovy", "in other words / what I mean is"],
+    ["„For me“ (názor)", "do formálního psaní méně vhodné"],
+  ]
+},
+/* ───────────────────────── 4. PŘEDPONY ───────────────────────── */
+{
+  id: "pref", title: "Předpony", sub: "prefixes",
+  sheet: `
+<p><b>prefix</b> = předpona (část slova) × <b>preposition</b> = předložka. Některá slova se píšou se spojovníkem (hyphen).</p>
+<div class="tablewrap"><table>
+<tr><th>Předpona</th><th>Význam</th><th>Příklady</th></tr>
+<tr><td><b>co-</b></td><td>spolu</td><td>cooperate / co-operate, co-worker, co-pilot, co-host, co-own, co-founder, co-creator, co-driver, co-write → co-wrote → co-written, co-writer</td></tr>
+<tr><td><b>mis-</b></td><td>špatně</td><td>misunderstand(ing), mistake, misfortune (adj. <b>unfortunate</b>!), mislead(ing), misspell, mispronounce, mishear, misplace, misspeak → misspoke → misspoken, misfire, mismanage(ment), mistype, misbehave</td></tr>
+<tr><td><b>ex-</b></td><td>bývalý</td><td>ex-wife, ex-minister, ex-president, ex-military, ex-convict, ex-colleague / former colleague, ex-classmate / former classmate</td></tr>
+<tr><td><b>multi-</b></td><td>mnoho</td><td>multimillionaire, multicoloured, multipurpose, multivitamin, multilayer, multicultural society, multifaceted problem, multi-award-winning director</td></tr>
+<tr><td><b>mini- / micro-</b></td><td>malý / velmi malý</td><td>micromanage, micromanager (přehnaná kontrola detailů)</td></tr>
+<tr><td><b>over- / under-</b></td><td>pře- (moc) / pod- (málo)</td><td>overvalue / overestimate × undervalue / underestimate, underpaid, oversleep → overslept, underachieve(r), overachieve(r), underperform, undercook, underappreciate, undershoot → undershot × overshoot → overshot, overreact, undermine (sb's authority)</td></tr>
+<tr><td><b>post-</b></td><td>po</td><td>postgraduate studies, post-war, post-revolutionary, post-traumatic, post-production, post-communist, post-industrial</td></tr>
+<tr><td><b>pre-</b></td><td>před</td><td>pre-war, pre-match / post-match interview</td></tr>
+<tr><td><b>semi-</b></td><td>polo-</td><td>semi-final (4), quarter-final (8), round of 16 (osmifinále), round of 32, semi-retired</td></tr>
+<tr><td><b>sub-</b></td><td>pod</td><td>submarine, sub-zero, suboptimal, subsystem, subgroup, subteam, subtitles</td></tr>
+<tr><td><b>re-</b></td><td>znovu</td><td>re-advertise / readvertise, re-evaluate (≠ overvalue), resell → resold → resold, resale</td></tr>
+</table></div>
+<div class="warn"><b>Pozor:</b> <b>postman</b> a <b>poster</b> nejsou předpona post-. · <b>old friend</b> = dlouholetý přítel (přátelství trvá), ne bývalý. · misfortune → <b>unfortunate</b>.</div>
+<h3>Text o režisérovi</h3>
+<p>director, perfectionist, shipwreck (ztroskotání lodi), drop out of school / college / university (dropped out = nedokončil)</p>`,
+  qs: [
+    M("<b>prefix</b> znamená:", "předpona", ["předložka", "přípona", "spojka"], "prefix = předpona × preposition = předložka."),
+    M("Předpona <b>ex-</b> znamená:", "bývalý", ["špatně", "spolu", "po"], "ex-wife, ex-president, ex-colleague…"),
+    M("Předpona <b>mis-</b> znamená:", "špatně, chybně", ["bývalý", "spolu", "mnoho"], "misunderstand, misspell, mishear…"),
+    M("Předpona <b>co-</b> znamená:", "spolu", ["po", "pod", "znovu"], "co-worker, co-pilot, co-founder…"),
+    M("Které slovo <b>neobsahuje</b> předponu post-?", "postman", ["postgraduate", "post-war", "post-production"], "postman a poster nejsou předpona post- (po)."),
+    M("Přídavné jméno k <b>misfortune</b> je:", "unfortunate", ["misfortunate", "misfortuned", "unfortuned"], "Pozor: misfortune, ale unfortunate."),
+    M("She works long hours but earns very little. She is ___.", "underpaid", ["overpaid", "underpaided", "mispaid"], "underpaid = nedostatečně placený."),
+    M("Kolik účastníků hraje <b>semi-final</b>?", "4", ["8", "16", "2"], "semi-final 4, quarter-final 8, round of 16 = osmifinále."),
+    M("Osmifinále se anglicky řekne:", "round of 16", ["quarter-final", "semi-final", "round of 8"], "round of 16 = osmifinále, quarter-final = čtvrtfinále."),
+    M("<b>ex-colleague</b> =", "former colleague", ["old colleague", "co-worker", "senior colleague"], "ex- = former (bývalý). „old friend“ znamená dlouholetý přítel."),
+    M("<b>Old friend</b> znamená:", "dlouholetý přítel (přátelství trvá)", ["bývalý přítel (přátelství skončilo)", "spolupracovník", "spolužák"], "old friend ≠ ex-friend."),
+    M("A manager who controls every small detail is a ___.", "micromanager", ["minimanager", "co-manager", "mismanager"], "micromanage = přehnaně kontrolovat detaily."),
+    M("Teplota pod nulou = ___ temperatures", "sub-zero", ["under-zero", "post-zero", "mis-zero"], "sub- = pod: sub-zero."),
+    M("<b>re-evaluate</b> znamená:", "znovu zhodnotit", ["nadhodnotit", "podhodnotit", "špatně ohodnotit"], "re- = znovu. Pozor, re-evaluate ≠ overvalue (nadhodnotit)."),
+    M("The opposite of <b>overestimate</b> is:", "underestimate", ["misestimate", "re-estimate", "post-estimate"], "over- × under-: overestimate × underestimate."),
+    M("Which word is spelled correctly?", "misspell", ["mispell", "missspell", "misspel"], "mis + spell = misspell (dvě s)."),
+    M("<b>multi-award-winning director</b> =", "režisér, který získal mnoho ocenění", ["režisér, který spolupracuje s více studii", "bývalý režisér", "začínající režisér"], "multi- = mnoho."),
+    M("An interview with a player after the match is a ___ interview.", "post-match", ["pre-match", "semi-match", "sub-match"], "post- = po, pre- = před."),
+    M("Which word means “to react too strongly”?", "overreact", ["misreact", "co-react", "subreact"], "over- = příliš: overreact."),
+    M("<b>co-founder</b> =", "spoluzakladatel", ["bývalý zakladatel", "špatný zakladatel", "zakladatel pobočky"], "co- = spolu."),
+    M("Which prefix means “very small”?", "micro-", ["multi-", "semi-", "post-"], "mini- = malý, micro- = velmi malý."),
+    M("<b>undermine</b> someone's authority =", "podkopat něčí autoritu", ["posílit něčí autoritu", "podcenit něčí plat", "znovu zhodnotit něčí práci"], "undermine = podkopat, oslabit."),
+    F("Yesterday I ___ and missed the bus. <span class=hint>(oversleep)</span>", ["overslept"], "oversleep – overslept – overslept."),
+    F("co-write – co-wrote – ___", ["co-written", "cowritten"], "co-write – co-wrote – co-written."),
+    F("misspeak – misspoke – ___", ["misspoken"], "misspeak – misspoke – misspoken."),
+    F("resell – resold – ___", ["resold"], "resell – resold – resold."),
+    F("Opak: overachiever × ___", ["underachiever"], "over- × under-: overachiever × underachiever."),
+    F("Nedokončit (vypadnout ze) školu = drop ___ of school", ["out"], "drop out of school / college / university (dropped out)."),
+    F("Bývalá manželka = ___ <span class=hint>(jedno slovo se spojovníkem)</span>", ["ex-wife"], "ex- = bývalý: ex-wife."),
+  ],
+  cards: [
+    ["co-", "spolu: co-worker, co-pilot, co-founder, co-write"],
+    ["mis-", "špatně: misunderstand, misspell, mislead, mishear"],
+    ["ex-", "bývalý: ex-wife, ex-president, ex-colleague"],
+    ["multi-", "mnoho: multicultural, multicoloured, multipurpose"],
+    ["mini- / micro-", "malý / velmi malý: micromanage"],
+    ["over- / under-", "moc / málo: overestimate × underestimate, underpaid"],
+    ["post-", "po: postgraduate, post-war<br>(ne postman, poster!)"],
+    ["pre-", "před: pre-war, pre-match"],
+    ["semi-", "polo-: semi-final (4), semi-retired"],
+    ["sub-", "pod: submarine, sub-zero, subtitles"],
+    ["re-", "znovu: re-evaluate, resell, re-advertise"],
+    ["misfortune → přídavné jméno", "unfortunate"],
+    ["oversleep", "overslept – overslept"],
+    ["co-write", "co-wrote – co-written"],
+    ["misspeak", "misspoke – misspoken"],
+    ["resell", "resold – resold"],
+    ["quarter-final", "čtvrtfinále (8)"],
+    ["round of 16", "osmifinále"],
+    ["undermine someone's authority", "podkopat něčí autoritu"],
+    ["drop out of school", "nedokončit školu (dropped out)"],
+    ["old friend", "dlouholetý přítel (ne bývalý!)"],
+    ["shipwreck", "ztroskotání lodi / vrak"],
+  ]
+},
+/* ───────────────────────── 5. SVĚT PRÁCE ───────────────────────── */
+{
+  id: "work", title: "Svět práce", sub: "slovní zásoba",
+  sheet: `
+<h3>Obecné</h3>
+<div class="tablewrap"><table class="voc">
+<tr><td>rewarding</td><td>naplňující, uspokojující</td></tr>
+<tr><td>physically demanding</td><td>fyzicky náročný</td></tr>
+<tr><td>challenging</td><td>náročný, výzva</td></tr>
+<tr><td>badly paid</td><td>špatně placený</td></tr>
+<tr><td>a nine-to-five job</td><td>práce s pevnou pracovní dobou (9–17)</td></tr>
+<tr><td>paramedic</td><td>záchranář</td></tr>
+<tr><td>come up with an idea</td><td>přijít s nápadem</td></tr>
+<tr><td>set up a website</td><td>založit web</td></tr>
+<tr><td>be passionate about sth</td><td>být zapálený pro něco</td></tr>
+<tr><td>be short of money / shortage</td><td>mít nedostatek peněz / nedostatek</td></tr>
+<tr><td>wages</td><td>mzda</td></tr>
+<tr><td>donate to charity</td><td>darovat na charitu</td></tr>
+<tr><td>get on / get along with sb</td><td>vycházet s někým</td></tr>
+<tr><td>get used to + podst. jm. / -ing</td><td>zvyknout si na</td></tr>
+</table></div>
+
+<h3>Proměny povolání a digitální svět</h3>
+<div class="tablewrap"><table class="voc">
+<tr><td>lift / elevator operator</td><td>obsluha výtahu</td></tr>
+<tr><td>lamplighter</td><td>lampář</td></tr>
+<tr><td>cooper</td><td>bednář</td></tr>
+<tr><td>telephone / switchboard operator</td><td>spojovatel(ka) – connect the lines</td></tr>
+<tr><td>paper delivery boy / girl</td><td>roznašeč novin</td></tr>
+<tr><td>conference interpreting</td><td>konferenční tlumočení</td></tr>
+<tr><td>driverless taxi</td><td>taxi bez řidiče</td></tr>
+<tr><td>disappear / be replaced / be likely to stay</td><td>zmizet / být nahrazen / pravděpodobně zůstat</td></tr>
+<tr><td>in five to ten years' time</td><td>za pět až deset let</td></tr>
+<tr><td>enslaved people</td><td>zotročení lidé</td></tr>
+<tr><td>travel agent</td><td>pracovník cestovní kanceláře</td></tr>
+<tr><td>newsagent / newsagent's</td><td>prodavač novin / trafika</td></tr>
+<tr><td>estate agent</td><td>realitní makléř</td></tr>
+<tr><td>toll booth (operator)</td><td>mýtná budka (výběrčí)</td></tr>
+<tr><td>solicitor</td><td>advokát, právník</td></tr>
+<tr><td>become unnecessary / no longer</td><td>stát se zbytečným / už ne</td></tr>
+<tr><td>guidebook</td><td>průvodce (kniha)</td></tr>
+<tr><td>automated telephone system</td><td>automatický telefonní systém</td></tr>
+<tr><td>subscribe to newspapers</td><td>předplatit si noviny</td></tr>
+<tr><td>hard copy × digital form</td><td>tištěná × digitální podoba</td></tr>
+<tr><td>pay rise / quit</td><td>zvýšení platu / dát výpověď (odejít)</td></tr>
+<tr><td>work in finance / graduate from school</td><td>pracovat ve financích / absolvovat školu</td></tr>
+</table></div>
+
+<h3>Vysoká škola, nebo práce?</h3>
+<div class="tablewrap"><table class="voc">
+<tr><td>go to university × go straight into a job</td><td>jít na VŠ × jít hned pracovat</td></tr>
+<tr><td>gain knowledge / get qualifications</td><td>získat znalosti / kvalifikaci</td></tr>
+<tr><td>better career prospects / better pay</td><td>lepší vyhlídky / lepší plat</td></tr>
+<tr><td>in the long run</td><td>z dlouhodobého hlediska</td></tr>
+<tr><td>get stressed / feel pressure</td><td>stresovat se / cítit tlak</td></tr>
+<tr><td>tuition (fees)</td><td>školné</td></tr>
+<tr><td>housing / accommodation, meals</td><td>bydlení / ubytování, jídlo</td></tr>
+<tr><td>student loan, borrow / owe / repay</td><td>studentská půjčka, půjčit si / dlužit / splatit</td></tr>
+<tr><td>end up in debt</td><td>skončit v dluzích</td></tr>
+<tr><td>scholarship, qualify for a scholarship</td><td>stipendium, mít nárok na stipendium</td></tr>
+<tr><td>cover the costs / grade average</td><td>pokrýt náklady / průměr známek</td></tr>
+</table></div>
+
+<h3>Hledání práce</h3>
+<p class="flow">look for a job → see a job advert / advertised vacancy → apply for a job → fill in an application form and send it off → send a CV (US résumé) → go for an interview → get a job offer / be offered a job</p>
+<ul>
+<li>qualifications, <b>work experience</b> (nepočitatelné: more experience, ✗ experiences), underqualified / overqualified</li>
+<li>job application, applicant, successful applicant, jobseeker, go into banking</li>
+<li>inzerát: job vacancy / position, requires / seeks, rate of pay, salary, according to experience, to start immediately, computer skills essential, <b>previous experience is an advantage</b> (výhoda, ne podmínka), full training will be given, hard-working, responsible, honest, temporary position</li>
+<li>maternity × parental leave (mateřská × rodičovská), advertisement / ad / advert, HR (human resources) department, negotiate the salary and the terms and conditions</li>
+</ul>
+
+<h3>Ztráta práce</h3>
+<div class="tablewrap"><table>
+<tr><td><b>be dismissed</b></td><td>propuštěn (formální)</td></tr>
+<tr><td><b>be fired</b></td><td>vyhozen – He was fired for breaking company rules.</td></tr>
+<tr><td><b>be sacked</b></td><td>vyhozen (neformální, britské)</td></tr>
+<tr><td><b>be made redundant</b></td><td>místo už není potřeba, není to vina zaměstnance – The factory closed, so the workers were made redundant.</td></tr>
+<tr><td><b>be laid off</b></td><td>kvůli nedostatku práce, může být i dočasné</td></tr>
+</table></div>
+<ul><li>unemployed / jobless / out of work, unemployment, face unemployment, job centre / unemployment office</li>
+<li>unemployment benefit(s), the dole, be on the dole (podpora v nezaměstnanosti)</li>
+<li>redundant může znamenat i nadbytečný / záložní (v technice)</li>
+<li>I'm (in) between jobs, child benefit, welfare benefits, <b>welfare state</b> = sociální stát (ne „socialist“)</li></ul>
+
+<h3>Formy zaměstnání</h3>
+<ul><li><b>full-time / part-time</b> = rozsah × <b>temporary</b> = doba trvání</li>
+<li>self-employed / work for yourself, work freelance, freelancer; employee (zaměstnanec) × employer (zaměstnavatel)</li>
+<li>Brigáda ≠ brigade → <b>temporary / summer / part-time job</b></li></ul>
+
+<h3>Překlad × tlumočení</h3>
+<ul><li><b>translation / translator</b> = psaný text × <b>interpreting / interpreter</b> = mluvené slovo</li>
+<li><b>consecutive</b>: mluvčí pronese část, pak tlumočí tlumočník (často s poznámkami)</li>
+<li><b>simultaneous</b>: souběžně, v kabině se sluchátky</li></ul>`,
+  qs: [
+    M("<b>be made redundant</b> znamená:", "přijít o práci, protože místo už není potřeba (není to vina zaměstnance)", ["dostat výpověď za porušení pravidel", "odejít na mateřskou dovolenou", "dostat přidáno"], "made redundant = místo zaniklo, zaměstnanec za to nemůže."),
+    M("He was ___ for breaking company rules.", "fired", ["made redundant", "laid off", "employed"], "fired = vyhozen (vlastní vina). Made redundant / laid off nejsou vina zaměstnance."),
+    M("The factory closed, so the workers were ___.", "made redundant", ["fired", "promoted", "hired"], "Továrna zavřela → místa už nejsou potřeba → made redundant."),
+    M("Neformální britský výraz pro „vyhodit z práce“:", "be sacked", ["be dismissed", "be made redundant", "be laid off"], "be sacked (neformální, BrE); be dismissed je formální."),
+    M("<b>be laid off</b> znamená:", "přijít o práci kvůli nedostatku práce (může být i dočasně)", ["být povýšen", "odejít do důchodu", "pracovat na volné noze"], "laid off – kvůli nedostatku práce, i dočasně."),
+    M("Brigáda (např. letní práce) se anglicky řekne:", "a summer / temporary / part-time job", ["a brigade", "a nine-to-five job", "a freelance"], "brigade = vojenská brigáda, ne práce."),
+    M("Která činnost je <b>interpreting</b>?", "převod mluveného slova do jiného jazyka", ["převod psaného textu do jiného jazyka", "psaní titulků k filmu", "korektura textu"], "translation = psaný text, interpreting = mluvené slovo."),
+    M("<b>Simultaneous interpreting</b>:", "tlumočník mluví souběžně s řečníkem, v kabině se sluchátky", ["řečník pronese část, pak ji tlumočník přetlumočí", "překlad knihy", "tlumočení až po skončení celé konference"], "Consecutive = postupně, často s poznámkami; simultaneous = souběžně, v kabině."),
+    M("I need more work ___ to get this job.", "experience", ["experiences", "experiencies", "experienced"], "work experience je nepočitatelné: more experience."),
+    M("„Previous experience is an advantage“ v inzerátu znamená:", "zkušenost je výhoda, ale ne podmínka", ["zkušenost je nutná podmínka", "zkušenost je nevýhoda", "zkušené uchazeče nechtějí"], "advantage = výhoda, ne požadavek."),
+    M("Co následuje po „go for an interview“?", "get a job offer", ["see a job advert", "fill in an application form", "look for a job"], "look for a job → see an advert → apply → fill in a form → send a CV → go for an interview → get a job offer."),
+    M("<b>self-employed</b> =", "pracuje sám na sebe", ["nezaměstnaný", "zaměstnanec", "zaměstnavatel"], "self-employed = work for yourself (jako freelancer)."),
+    M("The company or person that gives you a job is your ___.", "employer", ["employee", "applicant", "jobseeker"], "employer = zaměstnavatel × employee = zaměstnanec."),
+    M("<b>full-time / part-time</b> říká:", "rozsah práce (kolik hodin)", ["dobu trvání (na jak dlouho)", "výši mzdy", "místo práce"], "full-time / part-time = rozsah × temporary = doba trvání."),
+    M("Someone who hasn't got a job is ___.", "unemployed", ["employed", "underpaid", "overqualified"], "unemployed = jobless = out of work."),
+    M("<b>be on the dole</b> =", "pobírat podporu v nezaměstnanosti", ["být na mateřské", "dostat přidáno", "být na brigádě"], "the dole = unemployment benefit (hovorově)."),
+    M("<b>a nine-to-five job</b> =", "běžná práce s pevnou pracovní dobou (od 9 do 5)", ["práce na 9 až 5 let", "noční směna", "práce na volné noze"], "Sally Stone má raději cestování než nine-to-five job."),
+    M("<b>rewarding</b> job =", "práce, která tě naplňuje a dává uspokojení", ["práce s vysokými prémiemi", "fyzicky náročná práce", "špatně placená práce"], "rewarding = naplňující, uspokojující."),
+    M("<b>physically demanding</b> =", "fyzicky náročný", ["dobře placený", "nudný", "dočasný"], "demanding = náročný."),
+    M("<b>cooper</b> =", "bednář", ["kovář", "horník", "pekař"], "cooper = bednář – jedno z povolání, která mizí."),
+    M("<b>estate agent</b> =", "realitní makléř", ["pracovník cestovní kanceláře", "prodavač novin", "tajný agent"], "travel agent = cestovka, newsagent = prodavač novin."),
+    M("<b>newsagent's</b> =", "trafika (obchod s novinami)", ["redakce novin", "novinář", "zpravodajský web"], "newsagent's = obchod; newsagent = prodavač."),
+    M("I can't get used to ___ up so early.", "getting", ["get", "got", "to get"], "get used to + -ing / podstatné jméno."),
+    M("Money for good results that you don't have to pay back:", "scholarship", ["student loan", "tuition fees", "pay rise"], "scholarship = stipendium; student loan se splácí."),
+    M("<b>end up in debt</b> =", "skončit v dluzích", ["splatit půjčku", "dostat stipendium", "půjčit si peníze"], "end up = skončit (nějak)."),
+    M("<b>maternity leave</b> =", "mateřská dovolená", ["rodičovská dovolená", "nemocenská", "výpověď"], "maternity × parental leave (mateřská × rodičovská)."),
+    M("<b>HR department</b> =", "personální oddělení (human resources)", ["účetní oddělení", "výrobní oddělení", "IT oddělení"], "HR = human resources."),
+    M("<b>welfare state</b> =", "sociální stát (zajišťuje dávky a péči)", ["socialistický stát", "stát s nízkými daněmi", "chudý stát"], "welfare state ≠ socialist."),
+    M("<b>come up with an idea</b> =", "přijít s nápadem", ["vzdát se nápadu", "ukrást nápad", "zapomenout nápad"], "come up with = vymyslet, přijít s."),
+    M("Someone with more qualifications than the job needs is ___.", "overqualified", ["underqualified", "overpaid", "unemployed"], "over- = příliš: overqualified."),
+    M("<b>go straight into a job</b> =", "jít hned (po škole) pracovat", ["jít na vysokou školu", "přijít o práci", "jít na pohovor"], "go to university × go straight into a job."),
+    M("<b>tuition fees</b> =", "školné", ["stipendium", "studentská půjčka", "ubytování"], "tuition (fees) = školné."),
+    M("<b>switchboard operator</b> =", "spojovatel(ka) na telefonní ústředně", ["řidič autobusu", "obsluha jeřábu", "programátor"], "connect the lines – povolání nahrazené automatickým systémem."),
+    M("<b>get on / get along with sb</b> =", "vycházet s někým", ["nastoupit do autobusu", "předběhnout někoho", "hádat se s někým"], "get on / get along with = vycházet s."),
+    M("<b>in the long run</b> =", "z dlouhodobého hlediska", ["při dlouhém běhu", "brzy", "na krátkou dobu"], "In the long run, a degree can mean better pay."),
+    F("zažádat o místo = ___ for a job", ["apply"], "apply for a job."),
+    F("vyplnit formulář = ___ in an application form", ["fill"], "fill in an application form (and send it off)."),
+    F("Americky se CV řekne ___ .", ["résumé", "resume"], "CV (BrE) = résumé (AmE)."),
+    F("„Momentálně nemám práci.“ = I'm (in) ___ jobs.", ["between"], "I'm (in) between jobs."),
+    F("zaměstnanec = ___", ["employee"], "employee = zaměstnanec × employer = zaměstnavatel."),
+    F("tlumočník = ___", ["interpreter"], "interpreter = tlumočník (mluvené slovo), translator = překladatel (psaný text)."),
+  ],
+  cards: [
+    ["rewarding", "naplňující, uspokojující"],
+    ["physically demanding", "fyzicky náročný"],
+    ["challenging", "náročný (výzva)"],
+    ["a nine-to-five job", "práce s pevnou pracovní dobou"],
+    ["paramedic", "záchranář"],
+    ["come up with an idea", "přijít s nápadem"],
+    ["be passionate about sth", "být zapálený pro něco"],
+    ["be short of money", "mít nedostatek peněz"],
+    ["wages", "mzda"],
+    ["donate to charity", "darovat na charitu"],
+    ["get on / get along with sb", "vycházet s někým"],
+    ["get used to + -ing", "zvyknout si na"],
+    ["cooper", "bednář"],
+    ["lamplighter", "lampář"],
+    ["switchboard operator", "spojovatel(ka) na ústředně"],
+    ["travel agent", "pracovník cestovní kanceláře"],
+    ["newsagent's", "trafika"],
+    ["estate agent", "realitní makléř"],
+    ["solicitor", "advokát, právník"],
+    ["toll booth", "mýtná budka"],
+    ["hard copy × digital form", "tištěná × digitální podoba"],
+    ["pay rise", "zvýšení platu"],
+    ["quit", "dát výpověď, odejít z práce"],
+    ["tuition fees", "školné"],
+    ["student loan", "studentská půjčka"],
+    ["scholarship", "stipendium"],
+    ["end up in debt", "skončit v dluzích"],
+    ["in the long run", "z dlouhodobého hlediska"],
+    ["career prospects", "kariérní vyhlídky"],
+    ["work experience", "pracovní zkušenosti (nepočitatelné!)"],
+    ["applicant / jobseeker", "uchazeč / hledající práci"],
+    ["job vacancy", "volné pracovní místo"],
+    ["CV (US)", "résumé"],
+    ["previous experience is an advantage", "zkušenost je výhoda (ne podmínka)"],
+    ["full training will be given", "zaškolení zajistíme"],
+    ["maternity × parental leave", "mateřská × rodičovská dovolená"],
+    ["HR department", "personální oddělení"],
+    ["be dismissed", "být propuštěn (formální)"],
+    ["be fired", "být vyhozen (vlastní vina)"],
+    ["be sacked", "být vyhozen (neformální, BrE)"],
+    ["be made redundant", "přijít o místo, které už není potřeba"],
+    ["be laid off", "přijít o práci kvůli nedostatku práce (i dočasně)"],
+    ["be on the dole", "pobírat podporu v nezaměstnanosti"],
+    ["unemployment benefit", "podpora v nezaměstnanosti"],
+    ["welfare state", "sociální stát"],
+    ["self-employed", "pracující sám na sebe"],
+    ["employer × employee", "zaměstnavatel × zaměstnanec"],
+    ["brigáda", "temporary / summer / part-time job"],
+    ["translator × interpreter", "překladatel (text) × tlumočník (řeč)"],
+    ["consecutive interpreting", "konsekutivní: mluvčí – pauza – tlumočník"],
+    ["simultaneous interpreting", "simultánní: souběžně, v kabině"],
+  ]
+},
+/* ───────────────────────── 6. POSLECHY ───────────────────────── */
+{
+  id: "listen", title: "Poslechy", sub: "52 jobs in a year, Sally Stone",
+  sheet: `
+<h3>52 jobs in a year – Sean Aiken</h3>
+<ul>
+<li>Po <b>business studies</b> nevěděl, co dělat. Otec mu poradil dělat něco, pro co je <b>zapálený</b> (passionate).</li>
+<li>Založil web <b>oneweekjob.com</b> a za rok vystřídal <b>52 zaměstnání</b> (rozhlasový DJ, hasič, novinář, učitel jógy, pekař…). Většinu našel <b>online</b>.</li>
+<li>Pracoval bez dovolené, hodně cestoval. Mzdu <b>daroval na charitu</b> → měl málo peněz.</li>
+<li>Nejtěžší: práce na <b>farmě</b> – vstávat v <b>5 ráno</b>, fyzicky vyčerpávající.</li>
+<li>Poučení: práce má <b>dávat smysl</b>, má tě <b>nadchnout</b> a máš <b>vycházet s kolegy</b>.</li>
+</ul>
+<h3>Sally Stone – řidička kamionu</h3>
+<ul>
+<li>Začala se připravovat na <b>kadeřnici</b>, ale kurz nedokončila (špatně placené, chtěla náročnější práci).</li>
+<li><b>Otec</b> měl dopravní firmu. Potřebovala zvláštní řidičské oprávnění; zkoušku složila <b>na první pokus</b> („lots of people fail“ = <b>mnoho</b> lidí neuspěje, ne většina).</li>
+<li>První samostatná jízda ji <b>děsila</b>. Baví ji <b>cestování a samota</b>, víc než nine-to-five job.</li>
+<li>Muži na ni často zírají, hlavně v <b>zácpě</b>. Na <b>200 řidičů připadá 1 žena</b>.</li>
+<li>Dobrý řidič je <b>opatrný, bezpečný, trpělivý</b> a <b>nerozčiluje se</b>.</li>
+</ul>`,
+  qs: [
+    M("Co vystudoval Sean Aiken?", "business studies", ["medicine", "journalism", "agriculture"], "Sean po business studies nevěděl, co dělat."),
+    M("Co Seanovi poradil otec?", "Dělat něco, pro co je zapálený.", ["Jít pracovat do banky.", "Vrátit se na univerzitu.", "Převzít rodinnou firmu."], "Otec: najdi něco, pro co jsi zapálený (passionate)."),
+    F("Kolik zaměstnání Sean vystřídal za rok?", ["52"], "52 jobs in a year – každý týden jedno."),
+    M("Jak se jmenoval Seanův web?", "oneweekjob.com", ["52jobs.com", "jobayear.com", "weeklywork.com"], "oneweekjob.com"),
+    M("Kde Sean našel většinu prací?", "online", ["v novinách", "přes známé", "na úřadu práce"], "Většinu prací našel online."),
+    M("Proč měl Sean málo peněz?", "Mzdu daroval na charitu.", ["Všechno utratil za cestování.", "Nikdo mu neplatil.", "Musel splácet studentskou půjčku."], "Mzdu daroval na charitu, proto byl short of money."),
+    M("Která práce byla pro Seana nejtěžší?", "práce na farmě", ["hasič", "pekař", "učitel jógy"], "Farma: vstávat v 5 ráno, fyzicky vyčerpávající."),
+    M("Proč byla práce na farmě nejtěžší?", "Musel vstávat v 5 ráno a byla fyzicky vyčerpávající.", ["Byla špatně placená.", "Nevycházel s kolegy.", "Musel pracovat v noci ve městě."], "Vstávání v 5 ráno + physically demanding."),
+    M("Co je podle Seana na práci nejdůležitější?", "aby dávala smysl, nadchla tě a vycházel jsi s kolegy", ["vysoký plat a dlouhá dovolená", "práce z domova", "aby byla co nejkratší"], "Poučení: smysl, nadšení, dobré vztahy s kolegy."),
+    M("Na co se Sally Stone původně začala připravovat?", "na kadeřnici", ["na řidičku autobusu", "na zdravotní sestru", "na učitelku"], "Začala kurz kadeřnice, ale nedokončila ho."),
+    M("Proč Sally kurz nedokončila?", "Bylo to špatně placené a chtěla náročnější práci.", ["Neudělala zkoušku.", "Musela se starat o otce.", "Kurz byl moc drahý."], "Badly paid + chtěla challenging job."),
+    M("Kdo měl dopravní firmu?", "Sallyin otec", ["Sallyina matka", "Sallyin manžel", "Sean Aiken"], "Otec měl dopravní firmu."),
+    M("Jak Sally dopadla u zkoušky na zvláštní řidičské oprávnění?", "Složila ji na první pokus.", ["Napoprvé neuspěla.", "Složila ji až na třetí pokus.", "Zkoušku nepotřebovala."], "Prošla napoprvé, i když lots of people fail."),
+    M("„Lots of people fail“ znamená:", "mnoho lidí neuspěje", ["většina lidí neuspěje", "skoro nikdo neuspěje", "všichni neuspějí"], "lots of = mnoho, ne většina (most)."),
+    M("Jak se Sally cítila při první samostatné jízdě?", "děsilo ji to", ["byla úplně klidná", "nudila se", "byla naštvaná"], "První samostatná jízda ji děsila."),
+    M("Co Sally na práci baví?", "cestování a samota", ["pevná pracovní doba", "práce v týmu", "vysoký plat"], "Má ráda travelling a being alone, víc než nine-to-five job."),
+    M("Kolik žen připadá podle Sally na 200 řidičů kamionu?", "1", ["2", "20", "50"], "Na 200 řidičů připadá 1 žena."),
+    M("Kdy na Sally muži nejvíc zírají?", "v zácpě", ["na benzince", "při nakládce", "v noci"], "Hlavně v dopravní zácpě."),
+    M("Jaký je podle Sally dobrý řidič?", "opatrný, bezpečný, trpělivý a nerozčiluje se", ["rychlý a odvážný", "mladý a silný", "hlavně zkušený s mapou"], "careful, safe, patient, doesn't get angry."),
+  ],
+  cards: [
+    ["Sean Aiken – co vystudoval", "business studies"],
+    ["Otcova rada Seanovi", "dělej něco, pro co jsi zapálený"],
+    ["Seanův web", "oneweekjob.com"],
+    ["Kolik prací za rok?", "52 (každý týden jedna)"],
+    ["Kde našel většinu prací?", "online"],
+    ["Proč měl Sean málo peněz?", "mzdu daroval na charitu"],
+    ["Nejtěžší práce (Sean)", "farma – vstávání v 5, fyzicky vyčerpávající"],
+    ["Seanovo poučení", "smysl, nadšení, vycházet s kolegy"],
+    ["Sally – původní plán", "kadeřnice (kurz nedokončila)"],
+    ["Sally – zkouška", "na první pokus („lots of people fail“ = mnoho, ne většina)"],
+    ["Sally – co ji baví", "cestování a samota"],
+    ["Žen mezi řidiči kamionů", "1 na 200"],
+    ["Dobrý řidič (Sally)", "opatrný, bezpečný, trpělivý, nerozčiluje se"],
+  ]
+},
+/* ───────────────────────── 7. FORMÁLNÍ DOPIS ───────────────────────── */
+{
+  id: "letter", title: "Formální dopis", sub: "žádost o místo",
+  sheet: `
+<h3>Rozložení</h3>
+<div class="letter">
+<div class="r">adresa odesílatele<br>datum</div>
+<div>adresát a jeho adresa</div>
+<div>oslovení: Dear Sir or Madam, / Dear Mr Brown,</div>
+<div><b>Re:</b> předmět (= ve věci)</div>
+<div>vlastní text (5 odstavců)</div>
+<div>rozloučení: Yours faithfully, / Yours sincerely,</div>
+<div><i>podpis</i> – NAD napsaným jménem<br>napsané jméno</div>
+</div>
+<h3>Odstavce</h3>
+<ol class="steps">
+<li><b>Proč píšu</b> – jaké místo, kde jsem se o něm dozvěděl.</li>
+<li><b>Představení a zájem.</b></li>
+<li><b>Proč se hodím</b> – zkušenosti, schopnosti, vlastnosti.</li>
+<li><b>Praktické údaje</b> – přílohy, kdy můžu na pohovor, kdy můžu nastoupit.</li>
+<li><b>Závěr.</b></li>
+</ol>
+<h3>Oslovení a rozloučení</h3>
+<div class="tablewrap"><table>
+<tr><td>Dear Sir or Madam, (jméno neznám)</td><td>→ <b>Yours faithfully,</b></td></tr>
+<tr><td>Dear Mr Brown, (jméno znám)</td><td>→ <b>Yours sincerely,</b></td></tr>
+<tr><td>To whom it may concern</td><td>obecné oslovení</td></tr>
+</table></div>
+<h3>Fráze</h3>
+<ul class="ex">
+<li>I am writing to apply for the position of …</li>
+<li>I have some experience of working in a hotel. (také experience in + obor)</li>
+<li>I am able to … / Furthermore, …</li>
+<li>I work as a waiter.</li>
+<li>Please find my CV attached.</li>
+<li>I am available for an interview after 2 p.m.</li>
+<li>If successful, I will be available to start in November.</li>
+<li>I look forward to hearing from you. (look forward to + -ing)</li>
+</ul>
+<h3>Pravidla</h3>
+<ul><li>Po oslovení <b>nový řádek</b> a <b>velké písmeno</b>.</li>
+<li><b>Plné tvary</b> (I am, I would, do not), žádný slang.</li>
+<li>Slova <b>job / post / position / role</b> střídat.</li></ul>`,
+  qs: [
+    M("Dear Sir or Madam, … → rozloučení:", "Yours faithfully,", ["Yours sincerely,", "Best wishes,", "Love,"], "Neznám jméno (Sir or Madam) → Yours faithfully."),
+    M("Dear Mr Brown, … → rozloučení:", "Yours sincerely,", ["Yours faithfully,", "See you,", "Cheers,"], "Znám jméno → Yours sincerely."),
+    M("<b>Re:</b> v dopise znamená:", "ve věci (předmět dopisu)", ["odpověď na e-mail", "znovu", "příloha"], "Re: = ve věci – předmět."),
+    M("Kde je v dopise podpis?", "nad napsaným jménem", ["pod napsaným jménem", "vedle data", "nad oslovením"], "Podpis je NAD napsaným jménem."),
+    M("I look forward to ___ from you.", "hearing", ["hear", "heard", "be hearing"], "look forward to + -ing."),
+    M("Co patří do <b>1. odstavce</b> žádosti?", "proč píšu – jaké místo a kde jsem se o něm dozvěděl", ["praktické údaje (přílohy, kdy můžu nastoupit)", "proč se na místo hodím", "závěrečné poděkování"], "1. proč píšu, 2. představení, 3. proč se hodím, 4. praktické údaje, 5. závěr."),
+    M("Co patří do <b>4. odstavce</b> žádosti?", "praktické údaje – přílohy, kdy můžu na pohovor a kdy nastoupit", ["proč píšu a kde jsem viděl inzerát", "představení a zájem", "zkušenosti a vlastnosti"], "4. odstavec = praktické údaje."),
+    M("Která věta je vhodná do formálního dopisu?", "I am writing to apply for the position of receptionist.", ["I'm writing coz I want the job.", "Hi, I wanna apply for the job.", "Hey, gimme the receptionist job."], "Formální styl, plné tvary, žádný slang."),
+    M("Který tvar použiješ ve formálním dopise?", "I would like to …", ["I'd like to …", "I wanna …", "I'd love ya to …"], "Ve formálním dopise plné tvary: I would, I am, do not."),
+    M("Please find my CV ___.", "attached", ["attach", "attaching", "to attach"], "Please find my CV attached."),
+    M("I have some experience ___ working in a hotel.", "of", ["on", "at", "for"], "experience of + -ing (nebo experience in + obor)."),
+    M("If ___, I will be available to start in November.", "successful", ["success", "succeed", "successfully"], "If successful = pokud uspěji."),
+    M("I am available ___ an interview after 2 p.m.", "for", ["to", "on", "at"], "available for an interview."),
+    M("Co uděláš po oslovení „Dear Sir or Madam,“?", "nový řádek a velké písmeno", ["pokračuji na stejném řádku malým písmenem", "napíšu datum", "napíšu podpis"], "Po oslovení nový řádek, velké písmeno."),
+    M("Když neznám adresáta, mohu napsat i:", "To whom it may concern", ["Dear Mr Brown", "Hi there", "Dear friend"], "To whom it may concern = obecné formální oslovení."),
+    M("Proč střídat slova job / post / position / role?", "aby se slova neopakovala a text byl lepší", ["protože každé znamená něco jiného", "protože job je neslušné", "protože to vyžaduje Re:"], "Střídání synonym – lepší styl."),
+    F("I look forward to ___ from you. <span class=hint>(hear)</span>", ["hearing"], "look forward to + -ing."),
+    F("I am writing to ___ for the position of waiter.", ["apply"], "I am writing to apply for the position of…"),
+    F("Dear Sir or Madam → Yours ___", ["faithfully"], "Dear Sir or Madam → Yours faithfully."),
+    F("Dear Mr Brown → Yours ___", ["sincerely"], "Dear Mr Brown → Yours sincerely."),
+    O("Napiš osnovu žádosti o místo (5 odstavců) a aspoň 4 vhodné fráze.", "<ol><li>proč píšu (místo, kde jsem se dozvěděl) – <i>I am writing to apply for the position of…</i></li><li>představení a zájem</li><li>proč se hodím – <i>I have some experience of working in a hotel. Furthermore, I am able to…</i></li><li>praktické údaje – <i>Please find my CV attached. I am available for an interview after 2 p.m. If successful, I will be available to start in November.</i></li><li>závěr – <i>I look forward to hearing from you.</i></li></ol>Dear Sir or Madam → Yours faithfully; Dear Mr Brown → Yours sincerely."),
+  ],
+  cards: [
+    ["Dear Sir or Madam →", "Yours faithfully"],
+    ["Dear Mr Brown →", "Yours sincerely"],
+    ["Re:", "ve věci (předmět)"],
+    ["Kde je podpis?", "nad napsaným jménem"],
+    ["Odstavce žádosti", "1. proč píšu · 2. představení · 3. proč se hodím · 4. praktické údaje · 5. závěr"],
+    ["Píšu, abych se ucházel o místo…", "I am writing to apply for the position of …"],
+    ["V příloze posílám životopis.", "Please find my CV attached."],
+    ["Na pohovor můžu po 14. hodině.", "I am available for an interview after 2 p.m."],
+    ["Pokud uspěji, můžu nastoupit v listopadu.", "If successful, I will be available to start in November."],
+    ["Těším se na vaši odpověď.", "I look forward to hearing from you."],
+    ["Mám zkušenost s prací v hotelu.", "I have some experience of working in a hotel."],
+    ["Dále, navíc (formálně)", "Furthermore, …"],
+    ["Obecné oslovení", "To whom it may concern"],
+    ["Pravidla stylu", "plné tvary (I am, I would), žádný slang, střídat job / post / position / role"],
+  ]
+},
+  ]
+};
+
+/* Aplikace: domů, tahák, kvíz, kartičky, zkušební test, moje chyby */
+(function () {
+  "use strict";
+  var app = document.getElementById("app");
+  function $(s, el) { return (el || document).querySelector(s); }
+  function $$(s, el) { return Array.prototype.slice.call((el || document).querySelectorAll(s)); }
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  function stripTags(s) { return String(s).replace(/<[^>]*>/g, ""); }
+  function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function fmt(s) { var m = Math.floor(s / 60), x = s % 60; return m + ":" + (x < 10 ? "0" : "") + x; }
+  function plural(n, one, few, many) { return n === 1 ? one : (n >= 2 && n <= 4 ? few : many); }
+
+  /* ---------- úložiště (localStorage může selhat – soukromé okno apod.) ---------- */
+  var PREFIX = "testy-2026-11-19:";
+  var mem = {};
+  var store = {
+    get: function (k, d) {
+      try { var v = localStorage.getItem(PREFIX + k); if (v != null) return JSON.parse(v); } catch (e) { if (k in mem) return mem[k]; }
+      return k in mem ? mem[k] : d;
+    },
+    set: function (k, v) { mem[k] = v; try { localStorage.setItem(PREFIX + k, JSON.stringify(v)); } catch (e) { /* ignorovat */ } }
+  };
+
+  /* ---------- příprava dat ---------- */
+  ["cj", "aj"].forEach(function (sk) {
+    var S = DATA[sk]; S.key = sk;
+    S.topics.forEach(function (t, ti) {
+      t.n = ti + 1; t.subj = sk;
+      t.qs.forEach(function (q, i) { q.id = sk + "." + t.id + "." + i; q.subj = sk; q.topic = t; });
+      t.cardObjs = t.cards.map(function (c) { return { f: c[0], b: c[1], t: t.title }; });
+    });
+    S.allCards = [].concat.apply([], S.topics.map(function (t) { return t.cardObjs; }));
+  });
+
+  var view = null, Q = null, C = null, timerId = null;
+
+  /* ---------- směrování přes #hash (funguje tlačítko Zpět i offline) ---------- */
+  function parseHash() {
+    var p = location.hash.replace(/^#\/?/, "").split("/").filter(Boolean);
+    var sk = DATA[p[0]] ? p[0] : (store.get("subj", "cj") === "aj" ? "aj" : "cj");
+    return { sk: sk, p: DATA[p[0]] ? p.slice(1) : [] };
+  }
+  function setTabs(sk) {
+    $$(".tabs a").forEach(function (a) { if (a.dataset.s === sk) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
+    store.set("subj", sk);
+    document.title = (sk === "cj" ? "Čeština" : "Angličtina") + " – procvičování na test 19. 11.";
+  }
+  function route() {
+    stopTimer(); Q = null; C = null;
+    var r = parseHash(), S = DATA[r.sk], p = r.p;
+    setTabs(r.sk);
+    if (p[0] === "t") {
+      var t = S.topics.filter(function (x) { return x.id === p[1]; })[0];
+      if (t) { renderTopic(S, t, p[2] || "sheet"); window.scrollTo(0, 0); return; }
+    }
+    if (p[0] === "test") renderTestSetup(S);
+    else if (p[0] === "chyby") renderMistakes(S);
+    else if (p[0] === "karty") renderAllCards(S);
+    else renderHome(S);
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener("hashchange", route);
+
+  function crumbs(S) { return '<div class="crumbs"><a href="#/' + S.key + '">← ' + S.name + ': všechna témata</a></div>'; }
+
+  /* ---------- domovská stránka předmětu ---------- */
+  function mistakesFor(sk) {
+    var m = store.get("mist", {});
+    return [].concat.apply([], DATA[sk].topics.map(function (t) { return t.qs; })).filter(function (q) { return m[q.id]; });
+  }
+  function renderHome(S) {
+    view = "home";
+    var best = store.get("best", {}), mist = mistakesFor(S.key).length, tb = best[S.key + ":test"];
+    var total = S.topics.reduce(function (n, t) { return n + t.qs.length; }, 0);
+    app.innerHTML =
+      '<section class="hero"><h1>' + S.name + '</h1><p class="muted">' +
+      (S.key === "cj" ? "Literatura – romantismus. Obsah je jen ze zápisů 2.D." : "Celé čtvrtletí, nejvíc otázek na will / going to a podmínkové věty.") +
+      " " + total + " otázek, " + S.allCards.length + " kartiček.</p></section>" +
+      '<div class="tiles">' +
+      '<a class="tile tile-test" href="#/' + S.key + '/test"><span class="ti" aria-hidden="true">🎯</span><span><b>Zkušební test</b><small>25 náhodných otázek ze všech témat' + (tb != null ? " · nejlepší " + tb + " %" : "") + "</small></span></a>" +
+      '<a class="tile" href="#/' + S.key + '/chyby"><span class="ti" aria-hidden="true">🔁</span><span><b>Moje chyby</b><small>' + (mist ? mist + " " + plural(mist, "otázka", "otázky", "otázek") + " k zopakování" : "zatím žádné") + "</small></span></a>" +
+      '<a class="tile" href="#/' + S.key + '/karty"><span class="ti" aria-hidden="true">🃏</span><span><b>Všechny kartičky</b><small>' + S.allCards.length + " karet napříč tématy</small></span></a>" +
+      "</div>" +
+      '<h2 class="sec">Témata</h2><div class="topics">' + S.topics.map(function (t) { return topicCard(S, t, best); }).join("") + "</div>";
+  }
+  function topicCard(S, t, best) {
+    var b = best[S.key + ":" + t.id], base = "#/" + S.key + "/t/" + t.id + "/";
+    return '<article class="topic' + (t.main ? " main" : "") + '">' +
+      '<div class="topic-h"><span class="num">' + t.n + '</span><div><h3>' + t.title + "</h3><p>" + t.sub + (t.main ? ' · <span class="star">hlavní téma testu</span>' : "") + "</p></div></div>" +
+      '<div class="meta"><span>' + t.qs.length + " otázek</span><span>" + t.cards.length + " kartiček</span></div>" +
+      '<div class="bestbar" title="Nejlepší skóre v kvízu"><span class="lbl">nejlepší</span><div class="bar"><i style="width:' + (b || 0) + '%"></i></div><span>' + (b != null ? b + " %" : "–") + "</span></div>" +
+      '<div class="acts"><a class="btn" href="' + base + 'sheet">Tahák</a><a class="btn primary" href="' + base + 'quiz">Procvičit</a><a class="btn" href="' + base + 'cards">Kartičky</a></div></article>';
+  }
+
+  /* ---------- téma: tahák / kvíz / kartičky ---------- */
+  function renderTopic(S, t, tab) {
+    var tabs = [["sheet", "Tahák"], ["quiz", "Procvičit"], ["cards", "Kartičky"]];
+    app.innerHTML = crumbs(S) +
+      '<div class="ttl"><span class="num">' + t.n + '</span><div><h1>' + t.title + '</h1><p class="muted">' + t.sub + "</p></div></div>" +
+      '<nav class="seg" aria-label="Části tématu">' + tabs.map(function (x) {
+        return '<a href="#/' + S.key + "/t/" + t.id + "/" + x[0] + '"' + (x[0] === tab ? ' class="on" aria-current="page"' : "") + ">" + x[1] + "</a>";
+      }).join("") + '</nav><div id="pane"></div>';
+    var pane = $("#pane");
+    if (tab === "quiz") startQuiz({ mount: pane, qs: t.qs, key: S.key + ":" + t.id, mode: "topic", subj: S.key });
+    else if (tab === "cards") startCards({ mount: pane, cards: t.cardObjs });
+    else {
+      view = "sheet";
+      pane.innerHTML = '<article class="sheet">' + t.sheet + '</article><div class="sheet-foot">' +
+        '<a class="btn primary" href="#/' + S.key + "/t/" + t.id + '/quiz">Procvičit otázky →</a>' +
+        '<a class="btn" href="#/' + S.key + "/t/" + t.id + '/cards">Kartičky</a>' +
+        '<button class="btn ghost" type="button" id="print">Vytisknout tahák</button></div>';
+      $("#print").onclick = function () { window.print(); };
+      // tabulky se 3+ sloupci se na mobilu skládají pod sebe – každá buňka dostane popisek sloupce
+      $$(".sheet table", pane).forEach(function (tb) {
+        var head = tb.rows[0];
+        if (!head || head.cells.length < 3 || head.cells[0].tagName !== "TH") return;
+        var labels = Array.prototype.map.call(head.cells, function (c) { return c.textContent.trim(); });
+        tb.classList.add("stack");
+        Array.prototype.slice.call(tb.rows, 1).forEach(function (r) {
+          Array.prototype.forEach.call(r.cells, function (c, i) { if (i > 0 && labels[i]) c.setAttribute("data-l", labels[i]); });
+        });
+      });
+    }
+  }
+
+  /* ---------- kvíz ---------- */
+  function cur() { return Q && Q.list[Q.i]; }
+  function startQuiz(o) {
+    view = "quiz";
+    Q = Object.assign({ strict: false }, o);
+    Q.orig = o;
+    Q.list = shuffle(o.qs.slice()).map(function (q) {
+      return { q: q, opts: q.t === "mc" ? shuffle([q.a].concat(q.w)) : null, sel: null, done: false, revealed: false };
+    });
+    Q.i = 0; Q.res = []; Q.t0 = Date.now();
+    if (o.mode === "test") startTimer();
+    renderQ(true);
+  }
+  function typeLabel(q) { return q.t === "mc" ? "výběr" : q.t === "fill" ? "doplň" : "otevřená – ohodnoť se sám"; }
+  function renderQ(first) {
+    var it = cur(), q = it.q, n = Q.list.length;
+    var ok = Q.res.filter(function (r) { return r.ok; }).length, bad = Q.res.length - ok;
+    var badges = [];
+    if (Q.mode !== "topic") badges.push('<span class="badge">' + q.topic.title + "</span>");
+    if (q.bonus) badges.push('<span class="badge bonus">Bonus – pokud jste brali</span>');
+    if (q.ctx) badges.push('<span class="badge ctx">Kontext – mimo rozsah testu</span>');
+    badges.push('<span class="badge type">' + typeLabel(q) + "</span>");
+    var body = "";
+    if (q.t === "mc") {
+      body = '<div class="opts">' + it.opts.map(function (o, i) {
+        return '<button type="button" class="opt" data-i="' + i + '"><kbd>' + (i + 1) + "</kbd><span>" + o + "</span></button>";
+      }).join("") + "</div>";
+    } else if (q.t === "fill") {
+      body = '<div class="fill"><input id="ans" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" placeholder="Napiš odpověď…" aria-label="Tvoje odpověď">' +
+        '<button type="button" class="btn primary" id="chk">' + (Q.strict ? "Další →" : "Zkontrolovat") + "</button></div>" +
+        (Q.strict ? "" : '<button type="button" class="linkbtn" id="idk">Nevím – ukázat odpověď</button>');
+    } else {
+      body = '<textarea id="ans" rows="3" placeholder="Napiš si odpověď, nebo si ji aspoň řekni nahlas (nepovinné)…" aria-label="Tvoje odpověď"></textarea>' +
+        '<div class="row"><button type="button" class="btn primary" id="reveal">Ukázat vzorovou odpověď</button><span class="muted small kbdhint">Enter mimo pole nebo Ctrl+Enter</span></div><div id="model"></div>';
+    }
+    Q.mount.innerHTML =
+      '<div class="qtop"><span>Otázka <b>' + (Q.i + 1) + "</b> / " + n + '</span><span class="qscore">' +
+      (Q.strict ? '<span class="muted">ostrý režim</span>' : '<span class="okc">✓ ' + ok + '</span> <span class="badc">✗ ' + bad + "</span>") +
+      (Q.mode === "test" ? ' <span id="timer" class="timer"></span>' : "") + "</span></div>" +
+      '<div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="' + n + '" aria-valuenow="' + Q.i + '"><i style="width:' + (Q.i / n * 100) + '%"></i></div>' +
+      '<section class="qcard"><div class="badges">' + badges.join("") + '</div><div class="qtext">' + q.q + "</div>" + body +
+      '<div id="fb" class="fb" hidden aria-live="polite"></div>' +
+      '<div class="qnav"><button type="button" class="btn primary" id="next"' + (Q.strict && q.t === "mc" ? " disabled" : " hidden") + ">" + (Q.strict ? "Další →" : "Další otázka →") + "</button></div></section>";
+
+    if (q.t === "mc") $$(".opt", Q.mount).forEach(function (b) {
+      b.addEventListener("click", function () {
+        if (it.done) return;
+        selectOpt(+b.dataset.i);
+        if (!Q.strict) answerMC();
+      });
+    });
+    if (q.t === "fill") {
+      $("#chk").onclick = function () { answerFill(false); };
+      var idk = $("#idk"); if (idk) idk.onclick = function () { answerFill(true); };
+      var inp = $("#ans");
+      setTimeout(function () { try { inp.focus({ preventScroll: true }); } catch (e) { inp.focus(); } }, 0);
+    }
+    if (q.t === "open") $("#reveal").onclick = reveal;
+    $("#next").onclick = function () { if (Q.strict && !it.done && q.t === "mc") answerMC(); else next(); };
+    updTimer();
+    if (!first) {
+      var r = Q.mount.getBoundingClientRect();
+      if (r.top < 70 || r.top > window.innerHeight * 0.5) window.scrollTo({ top: window.scrollY + r.top - 80 });
+    }
+  }
+  function selectOpt(i) {
+    var it = cur(); if (!it || it.done || !it.opts || i >= it.opts.length) return;
+    it.sel = i;
+    $$(".opt", Q.mount).forEach(function (b, k) { b.classList.toggle("sel", k === i); });
+    if (Q.strict) { var nx = $("#next"); nx.disabled = false; }
+  }
+  function record(it, ok, given) {
+    it.done = true; it.ok = ok;
+    Q.res.push({ q: it.q, ok: ok, given: given });
+    var m = store.get("mist", {});
+    if (ok) delete m[it.q.id]; else m[it.q.id] = (m[it.q.id] || 0) + 1;
+    store.set("mist", m);
+    var sc = $(".qscore", Q.mount);
+    if (sc && !Q.strict) {
+      var k = Q.res.filter(function (r) { return r.ok; }).length;
+      sc.innerHTML = '<span class="okc">✓ ' + k + '</span> <span class="badc">✗ ' + (Q.res.length - k) + "</span>" + (Q.mode === "test" ? ' <span id="timer" class="timer"></span>' : "");
+      updTimer();
+    }
+  }
+  function answerMC() {
+    var it = cur(); if (!it || it.done || it.sel == null) return;
+    var chosen = it.opts[it.sel], ok = chosen === it.q.a;
+    record(it, ok, stripTags(chosen));
+    if (Q.strict) return next();
+    $$(".opt", Q.mount).forEach(function (b, i) {
+      b.disabled = true;
+      if (it.opts[i] === it.q.a) b.classList.add("right");
+      else if (i === it.sel) b.classList.add("wrong");
+      else b.classList.add("dim");
+    });
+    showFb(ok, ok ? "" : it.q.a);
+  }
+  function answerFill(idk) {
+    var it = cur(); if (!it || it.done) return;
+    var inp = $("#ans"), val = inp.value.trim();
+    if (!val && !idk && Q.strict) { record(it, false, "(bez odpovědi)"); return next(); }
+    if (!val && !idk) { inp.focus(); inp.classList.add("nudge"); setTimeout(function () { inp.classList.remove("nudge"); }, 400); return; }
+    var r = idk ? { ok: false } : Norm.check(it.q, val, it.q.subj);
+    record(it, r.ok, idk ? "(nevím)" : val);
+    if (Q.strict) return next();
+    inp.disabled = true; inp.classList.add(r.ok ? "right" : "wrong");
+    $("#chk").hidden = true; var b = $("#idk"); if (b) b.hidden = true;
+    var extra = r.typo ? "Uznáno, jen drobný překlep – správně se píše <b>" + esc(r.typo) + "</b>." : "";
+    var alts = it.q.a.length > 1 ? '<span class="muted small"> (uznává se i: ' + it.q.a.slice(1).map(esc).join(", ") + ")</span>" : "";
+    showFb(r.ok, esc(it.q.a[0]) + alts, extra);
+  }
+  function reveal() {
+    var it = cur(); if (!it || it.revealed) return;
+    it.revealed = true;
+    if (document.activeElement && document.activeElement.id === "ans") document.activeElement.blur();
+    $("#reveal").parentNode.hidden = true;
+    $("#model").innerHTML = '<div class="model"><div class="lbl">Vzorová odpověď</div>' + it.q.a + "</div>" +
+      '<p class="muted small selfq">Porovnej se svou odpovědí. Věděl jsi to?</p>' +
+      '<div class="self"><button type="button" class="btn good" data-k="1"><kbd>1</kbd> Věděl jsem</button><button type="button" class="btn bad" data-k="0"><kbd>2</kbd> Nevěděl jsem</button></div>';
+    $$(".self .btn", Q.mount).forEach(function (b) { b.onclick = function () { selfGrade(b.dataset.k === "1"); }; });
+    var first = $(".self .btn", Q.mount); if (first) first.scrollIntoView({ block: "nearest" });
+  }
+  function selfGrade(ok) {
+    var it = cur(); if (!it || it.done || !it.revealed) return;
+    var txt = $("#ans").value.trim();
+    record(it, ok, (ok ? "věděl jsem" : "nevěděl jsem") + (txt ? " – „" + txt + "“" : ""));
+    $$(".self .btn", Q.mount).forEach(function (b) { b.disabled = true; if ((b.dataset.k === "1") === ok) b.classList.add("chosen"); else b.classList.add("dimmed"); });
+    $("#ans").disabled = true;
+    var fb = $("#fb"); fb.hidden = false; fb.className = "fb " + (ok ? "ok" : "bad");
+    fb.innerHTML = '<div class="fb-h">' + (ok ? "✓ Počítá se jako správně" : "✗ Zapsáno mezi chyby") + '</div><div class="fb-e">' +
+      (ok ? "Dobře. Zkus si to při opakování říct ještě stručněji." : "Vzorovou odpověď si přečti ještě jednou nahlas – otázka se ti vrátí v „Moje chyby“.") + "</div>";
+    showNext();
+  }
+  function showFb(ok, correct, extra) {
+    var it = cur(), fb = $("#fb");
+    fb.hidden = false; fb.className = "fb " + (ok ? "ok" : "bad");
+    fb.innerHTML = '<div class="fb-h">' + (ok ? "✓ Správně!" : "✗ Špatně") + "</div>" +
+      (correct ? '<div class="fb-a">Správná odpověď: <b>' + correct + "</b></div>" : "") +
+      (extra ? '<div class="fb-x">' + extra + "</div>" : "") +
+      (it.q.e ? '<div class="fb-e"><span>Proč:</span> ' + it.q.e + "</div>" : "");
+    showNext();
+  }
+  function showNext() {
+    var nx = $("#next"); nx.hidden = false; nx.disabled = false;
+    nx.textContent = Q.i + 1 < Q.list.length ? "Další otázka →" : "Zobrazit výsledek";
+    try { nx.focus({ preventScroll: true }); } catch (e) { nx.focus(); }
+    var r = nx.getBoundingClientRect();
+    if (r.bottom > window.innerHeight - 8) window.scrollBy({ top: r.bottom - window.innerHeight + 24, behavior: "smooth" });
+  }
+  function next() {
+    var it = cur(); if (!it || !it.done) return;
+    Q.i++;
+    if (Q.i >= Q.list.length) return showResults();
+    renderQ(false);
+  }
+  function correctOf(q) {
+    if (q.t === "mc") return q.a;
+    if (q.t === "fill") return esc(q.a[0]);
+    return '<details><summary>Vzorová odpověď</summary><div class="model">' + q.a + "</div></details>";
+  }
+  function showResults() {
+    stopTimer();
+    var n = Q.res.length, ok = Q.res.filter(function (r) { return r.ok; }).length, pct = n ? Math.round(ok / n * 100) : 0;
+    var wrong = Q.res.filter(function (r) { return !r.ok; });
+    var newBest = false;
+    if (Q.key && (Q.mode === "topic" || Q.mode === "test")) {
+      var b = store.get("best", {});
+      if (b[Q.key] == null || pct > b[Q.key]) { newBest = b[Q.key] != null; b[Q.key] = pct; store.set("best", b); }
+    }
+    var secs = Math.round((Date.now() - Q.t0) / 1000);
+    var grade = pct >= 90 ? "Výborně!" : pct >= 75 ? "Dobře, ještě kousek." : pct >= 50 ? "Půl napůl – zopakuj chyby." : "Projdi tahák a zkus to znovu.";
+    var label = Q.mode === "retry" ? "Opakování chyb" : Q.mode === "mistakes" ? "Moje chyby" : Q.mode === "test" ? "Zkušební test" + (Q.strict ? " (ostrý režim)" : "") : "Kvíz";
+    Q.mount.innerHTML =
+      '<section class="result"><div class="ring" style="--p:' + pct + '"><span>' + pct + " %</span></div><div><p class=\"muted small\">" + label + "</p><h2>" + grade + "</h2><p>" + ok + " z " + n + " správně · čas " + fmt(secs) +
+      (newBest ? ' · <b class="nb">nové nejlepší skóre</b>' : "") + "</p></div></section>" +
+      '<div class="acts res-acts">' +
+      (wrong.length ? '<button type="button" class="btn primary" id="rep">Zopakovat chyby (' + wrong.length + ")</button>" : "") +
+      '<button type="button" class="btn' + (wrong.length ? "" : " primary") + '" id="again">Znovu</button>' +
+      '<a class="btn ghost" href="#/' + Q.subj + '">Zpět na témata</a></div>' +
+      (wrong.length ? '<h3 class="sec">Chyby (' + wrong.length + ')</h3><ol class="mistakes">' + wrong.map(function (r) {
+        return "<li>" + (Q.mode !== "topic" ? '<span class="badge">' + r.q.topic.title + "</span> " : "") +
+          (r.q.bonus ? '<span class="badge bonus">Bonus – pokud jste brali</span>' : "") +
+          '<div class="m-q">' + r.q.q + "</div>" +
+          '<div class="m-row"><span class="lbl">Tvoje odpověď</span><span class="bad">' + esc(r.given) + "</span></div>" +
+          '<div class="m-row"><span class="lbl">Správně</span><span class="ok">' + correctOf(r.q) + "</span></div>" +
+          (r.q.e ? '<div class="m-e">' + r.q.e + "</div>" : "") + "</li>";
+      }).join("") + "</ol>" : '<p class="allok">Bez jediné chyby. 🎉</p>');
+    var base = Q.orig, rep = $("#rep");
+    if (rep) rep.onclick = function () {
+      startQuiz(Object.assign({}, base, { qs: wrong.map(function (r) { return r.q; }), mode: "retry", key: null, strict: false, rebuild: null }));
+      window.scrollTo(0, Q.mount.getBoundingClientRect().top + window.scrollY - 80);
+    };
+    $("#again").onclick = function () {
+      startQuiz(Object.assign({}, base, { qs: base.rebuild ? base.rebuild() : base.qs }));
+      window.scrollTo(0, Q.mount.getBoundingClientRect().top + window.scrollY - 80);
+    };
+    window.scrollTo(0, Math.max(0, Q.mount.getBoundingClientRect().top + window.scrollY - 80));
+  }
+
+  /* ---------- časomíra pro test ---------- */
+  function startTimer() { stopTimer(); timerId = setInterval(updTimer, 1000); }
+  function stopTimer() { if (timerId) { clearInterval(timerId); timerId = null; } }
+  function updTimer() { var el = document.getElementById("timer"); if (el && Q) el.textContent = "⏱ " + fmt(Math.round((Date.now() - Q.t0) / 1000)); }
+
+  /* ---------- zkušební test ---------- */
+  function buildTest(S, strict) {
+    var out = [], openLeft = strict ? 0 : (S.key === "cj" ? 2 : 0);
+    S.topics.forEach(function (t) {
+      var need = S.quotas[t.id] || 0;
+      shuffle(t.qs.filter(function (q) { return !q.bonus && !q.ctx; })).forEach(function (q) {
+        if (!need) return;
+        if (q.t === "open") { if (openLeft <= 0) return; openLeft--; }
+        out.push(q); need--;
+      });
+    });
+    return out;
+  }
+  function renderTestSetup(S) {
+    view = "testsetup";
+    var b = store.get("best", {})[S.key + ":test"], strict = !!store.get("strict", false);
+    app.innerHTML = crumbs(S) + "<h1>Zkušební test – " + S.name + "</h1>" +
+      '<div class="card setup"><p>' + S.testInfo + "</p>" +
+      '<ul class="quota">' + S.topics.map(function (t) { var n = S.quotas[t.id] || 0; return "<li><span>" + t.title + "</span><b>" + n + "×</b></li>"; }).join("") + "</ul>" +
+      '<label class="check"><input type="checkbox" id="strict"' + (strict ? " checked" : "") + "><span><b>Ostrý režim</b> – bez průběžné kontroly, výsledek a vysvětlení až na konci (jako ve škole)." + (S.key === "cj" ? " Bez otevřených otázek." : "") + "</span></label>" +
+      '<button type="button" class="btn primary big" id="go">Spustit test</button>' +
+      (b != null ? '<p class="muted small">Nejlepší výsledek: <b>' + b + " %</b></p>" : "") + '</div><div id="pane"></div>';
+    $("#go").onclick = function () {
+      var st = $("#strict").checked; store.set("strict", st);
+      var pane = $("#pane"); $(".setup").remove();
+      startQuiz({ mount: pane, qs: buildTest(S, st), key: S.key + ":test", mode: "test", subj: S.key, strict: st, rebuild: function () { return buildTest(S, st); } });
+    };
+  }
+
+  /* ---------- moje chyby ---------- */
+  function renderMistakes(S) {
+    view = "mistakes";
+    var qs = mistakesFor(S.key);
+    app.innerHTML = crumbs(S) + "<h1>Moje chyby – " + S.name + "</h1>" + (qs.length
+      ? '<p class="muted">Otázky, ve kterých byla naposledy chyba (' + qs.length + '). Po správné odpovědi ze seznamu zmizí. <button type="button" class="linkbtn" id="clr">Vymazat seznam</button></p><div id="pane"></div>'
+      : '<div class="card"><p>Zatím tu nic není. Chyby z kvízů a testů se sem ukládají automaticky.</p><a class="btn primary" href="#/' + S.key + '">Na témata</a></div>');
+    if (qs.length) {
+      startQuiz({ mount: $("#pane"), qs: qs, mode: "mistakes", subj: S.key, key: null, rebuild: function () { var x = mistakesFor(S.key); return x.length ? x : qs; } });
+      $("#clr").onclick = function () {
+        if (!confirm("Opravdu vymazat seznam chyb pro " + S.name + "?")) return;
+        var m = store.get("mist", {});
+        S.topics.forEach(function (t) { t.qs.forEach(function (q) { delete m[q.id]; }); });
+        store.set("mist", m); route();
+      };
+    }
+  }
+
+  /* ---------- kartičky ---------- */
+  function renderAllCards(S) {
+    app.innerHTML = crumbs(S) + "<h1>Všechny kartičky – " + S.name + '</h1><div id="pane"></div>';
+    startCards({ mount: $("#pane"), cards: S.allCards, showTopic: true });
+  }
+  function startCards(o) {
+    view = "cards";
+    C = Object.assign({ known: 0, flipped: false, rev: !!store.get("rev", false), missed: {} }, o);
+    C.queue = shuffle(o.cards.map(function (_, i) { return i; }));
+    C.total = o.cards.length;
+    renderCard();
+  }
+  function renderCard() {
+    if (!C.queue.length) return cardsDone();
+    var c = C.cards[C.queue[0]], front = C.rev ? c.b : c.f, back = C.rev ? c.f : c.b;
+    C.flipped = false;
+    C.mount.innerHTML =
+      '<div class="qtop"><span>Zbývá <b>' + C.queue.length + '</b></span><span><span class="okc">Umím ' + C.known + "</span> / " + C.total + "</span></div>" +
+      '<div class="progress"><i style="width:' + (C.known / C.total * 100) + '%"></i></div>' +
+      '<div class="flip" id="card" tabindex="0" role="button" aria-label="Kartička – klikni nebo stiskni mezerník pro otočení">' +
+      '<div class="flip-in"><div class="face front">' + (C.showTopic ? '<span class="badge">' + c.t + "</span>" : "") +
+      '<div class="ftext">' + front + '</div><span class="hint">klikni nebo mezerník = otočit</span></div>' +
+      '<div class="face back"><span class="hint">odpověď</span><div class="ftext">' + back + "</div></div></div></div>" +
+      '<div class="cardbtns"><button type="button" class="btn bad" id="no">✗ Ještě ne <kbd>←</kbd></button><button type="button" class="btn good" id="yes">✓ Umím <kbd>→</kbd></button></div>' +
+      '<div class="cardtools"><button type="button" class="btn ghost sm" id="rev">⇄ Otočit směr' + (C.rev ? " (zapnuto)" : "") + '</button><button type="button" class="btn ghost sm" id="restart">↻ Začít znovu</button></div>';
+    var el = $("#card");
+    el.onclick = flip;
+    $("#yes").onclick = cardYes; $("#no").onclick = cardNo;
+    $("#rev").onclick = function () { C.rev = !C.rev; store.set("rev", C.rev); renderCard(); };
+    $("#restart").onclick = function () { startCards({ mount: C.mount, cards: C.cards, showTopic: C.showTopic }); };
+    try { el.focus({ preventScroll: true }); } catch (e) { /* starší prohlížeč */ }
+  }
+  function flip() { if (!C || !C.queue.length) return; C.flipped = !C.flipped; $("#card").classList.toggle("on", C.flipped); }
+  function cardYes() { if (!C || !C.queue.length) return; C.queue.shift(); C.known++; renderCard(); }
+  function cardNo() { if (!C || !C.queue.length) return; var i = C.queue.shift(); C.missed[i] = 1; C.queue.push(i); renderCard(); }
+  function cardsDone() {
+    var miss = Object.keys(C.missed).map(Number);
+    C.mount.innerHTML = '<section class="result"><div class="ring" style="--p:100"><span>✓</span></div><div><h2>Hotovo!</h2><p>Všech ' + C.total + " karet je za tebou. Napoprvé správně: " + (C.total - miss.length) + " z " + C.total + ".</p></div></section>" +
+      '<div class="acts"><button type="button" class="btn primary" id="again">Znovu všechny</button>' +
+      (miss.length ? '<button type="button" class="btn" id="hard">Jen ty, co nešly napoprvé (' + miss.length + ")</button>" : "") + "</div>";
+    var all = C.cards, mount = C.mount, st = C.showTopic;
+    $("#again").onclick = function () { startCards({ mount: mount, cards: all, showTopic: st }); };
+    var h = $("#hard"); if (h) h.onclick = function () { startCards({ mount: mount, cards: miss.map(function (i) { return all[i]; }), showTopic: st }); };
+  }
+
+  /* ---------- klávesnice ---------- */
+  document.addEventListener("keydown", function (e) {
+    if (e.altKey || e.metaKey) return;
+    var t = e.target || {}, tag = (t.tagName || "").toUpperCase();
+    var typing = tag === "INPUT" || tag === "TEXTAREA";
+    if (view === "quiz" && cur()) return quizKey(e, t, tag, typing);
+    if (view === "cards" && C && C.queue.length) return cardKey(e, typing);
+    if (view === "testsetup" && e.key === "Enter" && tag !== "BUTTON" && tag !== "A" && !typing) { var g = $("#go"); if (g) { e.preventDefault(); g.click(); } }
+  });
+  function quizKey(e, t, tag, typing) {
+    var it = cur(), q = it.q;
+    if (e.key === "Enter") {
+      if (e.repeat) { e.preventDefault(); return; }
+      if (e.ctrlKey) { if (q.t === "open" && !it.revealed) { e.preventDefault(); reveal(); } return; }
+      if (tag === "BUTTON" || tag === "A" || tag === "SUMMARY") {
+        if (Q.strict && t.classList && t.classList.contains("opt") && !it.done) { e.preventDefault(); selectOpt(+t.dataset.i); answerMC(); }
+        return; // tlačítko se aktivuje samo
+      }
+      if (tag === "TEXTAREA") return; // nový řádek
+      e.preventDefault();
+      if (it.done) return next();
+      if (q.t === "mc") { if (it.sel != null) answerMC(); }
+      else if (q.t === "fill") answerFill(false);
+      else if (!it.revealed) reveal();
+      return;
+    }
+    if (typing || e.ctrlKey) return;
+    if (/^[1-4]$/.test(e.key)) {
+      var k = +e.key;
+      if (q.t === "mc" && !it.done) { e.preventDefault(); selectOpt(k - 1); }
+      else if (q.t === "open" && it.revealed && !it.done && k <= 2) { e.preventDefault(); selfGrade(k === 1); }
+    }
+  }
+  function cardKey(e, typing) {
+    if (typing || e.ctrlKey) return;
+    var k = e.key;
+    if (k === " " || k === "Spacebar" || (k === "Enter" && e.target && e.target.id === "card")) { e.preventDefault(); flip(); }
+    else if (k === "ArrowRight" || k === "u" || k === "U") { e.preventDefault(); cardYes(); }
+    else if (k === "ArrowLeft" || k === "j" || k === "J") { e.preventDefault(); cardNo(); }
+  }
+  // mezerník na tlačítku by po keyup kartičku „odklikl“ znovu – zablokovat
+  document.addEventListener("keyup", function (e) { if (view === "cards" && (e.key === " " || e.key === "Spacebar")) e.preventDefault(); });
+
+  /* ---------- start ---------- */
+  if (!location.hash) history.replaceState(null, "", "#/" + (store.get("subj", "cj") === "aj" ? "aj" : "cj"));
+  route();
+})();
+
+</script>
+</body>
+</html>
