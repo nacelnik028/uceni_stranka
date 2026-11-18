@@ -51,7 +51,7 @@ Pro přípravu na konkrétní písemku vzniká samostatná stránka v kořeni (`
 - **Zkušební test** napříč tématy (asi 25 otázek, váha podle toho, co bude v testu nejvíc), volitelně ostrý režim bez průběžné kontroly.
 - **Moje chyby**: špatně zodpovězené otázky se ukládají a dají se procvičit znovu.
 - Nejlepší skóre v `localStorage`, ovládání klávesnicí (1–4, Enter, mezerník, šipky), funguje od šířky 360 px.
-- Obsah jen ze zápisů (u literatury nic navíc z učebnic). U gramatiky má každá otázka jedinou správnou možnost.
+- Obsah jen ze zápisů v Notionu (u literatury nic navíc z učebnic, u gramatiky jen to, co v zápisech je). Látku mimo zápisy přidávat jen na výslovné přání (u testu 19. 11. will / going to). Před stavbou stránky zápisy zkontrolovat přímo v Notionu. U gramatiky má každá otázka jedinou správnou možnost.
 
 **Pravidlo: každý test se přidá do sekce „Procvičování na testy“ na hlavní stránce.** Sekce je na úvodu hned pod úvodním panelem. Řadí nadcházející testy podle data, u nejbližších ukazuje „dnes“ / „zítra“, proběhlé dává za ně (starší než tři schová pod „Starší testy“).
 
@@ -69,7 +69,7 @@ Pro přípravu na konkrétní písemku vzniká samostatná stránka v kořeni (`
 
 | Stránka | Test | Obsah |
 |---|---|---|
-| [`test-cj-aj-2026-11-19.html`](test-cj-aj-2026-11-19.html) | ČJ a AJ, čt 19. 11. 2026 | ČJ: romantismus, 6 témat, 148 otázek jen ze zápisů. AJ: 5 témat, 210 otázek, nejvíc will / going to (53) a podmínkové věty (67). U obou i „Všechna témata“ (kvíz ze všech otázek, celý tahák, všechny kartičky) |
+| [`test-cj-aj-2026-11-19.html`](test-cj-aj-2026-11-19.html) | ČJ a AJ, čt 19. 11. 2026 | ČJ: romantismus, 6 témat, 148 otázek jen ze zápisů. AJ: 5 témat, 189 otázek, nejvíc will / going to (53) a první podmínková věta (46). U obou i „Všechna témata“ (kvíz ze všech otázek, celý tahák, všechny kartičky) |
 
 ## Studijní přehledy
 

@@ -995,7 +995,7 @@ DATA.cj = {
 /* ANGLIČTINA – celé čtvrtletí, důraz na will / going to a podmínkové věty */
 DATA.aj = {
   name: "Angličtina",
-  testInfo: "25 náhodných otázek; 17 z nich (2/3) je z will / going to a podmínkových vět.",
+  testInfo: "25 náhodných otázek; 17 z nich (2/3) je z will / going to a první podmínkové věty.",
   quotas: { will: 9, cond: 8, link: 3, pref: 2, work: 3 },
   topics: [
 /* ───────────────────────── 1. WILL / GOING TO ───────────────────────── */
@@ -1104,61 +1104,62 @@ DATA.aj = {
     ["be likely to + infinitiv", "pravděpodobně (něco) udělat<br>Travel agents are likely to disappear."],
   ]
 },
-/* ───────────────────────── 2. PODMÍNKOVÉ VĚTY ───────────────────────── */
+/* ───────────────────────── 2. PRVNÍ PODMÍNKOVÁ VĚTA ───────────────────────── */
 {
-  id: "cond", title: "Podmínkové věty", sub: "0., 1., 2. kondicionál (+ bonus 3.)", main: 1,
+  id: "cond", title: "První podmínková věta", sub: "first conditional – tvoření, význam a čárky", main: 1,
   sheet: `
-<div class="tablewrap"><table>
-<tr><th>Typ</th><th>Vzorec</th><th>Kdy</th><th>Příklad</th></tr>
-<tr><td><b>0.</b></td><td>if + present simple, <b>present simple</b></td><td>obecná pravda, platí vždy</td><td>If you heat ice, it melts.</td></tr>
-<tr class="hl"><td><b>1.</b></td><td>if + present simple, <b>will / won't + infinitiv</b></td><td>budoucí situace, reálně možná</td><td>If I have time, I'll call you.</td></tr>
-<tr><td><b>2.</b></td><td>if + past simple, <b>would + infinitiv</b></td><td>hypotetická, méně pravděpodobná situace (minulý tvar ≠ minulost)</td><td>If I got the job, I would move.</td></tr>
-<tr class="bonus"><td><b>3.</b><br><span class="tag">bonus – pokud jste brali</span></td><td>if + past perfect, <b>would have + 3. tvar</b></td><td>minulost, už nejde změnit</td><td>If I had studied, I would have passed.</td></tr>
-</table></div>
+<p class="lead">Podmínková věta spojuje <b>podmínku</b> a její <b>důsledek</b>: jestliže nastane A, nastane B. <b>First conditional</b> používáme pro <b>budoucí situaci, kterou považujeme za reálně možnou</b> (splnění podmínky ale není jisté).</p>
+<p><i>If I get the job, I'll move.</i> – Pokud tu práci dostanu, přestěhuji se.</p>
 
-<h3>1. kondicionál – pravidla</h3>
+<h3>Vzorec</h3>
+<div class="note"><b>if + present simple, will / won't + základní tvar slovesa</b><br>
+Věta s <b>if</b> = podmínka, hlavní věta = výsledek.</div>
 <ul>
-<li>Po <b>if</b> je přítomný čas: if I <b>have</b> time tomorrow (✗ if I will have).</li>
-<li>he / she / it → <b>-s</b>: if she want<b>s</b>; zápor <b>don't / doesn't</b>, <b>isn't</b>.</li>
-<li>I'll = I will, won't = will not.</li>
-<li>Výjimka: <b>will</b> po if ve významu <b>ochoty</b> (If you will help me, …).</li>
-<li>Hlavní věta může být <b>otázka</b> nebo <b>pokyn</b>: If you have time tomorrow, can you call me? / If you're in town next week, get in touch.</li>
-<li>Místo will může být <b>may / might</b> (možná) nebo <b>can</b> (můžeš, smíš): If it rains, we might stay at home.</li>
+<li>Po <b>if</b> je přítomný čas, i když jde o budoucnost: <i>if I have time tomorrow</i>, <i>if she becomes a solicitor</i> (✗ if I will have).</li>
+<li>he / she / it → <b>-s</b>: if she want<b>s</b>, if she become<b>s</b>; zápor <b>don't / doesn't</b>, u be <b>isn't</b>.</li>
+<li>Zkrácené tvary: I'll = I will, she'll = she will, won't = will not.</li>
+<li>Pravidlo „po if není will“ platí pro běžnou podmínku s budoucím významem. Výjimkou může být <b>will</b> ve významu <b>ochoty</b>.</li>
 </ul>
 
-<h3>Čárka</h3>
-<p>If-věta <b>na začátku → čárka</b>: If you text me<b>,</b> I'll reply immediately.<br>If-věta <b>na konci → bez čárky</b>: I'll reply immediately if you text me.</p>
+<h3>Pořadí vět a čárka</h3>
+<div class="tablewrap"><table>
+<tr><td><b>if na začátku → čárka</b></td><td>If you text me<b>,</b> I'll reply immediately.</td></tr>
+<tr><td><b>if na konci → bez čárky</b></td><td>I'll reply immediately if you text me.</td></tr>
+</table></div>
+<p class="small">Změna pořadí nemění význam. (Čeština odděluje vedlejší větu čárkou v obou pořadích, angličtina ne.)</p>
 
-<h3>unless = if not</h3>
-<p>Unless you hurry, you'll miss the bus. = If you don't hurry, you'll miss the bus. (po unless je sloveso kladně)</p>
-
-<h3>Rada: If I were you…</h3>
-<p>If I were you, I'd apologise. (u všech osob <b>were</b>)</p>
+<h3>Otázka nebo pokyn jako hlavní věta</h3>
+<p>Hlavní věta nemusí vždy obsahovat will:</p>
+<ul class="ex">
+<li>If you have time tomorrow, can you call me? – Pokud budeš zítra mít čas, můžeš mi zavolat?</li>
+<li>If you're in town next week, get in touch. – Pokud budeš příští týden ve městě, ozvi se.</li>
+</ul>
 
 <h3>Postup při tvoření věty</h3>
-<ol class="steps"><li>Urči podmínku a výsledek.</li><li>Do if-věty dej přítomný čas (pozor na -s a zápor).</li><li>V hlavní větě will / won't + infinitiv (nebo otázka či pokyn).</li><li>Zkontroluj čárku.</li></ol>
+<ol class="steps"><li>Urči podmínku a výsledek a zvaž, zda jde o reálnou budoucí možnost.</li><li>Do věty s if dej přítomný čas, zkontroluj -s a zápor.</li><li>V hlavní větě will / won't + základní tvar (nebo otázka či pokyn).</li><li>Podle pořadí vět zkontroluj čárku.</li></ol>
 
 <h3>Příklady ze zápisu</h3>
-<ul class="ex">
-<li>She'll earn a lot of money if she becomes a solicitor.</li>
-<li>She will have to work very hard if she wants to go to university.</li>
-<li>We won't go skiing if there isn't enough snow.</li>
-<li>If you come home late, your parents will worry.</li>
-<li>I'll quit if I don't get a pay rise.</li>
-<li>If I graduate from this school, I'll celebrate.</li>
-<li>If you don't hurry up, you'll be late for school.</li>
-<li>If I have time, I'll call you later.</li>
-<li>If this trend continues, travel agents will probably become unnecessary.</li>
-<li>People will no longer need guidebooks if they use tourist information websites.</li>
-<li>If people can find flats and houses online, we won't need estate agents.</li>
-</ul>`,
+<div class="tablewrap"><table class="voc">
+<tr><td>If I have time, I'll call you later.</td><td>Pokud budu mít čas, zavolám ti později.</td></tr>
+<tr><td>If you don't hurry up, you'll be late for school.</td><td>Pokud si nepospíšíš, přijdeš pozdě do školy.</td></tr>
+<tr><td>She'll earn a lot of money if she becomes a solicitor.</td><td>Pokud se stane právničkou, bude vydělávat hodně peněz.</td></tr>
+<tr><td>She will have to work very hard if she wants to go to university.</td><td>Pokud chce jít na VŠ, bude muset velmi tvrdě pracovat.</td></tr>
+<tr><td>We won't go skiing if there isn't enough snow.</td><td>Pokud nebude dost sněhu, nepůjdeme lyžovat.</td></tr>
+<tr><td>If you come home late, your parents will worry.</td><td>Pokud přijdeš domů pozdě, rodiče si budou dělat starosti.</td></tr>
+<tr><td>I'll quit if I don't get a pay rise.</td><td>Pokud mi nezvýší plat, odejdu ze zaměstnání.</td></tr>
+<tr><td>If I graduate from this school, I'll celebrate.</td><td>Pokud dokončím tuto školu, oslavím to.</td></tr>
+<tr><td>If this trend continues, travel agents will probably become unnecessary.</td><td>Pokud trend bude pokračovat, cestovní agenti budou pravděpodobně zbyteční.</td></tr>
+<tr><td>People will no longer need guidebooks if they use tourist information websites.</td><td>Lidé už nebudou potřebovat průvodce, pokud budou používat turistické weby.</td></tr>
+<tr><td>If people can find flats and houses online, we won't need estate agents.</td><td>Pokud lidé najdou byty a domy online, nebudeme potřebovat realitní makléře.</td></tr>
+</table></div>
+<p class="small muted">V zápisu je jen jedna srovnávací věta s druhou podmínkou: <i>If I got the job, I would move.</i> (hypotetická, méně pravděpodobná situace). Druhá podmínka se tu neprocvičuje.</p>`,
   qs: [
-    M("If it ___ tomorrow, we'll stay at home.", "rains", ["will rain", "rain", "rained"], "1. kondicionál: po if přítomný čas, it → rains. „If it will rain“ je chyba."),
+    M("If it ___ tomorrow, we'll stay at home.", "rains", ["will rain", "rain", "rained"], "První podmínka: po if přítomný čas, it → rains. „If it will rain“ je chyba."),
     M("If you ___ hard, you'll pass the exam.", "study", ["will study", "studies", "studied"], "Po if přítomný čas; you → study (bez -s)."),
     M("She will have to work very hard if she ___ to go to university.", "wants", ["want", "will want", "is wanting"], "Po if přítomný čas, she → -s: wants."),
-    M("We ___ skiing if there isn't enough snow.", "won't go", ["won't to go", "not will go", "doesn't go"], "Hlavní věta: won't + infinitiv bez to."),
+    M("We ___ skiing if there isn't enough snow.", "won't go", ["won't to go", "not will go", "doesn't go"], "Hlavní věta: won't + základní tvar bez to."),
     M("If you come home late, your parents ___.", "will worry", ["will worried", "worries", "would worried"], "Hlavní věta: will + základní tvar (worry)."),
-    M("I'll quit if I ___ a pay rise.", "don't get", ["won't get", "doesn't get", "not get"], "Zápor v if-větě v přítomném čase: I don't get. Po if není will."),
+    M("I'll quit if I ___ a pay rise.", "don't get", ["won't get", "doesn't get", "not get"], "Zápor ve větě s if v přítomném čase: I don't get. Po if není will."),
     M("If I ___ from this school, I'll celebrate.", "graduate", ["will graduate", "graduates", "graduated"], "Po if přítomný čas: I graduate."),
     M("If you don't hurry up, you ___ late for school.", "'ll be", ["will to be", "be", "would being"], "Hlavní věta: will ('ll) + be."),
     M("If I have time, I ___ you later.", "'ll call", ["'ll calling", "calls", "would called"], "will + základní tvar: I'll call."),
@@ -1166,76 +1167,55 @@ DATA.aj = {
     M("If this trend ___, travel agents will probably become unnecessary.", "continues", ["will continue", "continue", "continued"], "If + present simple; this trend (it) → continues."),
     M("People ___ guidebooks if they use tourist information websites.", "will no longer need", ["will no longer needs", "won't no longer need", "are no longer need"], "will + no longer + základní tvar. „won't no longer“ = dvojitý zápor."),
     M("If people can find flats and houses online, we ___ estate agents.", "won't need", ["won't needs", "not will need", "doesn't need"], "won't + základní tvar: won't need."),
-    M("If she ___ late again, her boss will be angry.", "is", ["will be", "be", "was"], "Po if přítomný čas: she is."),
+    M("If she ___ late again, her boss will be angry.", "is", ["will be", "be", "are"], "Po if přítomný čas: she is."),
     M("Which sentence is correct?", "If it rains tomorrow, we'll stay at home.", ["If it will rain tomorrow, we'll stay at home.", "If it will rain tomorrow, we stay at home.", "If it rain tomorrow, we'll stay at home."], "Po if je přítomný čas a u it koncovka -s: If it rains…"),
     M("Najdi <b>chybnou</b> větu.", "If he will come, we'll start.", ["If he comes, we'll start.", "We'll start if he comes.", "If he doesn't come, we'll start without him."], "Po if v běžné podmínce není will: If he comes, …"),
-    M("Which sentence is a <b>first</b> conditional?", "If it's sunny on Saturday, we'll have a picnic.", ["If it was sunny, we would have a picnic.", "If you heat water, it boils.", "If it had been sunny, we would have had a picnic."], "if + present, will = 1. kondicionál. Ostatní: 2., 0. a 3. kondicionál."),
-    M("Která věta má správně čárku?", "If you text me, I'll reply immediately.", ["If you text me I'll reply, immediately.", "I'll reply immediately, if you text me.", "If, you text me I'll reply immediately."], "If-věta na začátku → čárka za ní. If-věta na konci → bez čárky."),
-    M("Která věta je interpunkčně správně?", "I'll call you if I have time.", ["I'll call you, if I have time.", "I'll call, you if I have time.", "If I have time I'll call, you."], "If-věta na konci → žádná čárka."),
-    M("Která věta je správná první podmínková věta s <b>pokynem</b>?", "If you're in town next week, get in touch.", ["If you'll be in town next week, get in touch.", "If you were in town next week, get in touch.", "If you're in town next week, will get in touch."], "Hlavní věta může být pokyn (rozkazovací způsob). Po if přítomný čas: you're."),
+    M("Which sentence is a correct first conditional?", "If it's sunny on Saturday, we'll have a picnic.", ["If it will be sunny on Saturday, we'll have a picnic.", "If it sunny on Saturday, we'll have a picnic.", "If it's sunny on Saturday, we'll having a picnic."], "if + present simple, will + základní tvar. Chyby: will po if, chybí sloveso (is), will having."),
+    M("Která věta má správně čárku?", "If you text me, I'll reply immediately.", ["If you text me I'll reply, immediately.", "I'll reply immediately, if you text me.", "If, you text me I'll reply immediately."], "If na začátku → čárka za větou s if. If na konci → bez čárky."),
+    M("Která věta je interpunkčně správně?", "I'll call you if I have time.", ["I'll call you, if I have time.", "I'll call, you if I have time.", "If I have time I'll call, you."], "If na konci → žádná čárka."),
+    M("Která věta je správná první podmínka s <b>pokynem</b>?", "If you're in town next week, get in touch.", ["If you'll be in town next week, get in touch.", "If you're in town next week get in touch.", "If you're in town next week, will get in touch."], "Hlavní věta může být pokyn. Po if přítomný čas (you're) a if na začátku → čárka."),
     M("If you have time tomorrow, ___ call me?", "can you", ["can you to", "will you can", "do you can"], "Hlavní věta může být otázka: can you + základní tvar."),
-    M("“Unless you hurry, you'll miss the bus.” means:", "If you don't hurry, you'll miss the bus.", ["If you hurry, you'll miss the bus.", "If you don't hurry, you won't miss the bus.", "Unless you don't hurry, you'll miss the bus."], "unless = if not. Po unless je kladné sloveso."),
-    M("I'm scared to go alone. I won't go ___ you come with me.", "unless", ["despite", "although", "in spite of"], "unless = pokud ne: Nepůjdu, pokud nepůjdeš se mnou."),
-    M("If you heat ice, it ___.", "melts", ["melt", "melted", "melting"], "Nultý kondicionál – obecná pravda: present simple v obou větách (it melts)."),
-    M("Nultý kondicionál používáme pro:", "obecné pravdy a věci, které platí vždy", ["reálně možné budoucí situace", "hypotetické, málo pravděpodobné situace", "minulost, kterou už nejde změnit"], "0. = obecná pravda. 1. = reálná budoucnost, 2. = hypotetická situace, 3. = minulost."),
-    M("Který vzorec je <b>nultý</b> kondicionál?", "if + present simple, present simple", ["if + present simple, will + infinitive", "if + past simple, would + infinitive", "if + past perfect, would have + past participle"], "0.: present – present. 1.: present – will. 2.: past – would. 3.: past perfect – would have."),
-    M("If I ___ the job, I would move.", "got", ["get", "will get", "would get"], "2. kondicionál: if + past simple (got), would + infinitiv."),
-    M("If I won the lottery, I ___ a big house.", "would buy", ["will buy", "buy", "bought"], "2. kondicionál: if + past simple, would + infinitiv."),
-    M("If I ___ you, I would apply for that job.", "were", ["am", "will be", "would be"], "Rada: If I were you… (u všech osob were)."),
-    M("Jaký je rozdíl? (a) If I get the job, I'll move. (b) If I got the job, I'd move.", "(a) je reálně možná budoucnost, (b) je hypotetická, méně pravděpodobná situace.", ["(a) je o minulosti, (b) o budoucnosti.", "Obě znamenají totéž, (b) je jen formálnější.", "(a) je hypotetická, (b) je reálná."], "1. kondicionál = reálná možnost. 2. kondicionál = hypotéza; minulý tvar tu neznamená minulost."),
-    M("Ve větě „If I got the job, I would move.“ znamená minulý tvar „got“:", "hypotetičnost (méně pravděpodobné) – ne minulost", ["že se to stalo včera", "že to už nejde změnit", "obecnou pravdu"], "Ve 2. kondicionálu minulý tvar vyjadřuje nereálnost, ne minulost."),
-    M("Which sentence gives advice correctly?", "If I were you, I'd apologise.", ["If I am you, I'll apologise.", "If I were you, I'll apologise.", "If I would be you, I'd apologise."], "If I were you, I'd (= I would) … – pevná vazba pro radu."),
-    M("If it rains, we ___ stay at home – we haven't decided yet.", "might", ["might to", "musts", "would"], "might = možná (není to jisté). Po might základní tvar bez to."),
-    M("Která věta vyjadřuje jen <b>možnost</b>, ne jistotu?", "If you study, you may pass.", ["If you study, you will pass.", "If you heat ice, it melts.", "If you study, you'll definitely pass."], "may / might = možná. will = jistota."),
-    M("Jaký typ je věta: „If you heat ice, it melts.“?", "nultý kondicionál", ["první kondicionál", "druhý kondicionál", "třetí kondicionál"], "present + present = 0. kondicionál (obecná pravda)."),
-    M("Jaký typ je věta: „If I have time, I'll call you.“?", "první kondicionál", ["nultý kondicionál", "druhý kondicionál", "třetí kondicionál"], "if + present, will = 1. kondicionál."),
-    M("Jaký typ je věta: „If I had a car, I'd drive to school.“?", "druhý kondicionál", ["první kondicionál", "nultý kondicionál", "třetí kondicionál"], "if + past simple, would = 2. kondicionál."),
+    M("Která věta znamená: „Pokud mi nezvýší plat, odejdu ze zaměstnání.“?", "I'll quit if I don't get a pay rise.", ["I'll quit if I won't get a pay rise.", "I'll quit, if I don't get a pay rise.", "I quit if I won't get a pay rise."], "Po if přítomný čas (don't get), v hlavní větě will (I'll quit), if na konci bez čárky."),
+    M("First conditional používáme pro:", "budoucí situaci, kterou považujeme za reálně možnou", ["situaci, která se už stala", "situaci, která je úplně nemožná", "zvyk v minulosti"], "First conditional = reálná budoucí možnost; splnění podmínky ale není jisté."),
+    M("Ve větě „If you come home late, your parents will worry.“ vyjadřuje <b>výsledek</b> (důsledek):", "your parents will worry", ["If you come home late", "come home late", "If"], "Věta s if je podmínka, hlavní věta je výsledek."),
+    M("Proč je ve „if I have time tomorrow“ přítomný čas, i když jde o budoucnost?", "V první podmínce se po if v běžné podmínce používá přítomný čas.", ["Protože jde o minulost.", "Protože tomorrow vyžaduje přítomný průběhový čas.", "Je to chyba, správně je if I will have time."], "Pravidlo: if + present simple, will + základní tvar."),
     M("Po if v běžné podmínce s budoucím významem dáváme:", "přítomný čas (present simple)", ["will", "going to", "minulý čas"], "Pravidlo „po if není will“: If I have time tomorrow…"),
-    M("Kdy může být will po if?", "když znamená ochotu (If you will help me, …)", ["nikdy", "vždy, když mluvíme o budoucnosti", "jen v otázkách"], "Výjimka ze zápisu: will ve významu ochoty."),
+    M("Kdy může být will po if?", "když znamená ochotu", ["nikdy", "vždy, když mluvíme o budoucnosti", "jen v otázkách"], "Podle zápisu to není absolutní zákaz: will po if může vyjadřovat například ochotu."),
     F("If she ___ , she can come with us. <span class=hint>(want)</span>", ["wants"], "Po if přítomný čas, she → wants."),
     F("If you ___ up, you'll miss the bus. <span class=hint>(not / hurry)</span>", ["don't hurry"], "Zápor v přítomném čase: you don't hurry."),
     F("If he ___ , he won't pass the test. <span class=hint>(not / study)</span>", ["doesn't study"], "he → doesn't + základní tvar: doesn't study."),
     F("If it ___ sunny tomorrow, we'll go to the beach. <span class=hint>(be)</span>", ["is"], "Po if přítomný čas: it is (it's)."),
     F("If you text me, I ___ immediately. <span class=hint>(reply)</span>", ["will reply"], "Hlavní věta: will reply (I'll reply)."),
-    F("If it rains this afternoon, I ___ my new umbrella. <span class=hint>(open)</span>", ["will open"], "Hlavní věta 1. kondicionálu: will + infinitiv – I'll open."),
+    F("If it rains this afternoon, I ___ my new umbrella. <span class=hint>(open)</span>", ["will open"], "Hlavní věta první podmínky: will + základní tvar – I'll open."),
     F("We ___ skiing if there isn't enough snow. <span class=hint>(not / go)</span>", ["won't go"], "won't (= will not) + go."),
     F("If there ___ enough snow, we won't go skiing. <span class=hint>(not / be)</span>", ["isn't", "there isn't"], "Po if přítomný čas, zápor: there isn't (is not)."),
     F("She ___ a lot of money if she becomes a solicitor. <span class=hint>(earn)</span>", ["will earn"], "Hlavní věta: will earn (she'll earn)."),
     F("If I ___ the job, I'll move to London. <span class=hint>(get)</span>", ["get"], "Po if přítomný čas: I get."),
     F("If they ___ the train, they'll be late. <span class=hint>(miss)</span>", ["miss"], "Po if přítomný čas: they miss."),
-    F("If I ___ a pay rise, I'll quit. <span class=hint>(not / get)</span>", ["don't get"], "Zápor v if-větě: I don't get."),
+    F("If I ___ a pay rise, I'll quit. <span class=hint>(not / get)</span>", ["don't get"], "Zápor ve větě s if: I don't get."),
     F("If you come home late, your parents ___ . <span class=hint>(worry)</span>", ["will worry"], "Hlavní věta: will worry."),
     F("Oprav chybu a napiš celou větu: <i>If I will see him, I'll tell him.</i>", ["If I see him, I will tell him"], "Po if přítomný čas: If I see him, I'll tell him."),
-    F("unless = ___ <span class=hint>(dvě slova)</span>", ["if not"], "unless = if not (pokud ne)."),
-    F("Přepiš s unless: If you don't study, you'll fail. → ___ you study, you'll fail.", ["unless"], "If you don't study = Unless you study (po unless kladně)."),
-    F("Water ___ if you heat it to 100 °C. <span class=hint>(boil – nultý kondicionál)</span>", ["boils"], "Obecná pravda → present simple: water boils."),
-    F("If you mix red and white, you ___ pink. <span class=hint>(get – nultý kondicionál)</span>", ["get"], "Nultý kondicionál: present simple – you get."),
-    F("If I ___ more money, I would travel the world. <span class=hint>(have)</span>", ["had"], "2. kondicionál: if + past simple → had."),
-    F("If she studied harder, she ___ the exam. <span class=hint>(pass)</span>", ["would pass"], "2. kondicionál: would + infinitiv (she'd pass)."),
-    F("If I ___ you, I'd take the job. <span class=hint>(be)</span>", ["were"], "If I were you – v radách u všech osob were."),
-    F("If you finish early, you ___ home. <span class=hint>(can / go)</span>", ["can go"], "can + základní tvar: you can go."),
-    M("If I had studied, I ___ the exam.", "would have passed", ["will have pass", "would passed", "had passed"], "3. kondicionál: if + past perfect, would have + 3. tvar (passed).", { bonus: 1 }),
-    M("Třetí kondicionál vyjadřuje:", "nesplněnou podmínku v minulosti (už se to nestalo a nejde to změnit)", ["reálně možnou budoucnost", "obecnou pravdu", "radu do budoucna"], "If I had studied, I would have passed. = Kdybych se (býval) učil, (byl bych) prošel – ale neučil jsem se.", { bonus: 1 }),
-    M("Který vzorec je <b>třetí</b> kondicionál?", "if + past perfect, would have + past participle", ["if + past simple, would + infinitive", "if + present simple, will + infinitive", "if + present perfect, will have + infinitive"], "3. kondicionál: if + had + 3. tvar, would have + 3. tvar.", { bonus: 1 }),
-    F("If she had left earlier, she ___ the bus. <span class=hint>(not / miss)</span>", ["wouldn't have missed"], "3. kondicionál: would not have + missed.", { bonus: 1 }),
-    O("Vysvětli postup při tvoření první podmínkové věty a uveď příklad s čárkou i bez čárky.", "<ol><li>Urči podmínku a výsledek.</li><li>If-věta: přítomný čas (he/she/it -s, zápor don't/doesn't/isn't).</li><li>Hlavní věta: will / won't + infinitiv (nebo otázka či pokyn).</li><li>Čárka jen když je if-věta na začátku.</li></ol>If you text me<b>,</b> I'll reply immediately. / I'll reply immediately if you text me."),
-    O("Porovnej nultý, první a druhý kondicionál: vzorec, použití a příklad.", "<b>0.</b> if + present, present – obecná pravda: If you heat ice, it melts.<br><b>1.</b> if + present, will – reálná budoucnost: If I have time, I'll call you.<br><b>2.</b> if + past, would – hypotéza: If I got the job, I would move."),
+    O("Přelož do angličtiny: <i>Pokud mi napíšeš zprávu, hned odpovím.</i>", "<b>If you text me, I'll reply immediately.</b><br>nebo bez čárky: <i>I'll reply immediately if you text me.</i>"),
+    O("Přelož do angličtiny: <i>Pokud si nepospíšíš, přijdeš pozdě do školy.</i>", "<b>If you don't hurry up, you'll be late for school.</b>"),
+    O("Přelož do angličtiny: <i>Pokud nebude dost sněhu, nepůjdeme lyžovat.</i>", "<b>If there isn't enough snow, we won't go skiing.</b><br>nebo: <i>We won't go skiing if there isn't enough snow.</i>"),
+    O("Přelož do angličtiny: <i>Pokud budeš zítra mít čas, můžeš mi zavolat?</i>", "<b>If you have time tomorrow, can you call me?</b> – hlavní věta je otázka, ve větě s if zůstává přítomný čas."),
+    O("Vysvětli postup při tvoření první podmínkové věty a uveď příklad s čárkou i bez čárky.", "<ol><li>Urči podmínku a výsledek (reálná budoucí možnost).</li><li>Věta s if: přítomný čas (he/she/it -s, zápor don't/doesn't/isn't).</li><li>Hlavní věta: will / won't + základní tvar (nebo otázka či pokyn).</li><li>Čárka jen když je if na začátku.</li></ol><i>If you text me<b>,</b> I'll reply immediately.</i> / <i>I'll reply immediately if you text me.</i>"),
   ],
   cards: [
-    ["0. kondicionál – vzorec", "if + present simple, present simple<br><i>If you heat ice, it melts.</i>"],
-    ["1. kondicionál – vzorec", "if + present simple, will / won't + infinitiv<br><i>If I have time, I'll call you.</i>"],
-    ["2. kondicionál – vzorec", "if + past simple, would + infinitiv<br><i>If I got the job, I would move.</i>"],
-    ["3. kondicionál (bonus)", "if + past perfect, would have + 3. tvar<br><i>If I had studied, I would have passed.</i>"],
-    ["Po if v 1. kondicionálu", "přítomný čas – ne will!<br><i>If it rains, …</i>"],
-    ["If-věta na začátku", "čárka: <i>If you text me, I'll reply.</i>"],
-    ["If-věta na konci", "bez čárky: <i>I'll reply if you text me.</i>"],
-    ["unless =", "if not<br><i>Unless you hurry, you'll miss the bus.</i>"],
-    ["Rada „Být tebou…“", "<i>If I were you, I'd …</i>"],
-    ["may / might v hlavní větě", "jen možnost: <i>If it rains, we might stay at home.</i>"],
-    ["Hlavní věta jako pokyn", "<i>If you're in town next week, get in touch.</i>"],
+    ["First conditional – kdy?", "budoucí situace, kterou považujeme za reálně možnou"],
+    ["First conditional – vzorec", "if + present simple, will / won't + základní tvar<br><i>If I have time, I'll call you.</i>"],
+    ["Po if v první podmínce", "přítomný čas – ne will!<br><i>If it rains, …</i>"],
+    ["he / she / it po if", "koncovka -s: <i>if she wants, if she becomes</i><br>zápor: doesn't / isn't"],
+    ["If na začátku", "čárka: <i>If you text me, I'll reply.</i>"],
+    ["If na konci", "bez čárky: <i>I'll reply if you text me.</i>"],
     ["Hlavní věta jako otázka", "<i>If you have time tomorrow, can you call me?</i>"],
-    ["Kdy může být will po if?", "ve významu ochoty: <i>If you will help me, …</i>"],
-    ["Minulý tvar ve 2. kondicionálu znamená…", "hypotetičnost, ne minulost"],
+    ["Hlavní věta jako pokyn", "<i>If you're in town next week, get in touch.</i>"],
+    ["Kdy může být will po if?", "ve zvláštním významu, např. ochoty"],
+    ["Pokud budu mít čas, zavolám ti později.", "<i>If I have time, I'll call you later.</i>"],
+    ["Pokud si nepospíšíš, přijdeš pozdě do školy.", "<i>If you don't hurry up, you'll be late for school.</i>"],
+    ["Pokud nebude dost sněhu, nepůjdeme lyžovat.", "<i>We won't go skiing if there isn't enough snow.</i>"],
+    ["Pokud mi nezvýší plat, odejdu ze zaměstnání.", "<i>I'll quit if I don't get a pay rise.</i>"],
+    ["Pokud přijdeš domů pozdě, rodiče si budou dělat starosti.", "<i>If you come home late, your parents will worry.</i>"],
   ]
 },
 /* ───────────────────────── 3. SPOJOVACÍ VÝRAZY ───────────────────────── */
@@ -1283,7 +1263,7 @@ DATA.aj = {
     M("Which phrase is <b>not</b> used to give an opinion?", "for instance", ["from my perspective", "the way I see it", "in my opinion"], "for instance = například."),
     M("She's very experienced. ___, she speaks three languages.", "What is more", ["However", "Although", "Despite this"], "Doplnění (navíc) → What is more / Moreover."),
     M("The job is demanding. ___, I enjoy it.", "Despite this", ["Despite", "Despite of this", "Although"], "despite this / in spite of this = přesto (na začátku věty). Samotné „Despite,“ ani „Although,“ takto nejde."),
-    F("Oprav chybu: „<i>Despite of the rain, we played.</i>“ Napiš správně začátek věty (před „the rain“):", ["despite", "in spite of"], "despite BEZ of, nebo in spite OF."),
+    F("Ve větě je chyba: „<i>Despite of the rain, we played.</i>“ Co má správně stát před „the rain“? Napiš jen to slovo (nebo slova).", ["despite", "in spite of", "despite the rain", "in spite of the rain", "despite the rain we played", "in spite of the rain we played"], "Po <b>despite</b> se nikdy nepíše <i>of</i>. Správně je <b>Despite the rain</b>, nebo <b>In spite of the rain</b>, we played. <b>Although</b> sem nejde: po although musí následovat celá věta s podmětem a slovesem (<i>Although it was raining, we played.</i>), ale tady je jen podstatné jméno <i>the rain</i>."),
     F("Doplň jedno spojení: She got the job, ___ she had little experience. <span class=hint>(= ačkoli)</span>", ["although", "even though", "though"], "although / even though + věta."),
     F("Doplň: ___ my opinion, students should work part-time. <span class=hint>(jedno slovo)</span>", ["in"], "In my opinion."),
   ],
@@ -1321,7 +1301,7 @@ DATA.aj = {
 </table></div>
 <div class="warn"><b>Pozor:</b> <b>postman</b> a <b>poster</b> nejsou předpona post-. · <b>old friend</b> = dlouholetý přítel (přátelství trvá), ne bývalý. · misfortune → <b>unfortunate</b>.</div>
 <h3>Text o režisérovi</h3>
-<p>director, perfectionist, shipwreck (ztroskotání lodi), drop out of school / college / university (dropped out = nedokončil)</p>`,
+<p>director, perfectionist, shipwreck (vrak lodi), drop out of school / college / university (dropped out = nedokončil)</p>`,
   qs: [
     M("<b>prefix</b> znamená:", "předpona", ["předložka", "přípona", "spojka"], "prefix = předpona × preposition = předložka."),
     M("Předpona <b>ex-</b> znamená:", "bývalý", ["špatně", "spolu", "po"], "ex-wife, ex-president, ex-colleague…"),
@@ -1375,7 +1355,7 @@ DATA.aj = {
     ["undermine someone's authority", "podkopat něčí autoritu"],
     ["drop out of school", "nedokončit školu (dropped out)"],
     ["old friend", "dlouholetý přítel (ne bývalý!)"],
-    ["shipwreck", "ztroskotání lodi / vrak"],
+    ["shipwreck", "vrak lodi"],
   ]
 },
 /* ───────────────────────── 5. SVĚT PRÁCE ───────────────────────── */
@@ -1686,7 +1666,7 @@ DATA.aj = {
       '<section class="hero">' +
       '<div class="hero-intro"><p class="hero-eyebrow"><span class="live-dot" aria-hidden="true"></span>Test ve čtvrtek 19. 11. 2026</p>' +
       "<h1>Na test z<br><span class=\"grad-text\">" + (S.key === "cj" ? "češtiny" : "angličtiny") + "</span></h1>" +
-      '<p class="hero-lead">' + (S.key === "cj" ? "Literatura – romantismus. Všechno je jen ze zápisů 2.D, nic navíc z učebnice." : "Celé čtvrtletí, nejvíc otázek na will / going to a podmínkové věty.") + "</p>" +
+      '<p class="hero-lead">' + (S.key === "cj" ? "Literatura – romantismus. Všechno je jen ze zápisů 2.D, nic navíc z učebnice." : "Celé čtvrtletí podle zápisů, nejvíc otázek na will / going to a první podmínkovou větu.") + "</p>" +
       '<div class="stats"><div class="stat"><strong>' + total + '</strong><span>otázek</span></div><div class="stat"><strong>' + S.allCards.length + '</strong><span>kartiček</span></div><div class="stat"><strong>' + S.topics.length + "</strong><span>témat</span></div></div></div>" +
       '<div class="start-panel"><p class="start-panel-label">Ověř si, co umíš</p><div class="quick-actions">' +
       '<a class="btn primary" href="#/' + S.key + '/test">🎯 Zkušební test · 25 otázek</a>' +
@@ -1856,7 +1836,13 @@ DATA.aj = {
     inp.disabled = true; inp.classList.add(r.ok ? "right" : "wrong");
     $("#chk").hidden = true; var b = $("#idk"); if (b) b.hidden = true;
     var extra = r.typo ? "Uznáno, jen drobný překlep – správně se píše <b>" + esc(r.typo) + "</b>." : "";
-    var alts = it.q.a.length > 1 ? '<span class="muted small"> (uznává se i: ' + it.q.a.slice(1).map(esc).join(", ") + ")</span>" : "";
+    // ukázat jen opravdu jiné odpovědi, ne jejich prodloužené varianty (despite → despite the rain …)
+    var shown = [it.q.a[0]];
+    it.q.a.slice(1).forEach(function (x) {
+      var bx = Norm.base(x);
+      if (!shown.some(function (s) { return bx.indexOf(Norm.base(s)) === 0; })) shown.push(x);
+    });
+    var alts = shown.length > 1 ? '<span class="muted small"> (uznává se i: ' + shown.slice(1).map(esc).join(", ") + ")</span>" : "";
     showFb(r.ok, esc(it.q.a[0]) + alts, extra);
   }
   function reveal() {

@@ -9,8 +9,8 @@ window.TEST_PREP = [
     nazev: "Čeština a angličtina",
     datum: "2026-11-19",
     predmety: ["Literatura", "Anglický jazyk"],
-    popis: "ČJ: romantismus – Lermontov, Puškin, Mácha, Tyl, Erben. AJ: will / going to, podmínkové věty, spojovací výrazy, předpony a svět práce.",
-    otazek: 358,
+    popis: "ČJ: romantismus – Lermontov, Puškin, Mácha, Tyl, Erben. AJ: will / going to, první podmínková věta, spojovací výrazy, předpony a svět práce.",
+    otazek: 337,
     karticek: 191
   }
 ];
