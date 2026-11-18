@@ -523,6 +523,37 @@ var Norm = (function () {
     return out;
   }
 
+  // Zkratky napsané bez apostrofu (dont, wont, im, shes …) – jen ty, které
+  // nejsou jiným běžným slovem; its / were / ill / well / shell se nedoplňují.
+  var RESTORE = [
+    [/\b(do|does|did|is|are|was|were|has|have|had|could|should|would|must|need|might|ca|wo|sha)nt\b/gi, "$1n't"],
+    [/\b(i)m\b/gi, "$1'm"],
+    [/\b(i|you|we|they|could|should|would|might|must)ve\b/gi, "$1've"],
+    [/\b(you|they)re\b/gi, "$1're"],
+    [/\b(you|they|it|that|there)ll\b/gi, "$1'll"],
+    [/\b(you|they)d\b/gi, "$1'd"],
+    [/\b(he|she|that|there|what|who|here)s\b/gi, "$1's"],
+    [/\bI(ll|d)\b/g, "I'$1"],                 // „Ill“ s velkým I je vždy I'll (ill = nemocný)
+    [/^(i|he|she)ll (?=\w)/i, "$1'll "],      // na začátku odpovědi: „ill get“ = I'll get
+    [/^(ll|re|ve|m|s|d) /i, "'$1 "]           // „ll get“ místo „'ll get“
+  ];
+  function restoreApos(s) {
+    s = String(s).replace(/[’‘`´ʼ]/g, "'");
+    RESTORE.forEach(function (r) { s = s.replace(r[0], r[1]); });
+    return s;
+  }
+  // Volné porovnání: apostrofy nehrají roli (dont get = don't get = do not get)
+  function looseVariants(s) {
+    var out = new Set();
+    [s, restoreApos(s)].forEach(function (x) {
+      enVariants(x).forEach(function (v) { out.add(v); out.add(v.replace(/'/g, "")); });
+      var b = base(x).replace(/'/g, "");
+      out.add(b); out.add(b.replace(SUBJ, ""));
+    });
+    out.delete("");
+    return out;
+  }
+
   function lev(a, b) {
     if (Math.abs(a.length - b.length) > 1) return 2;
     var prev = [], cur, i, j;
@@ -537,7 +568,8 @@ var Norm = (function () {
     return prev[b.length];
   }
 
-  // vrací null (prázdné), {ok:true}, {ok:true, typo:"správný tvar"} nebo {ok:false}
+  // vrací null (prázdné), {ok:true}, {ok:true, typo:"správný tvar"},
+  // {ok:true, apos:"tvar s apostrofem"} nebo {ok:false}
   function check(q, input, subj) {
     var raw = String(input || "").trim();
     if (!raw) return null;
@@ -548,6 +580,12 @@ var Norm = (function () {
         var hit = false;
         enVariants(q.a[i]).forEach(function (v) { if (vin.has(v)) hit = true; });
         if (hit) return { ok: true };
+      }
+      var lin = looseVariants(raw);
+      for (i = 0; i < q.a.length; i++) {
+        var lhit = false;
+        looseVariants(q.a[i]).forEach(function (v) { if (lin.has(v)) lhit = true; });
+        if (lhit) return { ok: true, apos: /'/.test(q.a[i]) ? q.a[i] : restoreApos(raw) };
       }
       return { ok: false };
     }
@@ -571,7 +609,7 @@ var Norm = (function () {
     return { ok: false };
   }
 
-  return { base: base, expandEn: expandEn, enVariants: enVariants, check: check, lev: lev };
+  return { base: base, expandEn: expandEn, enVariants: enVariants, restoreApos: restoreApos, check: check, lev: lev };
 })();
 
 /* ČEŠTINA – pouze ze zápisů 2.D */
@@ -910,7 +948,7 @@ DATA.cj = {
     F("Jak se jmenoval časopis, který Tyl vydával?", ["Květy"], "Časopis Květy."),
     M("Čím byl Tyl podle zápisu především?", "významným českým dramatikem", ["autorem balad", "autorem lyrickoepických básní", "skladatelem hudby"], "Tyl = významný český dramatik první poloviny 19. století (a novinář). Hudbu ke „Kde domov můj“ složil František Škroup."),
     M("Jak dopadla kočovná společnost, ve které Tyl začínal hrát?", "Za 2 roky se rozpadla.", ["Stala se z ní Stavovská scéna.", "Hrála úspěšně 20 let.", "Zakázal ji car."], "Kočovná společnost se za 2 roky rozpadla. Později Tyl založil vlastní, ale finančně se mu nedařilo."),
-    M("Jak se postupně jmenovalo divadlo, kde byl Tyl dramaturgem?", "Nosticovo → Tylovo → Stavovské", ["Stavovské → Tylovo → Nosticovo", "Tylovo → Nosticovo → Stavovské", "Nosticovo → Stavovské → Tylovo"], "Původně Nosticovo, pak Tylovo, dnes Stavovské divadlo."),
+    M("Jak se postupně jmenovalo divadlo, kde byl Tyl dramaturgem?", "Nosticovo → Tylovo → Stavovské", ["Stavovské → Tylovo → Nosticovo", "Tylovo → Nosticovo → Stavovské", "Tylovo → Stavovské → Nosticovo"], "Původně Nosticovo, pak Tylovo, dnes Stavovské divadlo."),
     M("Jakou funkci měl Tyl ve Stavovském divadle?", "dramaturg", ["ředitel opery", "kapelník", "majitel"], "Tyl se stal dramaturgem ve Stavovském divadle."),
     M("Ve které hře poprvé zazněla píseň <b>„Kde domov můj“</b>?", "Fidlovačka aneb Žádný hněv a žádná rvačka", ["Strakonický dudák aneb Hody divých žen", "Tvrdohlavá žena", "Jiříkovo vidění"], "„Kde domov můj“ poprvé zazněla ve Fidlovačce; hudbu složil František Škroup."),
     F("Kdo složil hudbu k písni „Kde domov můj“?", ["František Škroup"], "Hudbu složil František Škroup, píseň zazněla ve Fidlovačce.", { name: 1 }),
@@ -1879,7 +1917,8 @@ Věta s <b>if</b> = podmínka, hlavní věta = výsledek.</div>
     if (Q.strict) return next();
     inp.disabled = true; inp.classList.add(r.ok ? "right" : "wrong");
     $("#chk").hidden = true; var b = $("#idk"); if (b) b.hidden = true;
-    var extra = r.typo ? "Uznáno, jen drobný překlep – správně se píše <b>" + esc(r.typo) + "</b>." : "";
+    var extra = r.typo ? "Uznáno, jen drobný překlep – správně se píše <b>" + esc(r.typo) + "</b>." :
+      r.apos ? "Uznáno – jen se píše s apostrofem: <b>" + esc(r.apos) + "</b>." : "";
     // ukázat jen opravdu jiné odpovědi, ne jejich prodloužené varianty (despite → despite the rain …)
     var shown = [it.q.a[0]];
     it.q.a.slice(1).forEach(function (x) {

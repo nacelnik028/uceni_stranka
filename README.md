@@ -46,7 +46,7 @@ Pro přípravu na konkrétní písemku vzniká samostatná stránka v kořeni (`
 **Pravidlo: procvičování na test obsahuje vždy kartičky a kvíz** a k tomu všechno další, co se k látce hodí. Standardní výbava:
 
 - **Tahák** ke každému tématu: stručné shrnutí v odrážkách a tabulkách.
-- **Kvíz** ke každému tématu: výběr ze 4 možností, doplňování s tolerantní kontrolou a otevřené otázky se sebehodnocením. Hned po odpovědi správně / špatně, správná odpověď a vysvětlení proč. Na konci skóre, seznam chyb, „Zopakovat chyby“ a „Znovu“.
+- **Kvíz** ke každému tématu: výběr ze 4 možností, doplňování s tolerantní kontrolou a otevřené otázky se sebehodnocením. V angličtině se uzná i zkratka bez apostrofu („dont get“ = „don't get“ = „do not get“, „Ill“ = „I'll“) a stránka pak ukáže správný zápis s apostrofem. Hned po odpovědi správně / špatně, správná odpověď a vysvětlení proč. Na konci skóre, seznam chyb, „Zopakovat chyby“ a „Znovu“.
 - **Kartičky**: otočení kliknutím nebo mezerníkem, „Umím“ / „Ještě ne“, neznámé karty se vrací na konec.
 - **Zkušební test** napříč tématy (asi 25 otázek, váha podle toho, co bude v testu nejvíc), volitelně ostrý režim bez průběžné kontroly.
 - **Moje chyby**: špatně zodpovězené otázky se ukládají a dají se procvičit znovu.
