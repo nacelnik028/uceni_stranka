@@ -69,7 +69,7 @@ Pro přípravu na konkrétní písemku vzniká samostatná stránka v kořeni (`
 
 | Stránka | Test | Obsah |
 |---|---|---|
-| [`test-cj-aj-2026-11-19.html`](test-cj-aj-2026-11-19.html) | ČJ a AJ, čt 19. 11. 2026 | ČJ: romantismus, 6 témat, 148 otázek jen ze zápisů. AJ: 7 témat, 250 otázek, nejvíc will / going to (53) a podmínkové věty (67) |
+| [`test-cj-aj-2026-11-19.html`](test-cj-aj-2026-11-19.html) | ČJ a AJ, čt 19. 11. 2026 | ČJ: romantismus, 6 témat, 148 otázek jen ze zápisů. AJ: 5 témat, 210 otázek, nejvíc will / going to (53) a podmínkové věty (67). U obou i „Všechna témata“ (kvíz ze všech otázek, celý tahák, všechny kartičky) |
 
 ## Studijní přehledy
 

@@ -192,6 +192,17 @@ kbd{display:inline-flex;align-items:center;justify-content:center;min-width:22px
 .card.topic .acts{margin-top:16px}
 .card.topic .acts .btn{flex:1 1 0;min-width:0;padding:10px 6px;font-size:14px}
 
+/* „Všechna témata“ – karta přes celou šířku */
+.card.topic.all-topics{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,460px);gap:16px 32px;align-items:end;background:radial-gradient(700px circle at 0% 0%,color-mix(in srgb,var(--accent-2) 12%,transparent),transparent 60%),linear-gradient(180deg,color-mix(in srgb,var(--panel-solid) 88%,transparent),color-mix(in srgb,var(--panel-solid) 70%,transparent))}
+.card.topic.all-topics::before{opacity:.6;background:linear-gradient(120deg,var(--accent-2),transparent 30%,transparent 70%,var(--subject-color,var(--accent)))}
+.all-main{display:flex;flex-direction:column;min-width:0}
+.card.topic.all-topics .acts{margin-top:0}
+.all-pill{display:inline-flex;align-items:center;min-height:26px;padding:3px 10px;border-radius:999px;font:600 11.5px/1.2 var(--mono);color:var(--text);border:1px solid color-mix(in srgb,var(--accent-2) 55%,transparent);background:color-mix(in srgb,var(--accent-2) 12%,transparent)}
+.card-icon.word{font-size:15px;letter-spacing:-.02em}
+.sheet-part + .sheet-part{margin-top:30px;padding-top:4px;border-top:1px dashed var(--line2)}
+.sheet-topic{display:flex;align-items:center;gap:12px;font-size:24px;margin:24px 0 6px}
+.sheet-topic .card-icon{width:38px;height:38px;font-size:15px;border-radius:12px}
+
 /* ---------- Téma ---------- */
 .ttl{display:flex;align-items:center;gap:14px;margin-top:6px}
 .ttl h1{margin:0}
@@ -363,6 +374,7 @@ details .model{color:var(--text)}
   .brand-sub,.theme-label{display:none}
   .theme-btn{width:44px;padding:0}
   .topics{grid-template-columns:1fr}
+  .card.topic.all-topics{grid-template-columns:1fr}
   .qcard{padding:20px 18px 20px;border-radius:22px}
   .qtext{font-size:18px}
   .sheet{padding:4px 18px 18px;border-radius:22px}
@@ -984,7 +996,7 @@ DATA.cj = {
 DATA.aj = {
   name: "Angličtina",
   testInfo: "25 náhodných otázek; 17 z nich (2/3) je z will / going to a podmínkových vět.",
-  quotas: { will: 9, cond: 8, link: 2, pref: 2, work: 2, listen: 1, letter: 1 },
+  quotas: { will: 9, cond: 8, link: 3, pref: 2, work: 3 },
   topics: [
 /* ───────────────────────── 1. WILL / GOING TO ───────────────────────── */
 {
@@ -1477,7 +1489,7 @@ DATA.aj = {
     M("<b>full-time / part-time</b> říká:", "rozsah práce (kolik hodin)", ["dobu trvání (na jak dlouho)", "výši mzdy", "místo práce"], "full-time / part-time = rozsah × temporary = doba trvání."),
     M("Someone who hasn't got a job is ___.", "unemployed", ["employed", "underpaid", "overqualified"], "unemployed = jobless = out of work."),
     M("<b>be on the dole</b> =", "pobírat podporu v nezaměstnanosti", ["být na mateřské", "dostat přidáno", "být na brigádě"], "the dole = unemployment benefit (hovorově)."),
-    M("<b>a nine-to-five job</b> =", "běžná práce s pevnou pracovní dobou (od 9 do 5)", ["práce na 9 až 5 let", "noční směna", "práce na volné noze"], "Sally Stone má raději cestování než nine-to-five job."),
+    M("<b>a nine-to-five job</b> =", "běžná práce s pevnou pracovní dobou (od 9 do 5)", ["práce na 9 až 5 let", "noční směna", "práce na volné noze"], "nine-to-five = typická kancelářská pracovní doba od 9 do 17 hodin."),
     M("<b>rewarding</b> job =", "práce, která tě naplňuje a dává uspokojení", ["práce s vysokými prémiemi", "fyzicky náročná práce", "špatně placená práce"], "rewarding = naplňující, uspokojující."),
     M("<b>physically demanding</b> =", "fyzicky náročný", ["dobře placený", "nudný", "dočasný"], "demanding = náročný."),
     M("<b>cooper</b> =", "bednář", ["kovář", "horník", "pekař"], "cooper = bednář – jedno z povolání, která mizí."),
@@ -1557,146 +1569,6 @@ DATA.aj = {
     ["simultaneous interpreting", "simultánní: souběžně, v kabině"],
   ]
 },
-/* ───────────────────────── 6. POSLECHY ───────────────────────── */
-{
-  id: "listen", title: "Poslechy", sub: "52 jobs in a year, Sally Stone",
-  sheet: `
-<h3>52 jobs in a year – Sean Aiken</h3>
-<ul>
-<li>Po <b>business studies</b> nevěděl, co dělat. Otec mu poradil dělat něco, pro co je <b>zapálený</b> (passionate).</li>
-<li>Založil web <b>oneweekjob.com</b> a za rok vystřídal <b>52 zaměstnání</b> (rozhlasový DJ, hasič, novinář, učitel jógy, pekař…). Většinu našel <b>online</b>.</li>
-<li>Pracoval bez dovolené, hodně cestoval. Mzdu <b>daroval na charitu</b> → měl málo peněz.</li>
-<li>Nejtěžší: práce na <b>farmě</b> – vstávat v <b>5 ráno</b>, fyzicky vyčerpávající.</li>
-<li>Poučení: práce má <b>dávat smysl</b>, má tě <b>nadchnout</b> a máš <b>vycházet s kolegy</b>.</li>
-</ul>
-<h3>Sally Stone – řidička kamionu</h3>
-<ul>
-<li>Začala se připravovat na <b>kadeřnici</b>, ale kurz nedokončila (špatně placené, chtěla náročnější práci).</li>
-<li><b>Otec</b> měl dopravní firmu. Potřebovala zvláštní řidičské oprávnění; zkoušku složila <b>na první pokus</b> („lots of people fail“ = <b>mnoho</b> lidí neuspěje, ne většina).</li>
-<li>První samostatná jízda ji <b>děsila</b>. Baví ji <b>cestování a samota</b>, víc než nine-to-five job.</li>
-<li>Muži na ni často zírají, hlavně v <b>zácpě</b>. Na <b>200 řidičů připadá 1 žena</b>.</li>
-<li>Dobrý řidič je <b>opatrný, bezpečný, trpělivý</b> a <b>nerozčiluje se</b>.</li>
-</ul>`,
-  qs: [
-    M("Co vystudoval Sean Aiken?", "business studies", ["medicine", "journalism", "agriculture"], "Sean po business studies nevěděl, co dělat."),
-    M("Co Seanovi poradil otec?", "Dělat něco, pro co je zapálený.", ["Jít pracovat do banky.", "Vrátit se na univerzitu.", "Převzít rodinnou firmu."], "Otec: najdi něco, pro co jsi zapálený (passionate)."),
-    F("Kolik zaměstnání Sean vystřídal za rok?", ["52"], "52 jobs in a year – každý týden jedno."),
-    M("Jak se jmenoval Seanův web?", "oneweekjob.com", ["52jobs.com", "jobayear.com", "weeklywork.com"], "oneweekjob.com"),
-    M("Kde Sean našel většinu prací?", "online", ["v novinách", "přes známé", "na úřadu práce"], "Většinu prací našel online."),
-    M("Proč měl Sean málo peněz?", "Mzdu daroval na charitu.", ["Všechno utratil za cestování.", "Nikdo mu neplatil.", "Musel splácet studentskou půjčku."], "Mzdu daroval na charitu, proto byl short of money."),
-    M("Která práce byla pro Seana nejtěžší?", "práce na farmě", ["hasič", "pekař", "učitel jógy"], "Farma: vstávat v 5 ráno, fyzicky vyčerpávající."),
-    M("Proč byla práce na farmě nejtěžší?", "Musel vstávat v 5 ráno a byla fyzicky vyčerpávající.", ["Byla špatně placená.", "Nevycházel s kolegy.", "Musel pracovat v noci ve městě."], "Vstávání v 5 ráno + physically demanding."),
-    M("Co je podle Seana na práci nejdůležitější?", "aby dávala smysl, nadchla tě a vycházel jsi s kolegy", ["vysoký plat a dlouhá dovolená", "práce z domova", "aby byla co nejkratší"], "Poučení: smysl, nadšení, dobré vztahy s kolegy."),
-    M("Na co se Sally Stone původně začala připravovat?", "na kadeřnici", ["na řidičku autobusu", "na zdravotní sestru", "na učitelku"], "Začala kurz kadeřnice, ale nedokončila ho."),
-    M("Proč Sally kurz nedokončila?", "Bylo to špatně placené a chtěla náročnější práci.", ["Neudělala zkoušku.", "Musela se starat o otce.", "Kurz byl moc drahý."], "Badly paid + chtěla challenging job."),
-    M("Kdo měl dopravní firmu?", "Sallyin otec", ["Sallyina matka", "Sallyin manžel", "Sean Aiken"], "Otec měl dopravní firmu."),
-    M("Jak Sally dopadla u zkoušky na zvláštní řidičské oprávnění?", "Složila ji na první pokus.", ["Napoprvé neuspěla.", "Složila ji až na třetí pokus.", "Zkoušku nepotřebovala."], "Prošla napoprvé, i když lots of people fail."),
-    M("„Lots of people fail“ znamená:", "mnoho lidí neuspěje", ["většina lidí neuspěje", "skoro nikdo neuspěje", "všichni neuspějí"], "lots of = mnoho, ne většina (most)."),
-    M("Jak se Sally cítila při první samostatné jízdě?", "děsilo ji to", ["byla úplně klidná", "nudila se", "byla naštvaná"], "První samostatná jízda ji děsila."),
-    M("Co Sally na práci baví?", "cestování a samota", ["pevná pracovní doba", "práce v týmu", "vysoký plat"], "Má ráda travelling a being alone, víc než nine-to-five job."),
-    M("Kolik žen připadá podle Sally na 200 řidičů kamionu?", "1", ["2", "20", "50"], "Na 200 řidičů připadá 1 žena."),
-    M("Kdy na Sally muži nejvíc zírají?", "v zácpě", ["na benzince", "při nakládce", "v noci"], "Hlavně v dopravní zácpě."),
-    M("Jaký je podle Sally dobrý řidič?", "opatrný, bezpečný, trpělivý a nerozčiluje se", ["rychlý a odvážný", "mladý a silný", "hlavně zkušený s mapou"], "careful, safe, patient, doesn't get angry."),
-  ],
-  cards: [
-    ["Sean Aiken – co vystudoval", "business studies"],
-    ["Otcova rada Seanovi", "dělej něco, pro co jsi zapálený"],
-    ["Seanův web", "oneweekjob.com"],
-    ["Kolik prací za rok?", "52 (každý týden jedna)"],
-    ["Kde našel většinu prací?", "online"],
-    ["Proč měl Sean málo peněz?", "mzdu daroval na charitu"],
-    ["Nejtěžší práce (Sean)", "farma – vstávání v 5, fyzicky vyčerpávající"],
-    ["Seanovo poučení", "smysl, nadšení, vycházet s kolegy"],
-    ["Sally – původní plán", "kadeřnice (kurz nedokončila)"],
-    ["Sally – zkouška", "na první pokus („lots of people fail“ = mnoho, ne většina)"],
-    ["Sally – co ji baví", "cestování a samota"],
-    ["Žen mezi řidiči kamionů", "1 na 200"],
-    ["Dobrý řidič (Sally)", "opatrný, bezpečný, trpělivý, nerozčiluje se"],
-  ]
-},
-/* ───────────────────────── 7. FORMÁLNÍ DOPIS ───────────────────────── */
-{
-  id: "letter", title: "Formální dopis", sub: "žádost o místo",
-  sheet: `
-<h3>Rozložení</h3>
-<div class="letter">
-<div class="r">adresa odesílatele<br>datum</div>
-<div>adresát a jeho adresa</div>
-<div>oslovení: Dear Sir or Madam, / Dear Mr Brown,</div>
-<div><b>Re:</b> předmět (= ve věci)</div>
-<div>vlastní text (5 odstavců)</div>
-<div>rozloučení: Yours faithfully, / Yours sincerely,</div>
-<div><i>podpis</i> – NAD napsaným jménem<br>napsané jméno</div>
-</div>
-<h3>Odstavce</h3>
-<ol class="steps">
-<li><b>Proč píšu</b> – jaké místo, kde jsem se o něm dozvěděl.</li>
-<li><b>Představení a zájem.</b></li>
-<li><b>Proč se hodím</b> – zkušenosti, schopnosti, vlastnosti.</li>
-<li><b>Praktické údaje</b> – přílohy, kdy můžu na pohovor, kdy můžu nastoupit.</li>
-<li><b>Závěr.</b></li>
-</ol>
-<h3>Oslovení a rozloučení</h3>
-<div class="tablewrap"><table>
-<tr><td>Dear Sir or Madam, (jméno neznám)</td><td>→ <b>Yours faithfully,</b></td></tr>
-<tr><td>Dear Mr Brown, (jméno znám)</td><td>→ <b>Yours sincerely,</b></td></tr>
-<tr><td>To whom it may concern</td><td>obecné oslovení</td></tr>
-</table></div>
-<h3>Fráze</h3>
-<ul class="ex">
-<li>I am writing to apply for the position of …</li>
-<li>I have some experience of working in a hotel. (také experience in + obor)</li>
-<li>I am able to … / Furthermore, …</li>
-<li>I work as a waiter.</li>
-<li>Please find my CV attached.</li>
-<li>I am available for an interview after 2 p.m.</li>
-<li>If successful, I will be available to start in November.</li>
-<li>I look forward to hearing from you. (look forward to + -ing)</li>
-</ul>
-<h3>Pravidla</h3>
-<ul><li>Po oslovení <b>nový řádek</b> a <b>velké písmeno</b>.</li>
-<li><b>Plné tvary</b> (I am, I would, do not), žádný slang.</li>
-<li>Slova <b>job / post / position / role</b> střídat.</li></ul>`,
-  qs: [
-    M("Dear Sir or Madam, … → rozloučení:", "Yours faithfully,", ["Yours sincerely,", "Best wishes,", "Love,"], "Neznám jméno (Sir or Madam) → Yours faithfully."),
-    M("Dear Mr Brown, … → rozloučení:", "Yours sincerely,", ["Yours faithfully,", "See you,", "Cheers,"], "Znám jméno → Yours sincerely."),
-    M("<b>Re:</b> v dopise znamená:", "ve věci (předmět dopisu)", ["odpověď na e-mail", "znovu", "příloha"], "Re: = ve věci – předmět."),
-    M("Kde je v dopise podpis?", "nad napsaným jménem", ["pod napsaným jménem", "vedle data", "nad oslovením"], "Podpis je NAD napsaným jménem."),
-    M("I look forward to ___ from you.", "hearing", ["hear", "heard", "be hearing"], "look forward to + -ing."),
-    M("Co patří do <b>1. odstavce</b> žádosti?", "proč píšu – jaké místo a kde jsem se o něm dozvěděl", ["praktické údaje (přílohy, kdy můžu nastoupit)", "proč se na místo hodím", "závěrečné poděkování"], "1. proč píšu, 2. představení, 3. proč se hodím, 4. praktické údaje, 5. závěr."),
-    M("Co patří do <b>4. odstavce</b> žádosti?", "praktické údaje – přílohy, kdy můžu na pohovor a kdy nastoupit", ["proč píšu a kde jsem viděl inzerát", "představení a zájem", "zkušenosti a vlastnosti"], "4. odstavec = praktické údaje."),
-    M("Která věta je vhodná do formálního dopisu?", "I am writing to apply for the position of receptionist.", ["I'm writing coz I want the job.", "Hi, I wanna apply for the job.", "Hey, gimme the receptionist job."], "Formální styl, plné tvary, žádný slang."),
-    M("Který tvar použiješ ve formálním dopise?", "I would like to …", ["I'd like to …", "I wanna …", "I'd love ya to …"], "Ve formálním dopise plné tvary: I would, I am, do not."),
-    M("Please find my CV ___.", "attached", ["attach", "attaching", "to attach"], "Please find my CV attached."),
-    M("I have some experience ___ working in a hotel.", "of", ["on", "at", "for"], "experience of + -ing (nebo experience in + obor)."),
-    M("If ___, I will be available to start in November.", "successful", ["success", "succeed", "successfully"], "If successful = pokud uspěji."),
-    M("I am available ___ an interview after 2 p.m.", "for", ["to", "on", "at"], "available for an interview."),
-    M("Co uděláš po oslovení „Dear Sir or Madam,“?", "nový řádek a velké písmeno", ["pokračuji na stejném řádku malým písmenem", "napíšu datum", "napíšu podpis"], "Po oslovení nový řádek, velké písmeno."),
-    M("Když neznám adresáta, mohu napsat i:", "To whom it may concern", ["Dear Mr Brown", "Hi there", "Dear friend"], "To whom it may concern = obecné formální oslovení."),
-    M("Proč střídat slova job / post / position / role?", "aby se slova neopakovala a text byl lepší", ["protože každé znamená něco jiného", "protože job je neslušné", "protože to vyžaduje Re:"], "Střídání synonym – lepší styl."),
-    F("I look forward to ___ from you. <span class=hint>(hear)</span>", ["hearing"], "look forward to + -ing."),
-    F("I am writing to ___ for the position of waiter.", ["apply"], "I am writing to apply for the position of…"),
-    F("Dear Sir or Madam → Yours ___", ["faithfully"], "Dear Sir or Madam → Yours faithfully."),
-    F("Dear Mr Brown → Yours ___", ["sincerely"], "Dear Mr Brown → Yours sincerely."),
-    O("Napiš osnovu žádosti o místo (5 odstavců) a aspoň 4 vhodné fráze.", "<ol><li>proč píšu (místo, kde jsem se dozvěděl) – <i>I am writing to apply for the position of…</i></li><li>představení a zájem</li><li>proč se hodím – <i>I have some experience of working in a hotel. Furthermore, I am able to…</i></li><li>praktické údaje – <i>Please find my CV attached. I am available for an interview after 2 p.m. If successful, I will be available to start in November.</i></li><li>závěr – <i>I look forward to hearing from you.</i></li></ol>Dear Sir or Madam → Yours faithfully; Dear Mr Brown → Yours sincerely."),
-  ],
-  cards: [
-    ["Dear Sir or Madam →", "Yours faithfully"],
-    ["Dear Mr Brown →", "Yours sincerely"],
-    ["Re:", "ve věci (předmět)"],
-    ["Kde je podpis?", "nad napsaným jménem"],
-    ["Odstavce žádosti", "1. proč píšu · 2. představení · 3. proč se hodím · 4. praktické údaje · 5. závěr"],
-    ["Píšu, abych se ucházel o místo…", "I am writing to apply for the position of …"],
-    ["V příloze posílám životopis.", "Please find my CV attached."],
-    ["Na pohovor můžu po 14. hodině.", "I am available for an interview after 2 p.m."],
-    ["Pokud uspěji, můžu nastoupit v listopadu.", "If successful, I will be available to start in November."],
-    ["Těším se na vaši odpověď.", "I look forward to hearing from you."],
-    ["Mám zkušenost s prací v hotelu.", "I have some experience of working in a hotel."],
-    ["Dále, navíc (formálně)", "Furthermore, …"],
-    ["Obecné oslovení", "To whom it may concern"],
-    ["Pravidla stylu", "plné tvary (I am, I would), žádný slang, střídat job / post / position / role"],
-  ]
-},
   ]
 };
 
@@ -1732,6 +1604,15 @@ DATA.aj = {
       t.cardObjs = t.cards.map(function (c) { return { f: c[0], b: c[1], t: t.title }; });
     });
     S.allCards = [].concat.apply([], S.topics.map(function (t) { return t.cardObjs; }));
+    // „Všechna témata“ – virtuální téma: všechny otázky, celý tahák na jedné stránce, všechny kartičky
+    S.all = {
+      id: "vse", n: "Vše", all: true, title: "Všechna témata", sub: "všech " + S.topics.length + " témat najednou",
+      qs: [].concat.apply([], S.topics.map(function (t) { return t.qs; })),
+      cards: S.allCards, cardObjs: S.allCards,
+      sheet: S.topics.map(function (t) {
+        return '<section class="sheet-part"><h2 class="sheet-topic"><span class="card-icon">' + t.n + "</span>" + t.title + "</h2>" + t.sheet + "</section>";
+      }).join("")
+    };
   });
 
   var view = null, Q = null, C = null, timerId = null;
@@ -1776,8 +1657,8 @@ DATA.aj = {
     var r = parseHash(), S = DATA[r.sk], p = r.p;
     setTabs(r.sk);
     if (p[0] === "t") {
-      var t = S.topics.filter(function (x) { return x.id === p[1]; })[0];
-      if (t) { renderTopic(S, t, p[2] || "sheet"); window.scrollTo(0, 0); return; }
+      var t = p[1] === "vse" ? S.all : S.topics.filter(function (x) { return x.id === p[1]; })[0];
+      if (t) { renderTopic(S, t, p[2] || (t.all ? "quiz" : "sheet")); window.scrollTo(0, 0); return; }
     }
     if (p[0] === "test") renderTestSetup(S);
     else if (p[0] === "chyby") renderMistakes(S);
@@ -1809,12 +1690,22 @@ DATA.aj = {
       '<div class="stats"><div class="stat"><strong>' + total + '</strong><span>otázek</span></div><div class="stat"><strong>' + S.allCards.length + '</strong><span>kartiček</span></div><div class="stat"><strong>' + S.topics.length + "</strong><span>témat</span></div></div></div>" +
       '<div class="start-panel"><p class="start-panel-label">Ověř si, co umíš</p><div class="quick-actions">' +
       '<a class="btn primary" href="#/' + S.key + '/test">🎯 Zkušební test · 25 otázek</a>' +
+      '<a class="btn" href="#/' + S.key + '/t/vse/quiz">📚 Procvičit všechna témata (' + total + ")</a>" +
       '<a class="btn' + (mist ? " errors" : "") + '" href="#/' + S.key + '/chyby">Procvičit moje chyby' + (mist ? " (" + mist + ")" : "") + "</a>" +
-      '<a class="btn" href="#/' + S.key + '/karty">Všechny kartičky (' + S.allCards.length + ")</a></div>" +
+      '<a class="btn" href="#/' + S.key + '/t/vse/cards">Všechny kartičky (' + S.allCards.length + ")</a></div>" +
       '<p class="panel-hint">' + (tb != null ? "Nejlepší výsledek zkušebního testu: <b>" + tb + " %</b>" : "Výsledky a chyby se ukládají v tomto prohlížeči.") + "</p></div>" +
       "</section>" +
       '<section class="section"><div class="section-head"><div><h2>Témata</h2><p>Ke každému tématu tahák, kvíz a kartičky.</p></div></div>' +
-      '<div class="topics">' + S.topics.map(function (t, i) { return topicCard(S, t, best, i); }).join("") + "</div></section>";
+      '<div class="topics">' + allCard(S, best) + S.topics.map(function (t, i) { return topicCard(S, t, best, i + 1); }).join("") + "</div></section>";
+  }
+  function allCard(S, best) {
+    var t = S.all, b = best[S.key + ":vse"], base = "#/" + S.key + "/t/vse/";
+    return '<article class="card topic all-topics" style="--i:0"><div class="all-main">' +
+      '<div class="card-top"><span class="card-icon word">Vše</span><span class="all-pill">všechna témata najednou</span></div>' +
+      "<h3>Procvičit všechna témata</h3><p>Všech " + t.qs.length + " otázek ze " + S.topics.length + " témat v náhodném pořadí, celý tahák na jedné stránce a všechny kartičky.</p>" +
+      '<div class="card-meta">' + t.qs.length + " otázek · " + S.allCards.length + " kartiček</div>" +
+      '<div class="card-mastery" title="Nejlepší skóre"><span class="mastery-track"><span class="mastery-fill" style="width:' + (b || 0) + '%"></span></span><span class="mastery-label">' + (b != null ? "nejlepší " + b + " %" : "zatím neprocvičeno") + "</span></div></div>" +
+      '<div class="acts"><a class="btn" href="' + base + 'sheet">Celý tahák</a><a class="btn primary" href="' + base + 'quiz">Procvičit vše</a><a class="btn" href="' + base + 'cards">Všechny kartičky</a></div></article>';
   }
   function topicCard(S, t, best, i) {
     var b = best[S.key + ":" + t.id], base = "#/" + S.key + "/t/" + t.id + "/";
@@ -1830,13 +1721,13 @@ DATA.aj = {
   function renderTopic(S, t, tab) {
     var tabs = [["sheet", "Tahák"], ["quiz", "Procvičit"], ["cards", "Kartičky"]];
     app.innerHTML = crumbs(S, t.title) +
-      '<div class="ttl"><span class="card-icon">' + t.n + '</span><div><h1>' + t.title + '</h1><p class="muted">' + t.sub + "</p></div></div>" +
+      '<div class="ttl"><span class="card-icon' + (t.all ? " word" : "") + '">' + t.n + '</span><div><h1>' + t.title + '</h1><p class="muted">' + t.sub + "</p></div></div>" +
       '<nav class="seg" aria-label="Části tématu">' + tabs.map(function (x) {
         return '<a href="#/' + S.key + "/t/" + t.id + "/" + x[0] + '"' + (x[0] === tab ? ' class="on" aria-current="page"' : "") + ">" + x[1] + "</a>";
       }).join("") + '</nav><div id="pane"></div>';
     var pane = $("#pane");
-    if (tab === "quiz") startQuiz({ mount: pane, qs: t.qs, key: S.key + ":" + t.id, mode: "topic", subj: S.key });
-    else if (tab === "cards") startCards({ mount: pane, cards: t.cardObjs });
+    if (tab === "quiz") startQuiz({ mount: pane, qs: t.qs, key: S.key + ":" + t.id, mode: t.all ? "all" : "topic", subj: S.key });
+    else if (tab === "cards") startCards({ mount: pane, cards: t.cardObjs, showTopic: !!t.all });
     else {
       view = "sheet";
       pane.innerHTML = '<article class="sheet">' + t.sheet + '</article><div class="sheet-foot">' +
@@ -2022,7 +1913,7 @@ DATA.aj = {
     var n = Q.res.length, ok = Q.res.filter(function (r) { return r.ok; }).length, pct = n ? Math.round(ok / n * 100) : 0;
     var wrong = Q.res.filter(function (r) { return !r.ok; });
     var newBest = false;
-    if (Q.key && (Q.mode === "topic" || Q.mode === "test")) {
+    if (Q.key && (Q.mode === "topic" || Q.mode === "test" || Q.mode === "all")) {
       var b = store.get("best", {});
       if (b[Q.key] == null || pct > b[Q.key]) { newBest = b[Q.key] != null; b[Q.key] = pct; store.set("best", b); }
     }
