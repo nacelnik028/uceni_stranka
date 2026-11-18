@@ -68,6 +68,8 @@ Pro přípravu na konkrétní písemku vzniká samostatná stránka v kořeni (`
 - **favikona na každé stránce**: stejná ikona jako `favicon.svg`. Ve stránce testu je vložená přímo do `<head>` jako `data:` URI, aby fungovala i offline a bez dalších souborů;
 - CSS je kvůli offline použití zkopírované přímo do stránky. Když se změní tokeny v `appearance.css`, uprav je i ve stránkách testů.
 
+**Pravidlo: procvičování na test se počítá do denní série.** Každá odpověď v kvízu i každá kartička („Umím“ / „Ještě ne“) přičte 1 k dnešku v `procvicovna-activity:v1` v `localStorage`, stejně jako odpověď na hlavní stránce. Ta z toho počítá „dní v řadě“ i graf týdne. Klávesy `1`–`4` se berou podle fyzické klávesy (`e.code`), takže fungují i na české klávesnici (`+ ě š č`).
+
 | Stránka | Test | Obsah |
 |---|---|---|
 | [`test-cj-aj-2026-11-19.html`](test-cj-aj-2026-11-19.html) | ČJ a AJ, čt 19. 11. 2026 | ČJ: romantismus, 6 témat, 148 otázek jen ze zápisů. AJ: 5 témat, 189 otázek, nejvíc will / going to (53) a první podmínková věta (46). U obou i „Všechna témata“ (kvíz ze všech otázek, celý tahák, všechny kartičky) |

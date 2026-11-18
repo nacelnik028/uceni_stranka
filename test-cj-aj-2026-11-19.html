@@ -1600,6 +1600,24 @@ Věta s <b>if</b> = podmínka, hlavní věta = výsledek.</div>
     set: function (k, v) { mem[k] = v; try { localStorage.setItem(PREFIX + k, JSON.stringify(v)); } catch (e) { /* ignorovat */ } }
   };
 
+  /* ---------- denní série hlavní stránky ----------
+     Každá odpověď v kvízu i kartička se připíše do stejného záznamu aktivity,
+     ze kterého hlavní stránka (effects.js) počítá „dní v řadě“ a graf týdne. */
+  var ACTIVITY = "procvicovna-activity:v1";
+  function pad2(n) { return (n < 10 ? "0" : "") + n; }
+  function dayKey(d) { return d.getFullYear() + "-" + pad2(d.getMonth() + 1) + "-" + pad2(d.getDate()); }
+  function recordActivity() {
+    try {
+      var log = JSON.parse(localStorage.getItem(ACTIVITY) || "null");
+      if (!log || typeof log !== "object" || Array.isArray(log)) log = {};
+      var key = dayKey(new Date());
+      log[key] = (Number(log[key]) || 0) + 1;
+      var cutoff = Date.now() - 120 * 864e5;
+      Object.keys(log).forEach(function (k) { if (!(new Date(k + "T12:00:00").getTime() >= cutoff)) delete log[k]; });
+      localStorage.setItem(ACTIVITY, JSON.stringify(log));
+    } catch (e) { /* bez úložiště se série jen nezapíše */ }
+  }
+
   /* ---------- příprava dat ---------- */
   ["cj", "aj"].forEach(function (sk) {
     var S = DATA[sk]; S.key = sk;
@@ -1827,6 +1845,7 @@ Věta s <b>if</b> = podmínka, hlavní věta = výsledek.</div>
   function record(it, ok, given) {
     it.done = true; it.ok = ok;
     Q.res.push({ q: it.q, ok: ok, given: given });
+    recordActivity();
     var m = store.get("mist", {});
     if (ok) delete m[it.q.id]; else m[it.q.id] = (m[it.q.id] || 0) + 1;
     store.set("mist", m);
@@ -2052,6 +2071,7 @@ Věta s <b>if</b> = podmínka, hlavní věta = výsledek.</div>
   // Umím → karta s razítkem odletí doprava; Ještě ne → odletí doleva a vrátí se na konec balíčku
   function cardAnswer(yes) {
     if (!C || !C.queue.length || C.busy) return;
+    recordActivity();
     var deck = C;
     var finish = function () {
       if (C !== deck) return; // mezitím se přešlo jinam
