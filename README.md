@@ -65,6 +65,7 @@ Pro přípravu na konkrétní písemku vzniká samostatná stránka v kořeni (`
 - světlý i tmavý motiv se stejným klíčem `procvicovna-theme` v `localStorage`, takže přepnutí platí pro obě stránky;
 - barvy předmětů stejné jako na hlavní stránce (např. Literatura, Anglický jazyk);
 - v hlavičce logo „Procvičovna“ a drobečková navigace s odkazem zpět na `index.html`;
+- **favikona na každé stránce**: stejná ikona jako `favicon.svg`. Ve stránce testu je vložená přímo do `<head>` jako `data:` URI, aby fungovala i offline a bez dalších souborů;
 - CSS je kvůli offline použití zkopírované přímo do stránky. Když se změní tokeny v `appearance.css`, uprav je i ve stránkách testů.
 
 | Stránka | Test | Obsah |
@@ -183,7 +184,7 @@ procvicovna-github/
 │       ├── generatory/
 │       └── vystupy/
 │
-├── favicon.svg
+├── favicon.svg                        # ikona webu; musí ji mít každá HTML stránka (stránky testů vloženou jako data URI)
 ├── .nojekyll
 ├── README.md
 └── docs/
