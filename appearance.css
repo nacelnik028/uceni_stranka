@@ -257,6 +257,23 @@ button.primary:disabled{opacity:.45}
 .mastery-label{font:600 11px/1 var(--mono);color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
 .card-mastery.done .mastery-label{color:var(--subject-text)}
 
+/* ---------- Procvičování na testy (data/test_prep.js, test-prep.js) ---------- */
+.tests-section{margin:0 0 44px}
+a.card{color:var(--text);text-decoration:none}
+.test-card .card-top{gap:10px;justify-content:flex-start}
+.test-card .card-arrow{margin-left:auto}
+.test-date{display:grid;place-items:center;align-content:center;width:50px;height:50px;border-radius:15px;color:var(--subject-color,var(--accent));background:radial-gradient(circle at 30% 20%,color-mix(in srgb,var(--subject-color,var(--accent)) 30%,transparent),color-mix(in srgb,var(--subject-color,var(--accent)) 8%,transparent));border:1px solid color-mix(in srgb,var(--subject-color,var(--accent)) 32%,transparent);box-shadow:0 10px 26px -12px var(--subject-color,var(--accent)),inset 0 1px 0 rgba(255,255,255,.14)}
+.test-date strong{font:800 20px/1 var(--display);letter-spacing:-.03em;color:var(--text)}
+.test-date span{font:600 10px/1.2 var(--mono);text-transform:uppercase;letter-spacing:.08em}
+.test-when{display:inline-flex;align-items:center;min-height:26px;padding:3px 10px;border-radius:999px;font:600 11.5px/1.2 var(--mono);color:var(--muted);border:1px solid var(--line2);background:color-mix(in srgb,var(--panel-solid) 55%,transparent)}
+.test-card.soon .test-when{color:var(--ink);background:var(--accent-3);border-color:transparent;box-shadow:0 6px 18px -8px var(--accent-3-glow)}
+.test-card.past{opacity:.62}
+.test-card.past:hover{opacity:1}
+.test-subjects{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.test-archive{grid-column:1/-1;margin-top:4px}
+.test-archive summary{cursor:pointer;color:var(--muted);font-size:14px;padding:6px 0}
+.test-archive .cards{margin-top:12px}
+
 /* ---------- Výběr tématu ---------- */
 #topicsView{padding-top:28px}
 #topicsView .section-head{display:block;position:relative;margin-bottom:28px;padding-left:22px}

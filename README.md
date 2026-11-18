@@ -50,8 +50,22 @@ Pro přípravu na konkrétní písemku vzniká samostatná stránka v kořeni (`
 - **Kartičky**: otočení kliknutím nebo mezerníkem, „Umím“ / „Ještě ne“, neznámé karty se vrací na konec.
 - **Zkušební test** napříč tématy (asi 25 otázek, váha podle toho, co bude v testu nejvíc), volitelně ostrý režim bez průběžné kontroly.
 - **Moje chyby**: špatně zodpovězené otázky se ukládají a dají se procvičit znovu.
-- Nejlepší skóre v `localStorage`, ovládání klávesnicí (1–4, Enter, mezerník, šipky), tmavý vzhled, funguje od šířky 360 px.
+- Nejlepší skóre v `localStorage`, ovládání klávesnicí (1–4, Enter, mezerník, šipky), funguje od šířky 360 px.
 - Obsah jen ze zápisů (u literatury nic navíc z učebnic). U gramatiky má každá otázka jedinou správnou možnost.
+
+**Pravidlo: každý test se přidá do sekce „Procvičování na testy“ na hlavní stránce.** Sekce je na úvodu hned pod úvodním panelem. Řadí nadcházející testy podle data, u nejbližších ukazuje „dnes“ / „zítra“, proběhlé dává za ně (starší než tři schová pod „Starší testy“).
+
+- Seznam testů: `data/test_prep.js` (pole `window.TEST_PREP`). Nový test = nový záznam s poli `soubor`, `nazev`, `datum` (`RRRR-MM-DD`), `predmety` (názvy přesně jako v Procvičovně, určují barvu), `popis`, `otazek`, `karticek`.
+- Vykreslení: `test-prep.js`, vzhled v `appearance.css` (sekce „Procvičování na testy“).
+- Po změně `data/test_prep.js` nebo `appearance.css` zvyš `?v=` u odkazu v `index.html`, jinak prohlížeč může držet starou verzi.
+
+**Pravidlo: stránka na test má stejný design jako hlavní stránka.** Styl jde z hlavní stránky na stránku testu, ne naopak:
+
+- stejné tokeny jako `appearance.css` (vzhled „Aurora“): barvy, písma Geist / Bricolage Grotesque / JetBrains Mono, pozadí s aurorou, karty, tlačítka, ukazatel průběhu;
+- světlý i tmavý motiv se stejným klíčem `procvicovna-theme` v `localStorage`, takže přepnutí platí pro obě stránky;
+- barvy předmětů stejné jako na hlavní stránce (např. Literatura, Anglický jazyk);
+- v hlavičce logo „Procvičovna“ a drobečková navigace s odkazem zpět na `index.html`;
+- CSS je kvůli offline použití zkopírované přímo do stránky. Když se změní tokeny v `appearance.css`, uprav je i ve stránkách testů.
 
 | Stránka | Test | Obsah |
 |---|---|---|
@@ -98,6 +112,8 @@ procvicovna-github/
 ├── app.js                             # UI, filtry, session, kontrola odpovědí
 ├── appearance.css                     # vzhled „Aurora“ (barvy, typografie, animace, světlý/tmavý motiv)
 ├── effects.js                         # efekty, osobní pokrok, denní série, rychlý start a paleta Ctrl+K
+├── test-prep.js                       # sekce „Procvičování na testy“ na úvodu
+├── test-*.html                        # samostatné stránky na konkrétní testy (stejný design jako úvod)
 ├── data/                              # AKTIVNÍ runtime data (načítá index.html)
 │   ├── exercises.js
 │   ├── network_exercises.js
@@ -119,7 +135,8 @@ procvicovna-github/
 │   ├── anglictina_exercises.js          # ANJ
 │   ├── ekonomika_exercises.js           # EKO
 │   ├── obcanska_nauka_exercises.js      # OBN
-│   └── study_guides.js
+│   ├── study_guides.js
+│   └── test_prep.js                     # seznam stránek na testy pro úvod
 │
 ├── scripts/
 │   └── validate_questions.js          # validace všech aktivních dat
