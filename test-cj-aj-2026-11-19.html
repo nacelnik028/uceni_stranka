@@ -342,6 +342,29 @@ details .model{color:var(--text)}
 .cardbtns .btn{min-height:56px;font-size:16px;border-radius:14px;font-weight:600}
 .cardtools{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}
 
+/* Animace Umím / Ještě ne */
+main{overflow-x:clip}
+.flip{position:relative}
+.flip.enter{animation:card-in .45s var(--spring) backwards}
+.flip.fly-right{animation:fly-right .52s cubic-bezier(.55,.05,.7,.2) forwards;pointer-events:none}
+.flip.fly-left{animation:fly-left .52s cubic-bezier(.55,.05,.7,.2) forwards;pointer-events:none}
+.flip.fly-right .face{border-color:var(--good-border);box-shadow:inset 0 0 0 1px var(--good),0 24px 70px -24px var(--good)}
+.flip.fly-left .face{border-color:var(--bad-border);box-shadow:inset 0 0 0 1px var(--bad),0 24px 70px -24px var(--bad)}
+.stamp{position:absolute;top:20px;z-index:3;padding:6px 14px;border-radius:12px;border:2px solid currentColor;background:color-mix(in srgb,var(--panel-solid) 75%,transparent);font:800 18px/1.1 var(--display);letter-spacing:-.01em;white-space:nowrap;pointer-events:none;transform:rotate(var(--r));animation:stamp-in .24s var(--spring) both}
+.stamp.yes{--r:8deg;right:22px;color:var(--good);box-shadow:0 0 24px -6px var(--good)}
+.stamp.no{--r:-8deg;left:22px;color:var(--bad);box-shadow:0 0 24px -6px var(--bad)}
+.okc.bump{display:inline-block;animation:bump .5s var(--spring)}
+.cardbtns .btn{position:relative}
+.cardbtns .btn.hit{animation:hit .35s var(--spring)}
+.plus1{position:absolute;left:50%;top:0;font:800 20px/1 var(--display);color:var(--good);text-shadow:0 0 12px var(--good);pointer-events:none;animation:float-up .5s var(--ease) forwards}
+@keyframes card-in{from{opacity:0;transform:translateY(26px) scale(.92)}}
+@keyframes fly-right{0%{transform:none}28%{transform:translateX(-12px) rotate(-2deg)}100%{transform:translateX(115%) rotate(14deg);opacity:0}}
+@keyframes fly-left{0%{transform:none}28%{transform:translateX(12px) rotate(2deg)}100%{transform:translate(-115%,14px) rotate(-14deg) scale(.92);opacity:0}}
+@keyframes stamp-in{from{opacity:0;transform:scale(1.7) rotate(var(--r))}to{opacity:1;transform:scale(1) rotate(var(--r))}}
+@keyframes bump{40%{transform:scale(1.35)}100%{transform:scale(1)}}
+@keyframes hit{40%{transform:scale(.94)}100%{transform:scale(1)}}
+@keyframes float-up{0%{opacity:0;transform:translate(-50%,-20%) scale(.7)}20%{opacity:1;transform:translate(-50%,-70%) scale(1.1)}100%{opacity:0;transform:translate(-50%,-220%) scale(1)}}
+
 /* ---------- Zkušební test – nastavení ---------- */
 .setup{max-width:640px}
 .quota{list-style:none;padding:0;margin:12px 0;display:grid;grid-template-columns:repeat(2,1fr);gap:4px 18px;font-size:14px;color:var(--muted)}
@@ -410,7 +433,7 @@ details .model{color:var(--text)}
 @media(prefers-reduced-motion:reduce){
   .aurora,.grad-text,.stat strong,.start-panel::before,.brand-mark::after,.live-dot::after,.progress i::after{animation:none!important}
   *{transition:none!important}
-  .card.topic,.qcard,.result,.fb{animation:none!important}
+  .card.topic,.qcard,.result,.fb,.flip.enter,.okc.bump,.cardbtns .btn.hit,.stamp,.plus1{animation:none!important}
 }
 @media print{
   :root{--bg:#fff;--panel-solid:#fff;--code:#f5f5f5;--text:#000;--muted:#333;--faint:#555;--line:#bbb;--line2:#999;--accent:#003a8c;--subject-color:#333}
@@ -2002,11 +2025,13 @@ Věta s <b>if</b> = podmínka, hlavní věta = výsledek.</div>
   function renderCard() {
     if (!C.queue.length) return cardsDone();
     var c = C.cards[C.queue[0]], front = C.rev ? c.b : c.f, back = C.rev ? c.f : c.b;
-    C.flipped = false;
+    var pctOld = C.prevPct || 0, pctNew = C.known / C.total * 100;
+    var enter = C.enter, bump = C.bump;
+    C.flipped = false; C.enter = false; C.bump = false; C.prevPct = pctNew;
     C.mount.innerHTML =
-      '<div class="qtop"><span>Zbývá <b>' + C.queue.length + '</b></span><span><span class="okc">Umím ' + C.known + "</span> / " + C.total + "</span></div>" +
-      '<div class="progress"><i style="width:' + (C.known / C.total * 100) + '%"></i></div>' +
-      '<div class="flip" id="card" tabindex="0" role="button" aria-label="Kartička – klikni nebo stiskni mezerník pro otočení">' +
+      '<div class="qtop"><span>Zbývá <b>' + C.queue.length + '</b></span><span><span class="okc' + (bump ? " bump" : "") + '">Umím ' + C.known + "</span> / " + C.total + "</span></div>" +
+      '<div class="progress"><i style="width:' + pctOld + '%"></i></div>' +
+      '<div class="flip' + (enter ? " enter" : "") + '" id="card" tabindex="0" role="button" aria-label="Kartička – klikni nebo stiskni mezerník pro otočení">' +
       '<div class="flip-in"><div class="face front">' + (C.showTopic ? '<span class="badge">' + c.t + "</span>" : "") +
       '<div class="ftext">' + front + '</div><span class="hint">klikni nebo mezerník = otočit</span></div>' +
       '<div class="face back"><span class="hint">odpověď</span><div class="ftext">' + back + "</div></div></div></div>" +
@@ -2018,10 +2043,39 @@ Věta s <b>if</b> = podmínka, hlavní věta = výsledek.</div>
     $("#rev").onclick = function () { C.rev = !C.rev; store.set("rev", C.rev); renderCard(); };
     $("#restart").onclick = function () { startCards({ mount: C.mount, cards: C.cards, showTopic: C.showTopic }); };
     try { el.focus({ preventScroll: true }); } catch (e) { /* starší prohlížeč */ }
+    // ukazatel průběhu se posune plynule ze staré hodnoty na novou
+    var bar = $(".progress i", C.mount);
+    if (pctOld !== pctNew) { void bar.offsetWidth; bar.style.width = pctNew + "%"; }
   }
-  function flip() { if (!C || !C.queue.length) return; C.flipped = !C.flipped; $("#card").classList.toggle("on", C.flipped); }
-  function cardYes() { if (!C || !C.queue.length) return; C.queue.shift(); C.known++; renderCard(); }
-  function cardNo() { if (!C || !C.queue.length) return; var i = C.queue.shift(); C.missed[i] = 1; C.queue.push(i); renderCard(); }
+  var reduceMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  function flip() { if (!C || !C.queue.length || C.busy) return; C.flipped = !C.flipped; $("#card").classList.toggle("on", C.flipped); }
+  // Umím → karta s razítkem odletí doprava; Ještě ne → odletí doleva a vrátí se na konec balíčku
+  function cardAnswer(yes) {
+    if (!C || !C.queue.length || C.busy) return;
+    var deck = C;
+    var finish = function () {
+      if (C !== deck) return; // mezitím se přešlo jinam
+      C.busy = false;
+      if (yes) { C.queue.shift(); C.known++; C.bump = true; }
+      else { var i = C.queue.shift(); C.missed[i] = 1; C.queue.push(i); }
+      C.enter = true;
+      renderCard();
+    };
+    var el = $("#card");
+    if (reduceMotion || !el) return finish();
+    C.busy = true;
+    var btn = $(yes ? "#yes" : "#no");
+    if (btn) {
+      btn.classList.add("hit");
+      if (yes) btn.insertAdjacentHTML("beforeend", '<span class="plus1" aria-hidden="true">+1</span>');
+    }
+    el.insertAdjacentHTML("beforeend", '<span class="stamp ' + (yes ? "yes" : "no") + '" aria-hidden="true">' + (yes ? "✓ Umím" : "↺ Ještě ne") + "</span>");
+    el.classList.remove("enter");
+    el.classList.add(yes ? "fly-right" : "fly-left");
+    setTimeout(finish, 520);
+  }
+  function cardYes() { cardAnswer(true); }
+  function cardNo() { cardAnswer(false); }
   function cardsDone() {
     var miss = Object.keys(C.missed).map(Number);
     C.mount.innerHTML = '<section class="result"><div class="ring" style="--p:100"><span>✓</span></div><div><h2>Hotovo!</h2><p>Všech ' + C.total + " karet je za tebou. Napoprvé správně: " + (C.total - miss.length) + " z " + C.total + ".</p></div></section>" +
